@@ -59,4 +59,9 @@ public abstract class Field {
     public boolean isSomeOneOn() {
         return someOneOn;
     }
+    
+    @Override
+    public String toString(){
+        return "The field properties is: "+"pos_x:"+x+" pos_y:"+y+" type:"+type+" walkeable:"+walkeable+" someOneOn:"+someOneOn;
+    }     
 }

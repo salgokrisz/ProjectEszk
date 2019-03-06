@@ -10,5 +10,29 @@ package cluedo.logic.fields;
  * @author Bence
  */
 public class StartField extends Field {
+    protected String belongsTo;
+    
+    public StartField(int x,int y,String type,boolean walkeAble,boolean someOneOn,String belongsTo){
+        this.x = x;
+        this.y = y;
+        this.type = type;
+        this.walkeable = walkeAble;
+        this.someOneOn = someOneOn;
+        this.belongsTo = belongsTo;
+    }
+    
+    public void setBelongsTo(String belongsTo) {
+        this.belongsTo = belongsTo;
+    }
+
+    public String getBelongsTo() {
+        return belongsTo;
+    }
+    
+    @Override
+    public String toString(){
+        return super.toString()+" belingsTo:"+belongsTo;
+    }
+    
     
 }

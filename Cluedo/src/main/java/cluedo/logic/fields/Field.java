@@ -12,6 +12,9 @@ package cluedo.logic.fields;
 public abstract class Field {
     protected int x;
     protected int y;
+    protected String type;
+    protected boolean walkeable;
+    protected boolean someOneOn;
     
     public Field(){
         
@@ -31,5 +34,29 @@ public abstract class Field {
 
     public int getY() {
         return y;
+    }
+    
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+    
+    public void setWalkeable(boolean walkeable) {
+        this.walkeable = walkeable;
+    }
+
+    public boolean isWalkeable() {
+        return walkeable;
+    }
+    
+    public void setSomeOneOn(boolean someOneOn) {
+        this.someOneOn = someOneOn;
+    }
+
+    public boolean isSomeOneOn() {
+        return someOneOn;
     }
 }

@@ -10,7 +10,7 @@ package cluedo.logic.fields;
  * @author Bence
  */
 public class StartField extends Field {
-    protected String belongsTo;
+    private String belongsTo;
     
     public StartField(int x,int y,String type,boolean walkeAble,boolean someOneOn,String belongsTo){
         this.x = x;

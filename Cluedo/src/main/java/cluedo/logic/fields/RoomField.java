@@ -10,5 +10,38 @@ package cluedo.logic.fields;
  * @author Bence
  */
 public class RoomField extends Field{
+    protected String roomName;
+    protected boolean hasSecretPath;
+    
+    public RoomField(int x,int y,String type,boolean walkeAble,boolean someOneOn,String roomName, boolean hasSecretPath){
+        this.x = x;
+        this.y = y;
+        this.type = type;
+        this.walkeable = walkeAble;
+        this.someOneOn = someOneOn;
+        this.roomName = roomName;
+        this.hasSecretPath = hasSecretPath;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public boolean isHasSecretPath() {
+        return hasSecretPath;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public void setHasSecretPath(boolean hasSecretPath) {
+        this.hasSecretPath = hasSecretPath;
+    }
+    
+    public String toString(){
+        return super.toString()+" roomName:"+roomName+" hasSecretPath:"+hasSecretPath;
+    }
+    
     
 }

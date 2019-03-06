@@ -9,7 +9,7 @@ package cluedo.logic.fields;
  *
  * @author Bence
  */
-public abstract class Field {
+public class Field {
     protected int x;
     protected int y;
     protected String type;

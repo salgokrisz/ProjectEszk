@@ -14,11 +14,7 @@ public class EntranceField extends Field {
     private boolean roomHasSecret;
     
     public EntranceField(int x,int y,String type,boolean walkeAble,boolean someOneOn,String roomName,boolean roomHasSecret){
-        this.x = x;
-        this.y = y;
-        this.type = type;
-        this.walkeable = walkeAble;
-        this.someOneOn = someOneOn;
+        super(x,y,type,walkeAble,someOneOn);
         this.roomName = roomName;
         this.roomHasSecret = roomHasSecret;
     }

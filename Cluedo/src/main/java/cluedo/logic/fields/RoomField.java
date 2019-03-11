@@ -14,11 +14,7 @@ public class RoomField extends Field{
     protected boolean hasSecretPath;
     
     public RoomField(int x,int y,String type,boolean walkeAble,boolean someOneOn,String roomName, boolean hasSecretPath){
-        this.x = x;
-        this.y = y;
-        this.type = type;
-        this.walkeable = walkeAble;
-        this.someOneOn = someOneOn;
+        super(x,y,type,walkeAble,someOneOn);
         this.roomName = roomName;
         this.hasSecretPath = hasSecretPath;
     }

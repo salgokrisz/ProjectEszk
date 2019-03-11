@@ -16,8 +16,12 @@ public class Field {
     protected boolean walkeable;
     protected boolean someOneOn;
     
-    public Field(){
-        
+    public Field(int x,int y,String type,boolean walkeAble,boolean someOneOn){
+        this.x = x;
+        this.y = y;
+        this.type = type;
+        this.walkeable = walkeAble;
+        this.someOneOn = someOneOn;
     }
 
     public void setX(int x) {

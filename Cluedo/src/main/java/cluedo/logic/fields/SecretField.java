@@ -10,34 +10,55 @@ package cluedo.logic.fields;
  * @author Bence
  */
 public class SecretField extends RoomField {
-    private RoomField fromRoom;
-    private RoomField toRoom;
+    private int fromRoomX;
+    private int fromRoomY;
+    private int toRoomX;
+    private int toRoomY;
     
-    public SecretField(int x,int y,String type,boolean walkeAble,boolean someOneOn,String roomName, boolean hasSecretPath,RoomField fromRoom,RoomField toRoom){
+    public SecretField(int x,int y,String type,boolean walkeAble,boolean someOneOn,String roomName, boolean hasSecretPath,int fromRoomX,int fromRoomY,int toRoomX, int toRoomY){
         super(x,y,type,walkeAble,someOneOn,roomName,hasSecretPath);
-        this.fromRoom = fromRoom; //leaking, change when FieldFactory usable
-        this.toRoom = toRoom; //leaking, change when FieldFactory usable
+        this.fromRoomX = fromRoomX;
+        this.fromRoomY = fromRoomY;
+        this.toRoomX = toRoomX; 
+        this.toRoomY = toRoomY; 
     }
 
-    public RoomField getFromRoom() {
-        return fromRoom;
+    public int getFromRoomX() {
+        return fromRoomX;
     }
 
-    public RoomField getToRoom() {
-        return toRoom;
+    public int getFromRoomY() {
+        return fromRoomY;
     }
 
-    public void setFromRoom(RoomField fromRoom) {
-        this.fromRoom = fromRoom;
+    public int getToRoomX() {
+        return toRoomX;
     }
 
-    public void setToRoom(RoomField toRoom) {
-        this.toRoom = toRoom;
+    public int getToRoomY() {
+        return toRoomY;
     }
+
+    public void setFromRoomX(int fromRoomX) {
+        this.fromRoomX = fromRoomX;
+    }
+
+    public void setFromRoomY(int fromRoomY) {
+        this.fromRoomY = fromRoomY;
+    }
+
+    public void setToRoomX(int toRoomX) {
+        this.toRoomX = toRoomX;
+    }
+
+    public void setToRoomY(int toRoomY) {
+        this.toRoomY = toRoomY;
+    }
+    
 
     @Override
     public String toString() {
-        return super.toString()+" fromRoom:" + fromRoom + " toRoom:" + toRoom;
+        return super.toString()+" fromRoom:" + fromRoomX+","+fromRoomY + " toRoom:" + toRoomX+","+toRoomY;
     }
     
     

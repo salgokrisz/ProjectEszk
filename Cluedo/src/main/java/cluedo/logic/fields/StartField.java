@@ -13,11 +13,7 @@ public class StartField extends Field {
     private String belongsTo;
     
     public StartField(int x,int y,String type,boolean walkeAble,boolean someOneOn,String belongsTo){
-        this.x = x;
-        this.y = y;
-        this.type = type;
-        this.walkeable = walkeAble;
-        this.someOneOn = someOneOn;
+        super(x,y,type,walkeAble,someOneOn);
         this.belongsTo = belongsTo;
     }
     

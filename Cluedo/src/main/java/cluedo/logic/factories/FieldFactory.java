@@ -32,9 +32,10 @@ public class FieldFactory {
         mapParser = new MapParser();
         MapParser.openFile(fileName);
         mapStrings = MapParser.getMapList();
+        createFields();
     }
     
-    public void createFields(){
+    private void createFields(){
         generatedMap = new ArrayList<ArrayList<Field>>();
         String[] helper;
         for(int i = 0; i< mapStrings.size();i++){
@@ -77,10 +78,6 @@ public class FieldFactory {
 
     public ArrayList<ArrayList<Field>> getGeneratedMap() {
         return generatedMap;
-    }
-
-    public void setGeneratedMap(ArrayList<ArrayList<Field>> generatedMap) {
-        this.generatedMap = generatedMap;
     }
     
     

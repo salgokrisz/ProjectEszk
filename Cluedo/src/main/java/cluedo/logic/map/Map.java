@@ -5,10 +5,21 @@
  */
 package cluedo.logic.map;
 
+import cluedo.logic.factories.FieldFactory;
+import cluedo.logic.fields.Field;
+import java.util.ArrayList;
+
 /**
  *
  * @author Bence
  */
 public class Map {
+    ArrayList<ArrayList<Field>> map;
+    FieldFactory fieldFactory;
+    
+    public Map(String fileName){
+        fieldFactory = new FieldFactory(fileName);
+        fieldFactory.getGeneratedMap();
+    }
     
 }

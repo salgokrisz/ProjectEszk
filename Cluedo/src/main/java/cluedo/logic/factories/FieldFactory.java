@@ -10,7 +10,7 @@ import cluedo.logic.fields.EntranceField;
 import cluedo.logic.fields.RoomField;
 import cluedo.logic.fields.SecretField;
 import cluedo.logic.fields.StartField;
-import cluedo.logic.map.MapParser;
+//import cluedo.logic.map.MapParser;
 import java.util.ArrayList;
 
 /**
@@ -18,25 +18,22 @@ import java.util.ArrayList;
  * @author Bence
  */
 public class FieldFactory {
-    protected String fileName;
     protected ArrayList<ArrayList<Field>> generatedMap;
-    protected MapParser mapParser;
+    //protected MapParser mapParser;
     protected ArrayList<ArrayList<String>> mapStrings;
     
     public FieldFactory(String fileName){
-        this.fileName = fileName;
-        GetDataFromParser();
+        GetDataFromParser(fileName);
     }
     
-    private void GetDataFromParser(){        
-        mapParser = new MapParser();
-        MapParser.openFile(fileName);
-        mapStrings = MapParser.getMapList();
+    private void GetDataFromParser(String fileName){        
+        //MapParser.openFile(fileName);s
+        //mapStrings = MapParser.getMapList();
         createFields();
     }
     
     private void createFields(){
-        generatedMap = new ArrayList<ArrayList<Field>>();
+        generatedMap = new ArrayList<>();
         String[] helper;
         for(int i = 0; i< mapStrings.size();i++){
             for(int j = 0; j < mapStrings.get(i).size();j++){

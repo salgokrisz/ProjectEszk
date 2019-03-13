@@ -35,6 +35,7 @@ public class RoomField extends Field{
         this.hasSecretPath = hasSecretPath;
     }
     
+    @Override
     public String toString(){
         return super.toString()+" roomName:"+roomName+" hasSecretPath:"+hasSecretPath;
     }

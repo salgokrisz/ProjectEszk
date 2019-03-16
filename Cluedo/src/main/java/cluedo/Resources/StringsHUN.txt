@@ -1,0 +1,8 @@
+#Menu
+Menu.NewGame=Új Játék
+Menu.LoadGame=Betőltés
+Menu.Options=Beállítások
+Menu.Exit=Kilépés
+
+#Card
+Cards.PersonsName.Plum=Plum

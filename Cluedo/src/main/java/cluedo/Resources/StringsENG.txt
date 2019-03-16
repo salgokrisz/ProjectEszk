@@ -1,0 +1,8 @@
+#Menu
+Menu.NewGame=New Game
+Menu.LoadGame=Load Game
+Menu.Options=Options
+Menu.Exit=Exit
+
+#Card
+Cards.PersonsName.Plum=Plum

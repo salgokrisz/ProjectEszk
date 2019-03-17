@@ -64,7 +64,7 @@ public class MainAppWindow extends AbstractBaseWindow {
             }
         });
 
-        jlPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mystery2.png"))); // NOI18N
+        jlPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mystery.png"))); // NOI18N
 
         jlLanguageChooser.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jlLanguageChooser.setText("Nyelv:");

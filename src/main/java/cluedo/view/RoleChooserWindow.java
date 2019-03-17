@@ -1,7 +1,6 @@
 package cluedo.view;
 
 import cluedo.view.board.GameBoard;
-import cluedo.view.board.Trial;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;

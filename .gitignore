@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #
 # Project specific excludes
 #
@@ -54,3 +55,6 @@ nb-configuration.xml
 release.properties
 pom.xml.releaseBackup
 pom.xml.tag
+=======
+/Cluedo/target/
+>>>>>>> mapParser

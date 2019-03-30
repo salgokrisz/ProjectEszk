@@ -5,6 +5,7 @@
  */
 package cluedo.view.board;
 
+import cluedo.Tools.LanguageString.LanguageStrings;
 import javax.swing.JCheckBox;
 
 /**
@@ -67,13 +68,13 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
         setMaximumSize(new java.awt.Dimension(403, 259));
 
         jlGuests.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jlGuests.setText("Vendégek");
+        jlGuests.setText(LanguageStrings.getString("GameBoard.Guests"));
 
         jlRooms.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jlRooms.setText("Helyiségek");
+        jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
 
         jlWeapons.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jlWeapons.setText("Fegyverek");
+        jlWeapons.setText(LanguageStrings.getString("GameBoard.Weapons"));
 
         customizeCheckBox(jcMustard, "Mustard");
 
@@ -105,23 +106,23 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
 
         customizeCheckBox(jcRoom9, "Room9");
 
-        customizeCheckBox(jcKnife, "Kés");
+        customizeCheckBox(jcKnife, LanguageStrings.getString("GameBoard.Knife"));
 
-        customizeCheckBox(jcCandleHolder, "Gyertyatartó");
+        customizeCheckBox(jcCandleHolder, LanguageStrings.getString("GameBoard.CandleHolder"));
 
-        customizeCheckBox(jcGun, "Pisztoly");
+        customizeCheckBox(jcGun, LanguageStrings.getString("GameBoard.Gun"));
 
-        customizeCheckBox(jcPoison, "Méreg");
+        customizeCheckBox(jcPoison, LanguageStrings.getString("GameBoard.Poison"));
 
-        customizeCheckBox(jcTrophy, "Trófea");
+        customizeCheckBox(jcTrophy, LanguageStrings.getString("GameBoard.Trophy"));
 
-        customizeCheckBox(jcRope, "Kötél");
+        customizeCheckBox(jcRope, LanguageStrings.getString("GameBoard.Rope"));
 
-        customizeCheckBox(jcHammer, "Ütő");
+        customizeCheckBox(jcHammer, LanguageStrings.getString("GameBoard.Racket"));
 
-        customizeCheckBox(jcAxe, "Balta");
+        customizeCheckBox(jcAxe, LanguageStrings.getString("GameBoard.Axe"));
 
-        customizeCheckBox(jcWeight, "Súlyzó");
+        customizeCheckBox(jcWeight, LanguageStrings.getString("GameBoard.Weight"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -268,4 +269,19 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
     private javax.swing.JLabel jlRooms;
     private javax.swing.JLabel jlWeapons;
     // End of variables declaration//GEN-END:variables
+
+   public void resetStrings() {
+        jlGuests.setText(LanguageStrings.getString("GameBoard.Guests"));
+        jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
+        jlWeapons.setText(LanguageStrings.getString("GameBoard.Weapons"));
+        jcKnife.setText(LanguageStrings.getString("GameBoard.Knife"));
+        jcCandleHolder.setText(LanguageStrings.getString("GameBoard.CandleHolder"));
+        jcGun.setText(LanguageStrings.getString("GameBoard.Gun"));
+        jcPoison.setText(LanguageStrings.getString("GameBoard.Poison"));
+        jcTrophy.setText(LanguageStrings.getString("GameBoard.Trophy"));
+        jcRope.setText(LanguageStrings.getString("GameBoard.Rope"));
+        jcHammer.setText(LanguageStrings.getString("GameBoard.Racket"));
+        jcAxe.setText(LanguageStrings.getString("GameBoard.Axe"));
+        jcWeight.setText(LanguageStrings.getString("GameBoard.Weight"));
+    }
 }

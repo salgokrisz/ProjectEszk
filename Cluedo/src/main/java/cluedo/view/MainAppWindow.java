@@ -5,6 +5,8 @@
  */
 package cluedo.view;
 
+import cluedo.Tools.LanguageString.Language;
+import cluedo.Tools.LanguageString.LanguageStrings;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -56,7 +58,7 @@ public class MainAppWindow extends AbstractBaseWindow {
 
         jbNewGame.setBackground(new java.awt.Color(180, 0, 0));
         jbNewGame.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jbNewGame.setText("Menu.NewGame");
+        jbNewGame.setText(LanguageStrings.getString("Menu.NewGame"));
         jbNewGame.setEnabled(false);
         jbNewGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,12 +69,12 @@ public class MainAppWindow extends AbstractBaseWindow {
         jlPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mystery.png"))); // NOI18N
 
         jlLanguageChooser.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jlLanguageChooser.setText("Nyelv:");
+        jlLanguageChooser.setText(LanguageStrings.getString("Menu.Language"));
 
         jrbEnglish.setBackground(new java.awt.Color(255, 30, 21));
         bgLanguage.add(jrbEnglish);
         jrbEnglish.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jrbEnglish.setText("Angol");
+        jrbEnglish.setText(LanguageStrings.getString("Menu.English"));
         jrbEnglish.setSelected(true);
         jrbEnglish.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,7 +85,7 @@ public class MainAppWindow extends AbstractBaseWindow {
         jrbHungarian.setBackground(new java.awt.Color(255, 30, 21));
         bgLanguage.add(jrbHungarian);
         jrbHungarian.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jrbHungarian.setText("Magyar");
+        jrbHungarian.setText(LanguageStrings.getString("Menu.Hungarian"));
         jrbHungarian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jrbHungarianActionPerformed(evt);
@@ -91,7 +93,7 @@ public class MainAppWindow extends AbstractBaseWindow {
         });
 
         jlPlayers.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jlPlayers.setText("Játékosok száma:");
+        jlPlayers.setText(LanguageStrings.getString("Menu.PlayerNumber"));
 
         jrbTwo.setBackground(new java.awt.Color(255, 30, 21));
         bgPlayers.add(jrbTwo);
@@ -223,13 +225,26 @@ public class MainAppWindow extends AbstractBaseWindow {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    @Override
+    protected void resetStringsOnWindow(){
+        super.resetStringsOnWindow();
+        jbNewGame.setText(LanguageStrings.getString("Menu.NewGame"));
+        jlLanguageChooser.setText(LanguageStrings.getString("Menu.Language"));
+        jrbEnglish.setText(LanguageStrings.getString("Menu.English"));
+        jrbHungarian.setText(LanguageStrings.getString("Menu.Hungarian"));
+        jlPlayers.setText(LanguageStrings.getString("Menu.PlayerNumber"));
+    }
     private void jrbEnglishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbEnglishActionPerformed
-        //LocalizedStrings.CangeLanguage(Language.ENG);
+        LanguageStrings.changeLanguage(Language.ENG);
+        resetStringsOnWindow();
+
     }//GEN-LAST:event_jrbEnglishActionPerformed
 
     private void jrbHungarianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbHungarianActionPerformed
-         //LocalizedStrings.CangeLanguage(Language.ENG);
+         LanguageStrings.changeLanguage(Language.HUN);
+         resetStringsOnWindow();
+
+         
     }//GEN-LAST:event_jrbHungarianActionPerformed
 
     private void jrbTwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbTwoActionPerformed
@@ -258,7 +273,7 @@ public class MainAppWindow extends AbstractBaseWindow {
     }//GEN-LAST:event_jrbSixActionPerformed
 
     private void jbNewGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNewGameActionPerformed
-        int answer=showConfirmation("Biztos, hogy folytatja ezekkel a beállításokkal?", null); //TODO: write settings here
+        int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null); //TODO: write settings here
         if(answer==JOptionPane.YES_OPTION){
               SwingUtilities.invokeLater(() -> {
    

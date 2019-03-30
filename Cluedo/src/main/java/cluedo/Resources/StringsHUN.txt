@@ -1,3 +1,4 @@
+﻿#Menu
 Menu.NewGame=Új játék
 Menu.Language=Nyelv:
 Menu.Hungarian=Magyar
@@ -11,7 +12,7 @@ Menu.PlayerFour=4. játékos
 Menu.PlayerFive=5. játékos
 Menu.PlayerSix=6. játékos
 Menu.Name=Név
-Menu.Role=Szerepkör
+Menu.Role=Szerep
 Menu.Level=Szint
 Menu.PlayerOptionHuman=Ember
 Menu.PlayerOptionAi=Számítógép
@@ -22,15 +23,18 @@ Menu.LevelOptionIntermediate=Haladó
 
 #ToolBar
 ToolBar.Helper=Súgó
-ToolBar.Description=Alkalmazás leírás
+ToolBar.Information=Alkalmazás információ
 ToolBar.Languages=Nyelvek
 
 #JOptionPane
 JOptionPane.Approval=Megerősítés
 JOptionPane.Yes=Igen
 JOptionPane.No=Nem
-JOptionPane.SettingsApproval=Biztos, hogy folytatni szeretnéd ezekkel a beállításokkal?
+JOptionPane.SettingsApproval=Biztos, hogy folytatni akarod ezekkel a beállításokkal?
 JOptionPane.ClosingApproval=Valóban be akarod zárni a játékot?
+JOptionPane.ApplicationInfo=Ez játék a Cluedo, azonos című társasjátékon alapszik.
+JOptionPane.Description=Leírás
+JOptionPane.ErrorTitle=Hibaüzenet
 
 #GameBoard
 GameBoard.Guests=Vendégek

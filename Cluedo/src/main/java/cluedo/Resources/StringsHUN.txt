@@ -1,8 +1,49 @@
-#Menu
-Menu.NewGame=Új Játék
-Menu.LoadGame=Betőltés
-Menu.Options=Beállítások
-Menu.Exit=Kilépés
+Menu.NewGame=Új játék
+Menu.Language=Nyelv:
+Menu.Hungarian=Magyar
+Menu.English=Angol
+Menu.PlayerNumber=Játékosok száma:
+Menu.PlayerTitle=Játékosok
+Menu.PlayerOne=1. játékos
+Menu.PlayerTwo=2. játékos
+Menu.PlayerThree=3. játékos
+Menu.PlayerFour=4. játékos
+Menu.PlayerFive=5. játékos
+Menu.PlayerSix=6. játékos
+Menu.Name=Név
+Menu.Role=Szerepkör
+Menu.Level=Szint
+Menu.PlayerOptionHuman=Ember
+Menu.PlayerOptionAi=Számítógép
+Menu.PlayerOptionNone=Nincs kiválasztva
+Menu.LevelOptionRandom=Random
+Menu.LevelOptionBeginner=Kezdő
+Menu.LevelOptionIntermediate=Haladó
 
+#ToolBar
+ToolBar.Helper=Súgó
+ToolBar.Description=Alkalmazás leírás
+ToolBar.Languages=Nyelvek
+
+#JOptionPane
+JOptionPane.Approval=Megerősítés
+JOptionPane.Yes=Igen
+JOptionPane.No=Nem
+JOptionPane.SettingsApproval=Biztos, hogy folytatni szeretnéd ezekkel a beállításokkal?
+JOptionPane.ClosingApproval=Valóban be akarod zárni a játékot?
+
+#GameBoard
+GameBoard.Guests=Vendégek
+GameBoard.Weapons=Fegyverek
+GameBoard.Rooms=Helyiségek
+GameBoard.Knife=Kés
+GameBoard.CandleHolder=Gyertyatartó
+GameBoard.Gun=Pisztoly
+GameBoard.Poison=Méreg
+GameBoard.Trophy=Trófea
+GameBoard.Rope=Kötél
+GameBoard.Racket=Ütő
+GameBoard.Axe=Balta
+GameBoard.Weight=Súlyzó
 #Card
 Cards.PersonsName.Plum=Plum

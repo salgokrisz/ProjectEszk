@@ -1,8 +1,50 @@
 #Menu
 Menu.NewGame=New Game
-Menu.LoadGame=Load Game
-Menu.Options=Options
-Menu.Exit=Exit
+Menu.Language=Language:
+Menu.Hungarian=Hungarian
+Menu.English=English
+Menu.PlayerNumber=Number of players:
+Menu.PlayerTitle=Players
+Menu.PlayerOne=Player 1
+Menu.PlayerTwo=Player 2
+Menu.PlayerThree=Player 3
+Menu.PlayerFour=Player 4
+Menu.PlayerFive=Player 5
+Menu.PlayerSix=Player 6
+Menu.Name=Name
+Menu.Role=Role
+Menu.Level=Level
+Menu.PlayerOptionHuman=Human
+Menu.PlayerOptionAi=AI
+Menu.PlayerOptionNone=None
+Menu.LevelOptionRandom=Random
+Menu.LevelOptionBeginner=Beginner
+Menu.LevelOptionIntermediate=Intermediate
 
+#ToolBar
+ToolBar.Helper=Help
+ToolBar.Description=Application description
+ToolBar.Languages=Languages
+
+#JOptionPane
+JOptionPane.Approval=Approval
+JOptionPane.Yes=Yes
+JOptionPane.No=No
+JOptionPane.SettingsApproval=Are you sure you want to continue with these settings?
+JOptionPane.ClosingApproval=Are you sure you want to close the game?
+
+#GameBoard
+GameBoard.Guests=Guests
+GameBoard.Weapons=Weapons
+GameBoard.Rooms=Rooms
+GameBoard.Knife=Knife
+GameBoard.CandleHolder=Candle-holder
+GameBoard.Gun=Gun
+GameBoard.Poison=Poison
+GameBoard.Trophy=Trophy
+GameBoard.Rope=Rope
+GameBoard.Racket=Racket
+GameBoard.Axe=Axe
+GameBoard.Weight=Weight
 #Card
 Cards.PersonsName.Plum=Plum

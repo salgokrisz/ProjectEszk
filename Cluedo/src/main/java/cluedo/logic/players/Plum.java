@@ -9,23 +9,23 @@ package cluedo.logic.players;
  *
  * @author Barby
  */
-public class White extends Player{
-    
-    public White(boolean isComputer, String playerName) {
+public class Plum extends Role{
+
+    public Plum(boolean isComputer, String playerName) {
         super(isComputer, playerName);
-        color=Color.WHITE;
+        this.color=Color.PURPLE;
     }
-    public White(White other){
+    public Plum(Plum other){
         super(other.getIsComputer(), other.getPlayerName());
+         this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
-        this.color=other.getColor();
     }
       public Object clone(){
-        return new White(this);
+        return new Plum(this);
     }
     @Override
     public void useSpecialAbility() {
-        //TODO: implement White's ability
+        //TODO: write Plum's special ability
     }
     
 }

@@ -11,17 +11,25 @@ import javax.swing.ImageIcon;
  *
  * @author Barby
  */
-public abstract class Player {
+public abstract class Role {
     protected final boolean isComputer;
     protected Color color;
     protected boolean abilityIsAvailable;
     protected final String playerName;
     public static String abilityDescription;
     public static ImageIcon image;
-    public Player(boolean isComputer, String playerName){
+    public Role(boolean isComputer, String playerName){
         abilityIsAvailable=true;
         this.isComputer=isComputer;
         this.playerName=playerName;
+    }
+
+    public static ImageIcon getImage() {
+        return image;
+    }
+
+    public static String getAbilityDescription() {
+        return abilityDescription;
     }
    
     public Color getColor() {

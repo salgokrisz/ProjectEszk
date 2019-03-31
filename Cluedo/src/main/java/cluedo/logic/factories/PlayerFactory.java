@@ -5,14 +5,12 @@
  */
 package cluedo.logic.factories;
 
-import cluedo.logic.players.PlayerParser;
 import cluedo.logic.players.Green;
 import cluedo.logic.players.Mustard;
 import cluedo.logic.players.Peacock;
 import cluedo.logic.players.Plum;
 import cluedo.logic.players.Scarlet;
 import cluedo.logic.players.White;
-import cluedo.logic.players.Player;
 import java.util.ArrayList;
 
 /**
@@ -25,12 +23,7 @@ public class PlayerFactory {
     private ArrayList<Player> players = new ArrayList<>();
     
     public PlayerFactory(String fileName){
-        GetDataFromParser(fileName);
-    }
 
-    private void GetDataFromParser(String fileName) {
-        PlayerParser.openFile(fileName);
-        createPlayers(playerList = PlayerParser.getPlayersData());       
     }
 
     private void createPlayers(ArrayList<String> playersList) {

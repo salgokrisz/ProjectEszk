@@ -4,5 +4,12 @@ Menu.LoadGame=Betőltés
 Menu.Options=Beállítások
 Menu.Exit=Kilépés
 
-#Card
-Cards.PersonsName.Plum=Plum
+#Cards
+Cards.Persons.White=White
+Cards.Persons.Plum=Plum
+
+Cards.Weapons.Rope=kötél
+Cards.Weapons.Knife=kés
+
+Cards.Rooms.Kitchen=konyha
+Cards.Rooms.Hall=előszoba

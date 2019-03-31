@@ -4,5 +4,12 @@ Menu.LoadGame=Load Game
 Menu.Options=Options
 Menu.Exit=Exit
 
-#Card
-Cards.PersonsName.Plum=Plum
+#Cards
+Cards.Persons.White=White
+Cards.Persons.Plum=Plum
+
+Cards.Weapons.Rope=rope
+Cards.Weapons.Knife=knife
+
+Cards.Rooms.Kitchen=kitchen
+Cards.Rooms.Hall=hall

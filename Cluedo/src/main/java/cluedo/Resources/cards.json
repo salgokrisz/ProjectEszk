@@ -1,0 +1,46 @@
+{
+    "Persons" : {
+        "num" : 2,
+        "names" : ["Plum", "White"],
+        "Plum" : {
+            "name" : "Plum",
+            "key" : "Cards.Persons.Plum",
+            "color" : "purple",
+            "image" : "Plum.png"
+        },
+        "White" : {
+            "name" : "White",
+            "key" : "Cards.Persons.White",
+            "color" : "white",
+            "image" : "white.png"
+        }
+    },
+     "Weapons" : {
+        "num" : 2,
+        "names" : ["Rope", "Knife"],
+        "Rope" : {
+            "name" : "Rope",
+            "key" : "Cards.Weapons.Rope",
+            "image" : "Rope.png"
+        },
+        "Knife" : {
+            "name" : "Knife",
+            "key" : "Cards.Weapons.Knife",
+            "image" : "Knife.png"
+        }
+    },
+    "Rooms" : {
+        "num" : 2,
+        "names" : ["Kitchen", "Hall"],
+        "Kitchen" : {
+            "name" : "Kitchen",
+            "key" : "Cards.Rooms.Kitchen",
+            "image" : "Kitchen.png"
+        },
+        "Hall" : {
+            "name" : "Hall",
+            "key" : "Cards.Rooms.Hall",
+            "image" : "Hall.png"
+        }
+    }
+}

@@ -5,7 +5,7 @@ before_script: cd Cluedo
 jobs:
     include:
         stage: "Unit test"
-        script: mvn clean verify
+        script:./FieldFactoryTest.java
         stage: "Deploy"
         script: echo "not yet implemented"
 

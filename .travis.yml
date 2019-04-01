@@ -1,4 +1,11 @@
 language: java
 sudo: false
 before_script: cd Cluedo
-script: mvn clean verify
+
+jobs:
+    include:
+        stage: "Unit test"
+        script: mvn clean test
+        stage: "Deploy"
+        script: echo "not yet implemented"
+

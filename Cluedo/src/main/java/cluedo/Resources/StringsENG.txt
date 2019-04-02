@@ -5,11 +5,29 @@ Menu.Options=Options
 Menu.Exit=Exit
 
 #Cards
-Cards.Persons.White=White
+Cards.Persons.Mustard=Mustard
 Cards.Persons.Plum=Plum
+Cards.Persons.Green=Green
+Cards.Persons.Peackock=Peackock
+Cards.Persons.Scarlet=Scarlet
+Cards.Persons.White=White
 
-Cards.Weapons.Rope=rope
-Cards.Weapons.Knife=knife
+Cards.Weapons.Knife=Knife
+Cards.Weapons.Candlestick=Candlestick
+Cards.Weapons.Revolver=Revolver
+Cards.Weapons.Poison=Poison
+Cards.Weapons.Trophy=Trophy
+Cards.Weapons.Rope=Rope
+Cards.Weapons.Bat=Bat
+Cards.Weapons.Axe=Axe
+Cards.Weapons.Dumbbell=Dumbbell
 
-Cards.Rooms.Kitchen=kitchen
-Cards.Rooms.Hall=hall
+Cards.Rooms.Hall=Hall
+Cards.Rooms.Eatery=Eatery
+Cards.Rooms.Kitchen=Kitchen
+Cards.Rooms.Terrace=Terrace
+Cards.Rooms.Planetarium=Planetarium
+Cards.Rooms.Cinema=Cinema
+Cards.Rooms.LivingRoom=Living room
+Cards.Rooms.Bath=Bath
+Cards.Rooms.GuestHouse=GuestHouse

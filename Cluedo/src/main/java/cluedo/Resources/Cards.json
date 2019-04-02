@@ -1,0 +1,161 @@
+{
+    "Persons" : {
+        "num" : 6,
+        "names" : [
+            "Mustard",
+            "Plum",
+            "Green", 
+            "Peackock", 
+            "Scarlet",
+            "White"
+        ],
+        "Mustard" : {
+            "name" : "Mustard",
+            "key" : "Cards.Persons.Mustard",
+            "image" : "Mustard.png"
+        },
+        "Plum" : {
+            "name" : "Plum",
+            "key" : "Cards.Persons.Plum",
+            "image" : "Plum.png"
+        },
+        "Green" : {
+            "name" : "Green",
+            "key" : "Cards.Persons.Green",
+            "image" : "Green.png"
+        },
+        "Peackock" : {
+            "name" : "Peackock",
+            "key" : "Cards.Persons.Peackock",
+            "image" : "Peackock.png"
+        },
+        "Scarlet" : {
+            "name" : "Scarlet",
+            "key" : "Cards.Persons.Scarlet",
+            "image" : "Scarlet.png"
+        },
+        "White" : {
+            "name" : "White",
+            "key" : "Cards.Persons.White",
+            "image" : "white.png"
+        }
+    },
+     "Weapons" : {
+        "num" : 9,
+        "names" : [
+            "Knife", 
+            "Candlestick",
+            "Revolver",
+            "Poison", 
+            "Trophy", 
+            "Rope", 
+            "Bat", 
+            "Axe", 
+            "Dumbbell"
+        ],
+        "Knife" : {
+            "name" : "Knife",
+            "key" : "Cards.Weapons.Knife",
+            "image" : "Knife.png"
+        },
+        "Candlestick" : {
+            "name" : "Candlestick",
+            "key" : "Cards.Weapons.Candlestick",
+            "image" : "Candlestick.png"
+        },
+        "Revolver" : {
+            "name" : "Revolver",
+            "key" : "Cards.Weapons.Revolver",
+            "image" : "Revolver.png"
+        },
+        "Poison" : {
+            "name" : "Poison",
+            "key" : "Cards.Weapons.Poison",
+            "image" : "Poison.png"
+        },
+        "Trophy" : {
+            "name" : "Trophy",
+            "key" : "Cards.Weapons.Trophy",
+            "image" : "Trophy.png"
+        },
+        "Rope" : {
+            "name" : "Rope",
+            "key" : "Cards.Weapons.Rope",
+            "image" : "Rope.png"
+        },
+        "Bat" : {
+            "name" : "Bat",
+            "key" : "Cards.Weapons.Bat",
+            "image" : "Bat.png"
+        },
+        "Axe" : {
+            "name" : "Axe",
+            "key" : "Cards.Weapons.Axe",
+            "image" : "Axe.png"
+        },
+        "Dumbbell" : {
+            "name" : "Dumbbell",
+            "key" : "Cards.Weapons.Dumbbell",
+            "image" : "Dumbbell.png"
+        }
+    },
+    "Rooms" : {
+        "num" : 9,
+        "names" : [ 
+            "Hall",
+            "Eatery",
+            "Kitchen",
+            "Terrace",
+            "Planetarium",
+            "Cinema",
+            "LivingRoom",
+            "Bath",
+            "GuestHouse"
+        ],
+        "Hall" : {
+            "name" : "Hall",
+            "key" : "Cards.Rooms.Hall",
+            "image" : "Hall.png"
+        },
+        "Eatery" : {
+            "name" : "Eatery",
+            "key" : "Cards.Rooms.Eatery",
+            "image" : "Eatery.png"
+        },
+        "Kitchen" : {
+            "name" : "Kitchen",
+            "key" : "Cards.Rooms.Kitchen",
+            "image" : "Kitchen.png"
+        },
+        "Terrace" : {
+            "name" : "Terrace",
+            "key" : "Cards.Rooms.Terrace",
+            "image" : "Terrace.png"
+        },
+        "Planetarium" : {
+            "name" : "Planetarium",
+            "key" : "Cards.Rooms.Planetarium",
+            "image" : "Planetarium.png"
+        },
+        "Cinema" : {
+            "name" : "Cinema",
+            "key" : "Cards.Rooms.Cinema",
+            "image" : "Cinema.png"
+        },
+        "LivingRoom" : {
+            "name" : "LivingRoom",
+            "key" : "Cards.Rooms.LivingRoom",
+            "image" : "LivingRoom.png"
+        },
+        "Bath" : {
+            "name" : "Bath",
+            "key" : "Cards.Rooms.Bath",
+            "image" : "Bath.png"
+        },
+        "GuestHouse" : {
+            "name" : "GuestHouse",
+            "key" : "Cards.Rooms.GuestHouse",
+            "image" : "GuestHouse.png"
+        }
+    }
+}

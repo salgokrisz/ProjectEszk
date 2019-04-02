@@ -5,11 +5,29 @@ Menu.Options=Beállítások
 Menu.Exit=Kilépés
 
 #Cards
-Cards.Persons.White=White
+Cards.Persons.Mustard=Mustard
 Cards.Persons.Plum=Plum
+Cards.Persons.Green=Green
+Cards.Persons.Peackock=Peackock
+Cards.Persons.Scarlet=Scarlet
+Cards.Persons.White=White
 
-Cards.Weapons.Rope=kötél
-Cards.Weapons.Knife=kés
+Cards.Weapons.Knife=Kés
+Cards.Weapons.Candlestick=Gyertyatartó
+Cards.Weapons.Revolver=Revolver
+Cards.Weapons.Poison=Méreg
+Cards.Weapons.Trophy=Trófea
+Cards.Weapons.Rope=Kötél
+Cards.Weapons.Bat=Ütő
+Cards.Weapons.Axe=Balta
+Cards.Weapons.Dumbbell=Súlyzó
 
-Cards.Rooms.Kitchen=konyha
-Cards.Rooms.Hall=előszoba
+Cards.Rooms.Hall=Előszoba
+Cards.Rooms.Eatery=Étkező
+Cards.Rooms.Kitchen=Konyha
+Cards.Rooms.Terrace=Terasz
+Cards.Rooms.Planetarium=Csillagvizsgáló
+Cards.Rooms.Cinema=Moziterem
+Cards.Rooms.LivingRoom=Nappali
+Cards.Rooms.Bath=Fűrdő
+Cards.Rooms.GuestHouse=Vendégház

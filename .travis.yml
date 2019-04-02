@@ -3,9 +3,17 @@ sudo: false
 before_script: cd Cluedo
 
 jobs:
-    include:
-        stage: "Unit test"
-        script:./FieldFactoryTest.java
-        stage: "Deploy"
-        script: echo "not yet implemented"
+  include:
+    - stage: compile
+      script: mvn compile
+    - stage: test
+      script: mvn test
+    - stage: deploy
+      script: mvn deploy
+stages:
+  - compile
+  - test
+  - name: deploy
+    if: branch = master
+         
 

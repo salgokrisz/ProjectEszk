@@ -11,6 +11,8 @@ package cluedo.view;
  */
 
 
+import cluedo.Tools.LanguageString.Language;
+import cluedo.Tools.LanguageString.LanguageStrings;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -30,12 +32,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
  public abstract class AbstractBaseWindow extends JFrame {
-  protected JMenu mHelper = new JMenu("Súgó");
+  protected JMenu mHelper = new JMenu(LanguageStrings.getString("ToolBar.Helper"));
      /**
      * Declaration and definition of the MOptions menu.
      */
-    
-    protected JMenu mLanguages = new JMenu("Nyelvek");
+    JMenuItem miEnglish = new JMenuItem(LanguageStrings.getString("Menu.English"));
+        JMenuItem miHungarian=new JMenuItem(LanguageStrings.getString("Menu.Hungarian"));
+    protected JMenu mLanguages = new JMenu(LanguageStrings.getString("ToolBar.Languages"));
 public static Set<JFrame> openedWindowsSet;
     /**
      * Declaration and definition of the mb MenuBar.
@@ -44,7 +47,7 @@ public static Set<JFrame> openedWindowsSet;
     /**
      * Declaration and definition of the miInfo MenuItem.
      */
-    protected final JMenuItem miInfo = new JMenuItem("Információ a játékról");
+    protected final JMenuItem miInfo = new JMenuItem(LanguageStrings.getString("ToolBar.Information"));
     public AbstractBaseWindow(){
 
         openedWindowsSet=new HashSet<>();
@@ -73,16 +76,15 @@ public static Set<JFrame> openedWindowsSet;
         
         mHelper.setMnemonic('H');
         mLanguages.setMnemonic('O');
-        JMenuItem miProperties = new JMenuItem("Alkalmazás leírás", 'D');
-        miProperties.setMnemonic('A');
-        mHelper.add(miProperties);
-        JMenuItem miEnglish = new JMenuItem("English");
-        JMenuItem miHungarian=new JMenuItem("Magyar");
+        miInfo.setMnemonic('I');
+       
+        mHelper.add(miInfo);
+        
         mLanguages.add(miEnglish);
         mLanguages.add(miHungarian);
         mb.add(mHelper);
         mb.add(mLanguages);
-        miProperties.addActionListener(showDescription());
+        miInfo.addActionListener(showDescription());
         miEnglish.addActionListener(changeToEnglish());
         miHungarian.addActionListener(changeToHungarian());
     }
@@ -90,16 +92,27 @@ public static Set<JFrame> openedWindowsSet;
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //LocalizedStrings.ChangeLanguage(Language.HUN);
+                LanguageStrings.changeLanguage(Language.HUN);
+               
+
+              resetStringsOnWindow();
             }
         };
     }
+     protected void resetStringsOnWindow(){
+         miEnglish.setText(LanguageStrings.getString("Menu.English"));
+         miHungarian.setText(LanguageStrings.getString("Menu.Hungarian"));
+         mLanguages.setText(LanguageStrings.getString("ToolBar.Languages"));
+         mHelper.setText(LanguageStrings.getString("ToolBar.Helper"));
+         miInfo.setText(LanguageStrings.getString("ToolBar.Information"));
+     }
     protected ActionListener changeToEnglish() {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //LocalizedStrings.ChangeLanguage(Language.ENG);
-              
+                LanguageStrings.changeLanguage(Language.ENG);
+
+              resetStringsOnWindow();
             }
         };
     }
@@ -112,7 +125,7 @@ public static Set<JFrame> openedWindowsSet;
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Ez a játék a Cluedo című asztali társasjáték alapján készült.", "Leírás", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, LanguageStrings.getString("JOptionPane.ApplicationInfo"), LanguageStrings.getString("JOptionPane.Description"), JOptionPane.INFORMATION_MESSAGE);
             }
         };
     }
@@ -127,7 +140,7 @@ public static Set<JFrame> openedWindowsSet;
   }
     protected void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
       
-        int answer=showConfirmation("Valóban be akarja zárni a játékot?", null);
+        int answer=showConfirmation(LanguageStrings.getString("JOptionPane.ClosingApproval"), null);
         if (answer == JOptionPane.YES_OPTION) {
             
                 closeWindow();
@@ -136,16 +149,16 @@ public static Set<JFrame> openedWindowsSet;
     }  
     private static int showOptionDialogWithoutImage(String message, Object[] options){
        return JOptionPane.showOptionDialog(null, message,
-                "Megerősítés", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+               LanguageStrings.getString("JOptionPane.Approval"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, options, options[0]);
     }
     private static int showOptionDialogWithImage(String message, Object[] options, URL imageUrl){
         return JOptionPane.showOptionDialog(null, message,
-                "Megerősítés", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                LanguageStrings.getString("JOptionPane.Approval"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                 new ImageIcon(imageUrl), options, options[0]);
     }
         public static int showConfirmation(String message, URL imageUrl) {
-         Object[] options = {"Igen", "Nem"};
+         Object[] options = {LanguageStrings.getString("JOptionPane.Yes"), LanguageStrings.getString("JOptionPane.No")};
          int answer;
         
          if(imageUrl==null){
@@ -177,7 +190,7 @@ public static Set<JFrame> openedWindowsSet;
      * @param error
      */
     public static void showErrorMessage(String error) {
-        JOptionPane.showMessageDialog(null, error, "Hiba üzenet", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, error, LanguageStrings.getString("JOptionPane.ErrorTitle"), JOptionPane.ERROR_MESSAGE);
     }
     protected void doUponExit() {
         this.dispose();

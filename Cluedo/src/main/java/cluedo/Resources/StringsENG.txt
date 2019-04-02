@@ -1,4 +1,4 @@
-#Menu
+﻿#Menu
 Menu.NewGame=New Game
 Menu.Language=Language:
 Menu.Hungarian=Hungarian
@@ -23,7 +23,7 @@ Menu.LevelOptionIntermediate=Intermediate
 
 #ToolBar
 ToolBar.Helper=Help
-ToolBar.Description=Application description
+ToolBar.Information=Information about game
 ToolBar.Languages=Languages
 
 #JOptionPane
@@ -32,6 +32,9 @@ JOptionPane.Yes=Yes
 JOptionPane.No=No
 JOptionPane.SettingsApproval=Are you sure you want to continue with these settings?
 JOptionPane.ClosingApproval=Are you sure you want to close the game?
+JOptionPane.ApplicationInfo=This game is based on the same titled Cluedo boardgame.
+JOptionPane.Description=Description
+JOptionPane.ErrorTitle=Error message
 
 #GameBoard
 GameBoard.Guests=Guests

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cluedo.logic.players;
+package cluedo.logic.role;
 
 /**
  *
@@ -11,12 +11,12 @@ package cluedo.logic.players;
  */
 public class Mustard extends Role{
 
-    public Mustard(boolean isComputer, String playerName) {
-        super(isComputer, playerName);
+    public Mustard(String playerName) {
+        super(playerName);
         this.color=Color.ORANGE;
     }
     public Mustard(Mustard other){
-        super(other.getIsComputer(), other.getPlayerName());
+        super(other.getPlayerName());
         this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
     }

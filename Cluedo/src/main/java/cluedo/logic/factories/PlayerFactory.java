@@ -5,12 +5,15 @@
  */
 package cluedo.logic.factories;
 
-import cluedo.logic.players.Green;
-import cluedo.logic.players.Mustard;
-import cluedo.logic.players.Peacock;
-import cluedo.logic.players.Plum;
-import cluedo.logic.players.Scarlet;
-import cluedo.logic.players.White;
+import cluedo.logic.player.Ai;
+import cluedo.logic.role.Green;
+import cluedo.logic.role.Mustard;
+import cluedo.logic.role.Peacock;
+import cluedo.logic.role.Plum;
+import cluedo.logic.role.Scarlet;
+import cluedo.logic.role.White;
+import cluedo.logic.player.Player;
+import cluedo.logic.role.Role;
 import java.util.ArrayList;
 
 /**
@@ -19,34 +22,69 @@ import java.util.ArrayList;
  */
 public class PlayerFactory {
 
-    private ArrayList<String> playerList;
     private ArrayList<Player> players = new ArrayList<>();
     
-    public PlayerFactory(String fileName){
+    public PlayerFactory(){
 
     }
 
     private void createPlayers(ArrayList<String> playersList) {
-        for(int i = 0; i<playerList.size();i++){
-            String[] data = playerList.get(i).split(",");
+        for(int i = 0; i<playersList.size();i++){
+            String[] data = playersList.get(i).split(",");
             if(data[0].equals("G")){
-                Green g = new Green(data[1],data[2]);
-                players.add(g);
+                Role role = new Green("Green");
+                if(data[1].equals("AI")){                    
+                    Player ai = new Ai(role,true);
+                    players.add(ai);
+                }else if(data[1].equals("PLAYER")){
+                    Player player = new Player(role,false);
+                    players.add(player);
+                }                
             }else if(data[0].equals("M")){
-                Mustard m = new Mustard(data[1],data[2]);
-                players.add(m);
+                Role role = new Mustard("Mustard");
+                if(data[1].equals("AI")){                    
+                    Player ai = new Ai(role,true);
+                    players.add(ai);
+                }else if(data[1].equals("PLAYER")){
+                    Player player = new Player(role,false);
+                    players.add(player);
+                }
             }else if(data[0].equals("Pe")){
-                Peacock pe = new Peacock(data[1],data[2]);
-                players.add(pe);
+                Role role = new Peacock("Peacock");
+                if(data[1].equals("AI")){                    
+                    Player ai = new Ai(role,true);
+                    players.add(ai);
+                }else if(data[1].equals("PLAYER")){
+                    Player player = new Player(role,false);
+                    players.add(player);
+                }
             }else if(data[0].equals("Pl")){
-                Plum g = new Plum(data[1],data[2]);
-                players.add(pl);
+                 Role role = new Plum("Plum");
+                if(data[1].equals("AI")){                    
+                    Player ai = new Ai(role,true);
+                    players.add(ai);
+                }else if(data[1].equals("PLAYER")){
+                    Player player = new Player(role,false);
+                    players.add(player);
+                }
             }else if(data[0].equals("S")){
-                Scarlet g = new Scarlet(data[1],data[2]);
-                players.add(s);
+                Role role = new Scarlet("Scarlet");
+                if(data[1].equals("AI")){                    
+                    Player ai = new Ai(role,true);
+                    players.add(ai);
+                }else if(data[1].equals("PLAYER")){
+                    Player player = new Player(role,false);
+                    players.add(player);
+                }
             }else if(data[0].equals("W")){
-                White g = new White(data[1],data[2]);
-                players.add(w);
+                 Role role = new White("White"); 
+                 if(data[1].equals("AI")){
+                    Player ai = new Ai(role,true);
+                    players.add(ai);
+                }else if(data[1].equals("PLAYER")){
+                    Player player = new Player(role,false);
+                    players.add(player);
+                }
             }
            
         }

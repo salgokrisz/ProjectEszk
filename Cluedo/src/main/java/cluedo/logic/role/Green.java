@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cluedo.logic.players;
+package cluedo.logic.role;
 
 /**
  *
  * @author Barby
  */
 public class Green extends Role{
-    public Green(boolean isComputer, String playerName){
-        super(isComputer, playerName);
+    public Green(String playerName){
+        super( playerName);
         this.color=Color.GREEN;
     }
     public Green(Green other){
-        super(other.getIsComputer(), other.getPlayerName());
+        super(other.getPlayerName());
          this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
     }

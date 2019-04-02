@@ -25,4 +25,8 @@ public class FieldFactoryTest {
         System.out.println(generated.toString());
         assertEquals(generated.toString(),expectedResult);
     }*/
+	@Test
+public void trialTestForTravis(){
+assertTrue(true);
+}
 }

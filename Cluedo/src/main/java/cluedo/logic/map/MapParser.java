@@ -56,18 +56,18 @@ public class MapParser{
         return mapList;
     }
 
-    public static void main(String[] args) {
+ /*   public static void main(String[] args) {
         ArrayList<ArrayList<String>> ml = new ArrayList<ArrayList<String>>();
         MapParser mp = new MapParser(ml, args[0]);
         //mp.openFile(fileName);
         /*for (int i = 0; i < ml.size(); ++i){
             System.out.println(ml.get(i));
         }*/
-        for (int i = 0; i < ml.size(); ++i){
+    /*    for (int i = 0; i < ml.size(); ++i){
             for (int j = 0; j < ml.get(i).size(); ++j){
                 System.out.print(ml.get(i).get(j) + " ");
             }
             System.out.println();
         }
-    }
+    }*/
 }

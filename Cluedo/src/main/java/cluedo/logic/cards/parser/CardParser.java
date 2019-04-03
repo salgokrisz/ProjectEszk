@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
  
 import java.nio.file.Paths;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -33,10 +34,10 @@ public class CardParser {
             JsonObject roomsObj = cardsObj.getJsonObject("Rooms");
             
             List<Card> persons = getCardsFromJsonObj(personsObj, Card.Type.PERSON);
-            List<Card> weapons = getCardsFromJsonObj(weaponsObj, Card.Type.PERSON);
-            List<Card> rooms = getCardsFromJsonObj(roomsObj, Card.Type.PERSON);
+            List<Card> weapons = getCardsFromJsonObj(weaponsObj, Card.Type.WEAPON);
+            List<Card> rooms = getCardsFromJsonObj(roomsObj, Card.Type.ROOM);
             
-            List<List<Card>> cards = new ArrayList<> ();
+            List<List<Card>> cards = new ArrayList<List<Card>> ();
             cards.add(persons);
             cards.add(weapons);
             cards.add(rooms);

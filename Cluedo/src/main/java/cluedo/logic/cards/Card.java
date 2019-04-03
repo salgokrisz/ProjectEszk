@@ -23,6 +23,15 @@ public class Card {
     }
     
     public String GetNameForUI () {
-        return LanguageStrings.GetString (UIStringKey);
+        return LanguageStrings.getString (UIStringKey);
+    }
+    
+    //only for debug 
+    public String toString () {
+        return  "Type : " + type.toString() + ", " +
+                "Name : " + name + ", " +
+                "Image : " + imageName + ", " +
+                "UIKey : " + UIStringKey + ", " + 
+                "UIString : " + GetNameForUI();
     }
 }

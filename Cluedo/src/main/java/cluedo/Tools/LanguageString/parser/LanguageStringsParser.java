@@ -35,7 +35,7 @@ public class LanguageStringsParser {
             }
             return Data;
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }

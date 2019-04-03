@@ -1,4 +1,4 @@
-﻿#Menu
+#Menu
 Menu.NewGame=New Game
 Menu.Language=Language:
 Menu.Hungarian=Hungarian

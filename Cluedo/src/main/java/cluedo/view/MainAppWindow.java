@@ -48,7 +48,7 @@ public class MainAppWindow extends AbstractBaseWindow {
         jrbFive = new javax.swing.JRadioButton();
         jrbSix = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setSize(new java.awt.Dimension(1366, 770));
 
         jpBase.setBackground(new java.awt.Color(255, 30, 21));

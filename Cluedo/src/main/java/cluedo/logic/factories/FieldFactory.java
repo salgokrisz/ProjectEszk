@@ -10,6 +10,8 @@ import cluedo.logic.fields.EntranceField;
 import cluedo.logic.fields.RoomField;
 import cluedo.logic.fields.SecretField;
 import cluedo.logic.fields.StartField;
+import cluedo.logic.map.MapParser;
+import java.nio.file.Paths;
 //import cluedo.logic.map.MapParser;
 import java.util.ArrayList;
 
@@ -26,9 +28,11 @@ public class FieldFactory {
         GetDataFromParser(fileName);
     }
     
-    private void GetDataFromParser(String fileName){        
-        //MapParser.openFile(fileName);s
-        //mapStrings = MapParser.getMapList();
+    private void GetDataFromParser(String fileName){
+        String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+        currentPath += "\\src\\main\\java\\cluedo\\Resources\\"+fileName;
+        MapParser.openFile(currentPath);
+        mapStrings = MapParser.getMapList();
         createFields();
     }
     

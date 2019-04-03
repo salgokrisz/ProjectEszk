@@ -6,13 +6,16 @@ import java.io.FileReader;
 import java.io.File;
 import java.nio.file.Paths;
 import cluedo.Tools.LanguageString.Language;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 public class LanguageStringsParser {
     public static HashMap<String, String> Parse (Language L) {
         String txtPath = GetTXTPath (L);
         if (txtPath == null) return null;
         
-        try (BufferedReader br = new BufferedReader (new FileReader (new File (txtPath)))) {
+        try (BufferedReader br = new BufferedReader (new InputStreamReader(
+                      new FileInputStream(txtPath), "UTF8"))) {
             HashMap<String, String> Data = new HashMap<>();
             
             String line;

@@ -36,7 +36,7 @@ public class GameBoard extends AbstractBaseWindow{
     Set<String> roomPositions=new HashSet<>();
     private List<JPanel> roomLabelList=new ArrayList<>();
     private JLabel temporaryLabel;
-
+CluePaperPanel cluePaperPanel=new CluePaperPanel();
     public GameBoard(){
         jpBase=new JPanel();
         jpBase.setLayout(new BoxLayout(jpBase, BoxLayout.Y_AXIS));
@@ -91,7 +91,7 @@ public class GameBoard extends AbstractBaseWindow{
         processComponents(jpBoard);
         jpBase.add(jpBoard);
         jpBase.setBackground(new Color(180, 0,0));
-        CluePaperPanel cluePaperPanel=new CluePaperPanel();
+        
         jpBase.add(cluePaperPanel);
         Container cp=getContentPane();
         cp.add(jpBase);
@@ -207,6 +207,11 @@ public class GameBoard extends AbstractBaseWindow{
          temporaryLabel.setSize(width, height);
 //         roomLabelList.add(temporaryLabel);
          return i;
+    }
+     @Override
+    protected void resetStringsOnWindow(){
+        super.resetStringsOnWindow();
+        cluePaperPanel.resetStrings();
     }
     private int determineWidthOfRoom(int row, int column){
         

@@ -1,8 +1,54 @@
-#Menu
-Menu.NewGame=Új Játék
-Menu.LoadGame=Betőltés
-Menu.Options=Beállítások
-Menu.Exit=Kilépés
+﻿#Menu
+Menu.NewGame=Új játék
+Menu.Language=Nyelv:
+Menu.Hungarian=Magyar
+Menu.English=Angol
+Menu.PlayerNumber=Játékosok száma:
+Menu.PlayerTitle=Játékosok
+Menu.PlayerOne=1. játékos
+Menu.PlayerTwo=2. játékos
+Menu.PlayerThree=3. játékos
+Menu.PlayerFour=4. játékos
+Menu.PlayerFive=5. játékos
+Menu.PlayerSix=6. játékos
+Menu.Name=Név
+Menu.Role=Szerep
+Menu.Level=Szint
+Menu.PlayerOptionHuman=Ember
+Menu.PlayerOptionAi=Számítógép
+Menu.PlayerOptionNone=Nincs kiválasztva
+Menu.LevelOptionRandom=Random
+Menu.LevelOptionBeginner=Kezdő
+Menu.LevelOptionIntermediate=Haladó
+
+#ToolBar
+ToolBar.Helper=Súgó
+ToolBar.Information=Alkalmazás információ
+ToolBar.Languages=Nyelvek
+
+#JOptionPane
+JOptionPane.Approval=Megerősítés
+JOptionPane.Yes=Igen
+JOptionPane.No=Nem
+JOptionPane.SettingsApproval=Biztos, hogy folytatni akarod ezekkel a beállításokkal?
+JOptionPane.ClosingApproval=Valóban be akarod zárni a játékot?
+JOptionPane.ApplicationInfo=Ez játék a Cluedo, azonos című társasjátékon alapszik.
+JOptionPane.Description=Leírás
+JOptionPane.ErrorTitle=Hibaüzenet
+
+#GameBoard
+GameBoard.Guests=Vendégek
+GameBoard.Weapons=Fegyverek
+GameBoard.Rooms=Helyiségek
+GameBoard.Knife=Kés
+GameBoard.CandleHolder=Gyertyatartó
+GameBoard.Gun=Pisztoly
+GameBoard.Poison=Méreg
+GameBoard.Trophy=Trófea
+GameBoard.Rope=Kötél
+GameBoard.Racket=Ütő
+GameBoard.Axe=Balta
+GameBoard.Weight=Súlyzó
 
 #Cards
 Cards.Persons.Mustard=Mustard

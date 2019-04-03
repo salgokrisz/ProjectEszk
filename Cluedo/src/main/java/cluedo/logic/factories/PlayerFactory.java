@@ -15,6 +15,7 @@ import cluedo.logic.role.White;
 import cluedo.logic.player.Player;
 import cluedo.logic.role.Role;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,7 +29,7 @@ public class PlayerFactory {
 
     }
 
-    private void createPlayers(ArrayList<String> playersList) {
+    public void createPlayers(List<String> playersList) {
         for(int i = 0; i<playersList.size();i++){
             String[] data = playersList.get(i).split(",");
             if(data[0].equals("G")){

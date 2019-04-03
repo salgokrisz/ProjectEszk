@@ -16,7 +16,7 @@ public class Scarlet extends Role{
         this.color=Color.RED;
     }
     public Scarlet(Scarlet other){
-        super( other.getPlayerName());
+        super( other.getName());
         this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
     }

@@ -15,7 +15,7 @@ public class Green extends Role{
         this.color=Color.GREEN;
     }
     public Green(Green other){
-        super(other.getPlayerName());
+        super(other.getName());
          this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
     }

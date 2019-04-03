@@ -91,11 +91,11 @@ public class PlayerFactory {
         
     }
     
-    /*public ArrayList<Player> getPlayers(){
+    public ArrayList<Player> getPlayers(){
         ArrayList<Player> data = new ArrayList<>();
         for(int i = 0; i<players.size();i++){
             data.add(players.get(i));
         }
         return data;
-    }*/
+    }
 }

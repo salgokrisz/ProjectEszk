@@ -16,7 +16,7 @@ public class Mustard extends Role{
         this.color=Color.ORANGE;
     }
     public Mustard(Mustard other){
-        super(other.getPlayerName());
+        super(other.getName());
         this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
     }

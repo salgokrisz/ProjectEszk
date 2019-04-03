@@ -45,11 +45,9 @@ public abstract class Role {
 
     public void setAbilityIsAvailable(boolean abilityIsAvailable) {
         this.abilityIsAvailable = abilityIsAvailable;
-    }
+    }    
 
-    
-
-    public String getPlayerName() {
+    public String getName() {
         return name;
     }
     

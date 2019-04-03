@@ -16,7 +16,7 @@ public class Peacock extends Role{
         this.color=Color.BLUE;
     }
     public Peacock(Peacock other){
-        super( other.getPlayerName());
+        super( other.getName());
         this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
     }

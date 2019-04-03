@@ -16,7 +16,7 @@ public class Plum extends Role{
         this.color=Color.PURPLE;
     }
     public Plum(Plum other){
-        super(other.getPlayerName());
+        super(other.getName());
          this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
     }

@@ -8,12 +8,6 @@ jobs:
       script: mvn compile
     - stage: test
       script: mvn test
-    - stage: deploy
-      script: mvn deploy
 stages:
   - compile
-  - test
-  - name: deploy
-    if: branch = master
-         
-
+  - test 

@@ -8,8 +8,10 @@ package cluedo.logic.fields;
 import cluedo.logic.fields.FieldType.Type;
 
 /**
+ * The secret field class originates from the RoomField class.
+ * This class represents a connection between two RoomField.
  *
- * @author Bence
+ * 
  */
 public class SecretField extends RoomField {
     private int fromRoomX;

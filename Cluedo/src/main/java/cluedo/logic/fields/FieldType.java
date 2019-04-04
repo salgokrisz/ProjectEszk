@@ -6,8 +6,8 @@
 package cluedo.logic.fields;
 
 /**
- *
- * @author Bence
+ * This class represents an enum of the room types.
+ * 
  */
 public class FieldType {
     public enum Type {ENTRANCE,FIELD,ROOM,SECRET,START}

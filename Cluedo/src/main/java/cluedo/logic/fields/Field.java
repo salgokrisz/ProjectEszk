@@ -9,8 +9,10 @@ import cluedo.logic.fields.FieldType.Type;
 import java.util.Objects;
 
 /**
- *
- * @author Bence
+ * This field represents a field on the map. This is the
+ * most basic field. This is the parent class of the futher
+ * specialized fields.
+ * 
  */
 public class Field {
     protected int x;

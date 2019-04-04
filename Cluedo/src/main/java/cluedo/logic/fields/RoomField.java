@@ -8,8 +8,10 @@ package cluedo.logic.fields;
 import cluedo.logic.fields.FieldType.Type;
 
 /**
- *
- * @author Bence
+ *  This class represents a room field on the map.
+ * This calss is the parent of the SecretField class.
+ * This class is extends the Field class.
+ * 
  */
 public class RoomField extends Field{
     protected String roomName;

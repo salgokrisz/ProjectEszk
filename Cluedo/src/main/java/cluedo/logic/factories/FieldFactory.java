@@ -7,18 +7,19 @@ package cluedo.logic.factories;
 
 import cluedo.logic.fields.Field;
 import cluedo.logic.fields.EntranceField;
-import cluedo.logic.fields.FieldType;
 import cluedo.logic.fields.FieldType.Type;
 import cluedo.logic.fields.RoomField;
 import cluedo.logic.fields.SecretField;
 import cluedo.logic.fields.StartField;
 import cluedo.logic.map.MapParser;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
- *
- * @author Bence
+ * This class get the list from the mapParser and it will
+ * create the Fields from the Strings. Finally it will
+ * create a two dimensional matrix from Fields with different
+ * sub classes.
+ * 
  */
 public class FieldFactory {
     protected ArrayList<ArrayList<Field>> generatedMap;

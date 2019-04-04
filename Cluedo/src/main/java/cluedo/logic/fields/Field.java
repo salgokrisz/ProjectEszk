@@ -5,6 +5,7 @@
  */
 package cluedo.logic.fields;
 
+import cluedo.logic.fields.FieldType.Type;
 import java.util.Objects;
 
 /**
@@ -14,11 +15,11 @@ import java.util.Objects;
 public class Field {
     protected int x;
     protected int y;
-    protected String type;
+    protected Type type;
     protected boolean walkeable;
     protected boolean someOneOn;
     
-    public Field(int x,int y,String type,boolean walkeAble,boolean someOneOn){
+    public Field(int x,int y,Type type,boolean walkeAble,boolean someOneOn){
         this.x = x;
         this.y = y;
         this.type = type;
@@ -42,11 +43,11 @@ public class Field {
         return y;
     }
     
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
     
@@ -77,7 +78,7 @@ public class Field {
         return false;
     }
         Field other=(Field)obj;
-        return other.getType().equals(this.type) && other.getX()==this.x && other.getY()==this.y;
+        return other.getType()==this.type && other.getX()==this.x && other.getY()==this.y;
     }
     @Override
     public int hashCode(){

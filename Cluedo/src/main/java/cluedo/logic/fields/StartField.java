@@ -5,6 +5,8 @@
  */
 package cluedo.logic.fields;
 
+import cluedo.logic.fields.FieldType.Type;
+
 /**
  *
  * @author Bence
@@ -12,7 +14,7 @@ package cluedo.logic.fields;
 public class StartField extends Field {
     private String belongsTo;
     
-    public StartField(int x,int y,String type,boolean walkeAble,boolean someOneOn,String belongsTo){
+    public StartField(int x,int y,Type type,boolean walkeAble,boolean someOneOn,String belongsTo){
         super(x,y,type,walkeAble,someOneOn);
         this.belongsTo = belongsTo;
     }

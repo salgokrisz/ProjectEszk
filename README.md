@@ -7,8 +7,8 @@ A játékos a játék logikájával a játék grafikus user interfészén (GUI) 
 
 ## Előfeltétel
 Ha a rendszer nem ismerné fel az mvn-es parancsokat:
-- Le kell tölteni az apache maven-t.
-- Majd a környezeti változókhoz hozzá kell adni MAVEN_HOME néven. A path-be pedig a az apache maven mappájának az elérési útját egésszen a bin mappáig majd az elérési út végére oda kell írni egy ; -őt és a %MAVEN_HOME%\bin; -t.
+- Le kell tölteni az apache maven-t: * [Letöltés].
+- A környezeti változókhoz hozzá kell adni MAVEN_HOME néven az apache maven mappájának az elérési útját egészen a bin mappáig (ezt már nem). A path környezeti változó végére oda kell írni egy ; -őt (ha még nincs), majd a %MAVEN_HOME%\bin; -t.
 
 ## Tesztek automatikus futtatása
 A teszteket az alábbi parancsokkal lehet futtatni:
@@ -27,4 +27,4 @@ Az install parancs a build ciklus összes fázisát lefuttatja. Ezeket a fáziso
 lásd: * [Maven build fázisainak parancsai]
   
   [Maven build fázisainak parancsai]: <https://www.tutorialspoint.com/maven/maven_build_life_cycle.htm>
-  [Apache Maven]: <https://maven.apache.org/download.cgi>
+  [Letöltés]: <https://maven.apache.org/download.cgi>

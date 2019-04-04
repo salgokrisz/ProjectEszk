@@ -8,8 +8,11 @@ package cluedo.logic.role;
 import javax.swing.ImageIcon;
 
 /**
- *
- * @author Barby
+ * This class represents the Role in the game which 
+ * the player will play during the game. All of the 
+ * characters like Green and Scarlet and the others are extends
+ * from this class.
+ * 
  */
 public abstract class Role {
    

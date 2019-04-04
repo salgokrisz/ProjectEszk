@@ -8,8 +8,10 @@ package cluedo.logic.player;
 import cluedo.logic.role.Role;
 
 /**
- *
- * @author Bence
+ * This class represents the Players, and can tell
+ * the role which the player plays.
+ * This class is the parent class of the Ai class.
+ * 
  */
 public class Player {
     protected Role role;

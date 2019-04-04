@@ -6,8 +6,8 @@
 package cluedo.logic.role;
 
 /**
- *
- * @author Barby
+ * 
+ * This class stores an enum which represents the color of the characters.
  */
 public enum Color {
     RED, ORANGE, WHITE, GREEN, PURPLE, BLUE;

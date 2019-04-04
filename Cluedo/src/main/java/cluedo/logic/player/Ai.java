@@ -8,8 +8,10 @@ package cluedo.logic.player;
 import cluedo.logic.role.Role;
 
 /**
- *
- * @author Bence
+ * This class represents an artificial Player which is
+ * the child of the Player class. It will do special ai
+ * operations.
+ * 
  */
 public class Ai extends Player {
     

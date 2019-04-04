@@ -18,8 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class will get a List of Strings and it will
+ * create a List of Players from it.
  *
- * @author Bence
  */
 public class PlayerFactory {
 

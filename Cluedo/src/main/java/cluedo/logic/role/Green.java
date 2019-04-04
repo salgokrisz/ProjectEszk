@@ -6,8 +6,10 @@
 package cluedo.logic.role;
 
 /**
- *
- * @author Barby
+ * This class represents a character called Green.
+ * Every character have a special ability.
+ * This class extends the Role class.
+ * 
  */
 public class Green extends Role{
     public Green(String playerName){

@@ -6,8 +6,9 @@
 package cluedo.logic.role;
 
 /**
- *
- * @author Barby
+  This class represents a character called Plum.
+ * Every character have a special ability.
+ * This class extends the Role class.
  */
 public class Plum extends Role{
 

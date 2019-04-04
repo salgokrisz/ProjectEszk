@@ -16,15 +16,18 @@ import org.junit.Test;
  */
 public class FieldFactoryTest {
     
-    /*@Test
+    @Test
     public void testFieldFactoryWithFullyFieldTypeFields(){
-        System.out.println("Sep 12");
         FieldFactory ff = new FieldFactory("test1.txt");
-        System.out.println("Sep 1");
-        ff.getGeneratedMap();
+      //  ff.getGeneratedMap();
         ArrayList<ArrayList<Field>> generated = ff.getGeneratedMap();
-        String expectedResult = "";
-        System.out.println(generated.toString());
-        assertEquals(generated.toString(),expectedResult);
-    }*/
+        ArrayList<ArrayList<Field>>expectedResult=new ArrayList<>();
+        for(int i=0; i<2; ++i){
+            expectedResult.add(new ArrayList<>());
+            for(int j=0; j<3; ++j){
+                expectedResult.get(i).add(new Field(i, j, "Field", true, false));
+            }
+        }
+        assertEquals(expectedResult, generated);
+    }
 }

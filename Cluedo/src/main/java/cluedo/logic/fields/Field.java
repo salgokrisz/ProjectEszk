@@ -5,6 +5,8 @@
  */
 package cluedo.logic.fields;
 
+import java.util.Objects;
+
 /**
  *
  * @author Bence
@@ -63,7 +65,24 @@ public class Field {
     public boolean isSomeOneOn() {
         return someOneOn;
     }
-    
+    @Override
+    public boolean equals(Object obj){
+        if(obj==null){
+            return false;
+        }
+        if(obj==this){
+            return true;
+        }
+        if(!(obj instanceof Field)){
+        return false;
+    }
+        Field other=(Field)obj;
+        return other.getType().equals(this.type) && other.getX()==this.x && other.getY()==this.y;
+    }
+    @Override
+    public int hashCode(){
+        return Objects.hash(type, x, y);
+    }
     @Override
     public String toString(){
         return "The field properties is: "+"pos_x:"+x+" pos_y:"+y+" type:"+type+" walkeable:"+walkeable+" someOneOn:"+someOneOn;

@@ -24,12 +24,11 @@ public class FieldFactory {
     protected MapParser mp = new MapParser();
     
     public FieldFactory(String fileName){
-        GetDataFromParser(fileName);
+        getDataFromParser(fileName);
     }
     
-    private void GetDataFromParser(String fileName){
+    private void getDataFromParser(String fileName){
         mp.openFile(fileName);
-        System.out.println("45");
         mapStrings = MapParser.getMapList();
         createFields();
     }
@@ -38,6 +37,7 @@ public class FieldFactory {
         generatedMap = new ArrayList<>();
         String[] helper;
         for(int i = 0; i< mapStrings.size();i++){
+            generatedMap.add(new ArrayList<>());
             for(int j = 0; j < mapStrings.get(i).size();j++){
                 if(mapStrings.get(i).get(j).contains(":")){
                     helper = mapStrings.get(i).get(j).split(":");

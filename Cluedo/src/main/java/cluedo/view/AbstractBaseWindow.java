@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.view;
 
 /**
- *
- * @author Barby
+ *Parent class of the important classes of view part. It contains rules for like
+ * exiting from the game, window title, menu bar and gives method for asking for
+ * approval.
+ * @author bornemis
  */
 
 
@@ -33,20 +31,14 @@ import javax.swing.JOptionPane;
 
  public abstract class AbstractBaseWindow extends JFrame {
   protected JMenu mHelper = new JMenu(LanguageStrings.getString("ToolBar.Helper"));
-     /**
-     * Declaration and definition of the MOptions menu.
-     */
+
     JMenuItem miEnglish = new JMenuItem(LanguageStrings.getString("Menu.English"));
         JMenuItem miHungarian=new JMenuItem(LanguageStrings.getString("Menu.Hungarian"));
     protected JMenu mLanguages = new JMenu(LanguageStrings.getString("ToolBar.Languages"));
 public static Set<JFrame> openedWindowsSet;
-    /**
-     * Declaration and definition of the mb MenuBar.
-     */
+
     protected JMenuBar mb;
-    /**
-     * Declaration and definition of the miInfo MenuItem.
-     */
+
     protected final JMenuItem miInfo = new JMenuItem(LanguageStrings.getString("ToolBar.Information"));
     public AbstractBaseWindow(){
 
@@ -55,11 +47,7 @@ public static Set<JFrame> openedWindowsSet;
         setTitle("CLUEDO");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(0, 0, screenSize.width, screenSize.height - 30);
-        /*setMaximumSize(Toolkit.getDefaultToolkit().getScreenSize());
-        setMinimumSize(new java.awt.Dimension(700, 600));
-        setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());*/
         setResizable(false);
-     //   setSize(new java.awt.Dimension(0, 0));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -67,9 +55,7 @@ public static Set<JFrame> openedWindowsSet;
         });
         setMenu();
     }
-     /**
-     * This function is sets the menu.
-     */
+  
     protected void setMenu() {
         mb = new JMenuBar();
         setJMenuBar(mb);
@@ -116,11 +102,7 @@ public static Set<JFrame> openedWindowsSet;
             }
         };
     }
-        /**
-     * This function is showing a description of the application.
-     *
-     * @return with an ActionListener.
-     */
+ 
     protected ActionListener showDescription() {
         return new ActionListener() {
             @Override
@@ -184,11 +166,7 @@ public static Set<JFrame> openedWindowsSet;
         }
          return valid;
 }
-     /**
-     * This function os showing a Message dialog when an error occures.
-     *
-     * @param error
-     */
+  
     public static void showErrorMessage(String error) {
         JOptionPane.showMessageDialog(null, error, LanguageStrings.getString("JOptionPane.ErrorTitle"), JOptionPane.ERROR_MESSAGE);
     }

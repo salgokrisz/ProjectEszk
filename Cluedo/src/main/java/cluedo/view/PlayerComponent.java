@@ -1,18 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.view;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 /**
- *
- * @author Barby
+ * This class is more like a wrapper class for helping the appearance of the 
+ * role chooser window. Encapsulates the name, role, difficulty level and the 
+ * human or artificially intelligenced player properties.
+ * @author bornemis
  */
-public class PlayerComponent {
+public final class PlayerComponent {
     private final JComboBox jcbPlayerPersonality;
     private final JTextField jtfName;
     private final JComboBox jcbPlayerRole;

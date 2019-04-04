@@ -5,6 +5,11 @@
 A választott program a CLUEDO nevű társasjáték számítógépes reprezentációja. A játék célja, hogy a játékos(ok) a pályán lépkedve gyanúsítások segítségével megoldjon/megoldjanak egy gyilkosságot. A nyertes az, aki először megszerzi az információt, és helyesen vádol.
 A játékos a játék logikájával a játék grafikus user interfészén (GUI) léphet kapcsolatba. A tervezett programozási nyelv a JAVA, mert ennek van beépített adatbáziskezelője, és a GUI kialakítása is megfelelően támogatott.
 
+## Előfeltétel
+Ha a rendszer nem ismerné fel az mvn-es parancsokat:
+- Le kell tölteni az apache maven-t.
+- Majd a környezeti változókhoz hozzá kell adni MAVEN_HOME néven. A path-be pedig a az apache maven mappájának az elérési útját egésszen a bin mappáig majd az elérési út végére oda kell írni egy ; -őt és a %MAVEN_HOME%\bin; -t.
+
 ## Tesztek automatikus futtatása
 A teszteket az alábbi parancsokkal lehet futtatni:
 - Ha abban a mappában állunk, ahol a pom.xml van, akkor:
@@ -22,3 +27,4 @@ Az install parancs a build ciklus összes fázisát lefuttatja. Ezeket a fáziso
 lásd: * [Maven build fázisainak parancsai]
   
   [Maven build fázisainak parancsai]: <https://www.tutorialspoint.com/maven/maven_build_life_cycle.htm>
+  [Apache Maven]: <https://maven.apache.org/download.cgi>

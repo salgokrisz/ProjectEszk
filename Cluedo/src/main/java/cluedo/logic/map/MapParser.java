@@ -12,15 +12,17 @@ public class MapParser{
     private static ArrayList<ArrayList<String>> mapList;
     private static File fileName;
 
-    public MapParser(/*char[][] ca,*/ArrayList<ArrayList<String>> ml, String fn){
+    public MapParser(){
         //mapCharArray = ca;
-        mapList = ml;
-        fileName = new File(fn);
     }
 
-    public static void openFile(String fn){
+    public void openFile(String fn){
+        System.out.println("mp 1");
         try {
-            BufferedReader br = new BufferedReader(new FileReader(fn));
+              ClassLoader classLoader = getClass().getClassLoader();
+	File file = new File(classLoader.getResource(fn).getFile());          
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
             String line;
             while ((line = br.readLine()) != null) {
                 ArrayList<String> tmpList = new ArrayList<>();

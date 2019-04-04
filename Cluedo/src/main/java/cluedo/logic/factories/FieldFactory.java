@@ -12,7 +12,6 @@ import cluedo.logic.fields.SecretField;
 import cluedo.logic.fields.StartField;
 import cluedo.logic.map.MapParser;
 import java.nio.file.Paths;
-//import cluedo.logic.map.MapParser;
 import java.util.ArrayList;
 
 /**
@@ -21,17 +20,16 @@ import java.util.ArrayList;
  */
 public class FieldFactory {
     protected ArrayList<ArrayList<Field>> generatedMap;
-    //protected MapParser mapParser;
     protected ArrayList<ArrayList<String>> mapStrings;
+    protected MapParser mp = new MapParser();
     
     public FieldFactory(String fileName){
         GetDataFromParser(fileName);
     }
     
     private void GetDataFromParser(String fileName){
-        String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-        currentPath += "\\src\\main\\java\\cluedo\\Resources\\"+fileName;
-        MapParser.openFile(currentPath);
+        mp.openFile(fileName);
+        System.out.println("45");
         mapStrings = MapParser.getMapList();
         createFields();
     }

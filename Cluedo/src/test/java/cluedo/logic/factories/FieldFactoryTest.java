@@ -6,10 +6,9 @@
 package cluedo.logic.factories;
 
 import cluedo.logic.fields.Field;
-import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
+import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -17,17 +16,15 @@ import static org.junit.Assert.assertTrue;
  */
 public class FieldFactoryTest {
     
-  /*  @Test
+    /*@Test
     public void testFieldFactoryWithFullyFieldTypeFields(){
+        System.out.println("Sep 12");
         FieldFactory ff = new FieldFactory("test1.txt");
+        System.out.println("Sep 1");
         ff.getGeneratedMap();
         ArrayList<ArrayList<Field>> generated = ff.getGeneratedMap();
         String expectedResult = "";
         System.out.println(generated.toString());
         assertEquals(generated.toString(),expectedResult);
     }*/
-	@Test
-public void trialTestForTravis(){
-assertTrue(true);
-}
 }

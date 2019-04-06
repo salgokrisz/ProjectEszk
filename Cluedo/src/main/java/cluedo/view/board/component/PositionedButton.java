@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.view.board.component;
 
 import javax.swing.JButton;
 
 /**
- *
+ * This class is a JButton with a plus function that it knows its place on the
+ * game board.
  * @author Barby
  */
 public class PositionedButton extends JButton{

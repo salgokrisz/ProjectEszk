@@ -5,15 +5,19 @@
  */
 package cluedo.logic.fields;
 
+import cluedo.logic.fields.FieldType.Type;
+
 /**
- *
- * @author Bence
+ * This class represents the entrance points of
+ * the rooms, and can tell if it's room has a secret
+ * connection or not.
+ * 
  */
 public class EntranceField extends Field {
     private String roomName;
     private boolean roomHasSecret;
     
-    public EntranceField(int x,int y,String type,boolean walkeAble,boolean someOneOn,String roomName,boolean roomHasSecret){
+    public EntranceField(int x,int y,Type type,boolean walkeAble,boolean someOneOn,String roomName,boolean roomHasSecret){
         super(x,y,type,walkeAble,someOneOn);
         this.roomName = roomName;
         this.roomHasSecret = roomHasSecret;

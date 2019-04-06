@@ -6,10 +6,10 @@
 package cluedo.logic.factories;
 
 import cluedo.logic.fields.Field;
-import static org.junit.Assert.assertEquals;
+import cluedo.logic.fields.FieldType.Type;
 import java.util.ArrayList;
+import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -17,17 +17,17 @@ import static org.junit.Assert.assertTrue;
  */
 public class FieldFactoryTest {
     
-  /*  @Test
+    @Test
     public void testFieldFactoryWithFullyFieldTypeFields(){
         FieldFactory ff = new FieldFactory("test1.txt");
-        ff.getGeneratedMap();
         ArrayList<ArrayList<Field>> generated = ff.getGeneratedMap();
-        String expectedResult = "";
-        System.out.println(generated.toString());
-        assertEquals(generated.toString(),expectedResult);
-    }*/
-	@Test
-public void trialTestForTravis(){
-assertTrue(true);
-}
+        ArrayList<ArrayList<Field>>expectedResult=new ArrayList<>();
+        for(int i=0; i<2; ++i){
+            expectedResult.add(new ArrayList<>());
+            for(int j=0; j<3; ++j){
+                expectedResult.get(i).add(new Field(i, j, Type.FIELD, true, false));
+            }
+        }
+        assertEquals(expectedResult, generated);
+    }
 }

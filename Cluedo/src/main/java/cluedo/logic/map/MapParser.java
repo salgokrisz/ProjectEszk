@@ -12,15 +12,17 @@ public class MapParser{
     private static ArrayList<ArrayList<String>> mapList;
     private static File fileName;
 
-    public MapParser(/*char[][] ca,*/ArrayList<ArrayList<String>> ml, String fn){
+    public MapParser(){
+        mapList=new ArrayList<>();
         //mapCharArray = ca;
-        mapList = ml;
-        fileName = new File(fn);
     }
 
-    public static void openFile(String fn){
+    public void openFile(String fn){
         try {
-            BufferedReader br = new BufferedReader(new FileReader(fn));
+              ClassLoader classLoader = getClass().getClassLoader();
+	File file = new File(classLoader.getResource(fn).getFile());          
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
             String line;
             while ((line = br.readLine()) != null) {
                 ArrayList<String> tmpList = new ArrayList<>();
@@ -55,19 +57,4 @@ public class MapParser{
     public static ArrayList<ArrayList<String>> getMapList(){
         return mapList;
     }
-
- /*   public static void main(String[] args) {
-        ArrayList<ArrayList<String>> ml = new ArrayList<ArrayList<String>>();
-        MapParser mp = new MapParser(ml, args[0]);
-        //mp.openFile(fileName);
-        /*for (int i = 0; i < ml.size(); ++i){
-            System.out.println(ml.get(i));
-        }*/
-    /*    for (int i = 0; i < ml.size(); ++i){
-            for (int j = 0; j < ml.get(i).size(); ++j){
-                System.out.print(ml.get(i).get(j) + " ");
-            }
-            System.out.println();
-        }
-    }*/
 }

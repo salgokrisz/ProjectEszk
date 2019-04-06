@@ -10,8 +10,10 @@ import cluedo.logic.fields.Field;
 import java.util.ArrayList;
 
 /**
- *
- * @author Bence
+ * This class will get the data from the FieldFactory. It will work
+ * with a two dimensional matrix from Fields. This class will do the
+ * operations on the map.
+ * 
  */
 public class Map {
     ArrayList<ArrayList<Field>> map;

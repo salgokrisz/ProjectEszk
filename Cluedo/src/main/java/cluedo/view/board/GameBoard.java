@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.view.board;
 
 import cluedo.view.AbstractBaseWindow;
@@ -27,8 +23,9 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 /**
- *
- * @author Barby
+ * This class is responsible for the appearance of the whole game board. It
+ * contains the field buttons and the clue paper and the cards of the player.
+ * @author bornemis
  */
 public class GameBoard extends AbstractBaseWindow{
     private JPanel jpBase;

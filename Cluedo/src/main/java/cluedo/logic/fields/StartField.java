@@ -5,14 +5,18 @@
  */
 package cluedo.logic.fields;
 
+import cluedo.logic.fields.FieldType.Type;
+
 /**
+ *  * This class represents a special field on the map.
+ * This field is the starter point of the players.
+ * This class is extends the Field class.
  *
- * @author Bence
  */
 public class StartField extends Field {
     private String belongsTo;
     
-    public StartField(int x,int y,String type,boolean walkeAble,boolean someOneOn,String belongsTo){
+    public StartField(int x,int y,Type type,boolean walkeAble,boolean someOneOn,String belongsTo){
         super(x,y,type,walkeAble,someOneOn);
         this.belongsTo = belongsTo;
     }

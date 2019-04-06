@@ -37,7 +37,7 @@
         "White" : {
             "name" : "White",
             "key" : "Cards.Persons.White",
-            "image" : "white.png"
+            "image" : "White.png"
         }
     },
      "Weapons" : {

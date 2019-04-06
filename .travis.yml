@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 language: java
 sudo: false
 before_script: cd Cluedo
@@ -17,3 +18,18 @@ stages:
     if: branch = master
          
 
+=======
+language: java
+sudo: false
+before_script: cd Cluedo
+
+jobs:
+  include:
+    - stage: compile
+      script: mvn compile
+    - stage: test
+      script: mvn test
+stages:
+  - compile
+  - test 
+>>>>>>> af97eb4e4dce33d5c833182b89d07821c14ff71f

@@ -6,7 +6,8 @@ public class Card {
     public static enum Type {
       WEAPON,
       PERSON,
-      ROOM
+      ROOM,
+      UNKNOWN
     };
     
     public final String name;

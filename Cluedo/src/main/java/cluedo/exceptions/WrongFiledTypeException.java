@@ -1,4 +1,4 @@
-package game.exceptions;
+package cluedo.exceptions;
 
 import java.lang.Exception;
 

@@ -4,7 +4,7 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
 
-import game.exceptions.WrongFiledTypeException;
+import cluedo.exceptions.WrongFiledTypeException;
 
 public class MapParser{
 
@@ -19,19 +19,19 @@ public class MapParser{
 
     public void openFile(String fn){
         try {
-              ClassLoader classLoader = getClass().getClassLoader();
-	File file = new File(classLoader.getResource(fn).getFile());          
-            BufferedReader br = new BufferedReader(new FileReader(file));
+                ClassLoader classLoader = getClass().getClassLoader();
+	        //File file = new File(classLoader.getResource(fn).getFile());          
+                BufferedReader br = new BufferedReader(new FileReader(fn));
 
-            String line;
-            while ((line = br.readLine()) != null) {
-                ArrayList<String> tmpList = new ArrayList<>();
-                String[]  tmpArr = line.split(",");
-                for (int i = 0; i < tmpArr.length; ++i){
-                    tmpList.add(tmpArr[i]);
+                String line;
+                while ((line = br.readLine()) != null) {
+                    ArrayList<String> tmpList = new ArrayList<>();
+                    String[]  tmpArr = line.split(",");
+                    for (int i = 0; i < tmpArr.length; ++i){
+                        tmpList.add(tmpArr[i]);
+                    }
+                    mapList.add(tmpList);
                 }
-                mapList.add(tmpList);
-            }
         }catch(FileNotFoundException e){
             System.out.println("File not found");
         }catch (IOException e){
@@ -39,7 +39,7 @@ public class MapParser{
         }
     }
 
-    public boolean isCorrectCharacters(ArrayList<ArrayList<String>> list) throws WrongFiledTypeException{
+    public boolean isCorrectCharacters(ArrayList<ArrayList<String>> list){// throws WrongFiledTypeException{
         boolean retVal = false;
         for (int i = 0; i < list.size(); ++i){
             for (int j = 0; j < list.get(i).size(); ++j){
@@ -47,7 +47,7 @@ public class MapParser{
                     retVal = true;
                 }
                 else{
-                    throw new WrongFiledTypeException("Wrong field type found!");
+                    //throw new WrongFiledTypeException("Wrong field type found!");
                 }
             }
         }

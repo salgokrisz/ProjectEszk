@@ -19,6 +19,7 @@ import javax.json.JsonReader;
 import javax.json.JsonArray;
  
 public class CardParser {
+    
     public static List<List<Card>> Parse () {
         String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
         currentPath += "\\src\\main\\java\\cluedo\\Resources";

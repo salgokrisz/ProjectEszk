@@ -10,17 +10,17 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 public class LanguageStringsTest {    
-    String t1_eng = "test1_eng";
-    String t2_eng = "test2_eng";
-    String t3_eng = "test3_eng";
-    String t4_eng = "test4_eng";
-    String t5_eng = "test5_eng";
+    private final String t1_eng = "test1_eng";
+    private final String t2_eng = "test2_eng";
+    private final String t3_eng = "test3_eng";
+    private final String t4_eng = "test4_eng";
+    private final String t5_eng = "test5_eng";
     
-    String t1_hun = "test1_hun";
-    String t2_hun = "test2_hun";
-    String t3_hun = "test3_hun";
-    String t4_hun = "test4_hun";
-    String t5_hun = "test5_hun";
+    private final String t1_hun = "test1_hun";
+    private final String t2_hun = "test2_hun";
+    private final String t3_hun = "test3_hun";
+    private final String t4_hun = "test4_hun";
+    private final String t5_hun = "test5_hun";
     
     private void CheckGetString (Language L) {
         assertEquals(LanguageStrings.getCurrentLanguage(), L);
@@ -62,18 +62,11 @@ public class LanguageStringsTest {
         Random rand = new Random();
         for (int i = 0; i < 5; i++) {
             int n = rand.nextInt(l.size());
-            System.out.print("i: ");
-            System.out.println(i);
-            System.out.print("size: ");
-            System.out.println(l.size());
             assertFalse (n >= l.size());
             
             int index = l.get(n);
             l.remove(n);
             
-            System.out.print("index: ");
-            System.out.println(index);
-            System.out.println("\n");
             switch (index) {
                 case 1 : {
                     assertFalse(t1_bool);

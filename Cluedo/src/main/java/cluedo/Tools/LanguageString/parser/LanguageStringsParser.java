@@ -2,16 +2,17 @@ package cluedo.Tools.LanguageString.parser;
 
 import java.util.HashMap;
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.File;
 import java.nio.file.Paths;
 import cluedo.Tools.LanguageString.Language;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 public class LanguageStringsParser {
-    public static HashMap<String, String> Parse (Language L) {
+    public static HashMap<String, String> Parse (Language L, boolean test, String testTXT) {
         String txtPath = GetTXTPath (L);
+        if (test) {
+            txtPath = testTXT;
+        } 
         if (txtPath == null) return null;
         
         try (BufferedReader br = new BufferedReader (new InputStreamReader(

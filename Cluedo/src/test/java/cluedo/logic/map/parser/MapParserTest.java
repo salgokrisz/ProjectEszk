@@ -20,7 +20,6 @@ public class MapParserTest{
         
         MapParser mp2 = new MapParser();
         mp2.openFile("test2.txt");
-        String testMapString = "K";
         assertEquals(0, mp2.getMapList().size());
         assertFalse("F" == mp2.getMapList().toString());
         assertFalse("R" == mp2.getMapList().toString());
@@ -29,7 +28,7 @@ public class MapParserTest{
 
         MapParser mp3 = new MapParser();
         mp3.openFile("test3.txt");
-        assertFalse(mp3.isCorrectCharacters(mp3.getMapList()));
+        assertTrue(mp3.getMapList().isEmpty());
         
     }
 }

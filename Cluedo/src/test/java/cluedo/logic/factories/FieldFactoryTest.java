@@ -19,7 +19,7 @@ public class FieldFactoryTest {
     
     @Test
     public void testFieldFactoryWithFullyFieldTypeFields(){
-        FieldFactory ff = new FieldFactory("test1.txt");
+        FieldFactory ff = new FieldFactory("test1ForFieldFactoryParserTest.txt");
         ArrayList<ArrayList<Field>> generated = ff.getGeneratedMap();
         ArrayList<ArrayList<Field>>expectedResult=new ArrayList<>();
         for(int i=0; i<2; ++i){

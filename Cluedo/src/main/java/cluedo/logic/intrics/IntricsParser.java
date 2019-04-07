@@ -1,4 +1,4 @@
-package game.logic.intrics;
+package cluedo.logic.intrics;
 
 import java.util.*;
 import java.io.*;

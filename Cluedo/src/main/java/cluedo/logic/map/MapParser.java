@@ -20,17 +20,27 @@ public class MapParser{
     public void openFile(String fn){
         try {
                 ClassLoader classLoader = getClass().getClassLoader();
-	        //File file = new File(classLoader.getResource(fn).getFile());          
-                BufferedReader br = new BufferedReader(new FileReader(fn));
+	        File file = new File(classLoader.getResource(fn).getFile());          
+                BufferedReader br = new BufferedReader(new FileReader(file));
 
                 String line;
-                while ((line = br.readLine()) != null) {
+                boolean wasErrorInFile=false;
+                while ((line = br.readLine()) != null && !wasErrorInFile) {
                     ArrayList<String> tmpList = new ArrayList<>();
                     String[]  tmpArr = line.split(",");
-                    for (int i = 0; i < tmpArr.length; ++i){
+                    int i=0;
+                    while (i < tmpArr.length && !wasErrorInFile){
+                        if(isCorrectCharacter(tmpArr[i])){
                         tmpList.add(tmpArr[i]);
+                        }else{
+                            wasErrorInFile=true;
+                        }
+                        i+=1;
                     }
                     mapList.add(tmpList);
+                }
+                if(wasErrorInFile){
+                    mapList.clear();
                 }
         }catch(FileNotFoundException e){
             System.out.println("File not found");
@@ -39,19 +49,9 @@ public class MapParser{
         }
     }
 
-    public boolean isCorrectCharacters(ArrayList<ArrayList<String>> list){// throws WrongFiledTypeException{
-        boolean retVal = false;
-        for (int i = 0; i < list.size(); ++i){
-            for (int j = 0; j < list.get(i).size(); ++j){
-                if (list.get(i).get(j).equals("F") || list.get(i).get(j).equals("R") || list.get(i).get(j).equals("E")){		// TODO add more field types;
-                    retVal = true;
-                }
-                else{
-                    //throw new WrongFiledTypeException("Wrong field type found!");
-                }
-            }
-        }
-        return retVal;
+    public boolean isCorrectCharacter(String character){// throws WrongFiledTypeException{
+       return  character.equals("F") || character.equals("R") || character.equals("E");
+
     }
 
     public static ArrayList<ArrayList<String>> getMapList(){

@@ -1,5 +1,5 @@
-R,R,R,F,F,F,F
-R,R,R,F,F,F,F
+T,T,T,F,F,F,F
+T,T,T,F,F,F,F
 F,F,F,F,F,F,F
 F,F,F,F,F,F,F
 F,F,F,F,F,F,F

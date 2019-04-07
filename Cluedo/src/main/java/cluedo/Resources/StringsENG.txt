@@ -77,3 +77,10 @@ Cards.Rooms.Cinema=Cinema
 Cards.Rooms.LivingRoom=Living room
 Cards.Rooms.Bath=Bath
 Cards.Rooms.GuestHouse=GuestHouse
+
+#Tests
+Test.1=test1_eng
+Test.2=test2_eng
+Test.3=test3_eng
+Test.4=test4_eng
+Test.5=test5_eng

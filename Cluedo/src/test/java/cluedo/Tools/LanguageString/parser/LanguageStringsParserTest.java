@@ -76,10 +76,10 @@ public class LanguageStringsParserTest {
             
     private String GetTXTPath_forTest (Language L) {
         String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-        currentPath += "\\src\\main\\java\\cluedo\\Resources";
+        currentPath += "/src/main/java/cluedo/Resources/";
         switch (L) {
-            case HUN : return currentPath + "\\StringsHUN_test.txt";
-            case ENG : return currentPath + "\\StringsENG_test.txt";
+            case HUN : return currentPath + "StringsHUN_test.txt";
+            case ENG : return currentPath + "StringsENG_test.txt";
             default  : return null; 
         }
     }

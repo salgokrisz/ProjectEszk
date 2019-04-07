@@ -21,9 +21,9 @@ import javax.json.JsonArray;
 public class CardParser {
     public static List<List<Card>> Parse () {
         String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-        currentPath += "\\src\\main\\java\\cluedo\\Resources";
+        currentPath += "/src/main/java/cluedo/Resources/";
          
-        String JSONPath = currentPath + "\\Cards.json";
+        String JSONPath = currentPath + "Cards.json";
         try (InputStream is = new FileInputStream(new File(JSONPath))){
             JsonReader reader = Json.createReader(is);
             JsonObject cardsObj = reader.readObject();

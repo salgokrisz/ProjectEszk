@@ -7,6 +7,11 @@ public class LanguageStrings {
     private static HashMap<String, String> strings = null;
     private static Language L = Language.ENG;
     
+    public static Language getCurrentLanguage () {
+        if (L == Language.ENG) return Language.ENG;
+        else return Language.HUN;
+    }
+    
     public static String getString (String key) {
         if (key == null) 
             return null;

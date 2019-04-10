@@ -35,4 +35,6 @@ public class Card {
                 "UIKey : " + UIStringKey + ", " + 
                 "UIString : " + GetNameForUI();
     }
+    
+    //TODO: equals method on two card
 }

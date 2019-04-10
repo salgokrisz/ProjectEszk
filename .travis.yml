@@ -2,6 +2,15 @@ language: java
 
 sudo: false
 
+addons:
+  sonarcloud:
+    organization: "bence762-github"
+    token:
+      secure: "$SONAR_TOKEN"
+
+jdk:
+    -oraclejdk8
+
 before_script: cd Cluedo
 
 
@@ -14,6 +23,10 @@ jobs:
 
       script: mvn compile
 
+    - stage: sonar
+    
+      script: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+
     - stage: test
 
       script: mvn test
@@ -21,5 +34,9 @@ jobs:
 stages:
 
   - compile
+  
+  - sonar
 
   - test 
+  
+

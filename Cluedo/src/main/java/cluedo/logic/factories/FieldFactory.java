@@ -5,9 +5,11 @@
  */
 package cluedo.logic.factories;
 
+import cluedo.logic.fields.EndField;
 import cluedo.logic.fields.Field;
 import cluedo.logic.fields.EntranceField;
 import cluedo.logic.fields.FieldType.Type;
+import cluedo.logic.fields.IntricField;
 import cluedo.logic.fields.RoomField;
 import cluedo.logic.fields.SecretField;
 import cluedo.logic.fields.StartField;
@@ -49,25 +51,31 @@ public class FieldFactory {
                         if (helper[2].equals(1)){
                             hasSecret = true;
                         }
-                        EntranceField e = new EntranceField(i,j,Type.ENTRANCE,true,false,helper[1],hasSecret);
+                        Field e = new EntranceField(i,j,Type.ENTRANCE,true,false,helper[1],hasSecret);
                         generatedMap.get(i).add(e);
                     }else if(helper[0].equals("Se")){
                         boolean hasSecret = false;
                         if (helper[2].equals(1)){
                             hasSecret = true;
                         }
-                        SecretField s = new SecretField(i,j,Type.SECRET,true,false,helper[1],hasSecret,Integer.parseInt(helper[2]),Integer.parseInt(helper[3]),Integer.parseInt(helper[4]),Integer.parseInt(helper[5]));
+                        Field s = new SecretField(i,j,Type.SECRET,true,false,helper[1],hasSecret,Integer.parseInt(helper[2]),Integer.parseInt(helper[3]),Integer.parseInt(helper[4]),Integer.parseInt(helper[5]));
                         generatedMap.get(i).add(s);
                     }else if(helper[0].equals("St")){
-                        StartField st = new StartField(i,j,Type.START,true,false,helper[1]);
+                        Field st = new StartField(i,j,Type.START,true,false,helper[1]);
                         generatedMap.get(i).add(st);
                     }else if(helper[0].equals("R")){
                         boolean hasSecretPath = false;
                         if (helper[2].equals(1)){
                             hasSecretPath = true;
                         }
-                        RoomField r = new RoomField(i,j,Type.ROOM,true,false,helper[1],hasSecretPath);
+                        Field r = new RoomField(i,j,Type.ROOM,true,false,helper[1],hasSecretPath);
                         generatedMap.get(i).add(r);
+                    }else if(helper[0].equals("En")){
+                        Field en = new EndField(i,j,Type.END,true,false,null,null,null);
+                        generatedMap.get(i).add(en);
+                    }else if(helper[0].equals("I")){
+                        Field intric = new IntricField(i,j,Type.END,true,false);
+                        generatedMap.get(i).add(intric);
                     }
                 }else{
                      Field e = new Field(i,j,Type.FIELD,true,false);

@@ -22,7 +22,7 @@ jobs:
 
     - stage: sonar
     
-      script: mvn sonar:sonar
+      script: mvn clean install -DskipTests=true -Dmaven.test.failure.ignore=true sonar:sonar
 
     - stage: test
 

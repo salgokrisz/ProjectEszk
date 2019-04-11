@@ -22,7 +22,7 @@ jobs:
 
     - stage: sonar
     
-      script: mvn org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+      script: mvn sonar:sonar
 
     - stage: test
 

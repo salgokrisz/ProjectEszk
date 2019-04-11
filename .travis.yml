@@ -22,7 +22,7 @@ jobs:
 
     - stage: sonar
     
-      script: sonar-scanner
+      script: mvn org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
 
     - stage: test
 

@@ -23,9 +23,10 @@ import javax.json.JsonArray;
  
 public class CardParser {
     private CardParser(){}
-    private static List<List<Card>> readJson(InputStream is){
+    private static List<List<Card>> readJson(String jsonPath){
         List<List<Card>> cards = new ArrayList<> ();
-        try(JsonReader reader = Json.createReader(is)){
+        try (InputStream is = new FileInputStream(new File(jsonPath));JsonReader reader = Json.createReader(is)){
+      
             JsonObject cardsObj = reader.readObject();
             reader.close();
             
@@ -41,28 +42,23 @@ public class CardParser {
             cards.add(persons);
             cards.add(weapons);
             cards.add(rooms); 
-        }catch(Exception ex){
-            LOG.warning(ex.getMessage());
-        }
-        return cards;
-    }
-    public static List<List<Card>> parse () {
-        List<List<Card>> cards = new ArrayList<> ();
-        try{
-        String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-        currentPath += "/src/main/java/cluedo/resources/";
-         
-        String jsonPath = currentPath + "Cards.json";
-        try (InputStream is = new FileInputStream(new File(jsonPath))){
-            cards=readJson(is);
- 
-        } catch (FileNotFoundException e) {
+        }catch (FileNotFoundException e) {
             LOG.warning(e.getMessage());
             cards.clear();
         } catch (IOException e) {
             LOG.warning(e.getMessage());
             cards.clear();
         }
+        return cards;
+    }
+    public static List<List<Card>> parse () {
+        List<List<Card>> cards = new ArrayList<> ();
+        try{
+            
+        String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+        currentPath += "/src/main/java/cluedo/resources/";
+        String jsonPath = currentPath + "Cards.json";
+         cards=readJson(jsonPath);
         }catch(InvalidPathException e){
             LOG.log(Level.SEVERE, e.getMessage());
             cards.clear();

@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.player;
 
+import cluedo.logic.player.level.ExperienceLevel;
 import cluedo.logic.role.Role;
 
 /**
@@ -14,9 +11,19 @@ import cluedo.logic.role.Role;
  * 
  */
 public class Ai extends Player {
-    
-    public Ai(Role role,boolean isComputer){
+    private final ExperienceLevel experienceLevel;
+    public Ai(Role role,boolean isComputer, ExperienceLevel experienceLevel){
         super(role,isComputer);
+        this.experienceLevel=experienceLevel;
+    }
+    
+    public Ai(Ai other){
+        super(other);
+        this.experienceLevel=other.getExperienceLevel();
+    }
+
+    public ExperienceLevel getExperienceLevel() {
+        return experienceLevel;
     }
     
 }

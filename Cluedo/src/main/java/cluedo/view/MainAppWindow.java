@@ -1,6 +1,7 @@
 
 package cluedo.view;
 
+import cluedo.logic.controller.GameController;
 import cluedo.tools.languagestring.Language;
 import cluedo.tools.languagestring.LanguageStrings;
 import javax.swing.ButtonGroup;
@@ -15,11 +16,10 @@ import javax.swing.SwingUtilities;
  * game and select number of players and language options.
  */
 public class MainAppWindow extends AbstractBaseWindow {
+    private GameController gameController;
     
-    /**
-     * Creates new form Trial
-     */
     public MainAppWindow() {
+        gameController=new GameController();
         initComponents();
     }
 
@@ -27,7 +27,6 @@ public class MainAppWindow extends AbstractBaseWindow {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jbNewGame = new javax.swing.JButton();
         jlLanguageChooser = new javax.swing.JLabel();
         jrbEnglish = new javax.swing.JRadioButton();
@@ -40,7 +39,6 @@ public class MainAppWindow extends AbstractBaseWindow {
         jpBase.setForeground(new java.awt.Color(180, 0, 0));
         JLabel jlTitle = new javax.swing.JLabel();
         jlTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/title.JPG"))); // NOI18N
-
         jbNewGame.setBackground(new java.awt.Color(180, 0, 0));
         jbNewGame.setFont(new java.awt.Font(FONT_TYPE, 1, 18)); // NOI18N
         jbNewGame.setText(LanguageStrings.getString("Menu.NewGame"));
@@ -50,10 +48,8 @@ public class MainAppWindow extends AbstractBaseWindow {
         });
         JLabel jlPicture = new JLabel();
         jlPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mystery.png"))); // NOI18N
-
         jlLanguageChooser.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlLanguageChooser.setText(LanguageStrings.getString("Menu.Language"));
-
         jrbEnglish.setBackground(new java.awt.Color(255, 30, 21));
         ButtonGroup bgLanguage = new javax.swing.ButtonGroup();
         bgLanguage.add(jrbEnglish);
@@ -63,7 +59,6 @@ public class MainAppWindow extends AbstractBaseWindow {
         jrbEnglish.addActionListener((java.awt.event.ActionEvent evt) -> {
             jrbEnglishActionPerformed(evt);
         });
-
         jrbHungarian.setBackground(new java.awt.Color(255, 30, 21));
         bgLanguage.add(jrbHungarian);
         jrbHungarian.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
@@ -71,10 +66,8 @@ public class MainAppWindow extends AbstractBaseWindow {
         jrbHungarian.addActionListener((java.awt.event.ActionEvent evt) -> {
             jrbHungarianActionPerformed();
         });
-
         jlPlayers.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayers.setText(LanguageStrings.getString("Menu.PlayerNumber"));
-
        JRadioButton jrbTwo = new JRadioButton();
        jrbTwo.setBackground(new java.awt.Color(255, 30, 21));
         ButtonGroup bgPlayers = new javax.swing.ButtonGroup();
@@ -118,7 +111,6 @@ public class MainAppWindow extends AbstractBaseWindow {
         jrbSix.addActionListener((java.awt.event.ActionEvent evt) -> {
             jrbSixActionPerformed();
         });
-
         javax.swing.GroupLayout jpBaseLayout = new javax.swing.GroupLayout(jpBase);
         jpBase.setLayout(jpBaseLayout);
         jpBaseLayout.setHorizontalGroup(
@@ -199,6 +191,7 @@ public class MainAppWindow extends AbstractBaseWindow {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
     @Override
     protected void resetStringsOnWindow(){
         super.resetStringsOnWindow();
@@ -222,26 +215,31 @@ public class MainAppWindow extends AbstractBaseWindow {
     }//GEN-LAST:event_jrbHungarianActionPerformed
 
     private void jrbTwoActionPerformed() {//GEN-FIRST:event_jrbTwoActionPerformed
+        gameController.setNumberOfPlayers(2);
         jbNewGame.setEnabled(true);
         //set players to 2
     }//GEN-LAST:event_jrbTwoActionPerformed
 
     private void jrbThreeActionPerformed() {//GEN-FIRST:event_jrbThreeActionPerformed
+        gameController.setNumberOfPlayers(3);
         jbNewGame.setEnabled(true);
         //set players to 3
     }//GEN-LAST:event_jrbThreeActionPerformed
 
     private void jrbFourActionPerformed() {//GEN-FIRST:event_jrbFourActionPerformed
+        gameController.setNumberOfPlayers(4);
         jbNewGame.setEnabled(true);
         //set players to 4
     }//GEN-LAST:event_jrbFourActionPerformed
 
     private void jrbFiveActionPerformed() {//GEN-FIRST:event_jrbFiveActionPerformed
+        gameController.setNumberOfPlayers(5);
         jbNewGame.setEnabled(true);
         //set players to 5
     }//GEN-LAST:event_jrbFiveActionPerformed
 
     private void jrbSixActionPerformed() {//GEN-FIRST:event_jrbSixActionPerformed
+        gameController.setNumberOfPlayers(6);
         jbNewGame.setEnabled(true);
         //set players to 6
     }//GEN-LAST:event_jrbSixActionPerformed
@@ -250,16 +248,12 @@ public class MainAppWindow extends AbstractBaseWindow {
         int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null);
         if(answer==JOptionPane.YES_OPTION){
               SwingUtilities.invokeLater(() -> {
-   
-
-            RoleChooserWindow roleChooserWindow = new RoleChooserWindow();
+            RoleChooserWindow roleChooserWindow = new RoleChooserWindow(gameController);
             roleChooserWindow.setVisible(true);
             doUponExit();
         });
         }
     }//GEN-LAST:event_jbNewGameActionPerformed
-
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     

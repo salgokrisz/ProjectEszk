@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cluedo.logic.player;
 
 import cluedo.logic.role.Role;
+import java.util.Objects;
 
 /**
  * This class represents the Players, and can tell
@@ -21,12 +17,39 @@ public class Player {
         this.isComputer=isComputer;
         this.role = role;
     }
-    
+    public Player(Player other){
+        this.role=other.getRole();
+        isComputer=other.getIsComputer();
+    }
     public boolean getIsComputer() {
         return isComputer;
     }
     
     public Role getRole(){
         return role;
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+        if(obj==null){
+            return false;
+        }
+        if(this==obj){
+            return true;
+        }
+        if(!(obj instanceof Player)){
+            return false;
+        }
+        Player other=(Player)obj;
+        return other.getRole().equals(role);
+    }
+    
+    @Override
+    public int hashCode(){
+        return Objects.hash(role);
+    }
+
+    public Object cloneObject() {
+        return new Player(this);
     }
 }

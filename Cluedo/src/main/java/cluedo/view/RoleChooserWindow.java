@@ -1,11 +1,14 @@
 package cluedo.view;
 
+import cluedo.logic.controller.GameController;
 import cluedo.tools.languagestring.LanguageStrings;
 import cluedo.view.board.GameBoard;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,25 +26,46 @@ import javax.swing.SwingUtilities;
  */
 public class RoleChooserWindow extends AbstractBaseWindow {
     private Map<Integer, PlayerComponent> playerComponents=new HashMap<>();
-    private final String[] playerOptions=new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") };
-    private final String[] levelOptions=new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  };
+    private final GameController gameController;
+    private String[] playerOptions=refillPlayerOptions();
+    private String[] levelOptions=refillLevelOptions();
     private static final String SCARLET="Scarlet";
     private static final String PEACOCK="Peacock";
         private static final String WHITE="White";
     private static final String MUSTARD="Mustard";
     private static final String GREEN="Green";
     private static final String PLUM="Plum";
-    public RoleChooserWindow() {
+    
+    public RoleChooserWindow(GameController gameController) {
+        this.gameController=gameController;
         initComponents();
         initPlayerComponents();
     }
+    public String[] refillPlayerOptions(){
+        return new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") };
+    }
+    private String[] refillLevelOptions(){
+        return new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  };
+    }
     private void initPlayerComponents(){
-        playerComponents.put(0, new PlayerComponent(jcbPlayerOnePersonality, jtfPlayerOneName, jcbPlayerOneRole, jcbPlayerOneDifficulty));
-        playerComponents.put(1, new PlayerComponent(jcbPlayerTwoPersonality, jtfPlayerTwoName, jcbPlayerTwoRole, jcbPlayerTwoDifficulty));
-        playerComponents.put(2, new PlayerComponent(jcbPlayerThreePersonality, jtfPlayerThreeName, jcbPlayerThreeRole, jcbPlayerThreeDifficulty));
-        playerComponents.put(3, new PlayerComponent(jcbPlayerFourPersonality, jtfPlayerFourName, jcbPlayerFourRole, jcbPlayerFourDifficulty));
-        playerComponents.put(4, new PlayerComponent(jcbPlayerFivePersonality, jtfPlayerFiveName, jcbPlayerFiveRole, jcbPlayerFiveDifficulty));
-        playerComponents.put(5, new PlayerComponent(jcbPlayerSixPersonality, jtfPlayerSixName, jcbPlayerSixRole, jcbPlayerSixDifficulty));       
+        playerComponents.put(0, new PlayerComponent(jcbPlayerOnePersonality, jtfPlayerOneName, jcbPlayerOneRole, jcbPlayerOneDifficulty, jlPlayerOne));
+        playerComponents.put(1, new PlayerComponent(jcbPlayerTwoPersonality, jtfPlayerTwoName, jcbPlayerTwoRole, jcbPlayerTwoDifficulty, jlPlayerTwo));
+        playerComponents.put(2, new PlayerComponent(jcbPlayerThreePersonality, jtfPlayerThreeName, jcbPlayerThreeRole, jcbPlayerThreeDifficulty, jlPlayerThree));
+        playerComponents.put(3, new PlayerComponent(jcbPlayerFourPersonality, jtfPlayerFourName, jcbPlayerFourRole, jcbPlayerFourDifficulty, jlPlayerFour));
+        playerComponents.put(4, new PlayerComponent(jcbPlayerFivePersonality, jtfPlayerFiveName, jcbPlayerFiveRole, jcbPlayerFiveDifficulty, jlPlayerFive));
+        playerComponents.put(5, new PlayerComponent(jcbPlayerSixPersonality, jtfPlayerSixName, jcbPlayerSixRole, jcbPlayerSixDifficulty, jlPlayerSix));       
+        for(int i=0; i<playerComponents.size(); ++i){
+            boolean visible=true;
+            if(i>=gameController.getNumberOfPlayers()){
+                visible=false;
+            }
+                PlayerComponent playerComponent=playerComponents.get(i);
+                playerComponent.getJcbDifficultyLevel().setVisible(visible);
+                playerComponent.getJcbPlayerPersonality().setVisible(visible);
+                playerComponent.getJcbPlayerRole().setVisible(visible);
+                playerComponent.getJtfName().setVisible(visible);
+                playerComponent.getJlPlayerNumberText().setVisible(visible);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -387,9 +411,11 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         jlPlayerFive.setText(LanguageStrings.getString("Menu.PlayerFive"));
         jlPlayerSix.setText(LanguageStrings.getString("Menu.PlayerSix"));
         jlTitle.setText(LanguageStrings.getString("Menu.PlayerTitle"));
-        jlName.setText(LanguageStrings.getString("Menu.Name"));
+        jlName.setText(LanguageStrings.getString("Menu.Name")+"*");
         jlRole.setText(LanguageStrings.getString("Menu.Role"));
         jlLevel.setText(LanguageStrings.getString("Menu.Level"));
+        playerOptions=refillPlayerOptions();
+        levelOptions=refillLevelOptions();
         jcbPlayerOnePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
         jcbPlayerTwoPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
         jcbPlayerThreePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
@@ -403,30 +429,75 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         jcbPlayerFiveDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
         jcbPlayerSixDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
     }
+    
+    private boolean allNamesAreCorrect(){
+        boolean l=true;
+        int i=0;
+        while(i<gameController.getNumberOfPlayers() && l){
+            l=gameController.isCorrectPlayerName(playerComponents.get(i).getJtfName().getText());
+            i+=1;
+        }
+       return l;
+    }
+    
+    private boolean allPersonalitiesWereChosen(){
+         boolean l=true;
+        int i=0;
+        while(i<gameController.getNumberOfPlayers() && l){
+            l=playerComponents.get(i).getJcbPlayerPersonality().getSelectedIndex()!=0;
+            i+=1;
+        }
+       return l;
+    }
+    
+    private void sendPlayerPropertiesToController(){
+        List<String> playerInformations=new ArrayList<>();
+        for(int i=0; i<gameController.getNumberOfPlayers(); ++i){
+            StringBuilder sb=new StringBuilder();
+            sb.append((String)playerComponents.get(i).getJcbPlayerPersonality().getSelectedItem());
+            sb.append(":");
+            sb.append((String)playerComponents.get(i).getJtfName().getText());
+            sb.append(":");
+            sb.append((String)playerComponents.get(i).getJcbPlayerRole().getSelectedItem());
+            sb.append(":");
+            sb.append((String)playerComponents.get(i).getJcbDifficultyLevel().getSelectedItem());
+            playerInformations.add(sb.toString());
+        }
+        gameController.initializePlayers(playerInformations);
+    }
+    
     private void jbChooseActionPerformed() {//GEN-FIRST:event_jbChooseActionPerformed
+        if(allNamesAreCorrect()){
         int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null);
+        if(allPersonalitiesWereChosen()){
         if(answer==JOptionPane.YES_OPTION){
+              sendPlayerPropertiesToController();
               SwingUtilities.invokeLater(() -> {
             GameBoard gameBoard = new GameBoard();
             gameBoard.setVisible(true);
             doUponExit();
         });
         }
+        }else{
+            JOptionPane.showMessageDialog(this, LanguageStrings.getString("JOptionPane.PersonalityAttention"), LanguageStrings.getString("JOptionPane.Attention"), JOptionPane.ERROR_MESSAGE);
+        }
+        }else{
+            JOptionPane.showMessageDialog(this, LanguageStrings.getString("JOptionPane.NameAttention"), LanguageStrings.getString("JOptionPane.Attention"), JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbChooseActionPerformed
+    
       private void addActionListenerToJcbPlayerPersonality(JComboBox comboBox, int serialNumber){
         comboBox.addActionListener((java.awt.event.ActionEvent evt) -> {
             jcbPlayerPersonalityActionPerformed(evt, serialNumber);
         });
     }
-    private void jcbPlayerPersonalityActionPerformed(ActionEvent evt, int serialNumber){
-       
+      
+    private void jcbPlayerPersonalityActionPerformed(ActionEvent evt, int serialNumber){      
         JComboBox comboBox=(JComboBox) evt.getSource();
-        String selectedOption=(String)comboBox.getSelectedItem();
-       
-        playerComponents.get(serialNumber).getJcbDifficultyLevel().setEnabled(selectedOption.equals(LanguageStrings.getString("Menu.PlayerOptionAi")));
-  
-       
-    }private void addActionListenerToButton(JButton button){
+        String selectedOption=(String)comboBox.getSelectedItem();       
+        playerComponents.get(serialNumber).getJcbDifficultyLevel().setEnabled(selectedOption.equals(LanguageStrings.getString("Menu.PlayerOptionAi"))); 
+    }
+    private void addActionListenerToButton(JButton button){
     button.addActionListener((java.awt.event.ActionEvent evt) -> {
         jbRoleActionPerfromed(evt);
     });

@@ -5,13 +5,13 @@ Menu.Hungarian=Hungarian
 Menu.English=English
 Menu.PlayerNumber=Number of players:
 Menu.PlayerTitle=Players
-Menu.PlayerOne=Player 1
-Menu.PlayerTwo=Player 2
-Menu.PlayerThree=Player 3
-Menu.PlayerFour=Player 4
-Menu.PlayerFive=Player 5
-Menu.PlayerSix=Player 6
-Menu.Name=Name
+Menu.PlayerOne=Player 1*
+Menu.PlayerTwo=Player 2*
+Menu.PlayerThree=Player 3*
+Menu.PlayerFour=Player 4*
+Menu.PlayerFive=Player 5*
+Menu.PlayerSix=Player 6*
+Menu.Name=Name*
 Menu.Role=Role
 Menu.Level=Level
 Menu.PlayerOptionHuman=Human
@@ -28,6 +28,7 @@ ToolBar.Languages=Languages
 
 #JOptionPane
 JOptionPane.Approval=Approval
+JOptionPane.Attention=Attention!
 JOptionPane.Yes=Yes
 JOptionPane.No=No
 JOptionPane.SettingsApproval=Are you sure you want to continue with these settings?
@@ -35,6 +36,8 @@ JOptionPane.ClosingApproval=Are you sure you want to close the game?
 JOptionPane.ApplicationInfo=This game is based on the same titled Cluedo boardgame.
 JOptionPane.Description=Description
 JOptionPane.ErrorTitle=Error message
+JOptionPane.NameAttention=Giving all names is obligatory and they have to start with alphabetical character!
+JOptionPane.PersonalityAttention=Giving all AI or HUMAN options is obligatory!
 
 #GameBoard
 GameBoard.Guests=Guests

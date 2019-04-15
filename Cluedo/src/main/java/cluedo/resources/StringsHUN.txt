@@ -5,13 +5,13 @@ Menu.Hungarian=Magyar
 Menu.English=Angol
 Menu.PlayerNumber=Játékosok száma:
 Menu.PlayerTitle=Játékosok
-Menu.PlayerOne=1. játékos
-Menu.PlayerTwo=2. játékos
-Menu.PlayerThree=3. játékos
-Menu.PlayerFour=4. játékos
-Menu.PlayerFive=5. játékos
-Menu.PlayerSix=6. játékos
-Menu.Name=Név
+Menu.PlayerOne=1. játékos*
+Menu.PlayerTwo=2. játékos*
+Menu.PlayerThree=3. játékos*
+Menu.PlayerFour=4. játékos*
+Menu.PlayerFive=5. játékos*
+Menu.PlayerSix=6. játékos*
+Menu.Name=Név*
 Menu.Role=Szerep
 Menu.Level=Szint
 Menu.PlayerOptionHuman=Ember
@@ -28,6 +28,7 @@ ToolBar.Languages=Nyelvek
 
 #JOptionPane
 JOptionPane.Approval=Megerősítés
+JOptionPane.Attention=Figyelem!
 JOptionPane.Yes=Igen
 JOptionPane.No=Nem
 JOptionPane.SettingsApproval=Biztos, hogy folytatni akarod ezekkel a beállításokkal?
@@ -35,6 +36,8 @@ JOptionPane.ClosingApproval=Valóban be akarod zárni a játékot?
 JOptionPane.ApplicationInfo=Ez játék a Cluedo, azonos című társasjátékon alapszik.
 JOptionPane.Description=Leírás
 JOptionPane.ErrorTitle=Hibaüzenet
+JOptionPane.NameAttention=Az összes név megadása kötelező, és muszáj betűvel kezdődniük!
+JOptionPane.PersonalityAttention=Az összes számítógép, illetve emberi játékosra vonatkozó információ megadása kötelező!
 
 #GameBoard
 GameBoard.Guests=Vendégek

@@ -472,6 +472,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         if(allPersonalitiesWereChosen()){
         if(answer==JOptionPane.YES_OPTION){
               sendPlayerPropertiesToController();
+              gameController.initializeGame();
               SwingUtilities.invokeLater(() -> {
             GameBoard gameBoard = new GameBoard();
             gameBoard.setVisible(true);

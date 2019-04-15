@@ -1,6 +1,9 @@
 package cluedo.logic.player;
 
+import cluedo.logic.cards.Card;
 import cluedo.logic.role.Role;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -12,6 +15,7 @@ import java.util.Objects;
 public class Player {
     protected Role role;
     protected final boolean isComputer;
+    protected List<Card> suspectCards=new ArrayList<>();
      
     public Player(Role role,boolean isComputer){
         this.isComputer=isComputer;
@@ -20,6 +24,7 @@ public class Player {
     public Player(Player other){
         this.role=other.getRole();
         isComputer=other.getIsComputer();
+        suspectCards=other.getSuspectCards();
     }
     public boolean getIsComputer() {
         return isComputer;
@@ -27,6 +32,14 @@ public class Player {
     
     public Role getRole(){
         return role;
+    }
+
+    public List<Card> getSuspectCards() {
+        List<Card> copy=new ArrayList<>();
+        for(Card c: suspectCards){
+            copy.add((Card)c.cloneObject());
+        }
+        return copy;
     }
     
     @Override
@@ -51,5 +64,10 @@ public class Player {
 
     public Object cloneObject() {
         return new Player(this);
+    }
+    public void drawSuspectCard(Card card){
+        if(!suspectCards.contains(card)){
+            suspectCards.add(card);
+        }
     }
 }

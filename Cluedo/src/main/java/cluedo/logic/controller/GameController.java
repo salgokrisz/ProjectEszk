@@ -1,11 +1,15 @@
 
 package cluedo.logic.controller;
 
+import cluedo.logic.cards.Card;
+import cluedo.logic.cards.parser.CardParser;
 import cluedo.logic.factories.PlayerFactory;
 import cluedo.logic.player.Player;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -19,6 +23,7 @@ public class GameController {
    private int numberOfPlayers;
    private int numberOfComputerPlayers;
    private List<Player> players;
+
 
     public int getNumberOfPlayers() {
         return numberOfPlayers;
@@ -39,7 +44,6 @@ public class GameController {
    public void initializePlayers(List<String> playerInformations){
        PlayerFactory pf=new PlayerFactory();
        players=pf.createPlayers(playerInformations);
-       sortPlayers();
    }
    public List<Player> roleDicesForDecidingStarterPlayer(){
        Map<Player, Integer> droppedNumbers=new HashMap<>();
@@ -128,5 +132,35 @@ public class GameController {
     public int randomizeNumber(int to) {
         Random rand = new Random();
         return rand.nextInt(to);
+    }
+    private Card chooseKillerCard(List<Card> suspectCards){
+        Collections.shuffle(suspectCards);
+        return suspectCards.get(0);
+    }
+    public void initializeSuspectCards(){
+        List<List<Card>> cards=CardParser.parse();
+        List<Card> suspectCards=new LinkedList<>();
+        for(int i=0; i<3; ++i){
+            List<Card> parts=cards.get(i);
+            Card killer=chooseKillerCard(parts);
+            parts.remove(killer);
+            suspectCards=fillUpSupsectCardWithCards(parts, suspectCards);
+        }
+        Collections.shuffle(suspectCards);
+        int remainingCardNumber=suspectCards.size()%numberOfPlayers;
+        for(int i=0; i<suspectCards.size()-remainingCardNumber; ++i){
+            players.get(i).drawSuspectCard(suspectCards.remove(i));
+        }
+    }
+    
+    public void initializeGame() {
+        initializeSuspectCards();   
+        sortPlayers();
+    }
+    
+    private List<Card> fillUpSupsectCardWithCards(List<Card> cards, List<Card> suspectCards) {
+        Collections.shuffle(cards);
+        suspectCards.addAll(cards);
+        return suspectCards;
     }
 }

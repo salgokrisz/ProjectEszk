@@ -115,7 +115,7 @@ public class PlayerFactory {
                 }
     }
     
-    public ArrayList<Player> getPlayers(){
+    public List<Player> getPlayers(){
         ArrayList<Player> data = new ArrayList<>();
         for(int i = 0; i<players.size();i++){
             data.add(players.get(i));

@@ -1,7 +1,10 @@
 package cluedo.logic.intrics;
 
-import java.util.*;
-import java.io.*;
+import static cluedo.tools.Tools.LOG;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class IntricsParser{
 
@@ -14,16 +17,14 @@ public class IntricsParser{
     }
 
     public IntricsParser parseFile(String fileName){
-        IntricsParser ip;
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
+        try (FileReader fr=new FileReader(fileName);BufferedReader br = new BufferedReader(fr);){           
             String line = br.readLine();
             String[] tmpList = line.split(";");
-            return ip = new IntricsParser(tmpList[0], tmpList[1]);
+            return new IntricsParser(tmpList[0], tmpList[1]);
         }catch(FileNotFoundException e){
-            System.out.println("File not found");
+            LOG.warning("File not found");
         }catch (IOException e){
-            System.out.println("IO Error");
+            LOG.warning("IO Error");
         }
         return null;
     }

@@ -7,8 +7,7 @@ import javax.swing.JTextField;
 /**
  * This class is more like a wrapper class for helping the appearance of the 
  * role chooser window. Encapsulates the name, role, difficulty level and the 
- * human or artificially intelligenced player properties.
- * @author bornemis
+ * human or artificially intelligent player properties.
  */
 public final class PlayerComponent {
     private final JComboBox jcbPlayerPersonality;

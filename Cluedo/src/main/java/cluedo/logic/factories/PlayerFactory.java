@@ -25,10 +25,8 @@ import java.util.List;
 public class PlayerFactory {
 
     private ArrayList<Player> players = new ArrayList<>();
-    
-    public PlayerFactory(){
-
-    }
+    private static final String PLAYER_STRING="PLAYER";
+   
 
     public void createPlayers(List<String> playersList) {
         for(int i = 0; i<playersList.size();i++){
@@ -38,7 +36,7 @@ public class PlayerFactory {
                 if(data[1].equals("AI")){                    
                     Player ai = new Ai(role,true);
                     players.add(ai);
-                }else if(data[1].equals("PLAYER")){
+                }else if(data[1].equals(PLAYER_STRING)){
                     Player player = new Player(role,false);
                     players.add(player);
                 }                
@@ -47,7 +45,7 @@ public class PlayerFactory {
                 if(data[1].equals("AI")){                    
                     Player ai = new Ai(role,true);
                     players.add(ai);
-                }else if(data[1].equals("PLAYER")){
+                }else if(data[1].equals(PLAYER_STRING)){
                     Player player = new Player(role,false);
                     players.add(player);
                 }
@@ -56,7 +54,7 @@ public class PlayerFactory {
                 if(data[1].equals("AI")){                    
                     Player ai = new Ai(role,true);
                     players.add(ai);
-                }else if(data[1].equals("PLAYER")){
+                }else if(data[1].equals(PLAYER_STRING)){
                     Player player = new Player(role,false);
                     players.add(player);
                 }
@@ -65,7 +63,7 @@ public class PlayerFactory {
                 if(data[1].equals("AI")){                    
                     Player ai = new Ai(role,true);
                     players.add(ai);
-                }else if(data[1].equals("PLAYER")){
+                }else if(data[1].equals(PLAYER_STRING)){
                     Player player = new Player(role,false);
                     players.add(player);
                 }
@@ -74,7 +72,7 @@ public class PlayerFactory {
                 if(data[1].equals("AI")){                    
                     Player ai = new Ai(role,true);
                     players.add(ai);
-                }else if(data[1].equals("PLAYER")){
+                }else if(data[1].equals(PLAYER_STRING)){
                     Player player = new Player(role,false);
                     players.add(player);
                 }
@@ -83,7 +81,7 @@ public class PlayerFactory {
                  if(data[1].equals("AI")){
                     Player ai = new Ai(role,true);
                     players.add(ai);
-                }else if(data[1].equals("PLAYER")){
+                }else if(data[1].equals(PLAYER_STRING)){
                     Player player = new Player(role,false);
                     players.add(player);
                 }

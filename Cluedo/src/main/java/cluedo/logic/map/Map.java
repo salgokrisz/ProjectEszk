@@ -7,7 +7,7 @@ package cluedo.logic.map;
 
 import cluedo.logic.factories.FieldFactory;
 import cluedo.logic.fields.Field;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class will get the data from the FieldFactory. It will work
@@ -16,12 +16,12 @@ import java.util.ArrayList;
  * 
  */
 public class Map {
-    ArrayList<ArrayList<Field>> map;
+    List<List<Field>> gameMap;
     FieldFactory fieldFactory;
     
     public Map(String fileName){
         fieldFactory = new FieldFactory(fileName);
-        fieldFactory.getGeneratedMap();
+        gameMap=fieldFactory.getGeneratedMap();
     }
     
 }

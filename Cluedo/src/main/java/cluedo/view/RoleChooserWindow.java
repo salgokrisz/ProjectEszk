@@ -1,16 +1,23 @@
 package cluedo.view;
 
-import cluedo.Tools.LanguageString.LanguageStrings;
+import cluedo.logic.role.Green;
+import cluedo.logic.role.Mustard;
+import cluedo.logic.role.Peacock;
+import cluedo.logic.role.Plum;
+import cluedo.logic.role.Scarlet;
+import cluedo.logic.role.White;
+import cluedo.tools.languagestring.LanguageStrings;
 import cluedo.view.board.GameBoard;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 
@@ -18,10 +25,8 @@ import javax.swing.SwingUtilities;
 /**
  * This class is responsible for the appearance of the role chooser window. The
  * player can select properties like name, player level etc. from this page.
- * @author bornemis
  */
 public class RoleChooserWindow extends AbstractBaseWindow {
-    private int chosenPlayerNumber;
     private Map<Integer, PlayerComponent> playerComponents=new HashMap<>();
   
     public RoleChooserWindow() {
@@ -40,10 +45,9 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        jpBase = new javax.swing.JPanel();
-        jlLogo = new javax.swing.JLabel();
-        jbChoose = new javax.swing.JButton();
+        String[] roleModel=new String[] { "Random", "Mustard", "Peacok", "Green", "White", "Scarlet", "Plum" };
+        String[] playerOptions=new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") };
+        String[] levelOptions=new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  };
         jcbPlayerOneRole = new javax.swing.JComboBox<>();
         jlPlayerOne = new javax.swing.JLabel();
         jlPlayerTwo = new javax.swing.JLabel();
@@ -78,134 +82,127 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         jlName = new javax.swing.JLabel();
         jlRole = new javax.swing.JLabel();
         jlLevel = new javax.swing.JLabel();
-        jbMustard = new javax.swing.JButton();
-        jbGreen = new javax.swing.JButton();
-        jbPeacock = new javax.swing.JButton();
-        jbPlum = new javax.swing.JButton();
-        jbScarlet = new javax.swing.JButton();
-        jbWhite = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setSize(new java.awt.Dimension(0, 0));
-
+        JPanel jpBase = new JPanel();
         jpBase.setBackground(new java.awt.Color(255, 30, 21));
         jpBase.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
-
+        JLabel jlLogo = new JLabel();
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cluedolabel.png"))); // NOI18N
-
+        JButton jbChoose = new JButton();
         jbChoose.setBackground(new java.awt.Color(180, 0, 0));
-        jbChoose.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jbChoose.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbChoose.setText("Ok");
-        jbChoose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbChooseActionPerformed(evt);
-            }
+        jbChoose.addActionListener((java.awt.event.ActionEvent evt) -> {
+            jbChooseActionPerformed();
         });
 
-        jcbPlayerOneRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Random", "Mustard", "Peacok", "Green", "White", "Scarlet", "Plum" }));
+        jcbPlayerOneRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
 
-        jlPlayerOne.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlPlayerOne.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayerOne.setText(LanguageStrings.getString("Menu.PlayerOne"));
 
-        jlPlayerTwo.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlPlayerTwo.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayerTwo.setText(LanguageStrings.getString("Menu.PlayerTwo"));
 
-        jcbPlayerTwoRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Random", "Mustard", "Peacok", "Green", "White", "Scarlet", "Plum" }));
+        jcbPlayerTwoRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
 
-        jlPlayerThree.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlPlayerThree.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayerThree.setText(LanguageStrings.getString("Menu.PlayerThree"));
 
-        jcbPlayerThreeRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Random", "Mustard", "Peacok", "Green", "White", "Scarlet", "Plum" }));
+        jcbPlayerThreeRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
 
-        jlPlayerFour.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlPlayerFour.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayerFour.setText(LanguageStrings.getString("Menu.PlayerFour"));
 
-        jcbPlayerFourRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Random", "Mustard", "Peacok", "Green", "White", "Scarlet", "Plum" }));
+        jcbPlayerFourRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
 
-        jlPlayerFive.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlPlayerFive.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayerFive.setText(LanguageStrings.getString("Menu.PlayerFive"));
 
-        jcbPlayerFiveRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Random", "Mustard", "Peacok", "Green", "White", "Scarlet", "Plum" }));
+        jcbPlayerFiveRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
 
-        jlPlayerSix.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlPlayerSix.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayerSix.setText(LanguageStrings.getString("Menu.PlayerSix"));
 
-        jcbPlayerSixRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Random", "Mustard", "Peacok", "Green", "White", "Scarlet", "Plum" }));
+        jcbPlayerSixRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
 
-        jcbPlayerOnePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") }));
+        jcbPlayerOnePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
         addActionListenerToJcbPlayerPersonality(jcbPlayerOnePersonality, 0);
 
-        jcbPlayerTwoPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") }));
+        jcbPlayerTwoPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
         addActionListenerToJcbPlayerPersonality(jcbPlayerTwoPersonality, 1);
 
-        jcbPlayerThreePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") }));
+        jcbPlayerThreePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
         addActionListenerToJcbPlayerPersonality(jcbPlayerThreePersonality, 2);
 
-        jcbPlayerFourPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") }));
+        jcbPlayerFourPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
         addActionListenerToJcbPlayerPersonality(jcbPlayerFourPersonality, 3);
 
-        jcbPlayerFivePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") }));
+        jcbPlayerFivePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
         addActionListenerToJcbPlayerPersonality(jcbPlayerFivePersonality, 4);
 
-        jcbPlayerSixPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") }));
+        jcbPlayerSixPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
         addActionListenerToJcbPlayerPersonality(jcbPlayerSixPersonality, 5);
 
-        jcbPlayerOneDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
+        jcbPlayerOneDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
         jcbPlayerOneDifficulty.setEnabled(false);
 
-        jcbPlayerTwoDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
+        jcbPlayerTwoDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
         jcbPlayerTwoDifficulty.setEnabled(false);
 
-        jcbPlayerThreeDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
+        jcbPlayerThreeDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
         jcbPlayerThreeDifficulty.setEnabled(false);
 
-        jcbPlayerFourDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
+        jcbPlayerFourDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
         jcbPlayerFourDifficulty.setEnabled(false);
 
-        jcbPlayerFiveDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
+        jcbPlayerFiveDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
         jcbPlayerFiveDifficulty.setEnabled(false);
 
-        jcbPlayerSixDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate") }));
+        jcbPlayerSixDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
         jcbPlayerSixDifficulty.setEnabled(false);
 
-        jlTitle.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jlTitle.setFont(new java.awt.Font(FONT_TYPE, 1, 36)); // NOI18N
         jlTitle.setText(LanguageStrings.getString("Menu.PlayerTitle"));
 
-        jlName.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlName.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlName.setText(LanguageStrings.getString("Menu.Name"));
 
-        jlRole.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlRole.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlRole.setText(LanguageStrings.getString("Menu.Role"));
        
-        jlLevel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlLevel.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlLevel.setText(LanguageStrings.getString("Menu.Level"));
-
-        jbMustard.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        JButton jbMustard = new JButton();
+        jbMustard.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbMustard.setForeground(new java.awt.Color(255, 51, 0));
         jbMustard.setText("Mustard");
         addActionListenerToButton(jbMustard);
-
-        jbGreen.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        JButton jbGreen = new JButton();
+        jbGreen.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbGreen.setForeground(new java.awt.Color(0, 51, 0));
         jbGreen.setText("Green");
         addActionListenerToButton(jbGreen);
-
-        jbPeacock.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        JButton jbPeacock = new JButton();
+        jbPeacock.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbPeacock.setForeground(new java.awt.Color(0, 0, 153));
         jbPeacock.setText("Peacock");
         addActionListenerToButton(jbPeacock);
-
-        jbPlum.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        JButton jbPlum = new JButton();
+        jbPlum.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbPlum.setForeground(new java.awt.Color(102, 0, 153));
         jbPlum.setText("Plum");
         addActionListenerToButton(jbPlum);
-
-        jbScarlet.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        JButton jbScarlet = new JButton();
+        jbScarlet.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbScarlet.setForeground(new java.awt.Color(204, 0, 0));
         jbScarlet.setText("Scarlet");
         addActionListenerToButton(jbScarlet);
 
-        jbWhite.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        JButton jbWhite = new JButton();
+        jbWhite.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbWhite.setText("White");
         addActionListenerToButton(jbWhite);
 
@@ -406,13 +403,10 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         jcbPlayerFiveDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
         jcbPlayerSixDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
     }
-    private void jbChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbChooseActionPerformed
-        int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null); //TODO: write the concrete role and player number
+    private void jbChooseActionPerformed() {//GEN-FIRST:event_jbChooseActionPerformed
+        int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null);
         if(answer==JOptionPane.YES_OPTION){
               SwingUtilities.invokeLater(() -> {
-/*   Trial trial=new Trial();
-   trial.setVisible(true);*/
-
             GameBoard gameBoard = new GameBoard();
             gameBoard.setVisible(true);
             doUponExit();
@@ -420,11 +414,9 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         }
     }//GEN-LAST:event_jbChooseActionPerformed
       private void addActionListenerToJcbPlayerPersonality(JComboBox comboBox, int serialNumber){
-        comboBox.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jcbPlayerPersonalityActionPerformed(evt, serialNumber);
-    }
-});
+        comboBox.addActionListener((java.awt.event.ActionEvent evt) -> {
+            jcbPlayerPersonalityActionPerformed(evt, serialNumber);
+        });
     }
     private void jcbPlayerPersonalityActionPerformed(ActionEvent evt, int serialNumber){
        
@@ -435,26 +427,47 @@ public class RoleChooserWindow extends AbstractBaseWindow {
   
        
     }private void addActionListenerToButton(JButton button){
-    button.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
+    button.addActionListener((java.awt.event.ActionEvent evt) -> {
         jbRoleActionPerfromed(evt);
-    }
-});
+    });
 }
     private void jbRoleActionPerfromed(ActionEvent evt){
-        //TODO: Give parameters for description and picture link
-    JOptionPane.showMessageDialog(this, "description: Special ability of chosen player.", ((JButton)evt.getSource()).getText(), JOptionPane.INFORMATION_MESSAGE/*, new ImageIcon(getClass().getResource(cardInDatabase.getRepresentationLink()))*/);
+      String chosenRole=((JButton)evt.getSource()).getText();
+      String description="";
+      ImageIcon image=null;
+      switch(chosenRole){
+          case "Plum":
+              description=LanguageStrings.getString("Plum.description");
+              image=new ImageIcon(getClass().getResource("/settings/plum.png"));
+              break;
+          case "Green":
+              description=LanguageStrings.getString("Green.description");
+              image=new ImageIcon(getClass().getResource("/settings/green.png"));
+              break;
+          case "Scarlet":
+              description=LanguageStrings.getString("Scarlet.description");
+              image=new ImageIcon(getClass().getResource("/settings/scarlet.png"));;
+              break;
+          case "White":
+              description=LanguageStrings.getString("White.description");
+              image=new ImageIcon(getClass().getResource("/settings/white.png"));
+              break;
+          case "Peacock":
+              description=LanguageStrings.getString("Peacock.description");
+              image=new ImageIcon(getClass().getResource("/settings/peacock.png"));
+              break;
+          case "Mustard":
+              description=LanguageStrings.getString("Mustard.description");
+              image=new ImageIcon(getClass().getResource("/settings/mustard.png"));
+              break;
+          default:
+              break;
+      }
+    JOptionPane.showMessageDialog(this, description, ((JButton)evt.getSource()).getText(), JOptionPane.INFORMATION_MESSAGE, image);
 }
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbChoose;
-    private javax.swing.JButton jbGreen;
-    private javax.swing.JButton jbMustard;
-    private javax.swing.JButton jbPeacock;
-    private javax.swing.JButton jbPlum;
-    private javax.swing.JButton jbScarlet;
-    private javax.swing.JButton jbWhite;
     private javax.swing.JComboBox<String> jcbPlayerFiveDifficulty;
     private javax.swing.JComboBox<String> jcbPlayerFivePersonality;
     private javax.swing.JComboBox<String> jcbPlayerFiveRole;
@@ -474,7 +487,6 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     private javax.swing.JComboBox<String> jcbPlayerTwoPersonality;
     private javax.swing.JComboBox<String> jcbPlayerTwoRole;
     private javax.swing.JLabel jlLevel;
-    private javax.swing.JLabel jlLogo;
     private javax.swing.JLabel jlName;
     private javax.swing.JLabel jlPlayerFive;
     private javax.swing.JLabel jlPlayerFour;
@@ -484,7 +496,6 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     private javax.swing.JLabel jlPlayerTwo;
     private javax.swing.JLabel jlRole;
     private javax.swing.JLabel jlTitle;
-    private javax.swing.JPanel jpBase;
     private javax.swing.JTextField jtfPlayerFiveName;
     private javax.swing.JTextField jtfPlayerFourName;
     private javax.swing.JTextField jtfPlayerOneName;

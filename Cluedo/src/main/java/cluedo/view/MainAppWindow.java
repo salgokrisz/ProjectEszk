@@ -1,18 +1,21 @@
 
 package cluedo.view;
 
-import cluedo.Tools.LanguageString.Language;
-import cluedo.Tools.LanguageString.LanguageStrings;
+import cluedo.tools.languagestring.Language;
+import cluedo.tools.languagestring.LanguageStrings;
+import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
 
 /**
  * This class is the main window of the application. From here you can start new
  * game and select number of players and language options.
- * @author bornemis
  */
 public class MainAppWindow extends AbstractBaseWindow {
-
+    
     /**
      * Creates new form Trial
      */
@@ -25,117 +28,95 @@ public class MainAppWindow extends AbstractBaseWindow {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bgLanguage = new javax.swing.ButtonGroup();
-        bgPlayers = new javax.swing.ButtonGroup();
-        jpBase = new javax.swing.JPanel();
-        jlTitle = new javax.swing.JLabel();
         jbNewGame = new javax.swing.JButton();
-        jlPicture = new javax.swing.JLabel();
         jlLanguageChooser = new javax.swing.JLabel();
         jrbEnglish = new javax.swing.JRadioButton();
         jrbHungarian = new javax.swing.JRadioButton();
         jlPlayers = new javax.swing.JLabel();
-        jrbTwo = new javax.swing.JRadioButton();
-        jrbThree = new javax.swing.JRadioButton();
-        jrbFour = new javax.swing.JRadioButton();
-        jrbFive = new javax.swing.JRadioButton();
-        jrbSix = new javax.swing.JRadioButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setSize(new java.awt.Dimension(1366, 770));
-
+        JPanel jpBase = new JPanel();
         jpBase.setBackground(new java.awt.Color(255, 30, 21));
         jpBase.setForeground(new java.awt.Color(180, 0, 0));
-
+        JLabel jlTitle = new javax.swing.JLabel();
         jlTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/title.JPG"))); // NOI18N
 
         jbNewGame.setBackground(new java.awt.Color(180, 0, 0));
-        jbNewGame.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jbNewGame.setFont(new java.awt.Font(FONT_TYPE, 1, 18)); // NOI18N
         jbNewGame.setText(LanguageStrings.getString("Menu.NewGame"));
         jbNewGame.setEnabled(false);
-        jbNewGame.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbNewGameActionPerformed(evt);
-            }
+        jbNewGame.addActionListener((java.awt.event.ActionEvent evt) -> {
+            jbNewGameActionPerformed();
         });
-
+        JLabel jlPicture = new JLabel();
         jlPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mystery.png"))); // NOI18N
 
-        jlLanguageChooser.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlLanguageChooser.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlLanguageChooser.setText(LanguageStrings.getString("Menu.Language"));
 
         jrbEnglish.setBackground(new java.awt.Color(255, 30, 21));
+        ButtonGroup bgLanguage = new javax.swing.ButtonGroup();
         bgLanguage.add(jrbEnglish);
-        jrbEnglish.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jrbEnglish.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbEnglish.setText(LanguageStrings.getString("Menu.English"));
         jrbEnglish.setSelected(true);
-        jrbEnglish.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbEnglishActionPerformed(evt);
-            }
+        jrbEnglish.addActionListener((java.awt.event.ActionEvent evt) -> {
+            jrbEnglishActionPerformed(evt);
         });
 
         jrbHungarian.setBackground(new java.awt.Color(255, 30, 21));
         bgLanguage.add(jrbHungarian);
-        jrbHungarian.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jrbHungarian.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbHungarian.setText(LanguageStrings.getString("Menu.Hungarian"));
-        jrbHungarian.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbHungarianActionPerformed(evt);
-            }
+        jrbHungarian.addActionListener((java.awt.event.ActionEvent evt) -> {
+            jrbHungarianActionPerformed();
         });
 
-        jlPlayers.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlPlayers.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayers.setText(LanguageStrings.getString("Menu.PlayerNumber"));
 
-        jrbTwo.setBackground(new java.awt.Color(255, 30, 21));
+       JRadioButton jrbTwo = new JRadioButton();
+       jrbTwo.setBackground(new java.awt.Color(255, 30, 21));
+        ButtonGroup bgPlayers = new javax.swing.ButtonGroup();
         bgPlayers.add(jrbTwo);
         jrbTwo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jrbTwo.setText("2");
         jrbTwo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbTwoActionPerformed(evt);
+                jrbTwoActionPerformed();
             }
         });
-
+        JRadioButton jrbThree = new JRadioButton();
         jrbThree.setBackground(new java.awt.Color(255, 30, 21));
         bgPlayers.add(jrbThree);
-        jrbThree.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jrbThree.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbThree.setText("3");
-        jrbThree.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbThreeActionPerformed(evt);
-            }
+        jrbThree.addActionListener((java.awt.event.ActionEvent evt) -> {
+            jrbThreeActionPerformed();
         });
-
+        JRadioButton jrbFour = new JRadioButton();
         jrbFour.setBackground(new java.awt.Color(255, 30, 21));
         bgPlayers.add(jrbFour);
-        jrbFour.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jrbFour.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbFour.setText("4");
-        jrbFour.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbFourActionPerformed(evt);
-            }
+        jrbFour.addActionListener((java.awt.event.ActionEvent evt) -> {
+            jrbFourActionPerformed();
         });
-
+        JRadioButton jrbFive = new JRadioButton();
         jrbFive.setBackground(new java.awt.Color(255, 30, 21));
         bgPlayers.add(jrbFive);
-        jrbFive.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jrbFive.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbFive.setText("5");
-        jrbFive.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbFiveActionPerformed(evt);
-            }
+        jrbFive.addActionListener((java.awt.event.ActionEvent evt) -> {
+            jrbFiveActionPerformed();
         });
-
+        JRadioButton jrbSix = new JRadioButton();
         jrbSix.setBackground(new java.awt.Color(255, 30, 21));
         bgPlayers.add(jrbSix);
-        jrbSix.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jrbSix.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbSix.setText("6");
-        jrbSix.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbSixActionPerformed(evt);
-            }
+        jrbSix.addActionListener((java.awt.event.ActionEvent evt) -> {
+            jrbSixActionPerformed();
         });
 
         javax.swing.GroupLayout jpBaseLayout = new javax.swing.GroupLayout(jpBase);
@@ -233,40 +214,40 @@ public class MainAppWindow extends AbstractBaseWindow {
 
     }//GEN-LAST:event_jrbEnglishActionPerformed
 
-    private void jrbHungarianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbHungarianActionPerformed
+    private void jrbHungarianActionPerformed() {//GEN-FIRST:event_jrbHungarianActionPerformed
          LanguageStrings.changeLanguage(Language.HUN);
          resetStringsOnWindow();
 
          
     }//GEN-LAST:event_jrbHungarianActionPerformed
 
-    private void jrbTwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbTwoActionPerformed
+    private void jrbTwoActionPerformed() {//GEN-FIRST:event_jrbTwoActionPerformed
         jbNewGame.setEnabled(true);
         //set players to 2
     }//GEN-LAST:event_jrbTwoActionPerformed
 
-    private void jrbThreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbThreeActionPerformed
+    private void jrbThreeActionPerformed() {//GEN-FIRST:event_jrbThreeActionPerformed
         jbNewGame.setEnabled(true);
         //set players to 3
     }//GEN-LAST:event_jrbThreeActionPerformed
 
-    private void jrbFourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbFourActionPerformed
+    private void jrbFourActionPerformed() {//GEN-FIRST:event_jrbFourActionPerformed
         jbNewGame.setEnabled(true);
         //set players to 4
     }//GEN-LAST:event_jrbFourActionPerformed
 
-    private void jrbFiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbFiveActionPerformed
+    private void jrbFiveActionPerformed() {//GEN-FIRST:event_jrbFiveActionPerformed
         jbNewGame.setEnabled(true);
         //set players to 5
     }//GEN-LAST:event_jrbFiveActionPerformed
 
-    private void jrbSixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbSixActionPerformed
+    private void jrbSixActionPerformed() {//GEN-FIRST:event_jrbSixActionPerformed
         jbNewGame.setEnabled(true);
         //set players to 6
     }//GEN-LAST:event_jrbSixActionPerformed
 
-    private void jbNewGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNewGameActionPerformed
-        int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null); //TODO: write settings here
+    private void jbNewGameActionPerformed() {//GEN-FIRST:event_jbNewGameActionPerformed
+        int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null);
         if(answer==JOptionPane.YES_OPTION){
               SwingUtilities.invokeLater(() -> {
    
@@ -281,20 +262,11 @@ public class MainAppWindow extends AbstractBaseWindow {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup bgLanguage;
-    private javax.swing.ButtonGroup bgPlayers;
+    
     private javax.swing.JButton jbNewGame;
     private javax.swing.JLabel jlLanguageChooser;
-    private javax.swing.JLabel jlPicture;
     private javax.swing.JLabel jlPlayers;
-    private javax.swing.JLabel jlTitle;
-    private javax.swing.JPanel jpBase;
     private javax.swing.JRadioButton jrbEnglish;
-    private javax.swing.JRadioButton jrbFive;
-    private javax.swing.JRadioButton jrbFour;
     private javax.swing.JRadioButton jrbHungarian;
-    private javax.swing.JRadioButton jrbSix;
-    private javax.swing.JRadioButton jrbThree;
-    private javax.swing.JRadioButton jrbTwo;
     // End of variables declaration//GEN-END:variables
 }

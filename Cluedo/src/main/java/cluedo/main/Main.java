@@ -3,6 +3,7 @@ package cluedo.main;
 
 import cluedo.view.MainAppWindow;
 import javax.swing.SwingUtilities;
+import cluedo.tools.Tools;
 
 /**
  * The main class (entry point) of the application.
@@ -10,6 +11,7 @@ import javax.swing.SwingUtilities;
  */
 public class Main {
    public static void main(String[] args) {
+       Tools.connectLogToFile();
     SwingUtilities.invokeLater(() -> {
    
 

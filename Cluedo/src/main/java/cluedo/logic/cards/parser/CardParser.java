@@ -1,17 +1,20 @@
 package cluedo.logic.cards.parser;
 
 import cluedo.logic.cards.*;
+import static cluedo.tools.Tools.LOG;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.InvalidPathException;
  
 import java.nio.file.Paths;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -19,13 +22,16 @@ import javax.json.JsonReader;
 import javax.json.JsonArray;
  
 public class CardParser {
+    private CardParser(){}
     
-    public static List<List<Card>> Parse () {
+    public static List<List<Card>> parse () {
+        List<List<Card>> cards = new ArrayList<> ();
+        try{
         String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-        currentPath += "/src/main/java/cluedo/Resources/";
+        currentPath += "/src/main/java/cluedo/resources/";
          
-        String JSONPath = currentPath + "Cards.json";
-        try (InputStream is = new FileInputStream(new File(JSONPath))){
+        String jsonPath = currentPath + "Cards.json";
+        try (InputStream is = new FileInputStream(new File(jsonPath))){
             JsonReader reader = Json.createReader(is);
             JsonObject cardsObj = reader.readObject();
             reader.close();
@@ -38,18 +44,24 @@ public class CardParser {
             List<Card> weapons = getCardsFromJsonObj(weaponsObj, Card.Type.WEAPON);
             List<Card> rooms = getCardsFromJsonObj(roomsObj, Card.Type.ROOM);
             
-            List<List<Card>> cards = new ArrayList<List<Card>> ();
+            
             cards.add(persons);
             cards.add(weapons);
             cards.add(rooms);
             
             return cards; 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LOG.warning(e.getMessage());
+            cards.clear();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.warning(e.getMessage());
+            cards.clear();
         }
-        return null;
+        }catch(InvalidPathException e){
+            LOG.log(Level.SEVERE, e.getMessage());
+            cards.clear();
+        }
+        return cards;
     }
     
     private static List<Card> getCardsFromJsonObj (JsonObject cardsObj, Card.Type type ) {      

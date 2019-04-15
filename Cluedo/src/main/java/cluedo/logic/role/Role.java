@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.role;
 
 import javax.swing.ImageIcon;
@@ -19,8 +15,8 @@ public abstract class Role {
     protected Color color;
     protected boolean abilityIsAvailable;
     protected final String name;
-    public static String abilityDescription;
-    public static ImageIcon image;
+    protected static String abilityDescription;
+    protected static ImageIcon image;
     public Role( String name){
         abilityIsAvailable=true;
         this.name=name;

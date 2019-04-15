@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.fields;
 
 import cluedo.logic.fields.FieldType.Type;
@@ -19,7 +15,7 @@ public class SecretField extends RoomField {
     private int toRoomX;
     private int toRoomY;
     
-    public SecretField(int x,int y,Type type,boolean walkeAble,boolean someOneOn,String roomName, boolean hasSecretPath,int fromRoomX,int fromRoomY,int toRoomX, int toRoomY){
+    public SecretField(int x,int y, Type type, boolean walkeAble,boolean someOneOn,String roomName, boolean hasSecretPath,int fromRoomX,int fromRoomY,int toRoomX, int toRoomY){
         super(x,y,type,walkeAble,someOneOn,roomName,hasSecretPath);
         this.fromRoomX = fromRoomX;
         this.fromRoomY = fromRoomY;
@@ -58,12 +54,20 @@ public class SecretField extends RoomField {
     public void setToRoomY(int toRoomY) {
         this.toRoomY = toRoomY;
     }
-    
-
     @Override
     public String toString() {
         return super.toString()+" fromRoom:" + fromRoomX+","+fromRoomY + " toRoom:" + toRoomX+","+toRoomY;
     }
-    
-    
+    @Override
+    public boolean equals(Object obj){
+        if(obj.getClass()!=SecretField.class){
+            return false;
+        }else{
+            return super.equals(obj);
+        }
+    }
+    @Override
+    public int hashCode(){
+        return super.hashCode();
+    }  
 }

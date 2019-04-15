@@ -1,9 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.role;
+
+import javax.swing.ImageIcon;
 
 /**
  * This class represents a character called Green.
@@ -15,13 +13,15 @@ public class Green extends Role{
     public Green(String playerName){
         super( playerName);
         this.color=Color.GREEN;
+        abilityDescription="Green.description";
+        image=new ImageIcon(getClass().getResource("/settings/green.png"));
     }
     public Green(Green other){
         super(other.getName());
          this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
     }
-      public Object clone(){
+      public Object cloneObject(){
         return new Green(this);
     }
     @Override

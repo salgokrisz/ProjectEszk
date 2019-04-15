@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.fields;
 
 import cluedo.logic.fields.FieldType.Type;
 
 /**
  *  This class represents a room field on the map.
- * This calss is the parent of the SecretField class.
+ * This class is the parent of the SecretField class.
  * This class is extends the Field class.
  * 
  */
@@ -43,6 +39,17 @@ public class RoomField extends Field{
     public String toString(){
         return super.toString()+" roomName:"+roomName+" hasSecretPath:"+hasSecretPath;
     }
-    
+    @Override
+    public boolean equals(Object obj){
+        if(obj.getClass()!=RoomField.class){
+            return false;
+        }else{
+            return super.equals(obj);
+        }
+    }
+    @Override
+    public int hashCode(){
+        return super.hashCode();
+    }
     
 }

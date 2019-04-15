@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.fields;
 
 import cluedo.logic.fields.FieldType.Type;
@@ -16,8 +12,8 @@ import cluedo.logic.fields.FieldType.Type;
 public class StartField extends Field {
     private String belongsTo;
     
-    public StartField(int x,int y,Type type,boolean walkeAble,boolean someOneOn,String belongsTo){
-        super(x,y,type,walkeAble,someOneOn);
+    public StartField(int x,int y,boolean walkeAble,boolean someOneOn,String belongsTo){
+        super(x,y,Type.START,walkeAble,someOneOn);
         this.belongsTo = belongsTo;
     }
     
@@ -33,6 +29,16 @@ public class StartField extends Field {
     public String toString(){
         return super.toString()+" belingsTo:"+belongsTo;
     }
-    
-    
+    @Override
+    public boolean equals(Object obj){
+        if(obj.getClass()!=StartField.class){
+            return false;
+        }else{
+            return super.equals(obj);
+        }
+    }
+    @Override
+    public int hashCode(){
+        return super.hashCode();
+    }   
 }

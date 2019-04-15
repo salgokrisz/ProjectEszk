@@ -78,6 +78,15 @@ Cards.Rooms.LivingRoom=Nappali
 Cards.Rooms.Bath=Fűrdő
 Cards.Rooms.GuestHouse=Vendégház
 
+#RoleDescriptions
+
+Plum.description=<html>A játék során egyszer egy helyett kétszer<br>gyanúsíthatsz ugyanabból a helyiségből.</html>
+Scarlet.description=<html>A játék során egyszer megnézheted egy kártyáját,<br>annak a játékosnak, aki éppen megmutatott egy<br>kártyát egy másik játékosnak.</html>
+Peacock.description=<html>A játék során egyszer véletlenszerűen<br>húzhatsz egy kártyát valakitől, akinek éppen<br>megmutattál egyet, és megnézheted.</html>
+Mustard.description=<html>A játék során egy esetben, kétszer léphetsz.<br>Dobj a kockával, lépj, majd dobj úra.</html>
+Green.description=<html>A játék során egyszer egy olyan helyiségben is gyanúsíthatsz,<br>amelyben nem tartózkodsz.<br>A gyanúsításban megnevezett személy<br>a helyiségbe lép.</html>
+White.description=<html>A játék során egyszer, bármelyik helyiségbe<br>beléphetsz, amelyiknek nincs<br>titkos átjárója.</html>
+
 #Tests
 Test.1=test1_hun
 Test.2=test2_hun

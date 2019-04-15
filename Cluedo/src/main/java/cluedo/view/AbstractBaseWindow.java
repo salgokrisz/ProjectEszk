@@ -5,12 +5,12 @@ package cluedo.view;
  *Parent class of the important classes of view part. It contains rules for like
  * exiting from the game, window title, menu bar and gives method for asking for
  * approval.
- * @author bornemis
  */
 
 
-import cluedo.Tools.LanguageString.Language;
-import cluedo.Tools.LanguageString.LanguageStrings;
+import static cluedo.tools.Tools.LOG;
+import cluedo.tools.languagestring.Language;
+import cluedo.tools.languagestring.LanguageStrings;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -30,32 +30,33 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
  public abstract class AbstractBaseWindow extends JFrame {
-  protected JMenu mHelper = new JMenu(LanguageStrings.getString("ToolBar.Helper"));
-
+protected JMenu mHelper = new JMenu(LanguageStrings.getString("ToolBar.Helper"));
+protected static final String FONT_TYPE="Times New Roman";
     JMenuItem miEnglish = new JMenuItem(LanguageStrings.getString("Menu.English"));
         JMenuItem miHungarian=new JMenuItem(LanguageStrings.getString("Menu.Hungarian"));
     protected JMenu mLanguages = new JMenu(LanguageStrings.getString("ToolBar.Languages"));
-public static Set<JFrame> openedWindowsSet;
+protected static Set<JFrame> openedWindowsSet=new HashSet<>();
 
     protected JMenuBar mb;
 
     protected final JMenuItem miInfo = new JMenuItem(LanguageStrings.getString("ToolBar.Information"));
     public AbstractBaseWindow(){
-
-        openedWindowsSet=new HashSet<>();
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("CLUEDO");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(0, 0, screenSize.width, screenSize.height - 30);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
+                formWindowClosing();
             }
         });
         setMenu();
     }
-  
+    public void addToOpenedWindowsSet(JFrame window){
+        openedWindowsSet.add(window);
+    }
     protected void setMenu() {
         mb = new JMenuBar();
         setJMenuBar(mb);
@@ -75,14 +76,9 @@ public static Set<JFrame> openedWindowsSet;
         miHungarian.addActionListener(changeToHungarian());
     }
     protected ActionListener changeToHungarian(){
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LanguageStrings.changeLanguage(Language.HUN);
-               
-
-              resetStringsOnWindow();
-            }
+        return (ActionEvent e) -> {
+            LanguageStrings.changeLanguage(Language.HUN);  
+            resetStringsOnWindow();
         };
     }
      protected void resetStringsOnWindow(){
@@ -93,22 +89,16 @@ public static Set<JFrame> openedWindowsSet;
          miInfo.setText(LanguageStrings.getString("ToolBar.Information"));
      }
     protected ActionListener changeToEnglish() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LanguageStrings.changeLanguage(Language.ENG);
-
-              resetStringsOnWindow();
-            }
+        return (ActionEvent e) -> {
+            LanguageStrings.changeLanguage(Language.ENG);
+            
+            resetStringsOnWindow();
         };
     }
  
     protected ActionListener showDescription() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, LanguageStrings.getString("JOptionPane.ApplicationInfo"), LanguageStrings.getString("JOptionPane.Description"), JOptionPane.INFORMATION_MESSAGE);
-            }
+        return (ActionEvent e) -> {
+            JOptionPane.showMessageDialog(null, LanguageStrings.getString("JOptionPane.ApplicationInfo"), LanguageStrings.getString("JOptionPane.Description"), JOptionPane.INFORMATION_MESSAGE);
         };
     }
   public void closeWindow(){
@@ -120,7 +110,7 @@ public static Set<JFrame> openedWindowsSet;
             }
             doUponExit();
   }
-    protected void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
+    protected void formWindowClosing() {                                   
       
         int answer=showConfirmation(LanguageStrings.getString("JOptionPane.ClosingApproval"), null);
         if (answer == JOptionPane.YES_OPTION) {
@@ -159,10 +149,10 @@ public static Set<JFrame> openedWindowsSet;
         private static boolean isLinkValid(URL url){
             boolean valid=true;
          try {
-            BufferedImage myPicture = ImageIO.read(url);
+            ImageIO.read(url);
         } catch (IOException ex) {
             valid=false;
-            System.err.println("Nem sikerült megnyitni a megjelenítendő képet!"+url.toString());
+            LOG.warning("Error while opening picture!"+url.toString());
         }
          return valid;
 }

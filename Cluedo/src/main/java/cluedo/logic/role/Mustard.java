@@ -1,9 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.role;
+
+import static cluedo.logic.role.Role.image;
+import javax.swing.ImageIcon;
 
 /**
   This class represents a character called Mustard.
@@ -15,13 +14,15 @@ public class Mustard extends Role{
     public Mustard(String playerName) {
         super(playerName);
         this.color=Color.ORANGE;
+        abilityDescription="Mustard.description";
+        image=new ImageIcon(getClass().getResource("/settings/mustard.png"));
     }
     public Mustard(Mustard other){
         super(other.getName());
         this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
     }
-      public Object clone(){
+      public Object cloneObject(){
         return new Mustard(this);
     }
     @Override

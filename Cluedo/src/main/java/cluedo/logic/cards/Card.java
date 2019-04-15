@@ -1,40 +1,71 @@
 package cluedo.logic.cards;
 
-import cluedo.Tools.LanguageString.LanguageStrings;
+import cluedo.tools.languagestring.LanguageStrings;
+import java.util.Objects;
 
 public class Card {
-    public static enum Type {
+    public enum Type {
       WEAPON,
       PERSON,
       ROOM,
       UNKNOWN
-    };
+    }
     
     public final String name;
     public final String imageName;
     public final Type type;
     
-    private final String UIStringKey;
+    private final String uiStringKey;
     
-    public Card (String name, String image, String UIStringKey, Type type) {
+    public Card (String name, String image, String uiStringKey, Type type) {
         this.name = name;
         this.imageName = image;
-        this.UIStringKey = UIStringKey;
+        this.uiStringKey = uiStringKey;
         this.type = type;
     }
-    
-    public String GetNameForUI () {
-        return LanguageStrings.getString (UIStringKey);
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public Type getType() {
+        return type;
     }
     
-    //only for debug 
+    public String getNameForUI () {
+        return LanguageStrings.getString (uiStringKey);
+    }
+    
+    //only for debug
+    @Override
     public String toString () {
         return  "Type : " + type.toString() + ", " +
                 "Name : " + name + ", " +
                 "Image : " + imageName + ", " +
-                "UIKey : " + UIStringKey + ", " + 
-                "UIString : " + GetNameForUI();
+                "UIKey : " + uiStringKey + ", " + 
+                "UIString : " + getNameForUI();
     }
     
-    //TODO: equals method on two card
+    @Override
+    public boolean equals(Object obj){
+        if(obj==null){
+            return false;
+        }
+        if(obj==this){
+            return true;
+        }
+        if(obj.getClass()!=Card.class){
+            return false;
+        }
+        Card other=(Card)obj;
+        return other.getType()==type && other.getName().equals(name);
+    }
+    @Override
+    public int hashCode(){
+        return Objects.hash(type, name);
+    }
 }

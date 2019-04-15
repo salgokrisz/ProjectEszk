@@ -5,17 +5,15 @@
  */
 package cluedo.logic.fields;
 
+import cluedo.logic.fields.FieldType.Type;
+
 /**
  *
  * @author Bence
  */
 public class IntricField extends Field{
     
-    public IntricField(int x,int y,FieldType.Type type,boolean walkeAble,boolean someOneOn){
-        super(x,y,type,walkeAble,someOneOn);
+    public IntricField(int x,int y, boolean walkeAble,boolean someOneOn){
+        super(x,y,Type.INTRIC,walkeAble,someOneOn);
     }
-    
-    /*public Intric DrawIntric(){
-        //TO-DO Draw intric method programming
-    }*/
 }

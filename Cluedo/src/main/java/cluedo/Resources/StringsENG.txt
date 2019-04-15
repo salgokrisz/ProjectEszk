@@ -78,6 +78,15 @@ Cards.Rooms.LivingRoom=Living room
 Cards.Rooms.Bath=Bath
 Cards.Rooms.GuestHouse=GuestHouse
 
+#RoleDescriptions
+
+Plum.description=<html>Once in the game you can start two rumours<br>instead of one from the same room.</html>
+Scarlet.description=<html>Once in the game you can ask to see the card<br>that one player is<br>showing to another player.</html>
+Peacock.description=<html>Once in the game you can take a random card<br>from a player you just showed a card to<br>and can take a look at it.</html>
+Mustard.description=<html>Once in the game you can roll a dice twice.<br>Roll a dice, move then roll again.</html>
+Green.description=<html>Once in the game you can start a rumour<br>about a room you are actually not in.<br>The person in the rumour will move<br>into that selected room.</html>
+White.description=<html>Once in the game you can enter to any room<br>which has no secret corridor.</html>
+
 #Tests
 Test.1=test1_eng
 Test.2=test2_eng

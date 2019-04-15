@@ -15,6 +15,7 @@ import cluedo.logic.fields.SecretField;
 import cluedo.logic.fields.StartField;
 import cluedo.logic.map.MapParser;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class get the list from the mapParser and it will
@@ -24,8 +25,8 @@ import java.util.ArrayList;
  * 
  */
 public class FieldFactory {
-    protected ArrayList<ArrayList<Field>> generatedMap;
-    protected ArrayList<ArrayList<String>> mapStrings;
+    protected List<List<Field>> generatedMap;
+    protected List<List<String>> mapStrings;
     protected MapParser mp = new MapParser();
     
     public FieldFactory(String fileName){
@@ -37,56 +38,56 @@ public class FieldFactory {
         mapStrings = MapParser.getMapList();
         createFields();
     }
-    
+    private void processField(int row, int column){
+                 if(mapStrings.get(row).get(column).contains(":")){
+                    String[] helper = mapStrings.get(row).get(column).split(":");
+                    if(helper[0].equals("E")){
+                        boolean hasSecret = false;
+                        if (helper[2].equals("1")){
+                            hasSecret = true;
+                        }
+                        Field e = new EntranceField(row,column,true,false,helper[1],hasSecret);
+                        generatedMap.get(row).add(e);
+                    }else if(helper[0].equals("Se")){
+                        boolean hasSecret = false;
+                        if (helper[2].equals("1")){
+                            hasSecret = true;
+                        }
+                        Field s = new SecretField(row,column,Type.SECRET, true,false,helper[1],hasSecret,Integer.parseInt(helper[2]),Integer.parseInt(helper[3]),Integer.parseInt(helper[4]),Integer.parseInt(helper[5]));
+                        generatedMap.get(row).add(s);
+                    }else if(helper[0].equals("St")){
+                        Field st = new StartField(row,column,true,false,helper[1]);
+                        generatedMap.get(row).add(st);
+                    }else if(helper[0].equals("R")){
+                        boolean hasSecretPath = false;
+                        if (helper[2].equals("1")){
+                            hasSecretPath = true;
+                        }
+                        Field r = new RoomField(row,column,Type.ROOM, true,false,helper[1],hasSecretPath);
+                        generatedMap.get(row).add(r);
+                    }else if(helper[0].equals("En")){
+                        Field en = new EndField(row,column,true,false,null,null,null);
+                        generatedMap.get(row).add(en);
+                    }else if(helper[0].equals("I")){
+                        Field intric = new IntricField(row,column,true,false);
+                        generatedMap.get(row).add(intric);
+                    }
+                }else{
+                     Field e = new Field(row,column,Type.FIELD,true,false);
+                     generatedMap.get(row).add(e);
+                }
+    }
     private void createFields(){
         generatedMap = new ArrayList<>();
-        String[] helper;
         for(int i = 0; i< mapStrings.size();i++){
             generatedMap.add(new ArrayList<>());
             for(int j = 0; j < mapStrings.get(i).size();j++){
-                if(mapStrings.get(i).get(j).contains(":")){
-                    helper = mapStrings.get(i).get(j).split(":");
-                    if(helper[0].equals('E')){
-                        boolean hasSecret = false;
-                        if (helper[2].equals(1)){
-                            hasSecret = true;
-                        }
-                        Field e = new EntranceField(i,j,Type.ENTRANCE,true,false,helper[1],hasSecret);
-                        generatedMap.get(i).add(e);
-                    }else if(helper[0].equals("Se")){
-                        boolean hasSecret = false;
-                        if (helper[2].equals(1)){
-                            hasSecret = true;
-                        }
-                        Field s = new SecretField(i,j,Type.SECRET,true,false,helper[1],hasSecret,Integer.parseInt(helper[2]),Integer.parseInt(helper[3]),Integer.parseInt(helper[4]),Integer.parseInt(helper[5]));
-                        generatedMap.get(i).add(s);
-                    }else if(helper[0].equals("St")){
-                        Field st = new StartField(i,j,Type.START,true,false,helper[1]);
-                        generatedMap.get(i).add(st);
-                    }else if(helper[0].equals("R")){
-                        boolean hasSecretPath = false;
-                        if (helper[2].equals(1)){
-                            hasSecretPath = true;
-                        }
-                        Field r = new RoomField(i,j,Type.ROOM,true,false,helper[1],hasSecretPath);
-                        generatedMap.get(i).add(r);
-                    }else if(helper[0].equals("En")){
-                        Field en = new EndField(i,j,Type.END,true,false,null,null,null);
-                        generatedMap.get(i).add(en);
-                    }else if(helper[0].equals("I")){
-                        Field intric = new IntricField(i,j,Type.END,true,false);
-                        generatedMap.get(i).add(intric);
-                    }
-                }else{
-                     Field e = new Field(i,j,Type.FIELD,true,false);
-                     generatedMap.get(i).add(e);
-                }
-                
+                processField(i, j);             
             }
         }
     }
 
-    public ArrayList<ArrayList<Field>> getGeneratedMap() {
+    public List<List<Field>> getGeneratedMap() {
         return generatedMap;
     }
     

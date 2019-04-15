@@ -1,9 +1,11 @@
 package cluedo.Tools.LanguageString.parser;
 
-import cluedo.Tools.LanguageString.Language;
+import cluedo.tools.languagestring.parser.LanguageStringsParser;
+import cluedo.tools.languagestring.Language;
 
 import java.util.HashMap;
 import java.nio.file.Paths;
+import java.util.Map;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -60,8 +62,8 @@ public class LanguageStringsParserTest {
         } else {
             assertTrue(false);
         }
-        HashMap<String, String> strings = null;
-        strings = LanguageStringsParser.Parse (L, true, GetTXTPath_forTest(L));
+        Map<String, String> strings = null;
+        strings = LanguageStringsParser.parse (L, true, GetTXTPath_forTest(L));
         
         assertNotNull(strings);
         assertEquals(5, strings.size());

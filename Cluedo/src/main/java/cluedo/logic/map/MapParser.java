@@ -1,28 +1,17 @@
 package cluedo.logic.map;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
-
-import cluedo.exceptions.WrongFiledTypeException;
+import static cluedo.tools.Tools.LOG;
 
 public class MapParser{
-
-    private static char[][] mapCharArray;
-    private static ArrayList<ArrayList<String>> mapList;
-    private static File fileName;
-
-    public MapParser(){
-        mapList=new ArrayList<>();
-        //mapCharArray = ca;
-    }
+    private static List<List<String>> mapList=new ArrayList<>();
 
     public void openFile(String fn){
-        try {
-                ClassLoader classLoader = getClass().getClassLoader();
-	        File file = new File(classLoader.getResource(fn).getFile());          
-                BufferedReader br = new BufferedReader(new FileReader(file));
-
+        mapList.clear();
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(fn).getFile());
+        try (FileReader fr=new FileReader(file); BufferedReader br = new BufferedReader(fr);){
                 String line;
                 boolean wasErrorInFile=false;
                 while ((line = br.readLine()) != null && !wasErrorInFile) {
@@ -43,18 +32,20 @@ public class MapParser{
                     mapList.clear();
                 }
         }catch(FileNotFoundException e){
-            System.out.println("File not found");
+            LOG.warning("File not found");
         }catch (IOException e){
-            System.out.println("IO Error");
+            LOG.warning("IO Error");
+        }catch(Exception e){
+            LOG.warning(e.getMessage());
         }
     }
 
-    public boolean isCorrectCharacter(String character){// throws WrongFiledTypeException{
+    public boolean isCorrectCharacter(String character){
        return  character.equals("F") || character.equals("R") || character.equals("E");
 
     }
 
-    public static ArrayList<ArrayList<String>> getMapList(){
+    public static List<List<String>> getMapList(){
         return mapList;
     }
 }

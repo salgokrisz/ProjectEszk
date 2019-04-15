@@ -17,8 +17,8 @@ public class EntranceField extends Field {
     private String roomName;
     private boolean roomHasSecret;
     
-    public EntranceField(int x,int y,Type type,boolean walkeAble,boolean someOneOn,String roomName,boolean roomHasSecret){
-        super(x,y,type,walkeAble,someOneOn);
+    public EntranceField(int x,int y,boolean walkeAble,boolean someOneOn,String roomName,boolean roomHasSecret){
+        super(x,y,Type.ENTRANCE,walkeAble,someOneOn);
         this.roomName = roomName;
         this.roomHasSecret = roomHasSecret;
     }
@@ -41,9 +41,18 @@ public class EntranceField extends Field {
 
     @Override
     public String toString() {
-        return this.toString()+" roomName:" + roomName + " roomHasSecret:" + roomHasSecret;
+        return super.toString()+" roomName:" + roomName + " roomHasSecret:" + roomHasSecret;
     }
-    
-    
-    
+    @Override
+    public boolean equals(Object obj){
+        if(obj.getClass()!=EntranceField.class){
+            return false;
+        }else{
+            return super.equals(obj);
+        }
+    }
+    @Override
+    public int hashCode(){
+        return super.hashCode();
+    } 
 }

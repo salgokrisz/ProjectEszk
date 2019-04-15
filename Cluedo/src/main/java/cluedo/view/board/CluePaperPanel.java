@@ -1,24 +1,23 @@
 
 package cluedo.view.board;
 
-import cluedo.Tools.LanguageString.LanguageStrings;
+import cluedo.tools.languagestring.LanguageStrings;
 import javax.swing.JCheckBox;
 
 /**
  * This class represents the clue paper for the game. On it the players can mark
  * the clues which are known by them.
- * @author bornemis
  */
 public class CluePaperPanel extends javax.swing.JPanel {
 
-
+    private static final String FONT_TYPE="Times New Roman";
     public CluePaperPanel() {
         initComponents();
     }
 private void customizeCheckBox(JCheckBox checkBox, String title){
     checkBox.setBackground(new java.awt.Color(255, 255, 255));
 
-    checkBox.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+    checkBox.setFont(new java.awt.Font(FONT_TYPE, 0, 12)); // NOI18N
 
     checkBox.setText(title);
 }
@@ -30,21 +29,7 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
         jlGuests = new javax.swing.JLabel();
         jlRooms = new javax.swing.JLabel();
         jlWeapons = new javax.swing.JLabel();
-        jcMustard = new javax.swing.JCheckBox();
-        jcPlum = new javax.swing.JCheckBox();
-        jcGreen = new javax.swing.JCheckBox();
-        jcPeacock = new javax.swing.JCheckBox();
-        jcScarlet = new javax.swing.JCheckBox();
-        jcWhite = new javax.swing.JCheckBox();
-        jcRoom1 = new javax.swing.JCheckBox();
-        jcRoom2 = new javax.swing.JCheckBox();
-        jcRoom3 = new javax.swing.JCheckBox();
-        jcRoom4 = new javax.swing.JCheckBox();
-        jcRoom5 = new javax.swing.JCheckBox();
-        jcRoom6 = new javax.swing.JCheckBox();
-        jcRoom7 = new javax.swing.JCheckBox();
-        jcRoom8 = new javax.swing.JCheckBox();
-        jcRoom9 = new javax.swing.JCheckBox();
+        JCheckBox jcWhite = new JCheckBox();
         jcKnife = new javax.swing.JCheckBox();
         jcCandleHolder = new javax.swing.JCheckBox();
         jcGun = new javax.swing.JCheckBox();
@@ -58,43 +43,43 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(403, 259));
 
-        jlGuests.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlGuests.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlGuests.setText(LanguageStrings.getString("GameBoard.Guests"));
 
-        jlRooms.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlRooms.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
 
-        jlWeapons.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlWeapons.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlWeapons.setText(LanguageStrings.getString("GameBoard.Weapons"));
-
+        JCheckBox jcMustard = new JCheckBox();
         customizeCheckBox(jcMustard, "Mustard");
-
+        JCheckBox jcPlum = new JCheckBox();
         customizeCheckBox(jcPlum, "Plum");
-
+        JCheckBox jcGreen = new JCheckBox();
         customizeCheckBox(jcGreen, "Green");
-
+        JCheckBox jcPeacock = new JCheckBox();
         customizeCheckBox(jcPeacock, "Peacock");
-
+        JCheckBox jcScarlet = new JCheckBox();
         customizeCheckBox(jcScarlet, "Scarlet");
 
         customizeCheckBox(jcWhite, "White");
-
+        JCheckBox jcRoom1 = new JCheckBox();
         customizeCheckBox(jcRoom1, "Room1");
-
+        JCheckBox jcRoom2 = new JCheckBox();
         customizeCheckBox(jcRoom2, "Room2");
-
+        JCheckBox jcRoom3 = new JCheckBox();
         customizeCheckBox(jcRoom3, "Room3");
-
+        JCheckBox jcRoom4 = new JCheckBox();
         customizeCheckBox(jcRoom4, "Room4");
-
+        JCheckBox jcRoom5 = new JCheckBox();
         customizeCheckBox(jcRoom5, "Room5");
-
+        JCheckBox jcRoom6 = new JCheckBox();
         customizeCheckBox(jcRoom6, "Room6");
-
+        JCheckBox jcRoom7 = new JCheckBox();
         customizeCheckBox(jcRoom7, "Room7");
-
+        JCheckBox jcRoom8 = new JCheckBox();
         customizeCheckBox(jcRoom8, "Room8");
-
+        JCheckBox jcRoom9 = new JCheckBox();
         customizeCheckBox(jcRoom9, "Room9");
 
         customizeCheckBox(jcKnife, LanguageStrings.getString("GameBoard.Knife"));
@@ -234,28 +219,13 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox jcAxe;
     private javax.swing.JCheckBox jcCandleHolder;
-    private javax.swing.JCheckBox jcGreen;
     private javax.swing.JCheckBox jcGun;
     private javax.swing.JCheckBox jcHammer;
     private javax.swing.JCheckBox jcKnife;
-    private javax.swing.JCheckBox jcMustard;
-    private javax.swing.JCheckBox jcPeacock;
-    private javax.swing.JCheckBox jcPlum;
     private javax.swing.JCheckBox jcPoison;
-    private javax.swing.JCheckBox jcRoom1;
-    private javax.swing.JCheckBox jcRoom2;
-    private javax.swing.JCheckBox jcRoom3;
-    private javax.swing.JCheckBox jcRoom4;
-    private javax.swing.JCheckBox jcRoom5;
-    private javax.swing.JCheckBox jcRoom6;
-    private javax.swing.JCheckBox jcRoom7;
-    private javax.swing.JCheckBox jcRoom8;
-    private javax.swing.JCheckBox jcRoom9;
     private javax.swing.JCheckBox jcRope;
-    private javax.swing.JCheckBox jcScarlet;
     private javax.swing.JCheckBox jcTrophy;
     private javax.swing.JCheckBox jcWeight;
-    private javax.swing.JCheckBox jcWhite;
     private javax.swing.JLabel jlGuests;
     private javax.swing.JLabel jlRooms;
     private javax.swing.JLabel jlWeapons;

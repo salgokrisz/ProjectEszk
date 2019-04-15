@@ -1,29 +1,33 @@
-package cluedo.Tools.LanguageString.parser;
+package cluedo.tools.languagestring.parser;
 
+import static cluedo.tools.Tools.LOG;
 import java.util.HashMap;
+import java.util.Map;
 import java.io.BufferedReader;
 import java.nio.file.Paths;
-import cluedo.Tools.LanguageString.Language;
+import cluedo.tools.languagestring.Language;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.nio.file.InvalidPathException;
 
 public class LanguageStringsParser {
-    public static HashMap<String, String> Parse (Language L, boolean test, String testTXT) {
-        String txtPath = GetTXTPath (L);
+    private LanguageStringsParser(){}
+    
+    public static Map<String, String> parse (Language l, boolean test, String testTXT) {
+        String txtPath = getTXTPath (l);
         if (test) {
             txtPath = testTXT;
         } 
         if (txtPath == null) return null;
-        
-        try (BufferedReader br = new BufferedReader (new InputStreamReader(
-                      new FileInputStream(txtPath), "UTF8"))) {
-            HashMap<String, String> Data = new HashMap<>();
-            
+        HashMap<String, String> data = new HashMap<>();
+        try(FileInputStream is=new FileInputStream(txtPath); InputStreamReader isr=new InputStreamReader(
+                      is, "UTF8");BufferedReader br = new BufferedReader (isr)) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] lineParts = line.split("=");
                 if (lineParts.length == 2) {
-                    Data.put (lineParts[0], lineParts[1]);
+                    data.put (lineParts[0], lineParts[1]);
                     
                 } else if (lineParts.length > 2) {
                     StringBuilder sb = new StringBuilder();
@@ -31,23 +35,29 @@ public class LanguageStringsParser {
                         sb.append (lineParts[i]);
                         sb.append ('=');
                     }                    
-                    Data.put (lineParts[0], sb.toString ());
+                    data.put (lineParts[0], sb.toString ());
                 } 
             }
-            return Data;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.warning(e.getMessage());
+            data.clear();
         }
-        return null;
+        return data;
     }
     
-    private static String GetTXTPath (Language L) {
-        String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-        currentPath += "/src/main/java/cluedo/Resources/";
+    private static String getTXTPath (Language L) {
+        String currentPath=null;
+        try{
+        currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+        currentPath += "/src/main/java/cluedo/resources/";
         switch (L) {
             case HUN : return currentPath + "StringsHUN.txt";
             case ENG : return currentPath + "StringsENG.txt";
             default  : return null; 
         }
+    }catch(InvalidPathException e){
+        LOG.log(Level.SEVERE,e.getMessage());
     }
+        return currentPath;  
+}
 }

@@ -32,43 +32,36 @@ public class PlayerFactory {
         for(int i = 0; i<playersList.size();i++){
             String[] data = playersList.get(i).split(",");
             if(data[0].equals("G")){
-                Role role = new Green("Green");
-                if(data[1].equals("AI")){                    
-                    Player ai = new Ai(role,true);
-                    players.add(ai);
-                }else if(data[1].equals(PLAYER_STRING)){
-                    Player player = new Player(role,false);
-                    players.add(player);
-                }                
+                addGreenPlayer(data);
             }else if(data[0].equals("M")){
-                Role role = new Mustard("Mustard");
-                if(data[1].equals("AI")){                    
-                    Player ai = new Ai(role,true);
-                    players.add(ai);
-                }else if(data[1].equals(PLAYER_STRING)){
-                    Player player = new Player(role,false);
-                    players.add(player);
-                }
+               addMustardPlayer(data);
             }else if(data[0].equals("Pe")){
-                Role role = new Peacock("Peacock");
-                if(data[1].equals("AI")){                    
-                    Player ai = new Ai(role,true);
-                    players.add(ai);
-                }else if(data[1].equals(PLAYER_STRING)){
-                    Player player = new Player(role,false);
-                    players.add(player);
-                }
+                addPeacockPlayer(data);
             }else if(data[0].equals("Pl")){
-                 Role role = new Plum("Plum");
-                if(data[1].equals("AI")){                    
-                    Player ai = new Ai(role,true);
-                    players.add(ai);
-                }else if(data[1].equals(PLAYER_STRING)){
-                    Player player = new Player(role,false);
-                    players.add(player);
-                }
+                addPlumPlayer(data);
             }else if(data[0].equals("S")){
-                Role role = new Scarlet("Scarlet");
+                addScarletPlayer(data);
+            }else if(data[0].equals("W")){
+                addWhitePlayer(data);
+            }
+           
+        }
+        
+    }
+    
+    private void addGreenPlayer(String[] data){
+        Role role = new Green("Green");
+                if(data[1].equals("AI")){                    
+                    Player ai = new Ai(role,true);
+                    players.add(ai);
+                }else if(data[1].equals(PLAYER_STRING)){
+                    Player player = new Player(role,false);
+                    players.add(player);
+                }  
+    }
+    
+    private void addMustardPlayer(String[] data){
+         Role role = new Mustard("Mustard");
                 if(data[1].equals("AI")){                    
                     Player ai = new Ai(role,true);
                     players.add(ai);
@@ -76,8 +69,43 @@ public class PlayerFactory {
                     Player player = new Player(role,false);
                     players.add(player);
                 }
-            }else if(data[0].equals("W")){
-                 Role role = new White("White"); 
+    }
+    
+    private void addPeacockPlayer(String[] data){
+        Role role = new Peacock("Peacock");
+                if(data[1].equals("AI")){                    
+                    Player ai = new Ai(role,true);
+                    players.add(ai);
+                }else if(data[1].equals(PLAYER_STRING)){
+                    Player player = new Player(role,false);
+                    players.add(player);
+                }
+    }
+    
+    private void addPlumPlayer(String[] data){
+         Role role = new Plum("Plum");
+                if(data[1].equals("AI")){                    
+                    Player ai = new Ai(role,true);
+                    players.add(ai);
+                }else if(data[1].equals(PLAYER_STRING)){
+                    Player player = new Player(role,false);
+                    players.add(player);
+                }
+    }
+    
+    private void addScarletPlayer(String[] data){
+        Role role = new Scarlet("Scarlet");
+                if(data[1].equals("AI")){                    
+                    Player ai = new Ai(role,true);
+                    players.add(ai);
+                }else if(data[1].equals(PLAYER_STRING)){
+                    Player player = new Player(role,false);
+                    players.add(player);
+                }
+    }
+    
+    private void addWhitePlayer(String[] data){
+        Role role = new White("White"); 
                  if(data[1].equals("AI")){
                     Player ai = new Ai(role,true);
                     players.add(ai);
@@ -85,10 +113,6 @@ public class PlayerFactory {
                     Player player = new Player(role,false);
                     players.add(player);
                 }
-            }
-           
-        }
-        
     }
     
     public ArrayList<Player> getPlayers(){

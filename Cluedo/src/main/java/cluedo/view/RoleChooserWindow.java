@@ -1,15 +1,10 @@
 package cluedo.view;
 
-import cluedo.logic.role.Green;
-import cluedo.logic.role.Mustard;
-import cluedo.logic.role.Peacock;
-import cluedo.logic.role.Plum;
-import cluedo.logic.role.Scarlet;
-import cluedo.logic.role.White;
 import cluedo.tools.languagestring.LanguageStrings;
 import cluedo.view.board.GameBoard;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
@@ -28,7 +23,8 @@ import javax.swing.SwingUtilities;
  */
 public class RoleChooserWindow extends AbstractBaseWindow {
     private Map<Integer, PlayerComponent> playerComponents=new HashMap<>();
-  
+    private final String[] playerOptions=new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") };
+    private final String[] levelOptions=new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  };
     public RoleChooserWindow() {
         initComponents();
         initPlayerComponents();
@@ -46,8 +42,6 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         String[] roleModel=new String[] { "Random", "Mustard", "Peacok", "Green", "White", "Scarlet", "Plum" };
-        String[] playerOptions=new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") };
-        String[] levelOptions=new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  };
         jcbPlayerOneRole = new javax.swing.JComboBox<>();
         jlPlayerOne = new javax.swing.JLabel();
         jlPlayerTwo = new javax.swing.JLabel();
@@ -390,18 +384,18 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         jlName.setText(LanguageStrings.getString("Menu.Name"));
         jlRole.setText(LanguageStrings.getString("Menu.Role"));
         jlLevel.setText(LanguageStrings.getString("Menu.Level"));
-        jcbPlayerOnePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") }));
-        jcbPlayerTwoPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") }));
-        jcbPlayerThreePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") }));
-        jcbPlayerFourPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") }));
-        jcbPlayerFivePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") }));
-        jcbPlayerSixPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") }));
-        jcbPlayerOneDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
-        jcbPlayerTwoDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
-        jcbPlayerThreeDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
-        jcbPlayerFourDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
-        jcbPlayerFiveDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
-        jcbPlayerSixDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  }));
+        jcbPlayerOnePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
+        jcbPlayerTwoPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
+        jcbPlayerThreePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
+        jcbPlayerFourPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
+        jcbPlayerFivePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
+        jcbPlayerSixPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
+        jcbPlayerOneDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
+        jcbPlayerTwoDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
+        jcbPlayerThreeDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
+        jcbPlayerFourDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
+        jcbPlayerFiveDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
+        jcbPlayerSixDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
     }
     private void jbChooseActionPerformed() {//GEN-FIRST:event_jbChooseActionPerformed
         int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null);
@@ -414,8 +408,11 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         }
     }//GEN-LAST:event_jbChooseActionPerformed
       private void addActionListenerToJcbPlayerPersonality(JComboBox comboBox, int serialNumber){
-        comboBox.addActionListener((java.awt.event.ActionEvent evt) -> {
-            jcbPlayerPersonalityActionPerformed(evt, serialNumber);
+        comboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbPlayerPersonalityActionPerformed(evt, serialNumber);
+            }
         });
     }
     private void jcbPlayerPersonalityActionPerformed(ActionEvent evt, int serialNumber){

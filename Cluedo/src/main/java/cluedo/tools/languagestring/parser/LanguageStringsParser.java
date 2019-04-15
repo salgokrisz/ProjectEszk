@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import cluedo.tools.languagestring.Language;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.nio.file.InvalidPathException;
 
@@ -22,7 +23,7 @@ public class LanguageStringsParser {
         if (txtPath == null) return null;
         HashMap<String, String> data = new HashMap<>();
         try(FileInputStream is=new FileInputStream(txtPath); InputStreamReader isr=new InputStreamReader(
-                      is, "UTF8");BufferedReader br = new BufferedReader (isr)) {
+                      is, StandardCharsets.UTF_8);BufferedReader br = new BufferedReader (isr)) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] lineParts = line.split("=");
@@ -45,12 +46,12 @@ public class LanguageStringsParser {
         return data;
     }
     
-    private static String getTXTPath (Language L) {
+    private static String getTXTPath (Language l) {
         String currentPath=null;
         try{
         currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
         currentPath += "/src/main/java/cluedo/resources/";
-        switch (L) {
+        switch (l) {
             case HUN : return currentPath + "StringsHUN.txt";
             case ENG : return currentPath + "StringsENG.txt";
             default  : return null; 

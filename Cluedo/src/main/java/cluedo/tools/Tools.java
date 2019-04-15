@@ -15,6 +15,7 @@ import java.util.logging.SimpleFormatter;
  */
 public class Tools {
     public static final Logger LOG = Logger.getLogger( "logger");
+    private Tools(){}
     public static void connectLogToFile(){
          try {  
         // This block configure the logger with handler and formatter

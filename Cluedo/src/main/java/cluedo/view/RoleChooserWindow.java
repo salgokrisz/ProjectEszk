@@ -414,11 +414,8 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         }
     }//GEN-LAST:event_jbChooseActionPerformed
       private void addActionListenerToJcbPlayerPersonality(JComboBox comboBox, int serialNumber){
-        comboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbPlayerPersonalityActionPerformed(evt, serialNumber);
-            }
+        comboBox.addActionListener((java.awt.event.ActionEvent evt) -> {
+            jcbPlayerPersonalityActionPerformed(evt, serialNumber);
         });
     }
     private void jcbPlayerPersonalityActionPerformed(ActionEvent evt, int serialNumber){
@@ -449,7 +446,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
               break;
           case SCARLET:
               description=LanguageStrings.getString("Scarlet.description");
-              image=new ImageIcon(getClass().getResource("/settings/scarlet.png"));;
+              image=new ImageIcon(getClass().getResource("/settings/scarlet.png"));
               break;
           case WHITE:
               description=LanguageStrings.getString("White.description");

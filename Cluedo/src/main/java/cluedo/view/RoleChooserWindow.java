@@ -25,6 +25,12 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     private Map<Integer, PlayerComponent> playerComponents=new HashMap<>();
     private final String[] playerOptions=new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") };
     private final String[] levelOptions=new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  };
+    private static final String SCARLET="Scarlet";
+    private static final String PEACOCK="Peacock";
+        private static final String WHITE="White";
+    private static final String MUSTARD="Mustard";
+    private static final String GREEN="Green";
+    private static final String PLUM="Plum";
     public RoleChooserWindow() {
         initComponents();
         initPlayerComponents();
@@ -41,7 +47,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        String[] roleModel=new String[] { "Random", "Mustard", "Peacok", "Green", "White", "Scarlet", "Plum" };
+        String[] roleModel=new String[] { "Random", MUSTARD, PEACOCK, GREEN, WHITE, SCARLET, PLUM };
         jcbPlayerOneRole = new javax.swing.JComboBox<>();
         jlPlayerOne = new javax.swing.JLabel();
         jlPlayerTwo = new javax.swing.JLabel();
@@ -172,32 +178,32 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         JButton jbMustard = new JButton();
         jbMustard.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbMustard.setForeground(new java.awt.Color(255, 51, 0));
-        jbMustard.setText("Mustard");
+        jbMustard.setText(MUSTARD);
         addActionListenerToButton(jbMustard);
         JButton jbGreen = new JButton();
         jbGreen.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbGreen.setForeground(new java.awt.Color(0, 51, 0));
-        jbGreen.setText("Green");
+        jbGreen.setText(GREEN);
         addActionListenerToButton(jbGreen);
         JButton jbPeacock = new JButton();
         jbPeacock.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbPeacock.setForeground(new java.awt.Color(0, 0, 153));
-        jbPeacock.setText("Peacock");
+        jbPeacock.setText(PEACOCK);
         addActionListenerToButton(jbPeacock);
         JButton jbPlum = new JButton();
         jbPlum.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbPlum.setForeground(new java.awt.Color(102, 0, 153));
-        jbPlum.setText("Plum");
+        jbPlum.setText(PLUM);
         addActionListenerToButton(jbPlum);
         JButton jbScarlet = new JButton();
         jbScarlet.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbScarlet.setForeground(new java.awt.Color(204, 0, 0));
-        jbScarlet.setText("Scarlet");
+        jbScarlet.setText(SCARLET);
         addActionListenerToButton(jbScarlet);
 
         JButton jbWhite = new JButton();
         jbWhite.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
-        jbWhite.setText("White");
+        jbWhite.setText(WHITE);
         addActionListenerToButton(jbWhite);
 
         javax.swing.GroupLayout jpBaseLayout = new javax.swing.GroupLayout(jpBase);
@@ -433,27 +439,27 @@ public class RoleChooserWindow extends AbstractBaseWindow {
       String description="";
       ImageIcon image=null;
       switch(chosenRole){
-          case "Plum":
+          case PLUM:
               description=LanguageStrings.getString("Plum.description");
               image=new ImageIcon(getClass().getResource("/settings/plum.png"));
               break;
-          case "Green":
+          case GREEN:
               description=LanguageStrings.getString("Green.description");
               image=new ImageIcon(getClass().getResource("/settings/green.png"));
               break;
-          case "Scarlet":
+          case SCARLET:
               description=LanguageStrings.getString("Scarlet.description");
               image=new ImageIcon(getClass().getResource("/settings/scarlet.png"));;
               break;
-          case "White":
+          case WHITE:
               description=LanguageStrings.getString("White.description");
               image=new ImageIcon(getClass().getResource("/settings/white.png"));
               break;
-          case "Peacock":
+          case PEACOCK:
               description=LanguageStrings.getString("Peacock.description");
               image=new ImageIcon(getClass().getResource("/settings/peacock.png"));
               break;
-          case "Mustard":
+          case MUSTARD:
               description=LanguageStrings.getString("Mustard.description");
               image=new ImageIcon(getClass().getResource("/settings/mustard.png"));
               break;

@@ -60,6 +60,9 @@ public class SecretField extends RoomField {
     }
     @Override
     public boolean equals(Object obj){
+         if(obj==null){
+            return false;
+        }
         if(obj.getClass()!=SecretField.class){
             return false;
         }else{

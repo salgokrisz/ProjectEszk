@@ -45,6 +45,9 @@ public class EntranceField extends Field {
     }
     @Override
     public boolean equals(Object obj){
+         if(obj==null){
+            return false;
+        }
         if(obj.getClass()!=EntranceField.class){
             return false;
         }else{

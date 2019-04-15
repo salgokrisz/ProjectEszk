@@ -50,6 +50,9 @@ public class EndField extends Field{
     }
     @Override
     public boolean equals(Object obj){
+        if(obj==null){
+            return false;
+        }
         if(obj.getClass()!=EndField.class){
             return false;
         }else{

@@ -31,6 +31,9 @@ public class StartField extends Field {
     }
     @Override
     public boolean equals(Object obj){
+         if(obj==null){
+            return false;
+        }
         if(obj.getClass()!=StartField.class){
             return false;
         }else{

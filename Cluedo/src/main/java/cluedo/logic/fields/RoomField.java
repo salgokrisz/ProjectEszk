@@ -41,6 +41,9 @@ public class RoomField extends Field{
     }
     @Override
     public boolean equals(Object obj){
+         if(obj==null){
+            return false;
+        }
         if(obj.getClass()!=RoomField.class){
             return false;
         }else{

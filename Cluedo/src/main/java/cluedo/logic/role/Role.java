@@ -77,12 +77,12 @@ public abstract class Role {
             return false;
         }
         Role other=(Role) obj;
-        return other.getName().equals(name) && other.getColor()==color;
+        return other.getColor()==color;
     }
     
     @Override
     public int hashCode(){
-        return Objects.hash(name, color);
+        return Objects.hash(color);
     }
     
     public abstract void useSpecialAbility();

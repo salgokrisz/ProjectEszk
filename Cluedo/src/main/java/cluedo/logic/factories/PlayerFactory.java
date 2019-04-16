@@ -15,8 +15,10 @@ import cluedo.logic.role.Scarlet;
 import cluedo.logic.role.White;
 import cluedo.logic.player.Player;
 import cluedo.logic.role.Role;
+import cluedo.tools.Tools;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This class will get a List of Strings and it will
@@ -24,9 +26,23 @@ import java.util.List;
  *
  */
 public class PlayerFactory {
-    private static final String PLAYER_STRING="PLAYER";
+    List<String> availableRolesInString;
+    public PlayerFactory(){
+        fillUpAvailableRoles();
+    }
+    private void fillUpAvailableRoles(){
+        availableRolesInString=new ArrayList<>();
+        availableRolesInString.add("Plum");
+        availableRolesInString.add("Scarlet");
+        availableRolesInString.add("Green");
+        availableRolesInString.add("White");
+        availableRolesInString.add("Mustard");
+        availableRolesInString.add("Peacock");       
+    }
+    
    private Role getAppropriateRole(String roleInString, String playerName){
        Role role=null;
+       availableRolesInString.remove(roleInString);
        switch(roleInString){
            case "Plum":
                role=new Plum(playerName);
@@ -47,6 +63,7 @@ public class PlayerFactory {
                role=new Peacock(playerName);
                break;
            case "Random":
+               role=getAppropriateRole(availableRolesInString.get(Tools.randomizeNumber(availableRolesInString.size())), playerName);
                break;
            default:
                break;
@@ -64,6 +81,8 @@ public class PlayerFactory {
                 ExperienceLevel experienceLevel;
                 if(data[3].trim().equals("Kezdő") || data[3].trim().equals("Beginner")){
                     experienceLevel=ExperienceLevel.BEGINNER;
+                }else if(data[3].trim().equals("Random")){
+                    experienceLevel=ExperienceLevel.values()[Tools.randomizeNumber(ExperienceLevel.values().length)];
                 }else{
                     experienceLevel=ExperienceLevel.INTERMEDIATE;
                 }

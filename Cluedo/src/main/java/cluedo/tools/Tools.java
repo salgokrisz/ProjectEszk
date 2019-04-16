@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -15,6 +16,14 @@ import java.util.logging.SimpleFormatter;
  */
 public class Tools {
     public static final Logger LOG = Logger.getLogger( "logger");
+    private static Random rand = new Random();
+    public static int randomizeNumber(int to) {
+        int randNumber=0;
+        if(to>1){
+            randNumber=rand.nextInt(to);
+        }
+        return randNumber;
+    }
     private Tools(){}
     public static void connectLogToFile(){
          try {  

@@ -4,6 +4,7 @@ import cluedo.logic.cards.Card;
 import cluedo.logic.cards.parser.CardParser;
 import cluedo.logic.factories.PlayerFactory;
 import cluedo.logic.player.Player;
+import cluedo.tools.Tools;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,7 +12,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -23,7 +23,6 @@ public class GameController {
     private int numberOfPlayers;
     private int numberOfComputerPlayers;
     private List<Player> players;
-    Random rand = new Random();
 
     public int getNumberOfPlayers() {
         return numberOfPlayers;
@@ -49,7 +48,7 @@ public class GameController {
     public List<Player> roleDicesForDecidingStarterPlayer() {
         Map<Player, Integer> droppedNumbers = new HashMap<>();
         for (int i = 0; i < numberOfPlayers; ++i) {
-            droppedNumbers.put(players.get(i), randomizeNumber(6) + 1);
+            droppedNumbers.put(players.get(i), Tools.randomizeNumber(6) + 1);
         }
         int maximumIndex = chooseMaximumNumber(droppedNumbers);
         return findPlayersWithMaxNumber(maximumIndex, droppedNumbers);
@@ -139,33 +138,36 @@ public class GameController {
         return maximum;
     }
 
-    public int randomizeNumber(int to) {        
-        return rand.nextInt(to);
-    }
-
     private Card chooseKillerCard(List<Card> suspectCards) {
         Collections.shuffle(suspectCards);
         return suspectCards.get(0);
     }
 
-    public void initializeSuspectCards() {
-        List<List<Card>> cards = CardParser.parse();
-        List<Card> suspectCards = new LinkedList<>();
-        for (int i = 0; i < 3; ++i) {
-            List<Card> parts = cards.get(i);
-            Card killer = chooseKillerCard(parts);
+    public void initializeSuspectCards(){
+        List<List<Card>> cards=CardParser.parse();
+        List<Card> suspectCards=new LinkedList<>();
+        for(int i=0; i<3; ++i){
+            List<Card> parts=cards.get(i);
+            Card killer=chooseKillerCard(parts);
             parts.remove(killer);
             fillUpSupsectCardWithCards(parts, suspectCards);
         }
         Collections.shuffle(suspectCards);
-        int remainingCardNumber = suspectCards.size() % numberOfPlayers;
-        for (int i = 0; i < suspectCards.size() - remainingCardNumber; ++i) {
-            players.get(i).drawSuspectCard(suspectCards.remove(i));
+        int remainingCardNumber=suspectCards.size()%numberOfPlayers;
+        int cardNumberToShare=suspectCards.size()-remainingCardNumber;
+        int playerCounter=0;
+        for(int i=0; i<cardNumberToShare; ++i){ 
+            players.get(playerCounter).drawSuspectCard(suspectCards.remove(0));
+            if(playerCounter==players.size()-1){
+                playerCounter=0;
+            }else{
+                playerCounter+=1;
+            }
         }
     }
-
+    
     public void initializeGame() {
-        initializeSuspectCards();
+        initializeSuspectCards();   
         sortPlayers();
     }
 

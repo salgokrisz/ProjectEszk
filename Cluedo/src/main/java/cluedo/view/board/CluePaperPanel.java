@@ -25,7 +25,15 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+        jcHall=new JCheckBox();
+        jcEatery=new JCheckBox();
+        jcKitchen=new JCheckBox();
+        jcTerrace=new JCheckBox();
+        jcPlanetarium=new JCheckBox();
+        jcCinema=new JCheckBox();
+        jcLivingRoom=new JCheckBox();
+        jcBath=new JCheckBox();
+        jcGuestHouse=new JCheckBox();
         jlGuests = new javax.swing.JLabel();
         jlRooms = new javax.swing.JLabel();
         jlWeapons = new javax.swing.JLabel();
@@ -89,7 +97,7 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
 
         customizeCheckBox(jcAxe, LanguageStrings.getString("Cards.Weapons.Axe"));
 
-        customizeCheckBox(jcDumbbell, LanguageStrings.getString("Cards.Weapons.Dumbbel"));
+        customizeCheckBox(jcDumbbell, LanguageStrings.getString("Cards.Weapons.Dumbbell"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -43,15 +43,6 @@ JOptionPane.PersonalityAttention=Az összes számítógép, illetve emberi ját�
 GameBoard.Guests=Vendégek
 GameBoard.Weapons=Fegyverek
 GameBoard.Rooms=Helyiségek
-GameBoard.Knife=Kés
-GameBoard.CandleHolder=Gyertyatartó
-GameBoard.Gun=Pisztoly
-GameBoard.Poison=Méreg
-GameBoard.Trophy=Trófea
-GameBoard.Rope=Kötél
-GameBoard.Racket=Ütő
-GameBoard.Axe=Balta
-GameBoard.Weight=Súlyzó
 
 #Cards
 Cards.Persons.Mustard=Mustard

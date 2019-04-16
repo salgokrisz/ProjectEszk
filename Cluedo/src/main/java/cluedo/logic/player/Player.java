@@ -54,7 +54,7 @@ public class Player {
             return false;
         }
         Player other=(Player)obj;
-        return other.getRole().equals(role);
+        return role.equals(other.getRole());
     }
     
     @Override

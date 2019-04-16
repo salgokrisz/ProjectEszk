@@ -468,8 +468,8 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     
     private void jbChooseActionPerformed() {//GEN-FIRST:event_jbChooseActionPerformed
         if(allNamesAreCorrect()){
+            if(allPersonalitiesWereChosen()){
         int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null);
-        if(allPersonalitiesWereChosen()){
         if(answer==JOptionPane.YES_OPTION){
               sendPlayerPropertiesToController();
               gameController.initializeGame();

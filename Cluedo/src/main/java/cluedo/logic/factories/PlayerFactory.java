@@ -46,6 +46,8 @@ public class PlayerFactory {
            case "Peacock":
                role=new Peacock(playerName);
                break;
+           case "Random":
+               break;
            default:
                break;
        }

@@ -43,15 +43,6 @@ JOptionPane.PersonalityAttention=Giving all AI or HUMAN options is obligatory!
 GameBoard.Guests=Guests
 GameBoard.Weapons=Weapons
 GameBoard.Rooms=Rooms
-GameBoard.Knife=Knife
-GameBoard.CandleHolder=Candle-holder
-GameBoard.Gun=Gun
-GameBoard.Poison=Poison
-GameBoard.Trophy=Trophy
-GameBoard.Rope=Rope
-GameBoard.Racket=Racket
-GameBoard.Axe=Axe
-GameBoard.Weight=Weight
 
 #Cards
 Cards.Persons.Mustard=Mustard
@@ -79,7 +70,7 @@ Cards.Rooms.Planetarium=Planetarium
 Cards.Rooms.Cinema=Cinema
 Cards.Rooms.LivingRoom=Living room
 Cards.Rooms.Bath=Bath
-Cards.Rooms.GuestHouse=GuestHouse
+Cards.Rooms.GuestHouse=Guest house
 
 #RoleDescriptions
 

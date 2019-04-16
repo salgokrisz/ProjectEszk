@@ -77,9 +77,6 @@ CluePaperPanel cluePaperPanel=new CluePaperPanel();
         fieldMatrix[3][7]=FieldEnum.INTRIC;
         fieldMatrix[3][8]=FieldEnum.INTRIC;
         fieldMatrix[3][9]=FieldEnum.FIELD;
-        
-        
-        
      JPanel jpBoard=new JPanel(new FlowLayout(FlowLayout.LEADING,0,0));
      jpBoard.setSize(30*53, 30*53);
      jpBoard.setPreferredSize(new Dimension(30*53, 30*53));
@@ -116,56 +113,11 @@ CluePaperPanel cluePaperPanel=new CluePaperPanel();
         jpBoard.add(button);
     }
     private void processComponents(JPanel jpBoard){
-       // JPanel label=new JPanel();
-      //  label.setSize(4*53, 3*53);
         for(int i=0; i<30; ++i){
             for(int j=0; j<30; ++j){
             addButtonToBoard(jpBoard, i, j);
             }
-        }
-      /*  roomLabelList.add(label);
-        addButtonToBoard(jpBoard,0,4);
-        
-        addButtonToBoard(jpBoard,0,5);
-        
-    
-        label=new JPanel();
-        label.setSize(3*53, 3*53);
-        for(int i=0; i<3; ++i){
-            addButtonToBoard(jpBoard, 0, i+6);
-        }
-        label.setPreferredSize(new Dimension(3*53, 3*53));
-        roomLabelList.add(label);
-        addButtonToBoard(jpBoard,0,9);
-        for(int i=0; i<4; ++i){
-            addButtonToBoard(jpBoard, 1, i);
-        }
-        addButtonToBoard(jpBoard,1,4);
-        addButtonToBoard(jpBoard,1,5);
-        for(int i=0; i<3;++i){
-            addButtonToBoard(jpBoard, 1, i+6);
-        }
-        addButtonToBoard(jpBoard,1,9);
-        for(int i=0; i<4;++i){
-            addButtonToBoard(jpBoard, 2, i);
-        }
-        addButtonToBoard(jpBoard,2,4);
-        addButtonToBoard(jpBoard,2,5);
-         for(int i=0; i<3;++i){
-            addButtonToBoard(jpBoard, 2, i+6);
-        }
-        addButtonToBoard(jpBoard,2,9);
-        addButtonToBoard(jpBoard,3,0);
-        addButtonToBoard(jpBoard,3,1);
-        addButtonToBoard(jpBoard,3,2);
-        addButtonToBoard(jpBoard,3,3);
-        addButtonToBoard(jpBoard,3,4);
-        addButtonToBoard(jpBoard,3,5);
-        addButtonToBoard(jpBoard,3,6);
-        addButtonToBoard(jpBoard,3,7);
-        addButtonToBoard(jpBoard,3,8);
-        addButtonToBoard(jpBoard,3,9);*/
-        
+        }  
     }
      @Override
     protected void resetStringsOnWindow(){

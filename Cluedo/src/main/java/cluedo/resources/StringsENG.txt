@@ -43,6 +43,8 @@ JOptionPane.PersonalityAttention=Giving all AI or HUMAN options is obligatory!
 GameBoard.Guests=Guests
 GameBoard.Weapons=Weapons
 GameBoard.Rooms=Rooms
+GameBoard.Board=Gameboard
+GameBoard.CluePaper=Clue paper
 
 #Cards
 Cards.Persons.Mustard=Mustard

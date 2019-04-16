@@ -2,6 +2,7 @@
 package cluedo.view.board;
 
 import cluedo.tools.languagestring.LanguageStrings;
+import java.awt.Dimension;
 import javax.swing.JCheckBox;
 
 /**

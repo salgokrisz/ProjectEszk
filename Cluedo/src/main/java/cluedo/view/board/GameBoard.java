@@ -1,9 +1,16 @@
 
 package cluedo.view.board;
 
+import cluedo.logic.controller.GameController;
+import cluedo.tools.languagestring.LanguageStrings;
 import cluedo.view.AbstractBaseWindow;
 import cluedo.view.FieldEnum;
 import cluedo.view.board.component.PositionedButton;
+import java.awt.BorderLayout;
+import static java.awt.BorderLayout.CENTER;
+import static java.awt.BorderLayout.EAST;
+import static java.awt.BorderLayout.SOUTH;
+import static java.awt.BorderLayout.WEST;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -13,6 +20,7 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 
 /**
  * This class is responsible for the appearance of the whole game board. It
@@ -22,10 +30,12 @@ public class GameBoard extends AbstractBaseWindow{
     private JPanel jpBase;
     private FieldEnum[][] fieldMatrix=new FieldEnum[4][10];
     private List<JPanel> roomLabelList=new ArrayList<>();
+    private final GameController gameController;
 CluePaperPanel cluePaperPanel=new CluePaperPanel();
-    public GameBoard(){
+    public GameBoard(GameController gameController){
         jpBase=new JPanel();
-        jpBase.setLayout(new BoxLayout(jpBase, BoxLayout.Y_AXIS));
+        //jpBase.setLayout(new BoxLayout(jpBase, BoxLayout.Y_AXIS));
+        jpBase.setLayout(new BorderLayout());
         JScrollPane jscrollBase=new JScrollPane();
         fieldMatrix[0][0]=FieldEnum.ROOM;
         fieldMatrix[0][1]=FieldEnum.ROOM;
@@ -67,19 +77,38 @@ CluePaperPanel cluePaperPanel=new CluePaperPanel();
         fieldMatrix[3][7]=FieldEnum.INTRIC;
         fieldMatrix[3][8]=FieldEnum.INTRIC;
         fieldMatrix[3][9]=FieldEnum.FIELD;
-        jscrollBase.setViewportView(jpBase);
-
-     JPanel jpBoard=new JPanel(new FlowLayout(FlowLayout.LEADING,0,0));
-     jpBoard.setSize(10*53, 4*53);
-     jpBoard.setPreferredSize(new Dimension(10*53, 4*53));
-     jpBoard.setMaximumSize(new Dimension(10*53, 4*53));
-        processComponents(jpBoard);
-        jpBase.add(jpBoard);
-        jpBase.setBackground(new Color(180, 0,0));
         
-        jpBase.add(cluePaperPanel);
+        
+        
+     JPanel jpBoard=new JPanel(new FlowLayout(FlowLayout.LEADING,0,0));
+     jpBoard.setSize(30*53, 30*53);
+     jpBoard.setPreferredSize(new Dimension(30*53, 30*53));
+     jpBoard.setMaximumSize(new Dimension(30*53, 30*53));
+        processComponents(jpBoard);
+        jscrollBase.setPreferredSize(jpBoard.getSize());
+        jscrollBase.setViewportView(jpBoard);
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.addTab(LanguageStrings.getString("GameBoard.Board"), jscrollBase);
+        JPanel dummyPanelForCluePaper=new JPanel(new BorderLayout());
+        JPanel dummyPanel=new JPanel();
+        dummyPanel.setPreferredSize(new Dimension(300, 400));
+        dummyPanel.setBackground(new Color(180, 0,0));
+        dummyPanelForCluePaper.add(dummyPanel, SOUTH);
+        dummyPanel=new JPanel();
+        dummyPanel.setPreferredSize(new Dimension(500, 400));
+        dummyPanel.setBackground(new Color(180, 0,0));
+        dummyPanelForCluePaper.add(dummyPanel, WEST);
+        dummyPanel=new JPanel();
+        dummyPanel.setPreferredSize(new Dimension(500, 400));
+        dummyPanel.setBackground(new Color(180, 0,0));
+        dummyPanelForCluePaper.add(dummyPanel, EAST);
+        dummyPanelForCluePaper.add(cluePaperPanel, CENTER);
+        tabbedPane.addTab(LanguageStrings.getString("GameBoard.CluePaper"), dummyPanelForCluePaper);
+        jpBase.add(tabbedPane, CENTER);
+        jpBase.setBackground(new Color(180, 0,0));
         Container cp=getContentPane();
         cp.add(jpBase);
+        this.gameController=gameController;
     }
     private void addButtonToBoard(JPanel jpBoard, int row, int column){
         PositionedButton button=new PositionedButton(row,column);
@@ -87,12 +116,14 @@ CluePaperPanel cluePaperPanel=new CluePaperPanel();
         jpBoard.add(button);
     }
     private void processComponents(JPanel jpBoard){
-        JPanel label=new JPanel();
-        label.setSize(4*53, 3*53);
-        for(int i=0; i<4; ++i){
-            addButtonToBoard(jpBoard, 0, i);
+       // JPanel label=new JPanel();
+      //  label.setSize(4*53, 3*53);
+        for(int i=0; i<30; ++i){
+            for(int j=0; j<30; ++j){
+            addButtonToBoard(jpBoard, i, j);
+            }
         }
-        roomLabelList.add(label);
+      /*  roomLabelList.add(label);
         addButtonToBoard(jpBoard,0,4);
         
         addButtonToBoard(jpBoard,0,5);
@@ -133,7 +164,7 @@ CluePaperPanel cluePaperPanel=new CluePaperPanel();
         addButtonToBoard(jpBoard,3,6);
         addButtonToBoard(jpBoard,3,7);
         addButtonToBoard(jpBoard,3,8);
-        addButtonToBoard(jpBoard,3,9);
+        addButtonToBoard(jpBoard,3,9);*/
         
     }
      @Override

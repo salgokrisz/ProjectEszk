@@ -474,7 +474,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
               sendPlayerPropertiesToController();
               gameController.initializeGame();
               SwingUtilities.invokeLater(() -> {
-            GameBoard gameBoard = new GameBoard();
+            GameBoard gameBoard = new GameBoard(gameController);
             gameBoard.setVisible(true);
             doUponExit();
         });

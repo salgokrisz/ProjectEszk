@@ -43,6 +43,8 @@ JOptionPane.PersonalityAttention=Az összes számítógép, illetve emberi ját�
 GameBoard.Guests=Vendégek
 GameBoard.Weapons=Fegyverek
 GameBoard.Rooms=Helyiségek
+GameBoard.Board=Játéktábla
+GameBoard.CluePaper=Nyomozólap
 
 #Cards
 Cards.Persons.Mustard=Mustard

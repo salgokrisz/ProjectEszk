@@ -2,7 +2,6 @@
 package cluedo.logic.fields;
 
 import cluedo.logic.cards.Card;
-import cluedo.logic.fields.FieldType.Type;
 
 /**
  *This field is responsible for storing the final informations about the killer,
@@ -15,7 +14,7 @@ public class EndField extends Field{
     private Card murderer;
     
     public EndField(int x,int y, boolean walkeAble,boolean someOneOn,Card murderWeapon,Card murderRoom,Card murderer){
-        super(x,y,Type.END,walkeAble,someOneOn);
+        super(x,y,FieldType.END,walkeAble,someOneOn);
         this.murderWeapon = murderWeapon;
         this.murderRoom = murderRoom;
         this.murderer = murderer;

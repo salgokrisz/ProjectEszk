@@ -1,7 +1,6 @@
 
 package cluedo.logic.fields;
 
-import cluedo.logic.fields.FieldType.Type;
 
 /**
  * The secret field class originates from the RoomField class.
@@ -15,7 +14,7 @@ public class SecretField extends RoomField {
     private int toRoomX;
     private int toRoomY;
     
-    public SecretField(int x,int y, Type type, boolean walkeAble,boolean someOneOn,String roomName, boolean hasSecretPath,int fromRoomX,int fromRoomY,int toRoomX, int toRoomY){
+    public SecretField(int x,int y, FieldType type, boolean walkeAble,boolean someOneOn,String roomName, boolean hasSecretPath,int fromRoomX,int fromRoomY,int toRoomX, int toRoomY){
         super(x,y,type,walkeAble,someOneOn,roomName,hasSecretPath);
         this.fromRoomX = fromRoomX;
         this.fromRoomY = fromRoomY;

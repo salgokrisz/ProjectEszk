@@ -8,7 +8,7 @@ package cluedo.logic.factories;
 import cluedo.logic.fields.EndField;
 import cluedo.logic.fields.Field;
 import cluedo.logic.fields.EntranceField;
-import cluedo.logic.fields.FieldType.Type;
+import cluedo.logic.fields.FieldType;
 import cluedo.logic.fields.IntricField;
 import cluedo.logic.fields.RoomField;
 import cluedo.logic.fields.SecretField;
@@ -53,7 +53,7 @@ public class FieldFactory {
                         if (helper[2].equals("1")){
                             hasSecret = true;
                         }
-                        Field s = new SecretField(row,column,Type.SECRET, true,false,helper[1],hasSecret,Integer.parseInt(helper[2]),Integer.parseInt(helper[3]),Integer.parseInt(helper[4]),Integer.parseInt(helper[5]));
+                        Field s = new SecretField(row,column,FieldType.SECRET, true,false,helper[1],hasSecret,Integer.parseInt(helper[2]),Integer.parseInt(helper[3]),Integer.parseInt(helper[4]),Integer.parseInt(helper[5]));
                         generatedMap.get(row).add(s);
                     }else if(helper[0].equals("St")){
                         Field st = new StartField(row,column,true,false,helper[1]);
@@ -63,7 +63,7 @@ public class FieldFactory {
                         if (helper[2].equals("1")){
                             hasSecretPath = true;
                         }
-                        Field r = new RoomField(row,column,Type.ROOM, true,false,helper[1],hasSecretPath);
+                        Field r = new RoomField(row,column,FieldType.ROOM, true,false,helper[1],hasSecretPath);
                         generatedMap.get(row).add(r);
                     }else if(helper[0].equals("En")){
                         Field en = new EndField(row,column,true,false,null,null,null);
@@ -73,7 +73,7 @@ public class FieldFactory {
                         generatedMap.get(row).add(intric);
                     }
                 }else{
-                     Field e = new Field(row,column,Type.FIELD,true,false);
+                     Field e = new Field(row,column,FieldType.FIELD,true,false);
                      generatedMap.get(row).add(e);
                 }
     }

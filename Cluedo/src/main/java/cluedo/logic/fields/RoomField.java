@@ -1,7 +1,6 @@
 
 package cluedo.logic.fields;
 
-import cluedo.logic.fields.FieldType.Type;
 
 /**
  *  This class represents a room field on the map.
@@ -13,7 +12,7 @@ public class RoomField extends Field{
     protected String roomName;
     protected boolean hasSecretPath;
     
-    public RoomField(int x,int y,Type type,boolean walkeAble,boolean someOneOn,String roomName, boolean hasSecretPath){
+    public RoomField(int x,int y,FieldType type,boolean walkeAble,boolean someOneOn,String roomName, boolean hasSecretPath){
         super(x,y,type,walkeAble,someOneOn);
         this.roomName = roomName;
         this.hasSecretPath = hasSecretPath;

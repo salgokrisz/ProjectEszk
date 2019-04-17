@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.fields;
 
-import cluedo.logic.fields.FieldType.Type;
 
 /**
  * This class represents the entrance points of
@@ -18,7 +13,7 @@ public class EntranceField extends Field {
     private boolean roomHasSecret;
     
     public EntranceField(int x,int y,boolean walkeAble,boolean someOneOn,String roomName,boolean roomHasSecret){
-        super(x,y,Type.ENTRANCE,walkeAble,someOneOn);
+        super(x,y,FieldType.ENTRANCE,walkeAble,someOneOn);
         this.roomName = roomName;
         this.roomHasSecret = roomHasSecret;
     }

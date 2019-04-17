@@ -11,18 +11,37 @@ package cluedo.logic.fields;
 public class EntranceField extends Field {
     private String roomName;
     private boolean roomHasSecret;
-    
-    public EntranceField(int x,int y,boolean walkeAble,boolean someOneOn,String roomName,boolean roomHasSecret){
+    private String secretCorridorTo;
+    public EntranceField(int x,int y,boolean walkeAble,boolean someOneOn,String roomName,boolean roomHasSecret, String secretCorridorTo){
         super(x,y,FieldType.ENTRANCE,walkeAble,someOneOn);
         this.roomName = roomName;
         this.roomHasSecret = roomHasSecret;
+        this.secretCorridorTo=secretCorridorTo;
+    }
+    
+    public EntranceField(EntranceField other){
+        super(other);
+        this.roomName=other.getRoomName();
+        this.roomHasSecret=other.getRoomHasSecret();
+        this.secretCorridorTo=other.getSecretCorridorTo();
+    }
+    @Override
+    public Object cloneObject(){
+        return new EntranceField(this);
+    }
+    public String getSecretCorridorTo() {
+        return secretCorridorTo;
+    }
+    
+    public void setSecretCorridorTo(String secretCorridorTo) {
+        this.secretCorridorTo = secretCorridorTo;
     }
 
     public String getRoomName() {
         return roomName;
     }
 
-    public boolean isRoomHasSecret() {
+    public boolean getRoomHasSecret() {
         return roomHasSecret;
     }
 

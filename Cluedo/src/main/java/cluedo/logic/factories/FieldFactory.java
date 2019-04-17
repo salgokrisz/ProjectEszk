@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.factories;
 
-import cluedo.logic.fields.EndField;
+
 import cluedo.logic.fields.Field;
 import cluedo.logic.fields.EntranceField;
 import cluedo.logic.fields.FieldType;
-import cluedo.logic.fields.IntricField;
 import cluedo.logic.fields.RoomField;
-import cluedo.logic.fields.SecretField;
 import cluedo.logic.fields.StartField;
 import cluedo.logic.map.MapParser;
 import java.util.ArrayList;
@@ -39,34 +33,36 @@ public class FieldFactory {
         createFields();
     }
     private void processField(int row, int column){
+        String[] helper = mapStrings.get(row).get(column).split(":");
                  if(mapStrings.get(row).get(column).contains(":")){
-                    String[] helper = mapStrings.get(row).get(column).split(":");
+                    
                     if(helper[0].equals("E")){
                         boolean hasSecret = false;
+                        String secretCorridorTo="";
                         if (helper[2].equals("1")){
                             hasSecret = true;
+                            secretCorridorTo=helper[3];
                         }
-                        Field e = new EntranceField(row,column,true,false,helper[1],hasSecret);
+                        Field e = new EntranceField(row,column,true,false,helper[1],hasSecret, secretCorridorTo);
                         generatedMap.get(row).add(e);
-                    }else if(helper[0].equals("Se")){
-                        Field s = new SecretField(row,column,FieldType.SECRET, true,false,helper[1],true,Integer.parseInt(helper[2]),Integer.parseInt(helper[3]),Integer.parseInt(helper[4]),Integer.parseInt(helper[5]));
-                        generatedMap.get(row).add(s);
                     }else if(helper[0].equals("St")){
                         Field st = new StartField(row,column,true,false,helper[1]);
                         generatedMap.get(row).add(st);
                     }else if(helper[0].equals("R")){
                         Field r = new RoomField(row,column,FieldType.ROOM, true,false,helper[1],false);
                         generatedMap.get(row).add(r);
-                    }else if(helper[0].equals("En")){
-                        Field en = new EndField(row,column,true,false,null,null,null);
-                        generatedMap.get(row).add(en);
-                    }else if(helper[0].equals("I")){
-                        Field intric = new IntricField(row,column,true,false);
-                        generatedMap.get(row).add(intric);
                     }
                 }else{
+                     if(helper[0].equals("F")){
                      Field e = new Field(row,column,FieldType.FIELD,true,false);
                      generatedMap.get(row).add(e);
+                     }else if(helper[0].equals("En")){
+                         Field e = new Field(row,column,FieldType.END,true,false);
+                     generatedMap.get(row).add(e);
+                     }else if(helper[0].equals("I")){
+                         Field intric = new Field(row,column,FieldType.INTRIC, true,false);
+                        generatedMap.get(row).add(intric);
+                     }
                 }
     }
     private void createFields(){

@@ -24,7 +24,17 @@ public class Field {
         this.walkeable = walkeAble;
         this.someOneOn = someOneOn;
     }
+    public Field(Field other){
+        this.x=other.getX();
+        this.y=other.getY();
+        this.type=other.getType();
+        this.walkeable=other.getWalkeable();
+        this.someOneOn=other.getSomeOneOn();
+    }
 
+    public Object cloneObject(){
+        return new Field(this);
+    }
     public void setX(int x) {
         this.x = x;
     }
@@ -53,7 +63,7 @@ public class Field {
         this.walkeable = walkeable;
     }
 
-    public boolean isWalkeable() {
+    public boolean getWalkeable() {
         return walkeable;
     }
     
@@ -61,7 +71,7 @@ public class Field {
         this.someOneOn = someOneOn;
     }
 
-    public boolean isSomeOneOn() {
+    public boolean getSomeOneOn() {
         return someOneOn;
     }
     @Override

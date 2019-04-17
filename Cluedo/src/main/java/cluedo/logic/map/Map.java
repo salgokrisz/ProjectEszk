@@ -7,6 +7,7 @@ package cluedo.logic.map;
 
 import cluedo.logic.factories.FieldFactory;
 import cluedo.logic.fields.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,12 +17,29 @@ import java.util.List;
  * 
  */
 public class Map {
-    List<List<Field>> gameMap;
-    FieldFactory fieldFactory;
-    
+    private List<List<Field>> gameMap;
+    private final int rows;
     public Map(String fileName){
-        fieldFactory = new FieldFactory(fileName);
+        FieldFactory fieldFactory = new FieldFactory(fileName);
         gameMap=fieldFactory.getGeneratedMap();
+        rows=gameMap.size();
     }
+
+    public List<List<Field>> getGameMap() {
+        List<List<Field>> copyGameMap=new ArrayList<>();
+        for(List<Field> row:gameMap){
+            List<Field> copyRow=new ArrayList<>();
+            for(Field column: row){
+                copyRow.add((Field)column.cloneObject());
+            }
+            copyGameMap.add(copyRow);
+        }
+        return copyGameMap;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+    
     
 }

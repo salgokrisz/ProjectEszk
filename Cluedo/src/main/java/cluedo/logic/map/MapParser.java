@@ -52,28 +52,26 @@ public class MapParser{
     public boolean isCorrectCharacter(String fieldSymbol){
         if(fieldSymbol.contains(":")){
             String parts[]=fieldSymbol.split(":");
-            if(parts.length!=3 && parts.length!=2 && parts.length!=1){
+            if(parts.length!=3 && parts.length!=2 && parts.length!=4){
                 return false;
             }else{
                 switch(parts.length){
+                    case 4:
+                        return parts[0].equals("E")&&correctRoomName(parts[1])&&parts[2].equals("1")&&correctRoomName(parts[3]);
                     case 3:
-                    return parts[0].equals("E")&&correctRoomName(parts[1])&&(parts[2].equals("1")||parts[2].equals("0"));
+                    return parts[0].equals("E")&&(correctRoomName(parts[1])||parts[1].equals("En"))&&parts[2].equals("0");
                     case 2:
-                    if(parts[0].equals("Se")){
-                        return correctRoomName(parts[1]);
-                    }else if(parts[0].equals("St")){
+                    if(parts[0].equals("St")){
                         return correctPlayerRoleInString(parts[1]);
                     }else if(parts[0].equals("R")){
                         return correctRoomName(parts[1]);
                     }
-                    case 1:
-                    return parts[0].equals("En")||parts[0].equals("I");
                     default:
                         return false;
             }        
         }
         }else{
-            return fieldSymbol.equals("F");
+            return fieldSymbol.equals("F") || fieldSymbol.equals("En")||fieldSymbol.equals("I");
         }
     }
 

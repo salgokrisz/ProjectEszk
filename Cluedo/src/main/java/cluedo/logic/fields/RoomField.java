@@ -17,12 +17,22 @@ public class RoomField extends Field{
         this.roomName = roomName;
         this.hasSecretPath = hasSecretPath;
     }
-
+    
+    public RoomField(RoomField other){
+        super(other);
+        this.roomName=other.getRoomName();
+        this.hasSecretPath=other.getHasSecretPath();
+    }
+    
+    @Override
+    public Object cloneObject(){
+        return new RoomField(this);
+    }
     public String getRoomName() {
         return roomName;
     }
 
-    public boolean isHasSecretPath() {
+    public boolean getHasSecretPath() {
         return hasSecretPath;
     }
 

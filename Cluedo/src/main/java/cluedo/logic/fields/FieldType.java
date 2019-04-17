@@ -6,5 +6,5 @@ package cluedo.logic.fields;
  * 
  */
 public enum FieldType {
-    ENTRANCE,FIELD,ROOM,SECRET,START,INTRIC,END;
+    ENTRANCE,FIELD,ROOM,START,INTRIC,END;
 }

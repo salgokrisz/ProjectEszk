@@ -147,7 +147,7 @@ CluePaperPanel cluePaperPanel;
         jpBoard.add(button);
     }
     private void processComponents(JPanel jpBoard){
-        for(int i=0; i<30; ++i){
+        for(int i=0; i<26; ++i){
             for(int j=0; j<30; ++j){
             addButtonToBoard(jpBoard, i, j);
             }

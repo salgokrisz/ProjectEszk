@@ -17,6 +17,15 @@ public class StartField extends Field {
         this.belongsTo = belongsTo;
     }
     
+    public StartField(StartField other){
+        super(other);
+        this.belongsTo=other.getBelongsTo();
+    }
+    
+    @Override
+    public Object cloneObject(){
+        return new StartField(this);
+    }
     public void setBelongsTo(String belongsTo) {
         this.belongsTo = belongsTo;
     }

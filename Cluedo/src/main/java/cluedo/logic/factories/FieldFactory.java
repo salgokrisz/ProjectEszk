@@ -49,21 +49,13 @@ public class FieldFactory {
                         Field e = new EntranceField(row,column,true,false,helper[1],hasSecret);
                         generatedMap.get(row).add(e);
                     }else if(helper[0].equals("Se")){
-                        boolean hasSecret = false;
-                        if (helper[2].equals("1")){
-                            hasSecret = true;
-                        }
-                        Field s = new SecretField(row,column,FieldType.SECRET, true,false,helper[1],hasSecret,Integer.parseInt(helper[2]),Integer.parseInt(helper[3]),Integer.parseInt(helper[4]),Integer.parseInt(helper[5]));
+                        Field s = new SecretField(row,column,FieldType.SECRET, true,false,helper[1],true,Integer.parseInt(helper[2]),Integer.parseInt(helper[3]),Integer.parseInt(helper[4]),Integer.parseInt(helper[5]));
                         generatedMap.get(row).add(s);
                     }else if(helper[0].equals("St")){
                         Field st = new StartField(row,column,true,false,helper[1]);
                         generatedMap.get(row).add(st);
                     }else if(helper[0].equals("R")){
-                        boolean hasSecretPath = false;
-                        if (helper[2].equals("1")){
-                            hasSecretPath = true;
-                        }
-                        Field r = new RoomField(row,column,FieldType.ROOM, true,false,helper[1],hasSecretPath);
+                        Field r = new RoomField(row,column,FieldType.ROOM, true,false,helper[1],false);
                         generatedMap.get(row).add(r);
                     }else if(helper[0].equals("En")){
                         Field en = new EndField(row,column,true,false,null,null,null);

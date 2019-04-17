@@ -39,10 +39,42 @@ public class MapParser{
             LOG.warning(e.getMessage());
         }
     }
-
-    public boolean isCorrectCharacter(String character){
-       return  character.equals("F") || character.equals("R") || character.equals("E");
-
+    private boolean correctPlayerRoleInString(String roleInString){
+        return roleInString.equals("Peacock")||roleInString.equals("Mustard")||
+                roleInString.equals("Plum") || roleInString.equals("Green")||
+                roleInString.equals("White") || roleInString.equals("Scarlet");
+    }
+    private boolean correctRoomName(String roomName){
+        return roomName.equals("Cards.Rooms.Hall")||roomName.equals("Cards.Rooms.Eatery")||roomName.equals("Cards.Rooms.Kitchen")
+               || roomName.equals("Cards.Rooms.Terrace")||roomName.equals("Cards.Rooms.Planetarium")||roomName.equals("Cards.Rooms.LivingRoom")
+                || roomName.equals("Cards.Rooms.Cinema") || roomName.equals("Cards.Rooms.GuestHouse") || roomName.equals("Cards.Rooms.Bath");
+    }
+    public boolean isCorrectCharacter(String fieldSymbol){
+        if(fieldSymbol.contains(":")){
+            String parts[]=fieldSymbol.split(":");
+            if(parts.length!=3 && parts.length!=2 && parts.length!=1){
+                return false;
+            }else{
+                switch(parts.length){
+                    case 3:
+                    return parts[0].equals("E")&&correctRoomName(parts[1])&&(parts[2].equals("1")||parts[2].equals("0"));
+                    case 2:
+                    if(parts[0].equals("Se")){
+                        return correctRoomName(parts[1]);
+                    }else if(parts[0].equals("St")){
+                        return correctPlayerRoleInString(parts[1]);
+                    }else if(parts[0].equals("R")){
+                        return correctRoomName(parts[1]);
+                    }
+                    case 1:
+                    return parts[0].equals("En")||parts[0].equals("I");
+                    default:
+                        return false;
+            }        
+        }
+        }else{
+            return fieldSymbol.equals("F");
+        }
     }
 
     public static List<List<String>> getMapList(){

@@ -12,32 +12,32 @@
         "Mustard" : {
             "name" : "Mustard",
             "key" : "Cards.Persons.Mustard",
-            "image" : "Mustard.png"
+            "image" : "/cards/guests/mustard.png"
         },
         "Plum" : {
             "name" : "Plum",
             "key" : "Cards.Persons.Plum",
-            "image" : "Plum.png"
+            "image" : "/cards/guests/plum.png"
         },
         "Green" : {
             "name" : "Green",
             "key" : "Cards.Persons.Green",
-            "image" : "Green.png"
+            "image" : "/cards/guests/green.png"
         },
         "Peackock" : {
             "name" : "Peackock",
-            "key" : "Cards.Persons.Peackock",
-            "image" : "Peackock.png"
+            "key" : "Cards.Persons.Peacock",
+            "image" : "/cards/guests/peacock.png"
         },
         "Scarlet" : {
             "name" : "Scarlet",
             "key" : "Cards.Persons.Scarlet",
-            "image" : "Scarlet.png"
+            "image" : "/cards/guests/scarlet.png"
         },
         "White" : {
             "name" : "White",
             "key" : "Cards.Persons.White",
-            "image" : "White.png"
+            "image" : "/cards/guests/white.png"
         }
     },
      "Weapons" : {
@@ -56,47 +56,47 @@
         "Knife" : {
             "name" : "Knife",
             "key" : "Cards.Weapons.Knife",
-            "image" : "Knife.png"
+            "image" : "/cards/weapons/knife.png"
         },
         "Candlestick" : {
             "name" : "Candlestick",
             "key" : "Cards.Weapons.Candlestick",
-            "image" : "Candlestick.png"
+            "image" : "/cards/weapons/candlestick.png"
         },
         "Revolver" : {
             "name" : "Revolver",
             "key" : "Cards.Weapons.Revolver",
-            "image" : "Revolver.png"
+            "image" : "/cards/weapons/revolver.png"
         },
         "Poison" : {
             "name" : "Poison",
             "key" : "Cards.Weapons.Poison",
-            "image" : "Poison.png"
+            "image" : "/cards/weapons/poison.png"
         },
         "Trophy" : {
             "name" : "Trophy",
             "key" : "Cards.Weapons.Trophy",
-            "image" : "Trophy.png"
+            "image" : "/cards/weapons/trophy.png"
         },
         "Rope" : {
             "name" : "Rope",
             "key" : "Cards.Weapons.Rope",
-            "image" : "Rope.png"
+            "image" : "/cards/weapons/rope.png"
         },
         "Bat" : {
             "name" : "Bat",
             "key" : "Cards.Weapons.Bat",
-            "image" : "Bat.png"
+            "image" : "/cards/weapons/bat.png"
         },
         "Axe" : {
             "name" : "Axe",
             "key" : "Cards.Weapons.Axe",
-            "image" : "Axe.png"
+            "image" : "/cards/weapons/axe.png"
         },
         "Dumbbell" : {
             "name" : "Dumbbell",
             "key" : "Cards.Weapons.Dumbbell",
-            "image" : "Dumbbell.png"
+            "image" : "/cards/weapons/dumbbell.png"
         }
     },
     "Rooms" : {
@@ -115,47 +115,47 @@
         "Hall" : {
             "name" : "Hall",
             "key" : "Cards.Rooms.Hall",
-            "image" : "Hall.png"
+            "image" : "/cards/rooms/hall.png"
         },
         "Eatery" : {
             "name" : "Eatery",
             "key" : "Cards.Rooms.Eatery",
-            "image" : "Eatery.png"
+            "image" : "/cards/rooms/eatery.png"
         },
         "Kitchen" : {
             "name" : "Kitchen",
             "key" : "Cards.Rooms.Kitchen",
-            "image" : "Kitchen.png"
+            "image" : "/cards/rooms/kitchen.png"
         },
         "Terrace" : {
             "name" : "Terrace",
             "key" : "Cards.Rooms.Terrace",
-            "image" : "Terrace.png"
+            "image" : "/cards/rooms/terrace.png"
         },
         "Planetarium" : {
             "name" : "Planetarium",
             "key" : "Cards.Rooms.Planetarium",
-            "image" : "Planetarium.png"
+            "image" : "/cards/rooms/planetarium.png"
         },
         "Cinema" : {
             "name" : "Cinema",
             "key" : "Cards.Rooms.Cinema",
-            "image" : "Cinema.png"
+            "image" : "/cards/rooms/cinema.png"
         },
         "LivingRoom" : {
             "name" : "LivingRoom",
             "key" : "Cards.Rooms.LivingRoom",
-            "image" : "LivingRoom.png"
+            "image" : "/cards/rooms/livingroom.png"
         },
         "Bath" : {
             "name" : "Bath",
             "key" : "Cards.Rooms.Bath",
-            "image" : "Bath.png"
+            "image" : "/cards/rooms/bath.png"
         },
         "GuestHouse" : {
             "name" : "GuestHouse",
             "key" : "Cards.Rooms.GuestHouse",
-            "image" : "GuestHouse.png"
+            "image" : "/cards/rooms/guesthouse.png"
         }
     }
 }

@@ -5,6 +5,7 @@ import cluedo.logic.cards.parser.CardParser;
 import cluedo.logic.factories.PlayerFactory;
 import cluedo.logic.player.Player;
 import cluedo.tools.Tools;
+import cluedo.tools.languagestring.LanguageStrings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,11 +20,16 @@ import java.util.TreeMap;
  * This class is responsible for controlling the game.
  */
 public class GameController {
-
+    private int humanPlayerIndex;
     private int numberOfPlayers;
     private int numberOfComputerPlayers;
     private List<Player> players;
-
+    private GameBoardListener gameBoardListener;
+    private GamePhase actualGamePhase;
+    Map<Player, Integer> droppedNumbersForDecidingStart = new HashMap<>();
+    public GameController(){
+        actualGamePhase=GamePhase.INITIAL;
+    }
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
@@ -32,6 +38,7 @@ public class GameController {
         this.numberOfPlayers = numberOfPlayers;
     }
 
+
     public int getNumberOfComputerPlayers() {
         return numberOfComputerPlayers;
     }
@@ -39,25 +46,45 @@ public class GameController {
     public void setNumberOfComputerPlayers(int numberOfComputerPlayers) {
         this.numberOfComputerPlayers = numberOfComputerPlayers;
     }
-
+    public void registerGameBoardListener(GameBoardListener gameBoardListener){
+        this.gameBoardListener=gameBoardListener;
+    }
+    private int findHumanPlayer(){
+        int i=0;
+        while(i<players.size() && players.get(i).getIsComputer()){
+            i+=1;
+        }
+        return i;
+    }
     public void initializePlayers(List<String> playerInformations) {
         PlayerFactory pf = new PlayerFactory();
         players = pf.createPlayers(playerInformations);
+        humanPlayerIndex=findHumanPlayer();
     }
 
-    public List<Player> roleDicesForDecidingStarterPlayer() {
-        Map<Player, Integer> droppedNumbers = new HashMap<>();
-        for (int i = 0; i < numberOfPlayers; ++i) {
-            droppedNumbers.put(players.get(i), Tools.randomizeNumber(6) + 1);
+    public List<Player> rollDicesForDecidingStarterPlayer(List<Player> playerList, int humanPlayerRoll) {
+        
+        for (int i = 0; i < playerList.size(); ++i) {
+            int roll=humanPlayerRoll;
+            if(playerList.get(i).getIsComputer()){
+                roll=Tools.randomizeNumber(6) + 1;
+            }
+            droppedNumbersForDecidingStart.put(playerList.get(i), roll);
         }
-        int maximumIndex = chooseMaximumNumber(droppedNumbers);
-        return findPlayersWithMaxNumber(maximumIndex, droppedNumbers);
+        int maximumIndex = chooseMaximumNumber(droppedNumbersForDecidingStart);
+        return findPlayersWithMaxNumber(maximumIndex, droppedNumbersForDecidingStart);
     }
 
-    public void sortPlayers() {
-        List<Player> playersWithMaxNumber;
+    public void sortPlayers(int humanPlayerRoll) {
+        List<Player> playersWithMaxNumber=players;
+        boolean diceButtonShouldBePressed=false;
         do {
-            playersWithMaxNumber = roleDicesForDecidingStarterPlayer();
+            if(diceButtonShouldBePressed){
+                fireShowWhatToDo("Actions.RollDiceStartAgain");
+            }else{
+            playersWithMaxNumber = rollDicesForDecidingStarterPlayer(playersWithMaxNumber,humanPlayerRoll);
+            }
+            diceButtonShouldBePressed=playersWithMaxNumber.size()>1 && playersWithMaxNumber.contains(players.get(humanPlayerIndex));
         } while (playersWithMaxNumber.size() > 1);
         Player starterPlayer = playersWithMaxNumber.get(0);
         Map<Integer, Player> serialNumbers = new TreeMap<>();
@@ -70,7 +97,9 @@ public class GameController {
         for (Integer k : keys) {
             players.add(serialNumbers.get(k));
         }
-
+        humanPlayerIndex=findHumanPlayer();
+        fireShowInformation(LanguageStrings.getString("JOptionPane.InformationAboutStarterPlayer")+players.get(0).toString());
+        actualGamePhase=GamePhase.ROLL;
     }
     
     private void determinateSerialNumbers(int starterIndex,Map<Integer,Player> serialNumbers){
@@ -164,15 +193,41 @@ public class GameController {
                 playerCounter+=1;
             }
         }
+        fireShowOwnedSuspectCards();
     }
-    
+    private void fireShowOwnedSuspectCards(){
+        
+        gameBoardListener.showAllSuspectCardInformations(players.get(humanPlayerIndex));
+    }
+    private void fireShowWhatToDo(String message){
+        gameBoardListener.showWhatToDo(message);
+    }
     public void initializeGame() {
-        initializeSuspectCards();   
-        sortPlayers();
+        initializeSuspectCards();
+        fireShowWhatToDo(LanguageStrings.getString("Actions.RollDiceStart"));
     }
 
     private void fillUpSupsectCardWithCards(List<Card> cards, List<Card> suspectCards) {
         Collections.shuffle(cards);
         suspectCards.addAll(cards);
+    }
+    public void fireShowInformation(String message){
+        gameBoardListener.showInformation(message);
+    }
+    public void rollDice() {
+        int droppedNumber;
+        if(GamePhase.INITIAL==actualGamePhase){
+            droppedNumber=Tools.randomizeNumber(6)+1;
+            fireShowInformation(LanguageStrings.getString("JOptionPane.DroppedNumber")+droppedNumber);
+            sortPlayers(droppedNumber);
+        }else{
+            droppedNumber=Tools.randomizeNumber(6)+1;
+            int roledNumberTwo=Tools.randomizeNumber(6)+1;
+            if(roledNumberTwo==1){
+                //intrics
+            }else{
+                droppedNumber+=roledNumberTwo;
+            }
+        }
     }
 }

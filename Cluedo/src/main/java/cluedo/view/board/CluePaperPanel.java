@@ -1,8 +1,11 @@
 
 package cluedo.view.board;
 
+import cluedo.logic.cards.Card;
 import cluedo.tools.languagestring.LanguageStrings;
-import java.awt.Dimension;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JCheckBox;
 
 /**
@@ -10,10 +13,11 @@ import javax.swing.JCheckBox;
  * the clues which are known by them.
  */
 public class CluePaperPanel extends javax.swing.JPanel {
-
+    private Map<String, JCheckBox> checkBoxMap;
     private static final String FONT_TYPE="Times New Roman";
     public CluePaperPanel() {
         initComponents();
+        fillUpCheckBoxMap();
     }
 private void customizeCheckBox(JCheckBox checkBox, String title){
     checkBox.setBackground(new java.awt.Color(255, 255, 255));
@@ -23,6 +27,34 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
     checkBox.setText(title);
 }
 
+private void fillUpCheckBoxMap(){
+    checkBoxMap=new HashMap<>();
+    checkBoxMap.put("Cards.Weapons.Knife", jcKnife);
+    checkBoxMap.put("Cards.Weapons.Candlestick", jcCandlestick);
+    checkBoxMap.put("Cards.Weapons.Revolver", jcRevolver);
+    checkBoxMap.put("Cards.Weapons.Poison", jcPoison);
+    checkBoxMap.put("Cards.Weapons.Trophy", jcTrophy);
+    checkBoxMap.put("Cards.Weapons.Rope", jcRope);
+    checkBoxMap.put("Cards.Weapons.Bat", jcBat);
+    checkBoxMap.put("Cards.Weapons.Axe", jcAxe);
+    checkBoxMap.put("Cards.Weapons.Dumbbell", jcDumbbell);
+    checkBoxMap.put("Cards.Rooms.Hall", jcHall);
+    checkBoxMap.put("Cards.Rooms.Eatery", jcEatery);
+    checkBoxMap.put("Cards.Rooms.Kitchen", jcKitchen);
+    checkBoxMap.put("Cards.Rooms.Terrace", jcTerrace);
+    checkBoxMap.put("Cards.Rooms.Planetarium", jcPlanetarium);
+    checkBoxMap.put("Cards.Rooms.Cinema", jcCinema);
+    checkBoxMap.put("Cards.Rooms.LivingRoom", jcLivingRoom);
+    checkBoxMap.put("Cards.Rooms.Bath", jcBath);
+    checkBoxMap.put("Cards.Rooms.GuestHouse", jcGuestHouse);
+    checkBoxMap.put("Cards.Persons.Mustard", jcMustard);
+    checkBoxMap.put("Cards.Persons.Peacock", jcPeacock);
+    checkBoxMap.put("Cards.Persons.Scarlet", jcScarlet);
+    checkBoxMap.put("Cards.Persons.Green", jcGreen);
+    checkBoxMap.put("Cards.Persons.White", jcWhite);
+    checkBoxMap.put("Cards.Persons.Plum", jcPlum);
+    
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -38,7 +70,7 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
         jlGuests = new javax.swing.JLabel();
         jlRooms = new javax.swing.JLabel();
         jlWeapons = new javax.swing.JLabel();
-        JCheckBox jcWhite = new JCheckBox();
+        jcWhite = new JCheckBox();
         jcKnife = new javax.swing.JCheckBox();
         jcCandlestick = new javax.swing.JCheckBox();
         jcRevolver = new javax.swing.JCheckBox();
@@ -60,15 +92,15 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
 
         jlWeapons.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlWeapons.setText(LanguageStrings.getString("GameBoard.Weapons"));
-        JCheckBox jcMustard = new JCheckBox();
+        jcMustard = new JCheckBox();
         customizeCheckBox(jcMustard, "Mustard");
-        JCheckBox jcPlum = new JCheckBox();
+        jcPlum = new JCheckBox();
         customizeCheckBox(jcPlum, "Plum");
-        JCheckBox jcGreen = new JCheckBox();
+        jcGreen = new JCheckBox();
         customizeCheckBox(jcGreen, "Green");
-        JCheckBox jcPeacock = new JCheckBox();
+        jcPeacock = new JCheckBox();
         customizeCheckBox(jcPeacock, "Peacock");
-        JCheckBox jcScarlet = new JCheckBox();
+        jcScarlet = new JCheckBox();
         customizeCheckBox(jcScarlet, "Scarlet");
 
         customizeCheckBox(jcWhite, "White");
@@ -236,6 +268,12 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
     private javax.swing.JLabel jlGuests;
     private javax.swing.JLabel jlRooms;
     private javax.swing.JLabel jlWeapons;
+    private JCheckBox jcWhite;
+    private JCheckBox jcMustard;
+    private JCheckBox jcPlum;
+    private JCheckBox jcPeacock;
+    private JCheckBox jcScarlet;
+    private JCheckBox jcGreen;
     // End of variables declaration//GEN-END:variables
 
    public void resetStrings() {
@@ -260,5 +298,14 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
         jcLivingRoom.setText(LanguageStrings.getString("Cards.Rooms.LivingRoom"));
         jcBath.setText(LanguageStrings.getString("Cards.Rooms.Bath"));
         jcGuestHouse.setText(LanguageStrings.getString("Cards.Rooms.GuestHouse"));
+    }
+
+    public void markOwnedSuspectCards(List<Card> suspectCards) {
+        for(Card c:suspectCards){
+            JCheckBox checkBox=checkBoxMap.get(c.getUiStringKey());
+            checkBox.setSelected(true);
+            checkBox.setEnabled(false);
+            
+        }
     }
 }

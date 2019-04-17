@@ -32,5 +32,10 @@ public class White extends Role {
     public void useSpecialAbility() {
         //TODO: implement White's ability
     }
-
+ @Override
+    public String toString(){
+        StringBuilder sb=new StringBuilder();
+        sb.append(name).append(" (").append("White").append(")");
+        return sb.toString();
+    }
 }

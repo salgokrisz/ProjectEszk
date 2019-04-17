@@ -472,11 +472,11 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null);
         if(answer==JOptionPane.YES_OPTION){
               sendPlayerPropertiesToController();
-              gameController.initializeGame();
               SwingUtilities.invokeLater(() -> {
             GameBoard gameBoard = new GameBoard(gameController);
             gameBoard.setVisible(true);
             doUponExit();
+            gameController.initializeGame();
         });
         }
         }else{

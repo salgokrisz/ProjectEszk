@@ -70,4 +70,8 @@ public class Player {
             suspectCards.add(card);
         }
     }
+    @Override
+    public String toString(){
+       return role.toString();
+    }
 }

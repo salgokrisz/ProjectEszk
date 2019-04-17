@@ -38,6 +38,11 @@ JOptionPane.Description=Description
 JOptionPane.ErrorTitle=Error message
 JOptionPane.NameAttention=Giving all names is obligatory and they have to start with alphabetical character!
 JOptionPane.PersonalityAttention=Giving all AI or HUMAN options is obligatory!
+JOptionPane.ToDo=To do(s)
+JOptionPane.SuspectCardTitle=Suspect cards
+JOptionPane.DroppedNumber=Rolled number is: 
+JOptionPane.InformationTitle=Information
+JOptionPane.InformationAboutStarterPlayer=The player who starts the game is: 
 
 #GameBoard
 GameBoard.Guests=Guests
@@ -45,12 +50,16 @@ GameBoard.Weapons=Weapons
 GameBoard.Rooms=Rooms
 GameBoard.Board=Gameboard
 GameBoard.CluePaper=Clue paper
+GameBoard.MyCards=My cards
+
+#CardWindow
+CardWindow.Next=Next
 
 #Cards
 Cards.Persons.Mustard=Mustard
 Cards.Persons.Plum=Plum
 Cards.Persons.Green=Green
-Cards.Persons.Peackock=Peackock
+Cards.Persons.Peacock=Peacock
 Cards.Persons.Scarlet=Scarlet
 Cards.Persons.White=White
 
@@ -82,6 +91,10 @@ Peacock.description=<html>Once in the game you can take a random card<br>from a 
 Mustard.description=<html>Once in the game you can roll a dice twice.<br>Roll a dice, move then roll again.</html>
 Green.description=<html>Once in the game you can start a rumour<br>about a room you are actually not in.<br>The person in the rumour will move<br>into that selected room.</html>
 White.description=<html>Once in the game you can enter to any room<br>which has no secret corridor.</html>
+
+#Actions
+Actions.RollDiceStart=<html>Click on the dice button to roll dice.<br>The player with the greatest number will start the game.</html>
+Actions.RollDiceStartAgain=<html>More players have rolled the same number as you which was the maximum.<br>Please click on the dices to roll again and decide who starts.</html>
 
 #Tests
 Test.1=test1_eng

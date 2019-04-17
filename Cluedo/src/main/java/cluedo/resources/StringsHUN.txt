@@ -38,6 +38,11 @@ JOptionPane.Description=Leírás
 JOptionPane.ErrorTitle=Hibaüzenet
 JOptionPane.NameAttention=Az összes név megadása kötelező, és muszáj betűvel kezdődniük!
 JOptionPane.PersonalityAttention=Az összes számítógép, illetve emberi játékosra vonatkozó információ megadása kötelező!
+JOptionPane.ToDo=Teendő(k)
+JOptionPane.SuspectCardTitle=Gyanú kártyák
+JOptionPane.DroppedNumber=A dobott érték: 
+JOptionPane.InformationTitle=Információ
+JOptionPane.InformationAboutStarterPlayer=Az első játékos: 
 
 #GameBoard
 GameBoard.Guests=Vendégek
@@ -45,12 +50,16 @@ GameBoard.Weapons=Fegyverek
 GameBoard.Rooms=Helyiségek
 GameBoard.Board=Játéktábla
 GameBoard.CluePaper=Nyomozólap
+GameBoard.MyCards=Kártyáim
+
+#CardWindow
+CardWindow.Next=Következő
 
 #Cards
 Cards.Persons.Mustard=Mustard
 Cards.Persons.Plum=Plum
 Cards.Persons.Green=Green
-Cards.Persons.Peackock=Peackock
+Cards.Persons.Peacock=Peacock
 Cards.Persons.Scarlet=Scarlet
 Cards.Persons.White=White
 
@@ -82,6 +91,10 @@ Peacock.description=<html>A játék során egyszer véletlenszerűen<br>húzhats
 Mustard.description=<html>A játék során egy esetben, kétszer léphetsz.<br>Dobj a kockával, lépj, majd dobj úra.</html>
 Green.description=<html>A játék során egyszer egy olyan helyiségben is gyanúsíthatsz,<br>amelyben nem tartózkodsz.<br>A gyanúsításban megnevezett személy<br>a helyiségbe lép.</html>
 White.description=<html>A játék során egyszer, bármelyik helyiségbe<br>beléphetsz, amelyiknek nincs<br>titkos átjárója.</html>
+
+#Actions
+Actions.RollDiceStart=<html>Klikkelj a dobókockás gombra a dobáshoz.<br>A legnagyobb értéket dobó játékos kezdi a játékot.</html>
+Actions.RollDiceStartAgain=<html>Több játékos is ugyanazt dobta, mint te a kezdés eldöntéséhez.<br>Nyomj újra  kockákra, hogy újra tudj dobni, a kezdő játékos eldöntéséhez.</html>
 
 #Tests
 Test.1=test1_hun

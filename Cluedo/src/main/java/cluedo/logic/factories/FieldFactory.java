@@ -37,12 +37,9 @@ public class FieldFactory {
                  if(mapStrings.get(row).get(column).contains(":")){
                     
                     if(helper[0].equals("E")){
-                        boolean hasSecret = false;
+                        addEntranceField(helper,row,column);
                         String secretCorridorTo="";
-                        if (helper[2].equals("1")){
-                            hasSecret = true;
                             secretCorridorTo=helper[3];
-                        }
                         Field e = new EntranceField(row,column,true,false,helper[1],hasSecret, secretCorridorTo);
                         generatedMap.get(row).add(e);
                     }else if(helper[0].equals("St")){
@@ -65,6 +62,34 @@ public class FieldFactory {
                      }
                 }
     }
+    
+    private void addEntranceField(String[] data,int row,int column){
+        boolean hasSecret = false;
+                        if (data[2].equals("1")){
+                            hasSecret = true;
+                        }
+                        Field e = new EntranceField(row,column,true,false,data[1],hasSecret);
+                        generatedMap.get(row).add(e);
+    }
+    
+    private void addSecretField(String[] data,int row,int column){
+        boolean hasSecret = false;
+                        if (data[2].equals("1")){
+                            hasSecret = true;
+                        }
+                        Field s = new SecretField(row,column,Type.SECRET, true,false,data[1],hasSecret,Integer.parseInt(data[2]),Integer.parseInt(data[3]),Integer.parseInt(data[4]),Integer.parseInt(data[5]));
+                        generatedMap.get(row).add(s);
+    }
+    
+    public void addRoomField(String[] data,int row,int column){
+         boolean hasSecretPath = false;
+                        if (data[2].equals("1")){
+                            hasSecretPath = true;
+                        }
+                        Field r = new RoomField(row,column,Type.ROOM, true,false,data[1],hasSecretPath);
+                        generatedMap.get(row).add(r);
+    }
+    
     private void createFields(){
         generatedMap = new ArrayList<>();
         for(int i = 0; i< mapStrings.size();i++){

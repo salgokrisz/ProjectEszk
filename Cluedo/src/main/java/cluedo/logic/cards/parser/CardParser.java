@@ -42,10 +42,7 @@ public class CardParser {
             cards.add(persons);
             cards.add(weapons);
             cards.add(rooms); 
-        }catch (FileNotFoundException e) {
-            LOG.warning(e.getMessage());
-            cards.clear();
-        } catch (IOException e) {
+        }catch (IOException e) {
             LOG.warning(e.getMessage());
             cards.clear();
         }

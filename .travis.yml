@@ -22,6 +22,7 @@ jobs:
     
     - stage: pmd
     
+      script: mvn compile site 
       script: mvn pmd:pmd
 
     - stage: sonar

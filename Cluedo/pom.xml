@@ -5,32 +5,45 @@
     <artifactId>Cluedo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-<build>
-    <plugins>
-        <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.0</version>
-            <configuration>
-                <fork>true</fork>
-          <source>1.8</source>
-          <target>1.8</target>
-   </configuration>
-        </plugin>
-    </plugins>
-</build>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <fork>true</fork>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.sgoertzen</groupId>
+                <artifactId>sonarbreak</artifactId>
+                <version>1.2.2</version>
+                <configuration>
+                    <sonarServer>https://sonarcloud.io\</sonarServer>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
+        <dependency>
+            <groupId>com.github.sgoertzen</groupId>
+            <artifactId>sonarbreak</artifactId>
+            <version>1.2.2</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-       <dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-all</artifactId>
-    <version>1.9.5</version>
-    <scope>test</scope>
-</dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -50,9 +63,9 @@
             </exclusions>
         </dependency>
         <dependency>
-          <groupId>javax.json</groupId>
-          <artifactId>javax.json-api</artifactId>
-          <version>1.0</version>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>

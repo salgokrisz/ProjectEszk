@@ -22,7 +22,7 @@ jobs:
 
     - stage: sonar
     
-      script: mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -DskipTests=true -Dmaven.test.failure.ignore=true
+      script: mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar sonar-break:sonar-break -DskipTests=true -Dmaven.test.failure.ignore=true
 
     - stage: test
 

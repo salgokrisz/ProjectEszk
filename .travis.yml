@@ -22,8 +22,8 @@ jobs:
 
     - stage: sonar
     
-      script: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -DskipTests=true -Dmaven.test.failure.ignore=true
-
+      script: sonar-scanner
+      
     - stage: test
 
       script: mvn test

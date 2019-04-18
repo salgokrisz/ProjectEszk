@@ -16,10 +16,10 @@ import java.util.List;
  * operations on the map.
  * 
  */
-public class Map {
+public class GameMap {
     private List<List<Field>> gameMap;
     private final int rows;
-    public Map(String fileName){
+    public GameMap(String fileName){
         FieldFactory fieldFactory = new FieldFactory(fileName);
         gameMap=fieldFactory.getGeneratedMap();
         rows=gameMap.size();

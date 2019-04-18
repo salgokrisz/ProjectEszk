@@ -3,6 +3,7 @@ package cluedo.logic.controller;
 import cluedo.logic.cards.Card;
 import cluedo.logic.cards.parser.CardParser;
 import cluedo.logic.factories.PlayerFactory;
+import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Player;
 import cluedo.tools.Tools;
 import cluedo.tools.languagestring.LanguageStrings;
@@ -27,6 +28,7 @@ public class GameController {
     private GameBoardListener gameBoardListener;
     private GamePhase actualGamePhase;
     Map<Player, Integer> droppedNumbersForDecidingStart = new HashMap<>();
+    private GameMap map;
     public GameController(){
         actualGamePhase=GamePhase.INITIAL;
     }
@@ -56,6 +58,7 @@ public class GameController {
         }
         return i;
     }
+ 
     public void initializePlayers(List<String> playerInformations) {
         PlayerFactory pf = new PlayerFactory();
         players = pf.createPlayers(playerInformations);

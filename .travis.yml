@@ -23,7 +23,11 @@ jobs:
     - stage: sonar
     
       script: mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -DskipTests=true -Dmaven.test.failure.ignore=true
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> 81443d7d247d8c737a749c24796211d9dbbddf36
     - stage: test
 
       script: mvn test

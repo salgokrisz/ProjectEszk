@@ -18,8 +18,8 @@
             </plugin>
             <plugin>
                 <groupId>com.github.sgoertzen</groupId>
-                <artifactId>sonarbreak</artifactId>
-                <version>1.2.2</version>
+                <artifactId>sonar-break-maven-plugin</artifactId>
+                <version>${sonar.break.maven.plugin.version}</version>
                 <configuration>
                     <sonarServer>https://sonarcloud.io\</sonarServer>
                 </configuration>
@@ -77,5 +77,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+		<sonar.host.url>https://sonarcloud.io\</sonar.host.url>
+        <sonar.break.maven.plugin.version>1.2.5</sonar.break.maven.plugin.version>
     </properties>
 </project>

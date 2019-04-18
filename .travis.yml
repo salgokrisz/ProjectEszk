@@ -22,7 +22,7 @@ jobs:
 
     - stage: sonar
     
-      script: sonar-scanner
+      script: mvn sonar:sonar
       
     - stage: test
 

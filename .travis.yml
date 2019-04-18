@@ -22,7 +22,7 @@ jobs:
     
     - stage: pmd
     
-      script: mvn pmd:pmd -f text
+      script: mvn pmd:pmd
 
     - stage: sonar
     

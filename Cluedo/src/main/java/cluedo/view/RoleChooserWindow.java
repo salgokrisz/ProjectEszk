@@ -498,7 +498,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         playerComponents.get(serialNumber).getJcbDifficultyLevel().setEnabled(selectedOption.equals(LanguageStrings.getString("Menu.PlayerOptionAi"))); 
     }
     private void addActionListenerToButton(JButton button){
-    button.addActionListener((java.awt.event.ActionEvent evt) -> {
+    button.addActionListener((ActionEvent evt) -> {
         jbRoleActionPerfromed(evt);
     });
 }

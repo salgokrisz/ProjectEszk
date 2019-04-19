@@ -20,28 +20,27 @@ jobs:
 
       script: mvn compile
 
-    - stage: sonar
-    
-      script: mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -DskipTests=true -Dmaven.test.failure.ignore=true
-    
-    - stage: coverage verify
-    
-      script: mvn verify
-      
     - stage: test
 
       script: mvn test
       
+      - stage: coverage verify
+    
+      script: mvn verify
+      
+       - stage: sonar
+    
+      script: mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -DskipTests=true -Dmaven.test.failure.ignore=true
 
 stages:
 
   - compile
-  
-  - sonar
-  
-   - coverage verify
 
   - test 
+  
+  - coverage verify
+  
+  - sonar
   
  
   

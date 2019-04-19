@@ -24,11 +24,11 @@ jobs:
 
       script: mvn test
       
-      - stage: coverage verify
+    - stage: coverage verify
     
       script: mvn verify
       
-       - stage: sonar
+    - stage: sonar
     
       script: mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -DskipTests=true -Dmaven.test.failure.ignore=true
 

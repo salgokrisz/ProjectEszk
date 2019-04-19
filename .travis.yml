@@ -1,3 +1,4 @@
+before_install: "git clone -b travis `git config --get remote.origin.url` target/travis"
 branches:
   except:
     - travis
@@ -30,6 +31,10 @@ jobs:
     - stage: test
 
       script: mvn test
+      
+    - stage: deploy
+    
+     script: "mvn deploy --settings target/travis/settings.xml"
 
 stages:
 
@@ -39,4 +44,24 @@ stages:
 
   - test 
   
-
+  -deploy
+env:
+  global:
+    - secure: "YH6exutoNZ3MNa5d3LkG/x/i0V986QFpfLrtWZ+4Y59KXNCn87ZBH3d+j1wg7mUoBEnTs
+nSpcm7GqhVD1grwcSEdTYVelCFzeSciKH688BU1Rcy37S7YJFZIvyT2+gMzI1wqus0R4qxOXce/uJGXm
+DmTTNfNiwH3o3xMWC0U1TfkFx05a3D9Fz2uz6QBUARmPJ01KR+bcKmP/afW+gvBmVSSfbWjkNVH+hFLm
+vsOKdFnSeusKSHJNjUttNGvyc8WTE3e/DPAgvfL84DFs9S38M5oI8qgxQcIgT3igVqGIH4lSG4w49T8L
+bcdwusCR4mkWvwsUTrUU8JZJb0AId6Zy2LKSDrmlSqwspJy91Rghu5sC8BbRKROZ/Ms06HJlBH5QuB7n
+YkKIPnJLjHRt/zHiLVl+P9YS4HQKOEDzHYNs35hseP13ddrto1A3lMq9SEaimXdzcCzlFrF3SrNbbIKb
+fePTYu5Gj0mvhfBTq9fnJN1/WzEvXpQsurqIlXRGkXNNg1ulu2dQ5Rwe6hvRzk0MaB6L4gITJUcE/WJ9
+3DmMNLrKh06fW8Nojp3u3N8ehrbtc4pmkc+y95njsvehf+RAgDpQ6chEo4PgEv5CzlAhnR5omOHdy1qa
+85Y73pjYqMjCGjXIcYl6F3dmd8YBNlwT3tVytZkjyqiMBNa8Ufphr4="
+    - secure: "KkbfpsiEgTM/DIzyh5f7z7ZPMEvalJXG+7GqmJfalhtK5KWveFeQd64t51Cu/ZjVNTdti
+B4ReVvYhQ/XGGzV1hyflkZ4g2aqohQ3iqAwZBPwDTzQXId9Rw7GAchwQ0esijcUQdIdeRgBmW1V6s3JE
+NcNLg2nOXaMTHqam+ewi2hlaEOV96EAZ6V1UD7VD42y2NI7DPfiHOCrDwfZMPd90WvAAl6A6HwE7svq6
+TGtXMfB0rYMXHc6vpR07Qm9fXs2zBA5/cW8zxUdwWh5UdhSsn2hd0nNpXjvRUKdPfSly1G45pOHqjMQ4
+A9A0wlq6CS4F6nzLLFAT6wfrUYw7bnsdCQ9VEd2ufkwPedtcTUUipM0ateU0nYA/8f3AgQ0bVCY2+Feb
+3zPlETG83/9CP9Xn3BsbMQDW5ivGGdh+k3lpcYzseH+KSiTdB1Kzq5xqKSBr0NNOA3/HvIzwjbbBpMPD
+CPztM9ponW+qEfZaTrO90Syk/0DC3ICfo/9wW0Cfybe+oX/pjy4j0CYJCdHIpQYdMVkZ6/ilmp5TFdj+
+/gUpLz/YzKeOh4toL8qj+qc79xk98+5I3Ik8PJxyUNSsjJQ+Km9odZ5D5pq+XnRROPavpqHphYLXoqWQ
+PxIKpOhHhos3LxHTC6YQ2mbGqKD27o0jTiLO+9/znPDUrT0ZZ61MoE="

@@ -14,8 +14,18 @@ public class EndRoom extends Room{
     
       public EndRoom(String name, List<Point> coordinates){
           super(name, coordinates);
-      }   
-
+      } 
+      
+      public EndRoom(EndRoom other){
+          super(other);
+          this.murderWeapon=other.getMurderWeapon();
+          this.murderRoom=other.getMurderRoom();
+          this.murderer=other.getMurderer();
+      }
+      @Override
+      public Object cloneObject(){
+          return new EndRoom(this);
+      }
     public Card getMurderWeapon() {
         if(murderWeapon!=null){
             return (Card)murderWeapon.cloneObject();
@@ -23,7 +33,16 @@ public class EndRoom extends Room{
             return null;
         }
     }
-
+@Override
+public String toString(){
+    StringBuilder sb=new StringBuilder(super.toString());
+    if(murderWeapon!=null && murderRoom!=null && murderer!=null){
+        sb.append("Murder weapon: ").append(murderWeapon.toString()).append(System.lineSeparator());
+        sb.append("Murder room: ").append(murderRoom.toString()).append(System.lineSeparator());
+        sb.append("Murderer: ").append(murderer.toString());
+    }
+    return sb.toString();
+}
     public void setMurderWeapon(Card murderWeapon) {
         this.murderWeapon=null;
         if(murderWeapon!=null){

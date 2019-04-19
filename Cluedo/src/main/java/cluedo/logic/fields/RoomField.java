@@ -10,18 +10,15 @@ package cluedo.logic.fields;
  */
 public class RoomField extends Field{
     protected String roomName;
-    protected boolean hasSecretPath;
     
-    public RoomField(int x,int y,FieldType type,boolean walkeAble,boolean someOneOn,String roomName, boolean hasSecretPath){
+    public RoomField(int x,int y,FieldType type,boolean walkeAble,boolean someOneOn,String roomName){
         super(x,y,type,walkeAble,someOneOn);
         this.roomName = roomName;
-        this.hasSecretPath = hasSecretPath;
     }
     
     public RoomField(RoomField other){
         super(other);
         this.roomName=other.getRoomName();
-        this.hasSecretPath=other.getHasSecretPath();
     }
     
     @Override
@@ -32,21 +29,15 @@ public class RoomField extends Field{
         return roomName;
     }
 
-    public boolean getHasSecretPath() {
-        return hasSecretPath;
-    }
 
     public void setRoomName(String roomName) {
         this.roomName = roomName;
     }
 
-    public void setHasSecretPath(boolean hasSecretPath) {
-        this.hasSecretPath = hasSecretPath;
-    }
     
     @Override
     public String toString(){
-        return super.toString()+" roomName:"+roomName+" hasSecretPath:"+hasSecretPath;
+        return super.toString()+" roomName:"+roomName;
     }
     @Override
     public boolean equals(Object obj){

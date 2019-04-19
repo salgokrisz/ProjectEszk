@@ -3,8 +3,10 @@ package cluedo.logic.controller;
 import cluedo.logic.cards.Card;
 import cluedo.logic.cards.parser.CardParser;
 import cluedo.logic.factories.PlayerFactory;
+import cluedo.logic.factories.RoomFactory;
 import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Player;
+import cluedo.logic.room.Room;
 import cluedo.tools.Tools;
 import cluedo.tools.languagestring.LanguageStrings;
 import java.util.ArrayList;
@@ -28,9 +30,13 @@ public class GameController {
     private GameBoardListener gameBoardListener;
     private GamePhase actualGamePhase;
     Map<Player, Integer> droppedNumbersForDecidingStart = new HashMap<>();
-    private GameMap map;
+    private final GameMap map;
+    private final Map<String, Room> roomMap;
     public GameController(){
         actualGamePhase=GamePhase.INITIAL;
+        map=new GameMap("maps/basicmap.txt");
+        RoomFactory rf=new RoomFactory(map.getGameMap());
+        roomMap=rf.generateRooms();
     }
     public int getNumberOfPlayers() {
         return numberOfPlayers;

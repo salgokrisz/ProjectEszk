@@ -20,7 +20,13 @@ public class Room {
          height=calculateHeight();
          width=calculateWidth();
      }
-
+     
+     public Room(Room other){
+         this.name=other.getName();
+         this.width=other.getWidth();
+         this.height=other.getHeight();
+         this.coordinates=other.getCoordinates();
+     }
     public String getName() {
         return name;
     }
@@ -52,7 +58,7 @@ public class Room {
                 maxX=coordinates.get(i).getX();
             }
         }
-       return maxX-minX;
+       return (maxX-minX)+1;
     }
     private int calculateWidth(){
         int minY=coordinates.get(0).getY();
@@ -65,6 +71,20 @@ public class Room {
                 maxY=coordinates.get(i).getY();
             }
         }
-       return maxY-minY;
+       return (maxY-minY)+1;
+    }
+    public Object cloneObject(){
+        return new Room(this);
+    }
+    @Override
+    public String toString(){
+        StringBuilder sb=new StringBuilder();
+        sb.append("Room name key: ").append(name).append(" height: ").append(height)
+        .append(" width: ").append(width).append(System.lineSeparator()).append("coordinates:")
+        .append(System.lineSeparator());
+        for(Point p: coordinates){
+            sb.append(p.toString()).append(";");
+        }
+        return sb.toString();
     }
 }

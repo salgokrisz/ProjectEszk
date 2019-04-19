@@ -48,7 +48,7 @@ public Point(Point other){
    @Override
    public String toString(){
        StringBuilder sb=new StringBuilder();
-       sb.append("x: ").append(x).append(", y: ").append(y);
+       sb.append("(").append(x).append(", ").append(y).append(")");
        return sb.toString();
    }
 }

@@ -20,14 +20,14 @@ import java.util.List;
  */
 public class FieldFactory {
     protected List<List<Field>> generatedMap;
-    protected List<List<String>> mapStrings;
-    protected MapParser mp = new MapParser();
+    protected List<List<String>> mapStrings;   
     
     public FieldFactory(String fileName){
         getDataFromParser(fileName);
     }
     
     private void getDataFromParser(String fileName){
+        MapParser mp = new MapParser();
         mp.openFile(fileName);
         mapStrings = MapParser.getMapList();
         createFields();
@@ -50,7 +50,7 @@ public class FieldFactory {
                         Field st = new StartField(row,column,true,false,helper[1]);
                         generatedMap.get(row).add(st);
                     }else if(helper[0].equals("R")){
-                        Field r = new RoomField(row,column,FieldType.ROOM, true,false,helper[1],false);
+                        Field r = new RoomField(row,column,FieldType.ROOM, true,false,helper[1]);
                         generatedMap.get(row).add(r);
                     }
                 }else{

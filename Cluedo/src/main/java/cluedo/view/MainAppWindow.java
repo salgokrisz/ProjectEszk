@@ -28,16 +28,16 @@ public class MainAppWindow extends AbstractBaseWindow {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         jbNewGame = new javax.swing.JButton();
-        jlLanguageChooser = new javax.swing.JLabel();
-        jrbEnglish = new javax.swing.JRadioButton();
-        jrbHungarian = new javax.swing.JRadioButton();
-        jlPlayers = new javax.swing.JLabel();
+        jlLanguageChooser = new JLabel();
+        jrbEnglish = new JRadioButton();
+        jrbHungarian = new JRadioButton();
+        jlPlayers = new JLabel();
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setSize(new java.awt.Dimension(1366, 770));
         JPanel jpBase = new JPanel();
         jpBase.setBackground(new java.awt.Color(255, 30, 21));
         jpBase.setForeground(new java.awt.Color(180, 0, 0));
-        JLabel jlTitle = new javax.swing.JLabel();
+        JLabel jlTitle = new JLabel();
         jlTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/title.JPG"))); // NOI18N
         jbNewGame.setBackground(new java.awt.Color(180, 0, 0));
         jbNewGame.setFont(new java.awt.Font(FONT_TYPE, 1, 18)); // NOI18N
@@ -51,13 +51,13 @@ public class MainAppWindow extends AbstractBaseWindow {
         jlLanguageChooser.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlLanguageChooser.setText(LanguageStrings.getString("Menu.Language"));
         jrbEnglish.setBackground(new java.awt.Color(255, 30, 21));
-        ButtonGroup bgLanguage = new javax.swing.ButtonGroup();
+        ButtonGroup bgLanguage = new ButtonGroup();
         bgLanguage.add(jrbEnglish);
         jrbEnglish.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbEnglish.setText(LanguageStrings.getString("Menu.English"));
         jrbEnglish.setSelected(true);
         jrbEnglish.addActionListener((java.awt.event.ActionEvent evt) -> {
-            jrbEnglishActionPerformed(evt);
+            jrbEnglishActionPerformed();
         });
         jrbHungarian.setBackground(new java.awt.Color(255, 30, 21));
         bgLanguage.add(jrbHungarian);
@@ -70,7 +70,7 @@ public class MainAppWindow extends AbstractBaseWindow {
         jlPlayers.setText(LanguageStrings.getString("Menu.PlayerNumber"));
        JRadioButton jrbTwo = new JRadioButton();
        jrbTwo.setBackground(new java.awt.Color(255, 30, 21));
-        ButtonGroup bgPlayers = new javax.swing.ButtonGroup();
+        ButtonGroup bgPlayers = new ButtonGroup();
         bgPlayers.add(jrbTwo);
         jrbTwo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jrbTwo.setText("2");
@@ -201,7 +201,7 @@ public class MainAppWindow extends AbstractBaseWindow {
         jrbHungarian.setText(LanguageStrings.getString("Menu.Hungarian"));
         jlPlayers.setText(LanguageStrings.getString("Menu.PlayerNumber"));
     }
-    private void jrbEnglishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbEnglishActionPerformed
+    private void jrbEnglishActionPerformed() {//GEN-FIRST:event_jrbEnglishActionPerformed
         LanguageStrings.changeLanguage(Language.ENG);
         resetStringsOnWindow();
 
@@ -258,9 +258,9 @@ public class MainAppWindow extends AbstractBaseWindow {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     
     private javax.swing.JButton jbNewGame;
-    private javax.swing.JLabel jlLanguageChooser;
-    private javax.swing.JLabel jlPlayers;
-    private javax.swing.JRadioButton jrbEnglish;
-    private javax.swing.JRadioButton jrbHungarian;
+    private JLabel jlLanguageChooser;
+    private JLabel jlPlayers;
+    private JRadioButton jrbEnglish;
+    private JRadioButton jrbHungarian;
     // End of variables declaration//GEN-END:variables
 }

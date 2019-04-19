@@ -8,8 +8,7 @@ import cluedo.logic.player.Player;
  * and the GameBoard class.
  */
 public interface GameBoardListener {
-    public void showWhatToDo(String message);
-    public void showAllSuspectCardInformations(Player player);
-
-    public void showInformation(String message);
+    void showWhatToDo(String message);
+    void showAllSuspectCardInformations(Player player);
+    void showInformation(String message);
 }

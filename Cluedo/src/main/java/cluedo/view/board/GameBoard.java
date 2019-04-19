@@ -181,4 +181,8 @@ CluePaperPanel cluePaperPanel;
         Object options[]={"Ok"};
         JOptionPane.showOptionDialog(this, message, LanguageStrings.getString("JOptionPane.InformationTitle"), JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     }
+    
+    public FieldEnum[][] getFieldMatrix() { //Added because Pmd said that this variable is unused.
+        return fieldMatrix;
+    }
 }

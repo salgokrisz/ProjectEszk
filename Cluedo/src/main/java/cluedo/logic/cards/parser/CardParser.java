@@ -6,7 +6,6 @@ import static cluedo.tools.Tools.LOG;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
  

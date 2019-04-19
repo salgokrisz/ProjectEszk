@@ -18,7 +18,6 @@ import cluedo.logic.role.Role;
 import cluedo.tools.Tools;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * This class will get a List of Strings and it will

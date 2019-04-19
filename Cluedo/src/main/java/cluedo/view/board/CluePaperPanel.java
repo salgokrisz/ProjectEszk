@@ -71,15 +71,15 @@ private void fillUpCheckBoxMap(){
         jlRooms = new javax.swing.JLabel();
         jlWeapons = new javax.swing.JLabel();
         jcWhite = new JCheckBox();
-        jcKnife = new javax.swing.JCheckBox();
-        jcCandlestick = new javax.swing.JCheckBox();
-        jcRevolver = new javax.swing.JCheckBox();
-        jcPoison = new javax.swing.JCheckBox();
-        jcTrophy = new javax.swing.JCheckBox();
-        jcRope = new javax.swing.JCheckBox();
-        jcBat = new javax.swing.JCheckBox();
-        jcAxe = new javax.swing.JCheckBox();
-        jcDumbbell = new javax.swing.JCheckBox();
+        jcKnife = new JCheckBox();
+        jcCandlestick = new JCheckBox();
+        jcRevolver = new JCheckBox();
+        jcPoison = new JCheckBox();
+        jcTrophy = new JCheckBox();
+        jcRope = new JCheckBox();
+        jcBat = new JCheckBox();
+        jcAxe = new JCheckBox();
+        jcDumbbell = new JCheckBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(403, 259));

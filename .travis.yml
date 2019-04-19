@@ -27,6 +27,10 @@ jobs:
     - stage: test
 
       script: mvn test
+      
+    - stage: coverage verify
+    
+      script: mvn verify
 
 stages:
 
@@ -35,5 +39,7 @@ stages:
   - sonar
 
   - test 
+  
+  - coverage verify
   
 

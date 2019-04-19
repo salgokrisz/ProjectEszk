@@ -68,4 +68,9 @@ public class EntranceField extends Field {
             return super.equals(obj);
         }
     }
+    
+    @Override
+    public int hashCode(){
+        return super.hashCode()+roomName.hashCode();
+    } 
 }

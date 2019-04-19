@@ -487,7 +487,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     }//GEN-LAST:event_jbChooseActionPerformed
     
       private void addActionListenerToJcbPlayerPersonality(JComboBox comboBox, int serialNumber){
-        comboBox.addActionListener((java.awt.event.ActionEvent evt) -> {
+        comboBox.addActionListener((ActionEvent evt) -> {
             jcbPlayerPersonalityActionPerformed(evt, serialNumber);
         });
     }

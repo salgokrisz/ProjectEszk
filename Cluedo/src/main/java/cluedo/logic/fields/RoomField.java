@@ -49,5 +49,11 @@ public class RoomField extends Field{
         }else{
             return super.equals(obj);
         }
-    }    
+    }
+
+    @Override
+    public int hashCode(){
+        return super.hashCode()+roomName.hashCode();
+    }
+    
 }

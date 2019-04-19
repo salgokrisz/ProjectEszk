@@ -48,5 +48,10 @@ public class StartField extends Field {
         }else{
             return super.equals(obj);
         }
+    }
+
+    @Override
+    public int hashCode(){
+        return super.hashCode()+belongsTo.hashCode();
     }   
 }

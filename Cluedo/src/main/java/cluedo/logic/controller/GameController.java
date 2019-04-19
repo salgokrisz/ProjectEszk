@@ -3,7 +3,6 @@ package cluedo.logic.controller;
 import cluedo.logic.cards.Card;
 import cluedo.logic.cards.parser.CardParser;
 import cluedo.logic.factories.PlayerFactory;
-import cluedo.logic.factories.RoomFactory;
 import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Player;
 import cluedo.tools.Tools;
@@ -29,11 +28,11 @@ public class GameController {
     private GameBoardListener gameBoardListener;
     private GamePhase actualGamePhase;
     Map<Player, Integer> droppedNumbersForDecidingStart = new HashMap<>();
-    private final GameMap map;
+    //private final GameMap map;// Commented out because of the pmd check says it doesnt used but later it will be used.
     //private final Map<String, Room> roomMap;// Commented out because of the pmd check says it doesnt used but later it will be used.
     public GameController(){
         actualGamePhase=GamePhase.INITIAL;
-        map=new GameMap("maps/basicmap.txt");
+        //map=new GameMap("maps/basicmap.txt");// Commented out because of the pmd check says it doesnt used but later it will be used.
         //RoomFactory rf=new RoomFactory(map.getGameMap());// Commented out because of the pmd check says it doesnt used but later it will be used.
         //roomMap=rf.generateRooms();// Commented out because of the pmd check says it doesnt used but later it will be used.
     }

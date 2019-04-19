@@ -71,7 +71,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         String[] roleModel=new String[] { "Random", MUSTARD, PEACOCK, GREEN, WHITE, SCARLET, PLUM };
-        jcbPlayerOneRole = new javax.swing.JComboBox<>();
+        jcbPlayerOneRole = new JComboBox<>();
         jlPlayerOne = new JLabel();
         jlPlayerTwo = new JLabel();
         jcbPlayerTwoRole = new JComboBox<>();

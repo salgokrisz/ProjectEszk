@@ -35,7 +35,7 @@ import javax.swing.JTabbedPane;
 public class GameBoard extends AbstractBaseWindow implements GameBoardListener{
     private JPanel jpBase;
     private FieldEnum[][] fieldMatrix=new FieldEnum[4][10];
-    private List<JPanel> roomLabelList=new ArrayList<>();
+    //private List<JPanel> roomLabelList=new ArrayList<>();//Commented out because PMD says it havent been used.
     private final GameController gameController;
     private JTabbedPane tabbedPane;
     private JButton cardButton;
@@ -101,8 +101,8 @@ CluePaperPanel cluePaperPanel;
         panelForButtons.setLayout(new BoxLayout(panelForButtons, BoxLayout.X_AXIS));
         cardButton=new JButton(LanguageStrings.getString("GameBoard.MyCards"));
         diceButton=new JButton();
-        cardButton.setBackground(new java.awt.Color(255, 30, 21));
-        diceButton.setBackground(new java.awt.Color(255, 30, 21));
+        cardButton.setBackground(new Color(255, 30, 21));
+        diceButton.setBackground(new Color(255, 30, 21));
         diceButton.setIcon(new ImageIcon(getClass().getResource("/board/dice.png")));
         panelForButtons.add(cardButton);
         JPanel dummyPanel=new JPanel();

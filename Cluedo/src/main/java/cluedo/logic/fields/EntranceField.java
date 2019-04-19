@@ -68,8 +68,4 @@ public class EntranceField extends Field {
             return super.equals(obj);
         }
     }
-    
-    public int hashCode(){
-        return super.hashCode();
-    } 
 }

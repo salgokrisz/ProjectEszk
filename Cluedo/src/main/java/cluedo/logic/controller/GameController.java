@@ -6,7 +6,6 @@ import cluedo.logic.factories.PlayerFactory;
 import cluedo.logic.factories.RoomFactory;
 import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Player;
-import cluedo.logic.room.Room;
 import cluedo.tools.Tools;
 import cluedo.tools.languagestring.LanguageStrings;
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class GameController {
     public GameController(){
         actualGamePhase=GamePhase.INITIAL;
         map=new GameMap("maps/basicmap.txt");
-        RoomFactory rf=new RoomFactory(map.getGameMap());
+        //RoomFactory rf=new RoomFactory(map.getGameMap());// Commented out because of the pmd check says it doesnt used but later it will be used.
         //roomMap=rf.generateRooms();// Commented out because of the pmd check says it doesnt used but later it will be used.
     }
     public int getNumberOfPlayers() {

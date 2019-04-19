@@ -3,7 +3,6 @@ package cluedo.logic.controller;
 import cluedo.logic.cards.Card;
 import cluedo.logic.cards.parser.CardParser;
 import cluedo.logic.factories.PlayerFactory;
-import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Player;
 import cluedo.tools.Tools;
 import cluedo.tools.languagestring.LanguageStrings;

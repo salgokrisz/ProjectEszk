@@ -42,8 +42,15 @@
                 <configuration>
                     <linkXRef>true</linkXRef>
                     <sourceEncoding>ISO-8859-1</sourceEncoding>
-                    <minimumTokens>30</minimumTokens>
-                    <targetJdk>1.4</targetJdk>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>1.5</targetJdk>
+                     <excludes>
+            <exclude>**/*Bean.java</exclude>
+            <exclude>**/generated/*.java</exclude>
+          </excludes>
+          <excludeRoots>
+            <excludeRoot>target/generated-sources/stubs</excludeRoot>
+          </excludeRoots>
                 </configuration>
             </plugin>
             <plugin>

@@ -28,8 +28,12 @@ jobs:
              - mvn compile site
              - mvn pmd:pmd
              - mvn verify
+             
+    - stage: coverage verify
+    
+      script: mvn verify
 
-    - stage: sonar
+    - stage: sonar    
     
       script: mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -DskipTests=true -Dmaven.test.failure.ignore=true
 
@@ -37,10 +41,13 @@ stages:
 
   - compile
 
-  - test 
+  - test
   
   - pmd
   
+  - coverage verify
+  
   - sonar
+
   
 

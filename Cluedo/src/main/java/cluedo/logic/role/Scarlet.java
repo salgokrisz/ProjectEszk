@@ -29,6 +29,11 @@ public class Scarlet extends Role{
     public void useSpecialAbility() {
        //TODO: write Scarlet's special ability
     }
-    
+     @Override
+    public String toString(){
+        StringBuilder sb=new StringBuilder();
+        sb.append(name).append(" (").append("Scarlet").append(")");
+        return sb.toString();
+    }
     
 }

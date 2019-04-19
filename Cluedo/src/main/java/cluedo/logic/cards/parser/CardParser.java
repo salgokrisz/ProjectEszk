@@ -28,6 +28,7 @@ public class CardParser {
         try (InputStream is = new FileInputStream(new File(jsonPath));JsonReader reader = Json.createReader(is)){
       
             JsonObject cardsObj = reader.readObject();
+
             
             JsonObject personsObj = cardsObj.getJsonObject("Persons");
             JsonObject weaponsObj = cardsObj.getJsonObject("Weapons");

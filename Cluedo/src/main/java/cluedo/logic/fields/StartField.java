@@ -1,7 +1,7 @@
 
 package cluedo.logic.fields;
 
-import cluedo.logic.fields.FieldType.Type;
+
 
 /**
  *  * This class represents a special field on the map.
@@ -13,10 +13,19 @@ public class StartField extends Field {
     private String belongsTo;
     
     public StartField(int x,int y,boolean walkeAble,boolean someOneOn,String belongsTo){
-        super(x,y,Type.START,walkeAble,someOneOn);
+        super(x,y,FieldType.START,walkeAble,someOneOn);
         this.belongsTo = belongsTo;
     }
     
+    public StartField(StartField other){
+        super(other);
+        this.belongsTo=other.getBelongsTo();
+    }
+    
+    @Override
+    public Object cloneObject(){
+        return new StartField(this);
+    }
     public void setBelongsTo(String belongsTo) {
         this.belongsTo = belongsTo;
     }

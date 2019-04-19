@@ -29,5 +29,10 @@ public class Mustard extends Role{
     public void useSpecialAbility() {
         //TODO: write Mustard's special ability
     }
-    
+     @Override
+    public String toString(){
+        StringBuilder sb=new StringBuilder();
+        sb.append(name).append(" (").append("Mustard").append(")");
+        return sb.toString();
+    }
 }

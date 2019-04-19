@@ -17,19 +17,30 @@ jobs:
     - stage: compile
 
       script: mvn compile
+      
+    - stage: test
+
+      script: mvn test
+      
+    - stage: pmd
+    
+      script: 
+             - mvn compile site
+             - mvn pmd:pmd
+             - mvn verify
 
     - stage: sonar
     
       script: mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -DskipTests=true -Dmaven.test.failure.ignore=true
 
-    - stage: test
-
-      script: mvn test
-
 stages:
 
   - compile
-  
-  - sonar
 
   - test 
+  
+  - pmd
+  
+  - sonar
+  
+

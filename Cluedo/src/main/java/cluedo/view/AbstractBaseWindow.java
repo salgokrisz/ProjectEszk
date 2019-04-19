@@ -35,10 +35,9 @@ protected static final String FONT_TYPE="Times New Roman";
         JMenuItem miHungarian=new JMenuItem(LanguageStrings.getString("Menu.Hungarian"));
     protected JMenu mLanguages = new JMenu(LanguageStrings.getString("ToolBar.Languages"));
 protected static Set<JFrame> openedWindowsSet=new HashSet<>();
-
     protected JMenuBar mb;
-
     protected final JMenuItem miInfo = new JMenuItem(LanguageStrings.getString("ToolBar.Information"));
+    
     public AbstractBaseWindow(){
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("CLUEDO");
@@ -53,19 +52,17 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
         });
         setMenu();
     }
+    
     public void addToOpenedWindowsSet(JFrame window){
         openedWindowsSet.add(window);
     }
     protected void setMenu() {
         mb = new JMenuBar();
-        setJMenuBar(mb);
-        
+        setJMenuBar(mb);   
         mHelper.setMnemonic('H');
         mLanguages.setMnemonic('O');
         miInfo.setMnemonic('I');
-       
-        mHelper.add(miInfo);
-        
+        mHelper.add(miInfo);   
         mLanguages.add(miEnglish);
         mLanguages.add(miHungarian);
         mb.add(mHelper);
@@ -74,12 +71,14 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
         miEnglish.addActionListener(changeToEnglish());
         miHungarian.addActionListener(changeToHungarian());
     }
+    
     protected ActionListener changeToHungarian(){
         return (ActionEvent e) -> {
             LanguageStrings.changeLanguage(Language.HUN);  
             resetStringsOnWindow();
         };
     }
+    
      protected void resetStringsOnWindow(){
          miEnglish.setText(LanguageStrings.getString("Menu.English"));
          miHungarian.setText(LanguageStrings.getString("Menu.Hungarian"));
@@ -87,6 +86,7 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
          mHelper.setText(LanguageStrings.getString("ToolBar.Helper"));
          miInfo.setText(LanguageStrings.getString("ToolBar.Information"));
      }
+     
     protected ActionListener changeToEnglish() {
         return (ActionEvent e) -> {
             LanguageStrings.changeLanguage(Language.ENG);
@@ -100,6 +100,7 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
             JOptionPane.showMessageDialog(null, LanguageStrings.getString("JOptionPane.ApplicationInfo"), LanguageStrings.getString("JOptionPane.Description"), JOptionPane.INFORMATION_MESSAGE);
         };
     }
+    
   public void closeWindow(){
       if(!openedWindowsSet.isEmpty()){
                 Iterator<JFrame> iter=openedWindowsSet.iterator();
@@ -109,32 +110,31 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
             }
             doUponExit();
   }
-    protected void formWindowClosing() {                                   
-      
+  
+    protected void formWindowClosing() {                                        
         int answer=showConfirmation(LanguageStrings.getString("JOptionPane.ClosingApproval"), null);
-        if (answer == JOptionPane.YES_OPTION) {
-            
-                closeWindow();
-            
+        if (answer == JOptionPane.YES_OPTION) {           
+                closeWindow();           
         }
     }  
+    
     private static int showOptionDialogWithoutImage(String message, Object[] options){
        return JOptionPane.showOptionDialog(null, message,
                LanguageStrings.getString("JOptionPane.Approval"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, options, options[0]);
     }
+    
     private static int showOptionDialogWithImage(String message, Object[] options, URL imageUrl){
         return JOptionPane.showOptionDialog(null, message,
                 LanguageStrings.getString("JOptionPane.Approval"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                 new ImageIcon(imageUrl), options, options[0]);
     }
+    
         public static int showConfirmation(String message, URL imageUrl) {
          Object[] options = {LanguageStrings.getString("JOptionPane.Yes"), LanguageStrings.getString("JOptionPane.No")};
-         int answer;
-        
+         int answer;       
          if(imageUrl==null){
-            answer= showOptionDialogWithoutImage(message, options);
-             
+            answer= showOptionDialogWithoutImage(message, options);           
          }else{
              boolean validUrl=isLinkValid(imageUrl);
              if(validUrl){
@@ -145,6 +145,7 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
          }
         return answer;
     }
+        
         private static boolean isLinkValid(URL url){
             boolean valid=true;
          try {
@@ -159,6 +160,7 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
     public static void showErrorMessage(String error) {
         JOptionPane.showMessageDialog(null, error, LanguageStrings.getString("JOptionPane.ErrorTitle"), JOptionPane.ERROR_MESSAGE);
     }
+    
     protected void doUponExit() {
         this.dispose();
     }

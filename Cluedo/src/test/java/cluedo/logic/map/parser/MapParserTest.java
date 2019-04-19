@@ -20,15 +20,15 @@ public class MapParserTest{
         
         MapParser mp2 = new MapParser();
         mp2.openFile("test2.txt");
-        assertEquals(0, mp2.getMapList().size());
-        assertFalse("F" == mp2.getMapList().toString());
-        assertFalse("R" == mp2.getMapList().toString());
-        assertFalse("E" == mp2.getMapList().toString());
+        assertEquals(0,MapParser.getMapList().size());
+        assertFalse("F".equals( MapParser.getMapList().toString()));
+        assertFalse("R".equals(MapParser.getMapList().toString()));
+        assertFalse("E".equals(MapParser.getMapList().toString()));
         //assertTrue(testMapString == mp2.getMapList().toString());
 
         MapParser mp3 = new MapParser();
         mp3.openFile("test3.txt");
-        assertTrue(mp3.getMapList().isEmpty());
+        assertTrue(MapParser.getMapList().isEmpty());
         
     }
 }

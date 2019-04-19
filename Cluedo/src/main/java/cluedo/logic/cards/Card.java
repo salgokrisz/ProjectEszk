@@ -23,7 +23,12 @@ public class Card {
         this.uiStringKey = uiStringKey;
         this.type = type;
     }
-
+    public Card(Card other){
+        this.name=other.getName();
+        this.imageName=other.getImageName();
+        this.uiStringKey=other.getUiStringKey();
+        this.type=other.getType();
+    }
     public String getName() {
         return name;
     }
@@ -34,6 +39,10 @@ public class Card {
 
     public Type getType() {
         return type;
+    }
+
+    public String getUiStringKey() {
+        return uiStringKey;
     }
     
     public String getNameForUI () {
@@ -67,5 +76,8 @@ public class Card {
     @Override
     public int hashCode(){
         return Objects.hash(type, name);
+    }
+    public Object cloneObject(){
+        return new Card(this);
     }
 }

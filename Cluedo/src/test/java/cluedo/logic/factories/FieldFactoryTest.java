@@ -2,7 +2,7 @@
 package cluedo.logic.factories;
 
 import cluedo.logic.fields.Field;
-import cluedo.logic.fields.FieldType.Type;
+import cluedo.logic.fields.FieldType;
 import java.util.ArrayList;
 import java.util.List;
 import static junit.framework.Assert.assertEquals;
@@ -22,7 +22,7 @@ public class FieldFactoryTest {
         for(int i=0; i<2; ++i){
             expectedResult.add(new ArrayList<>());
             for(int j=0; j<3; ++j){
-                expectedResult.get(i).add(new Field(i, j, Type.FIELD, true, false));
+                expectedResult.get(i).add(new Field(i, j, FieldType.FIELD, true, false));
             }
         }
         assertEquals(expectedResult, generated);

@@ -12,9 +12,7 @@ import cluedo.tools.Tools;
 public class Main {
    public static void main(String[] args) {
        Tools.connectLogToFile();
-    SwingUtilities.invokeLater(() -> {
-   
-
+    SwingUtilities.invokeLater(() -> { 
             MainAppWindow mainWindow = new MainAppWindow();
             mainWindow.setVisible(true);
         });

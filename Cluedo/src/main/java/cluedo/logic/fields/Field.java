@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.fields;
 
-import cluedo.logic.fields.FieldType.Type;
+
 import java.util.Objects;
 
 /**
@@ -17,18 +13,28 @@ import java.util.Objects;
 public class Field {
     protected int x;
     protected int y;
-    protected Type type;
+    protected FieldType type;
     protected boolean walkeable;
     protected boolean someOneOn;
     
-    public Field(int x,int y,Type type,boolean walkeAble,boolean someOneOn){
+    public Field(int x,int y,FieldType type,boolean walkeAble,boolean someOneOn){
         this.x = x;
         this.y = y;
         this.type = type;
         this.walkeable = walkeAble;
         this.someOneOn = someOneOn;
     }
+    public Field(Field other){
+        this.x=other.getX();
+        this.y=other.getY();
+        this.type=other.getType();
+        this.walkeable=other.getWalkeable();
+        this.someOneOn=other.getSomeOneOn();
+    }
 
+    public Object cloneObject(){
+        return new Field(this);
+    }
     public void setX(int x) {
         this.x = x;
     }
@@ -45,11 +51,11 @@ public class Field {
         return y;
     }
     
-    public void setType(Type type) {
+    public void setType(FieldType type) {
         this.type = type;
     }
 
-    public Type getType() {
+    public FieldType getType() {
         return type;
     }
     
@@ -57,7 +63,7 @@ public class Field {
         this.walkeable = walkeable;
     }
 
-    public boolean isWalkeable() {
+    public boolean getWalkeable() {
         return walkeable;
     }
     
@@ -65,7 +71,7 @@ public class Field {
         this.someOneOn = someOneOn;
     }
 
-    public boolean isSomeOneOn() {
+    public boolean getSomeOneOn() {
         return someOneOn;
     }
     @Override

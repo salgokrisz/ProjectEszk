@@ -11,7 +11,7 @@ addons:
     token:
       secure: "$SONAR_TOKEN"
       
-before_install: git clone -b travis `git config --get remote.origin.url` target/travis
+before_install: git clone -b travis `git config --get https://github.com/salgokrisz/ProjectEszk.git` target/travis
 before_script: cd Cluedo
 
 

@@ -1,6 +1,0 @@
-M,Mustard descriprion
-Pl,Plum descriprion
-Pe,Peacock descriprion
-W,White descriprion
-S,Scarlet descriprion
-G,Green description

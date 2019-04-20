@@ -16,7 +16,7 @@ import static org.junit.Assert.assertFalse;
 public class CardParserTest {
     @Test
     public void ParserTest(){
-        List<List<Card>> cards = CardParser.Parse();
+        List<List<Card>> cards = CardParser.parse();
         assertEquals("We have to get 3 list with 3 type of cards.", 3, cards.size());
         
         boolean persons = false;
@@ -70,32 +70,32 @@ public class CardParserTest {
                 case "Mustard":
                     assertFalse(mustard);
                     mustard = true;
-                    assertTrue (c.imageName.equals("Mustard.png"));
+                    assertTrue (c.imageName.equals("/cards/guests/mustard.png"));
                     break;
                 case "Plum":
                     assertFalse(plum);
                     plum = true;
-                    assertTrue (c.imageName.equals("Plum.png"));
+                    assertTrue (c.imageName.equals("/cards/guests/plum.png"));
                     break;
                 case "Green":
                     assertFalse(green);
                     green = true;
-                    assertTrue (c.imageName.equals("Green.png"));
+                    assertTrue (c.imageName.equals("/cards/guests/green.png"));
                     break;
                 case "Peackock":
                     assertFalse(peackock);
                     peackock = true;
-                    assertTrue (c.imageName.equals("Peackock.png"));
+                    assertTrue (c.imageName.equals("/cards/guests/peacock.png"));
                     break;
                 case "Scarlet":
                     assertFalse(scarlet);
                     scarlet = true;
-                    assertTrue (c.imageName.equals("Scarlet.png"));
+                    assertTrue (c.imageName.equals("/cards/guests/scarlet.png"));
                     break;
                 case "White":
                     assertFalse(white);
                     white = true;
-                    assertTrue (c.imageName.equals("White.png"));
+                    assertTrue (c.imageName.equals("/cards/guests/white.png"));
                     break;
                 default:
                     assertTrue (false);
@@ -122,47 +122,47 @@ public class CardParserTest {
                 case "Knife":
                     assertFalse(Knife);
                     Knife = true;
-                    assertTrue (c.imageName.equals("Knife.png"));
+                    assertTrue (c.imageName.equals("/cards/weapons/knife.png"));
                     break;
                 case "Candlestick":
                     assertFalse(Candlestick);
                     Candlestick = true;
-                    assertTrue (c.imageName.equals("Candlestick.png"));
+                    assertTrue (c.imageName.equals("/cards/weapons/candlestick.png"));
                     break;
                 case "Revolver":
                     assertFalse(Revolver);
                     Revolver = true;
-                    assertTrue (c.imageName.equals("Revolver.png"));
+                    assertTrue (c.imageName.equals("/cards/weapons/revolver.png"));
                     break;
                 case "Poison":
                     assertFalse(Poison);
                     Poison = true;
-                    assertTrue (c.imageName.equals("Poison.png"));
+                    assertTrue (c.imageName.equals("/cards/weapons/poison.png"));
                     break;
                 case "Trophy":
                     assertFalse(Trophy);
                     Trophy = true;
-                    assertTrue (c.imageName.equals("Trophy.png"));
+                    assertTrue (c.imageName.equals("/cards/weapons/trophy.png"));
                     break;
                 case "Rope":
                     assertFalse(Rope);
                     Rope = true;
-                    assertTrue (c.imageName.equals("Rope.png"));
+                    assertTrue (c.imageName.equals("/cards/weapons/rope.png"));
                     break;
                 case "Bat":
                     assertFalse(Bat);
                     Bat = true;
-                    assertTrue (c.imageName.equals("Bat.png"));
+                    assertTrue (c.imageName.equals("/cards/weapons/bat.png"));
                     break;
                 case "Axe":
                     assertFalse(Axe);
                     Axe = true;
-                    assertTrue (c.imageName.equals("Axe.png"));
+                    assertTrue (c.imageName.equals("/cards/weapons/axe.png"));
                     break;
                 case "Dumbbell":
                     assertFalse(Dumbbell);
                     Dumbbell = true;
-                    assertTrue (c.imageName.equals("Dumbbell.png"));
+                    assertTrue (c.imageName.equals("/cards/weapons/dumbbell.png"));
                     break;
                 default:
                     assertTrue (false);
@@ -197,47 +197,47 @@ public class CardParserTest {
                 case "Hall":
                     assertFalse(Hall);
                     Hall = true;
-                    assertTrue (c.imageName.equals("Hall.png"));
+                    assertTrue (c.imageName.equals("/cards/rooms/hall.png"));
                     break;
                 case "Eatery":
                     assertFalse(Eatery);
                     Eatery = true;
-                    assertTrue (c.imageName.equals("Eatery.png"));
+                    assertTrue (c.imageName.equals("/cards/rooms/eatery.png"));
                     break;
                  case "Kitchen":
                     assertFalse(Kitchen);
                     Kitchen = true;
-                    assertTrue (c.imageName.equals("Kitchen.png"));
+                    assertTrue (c.imageName.equals("/cards/rooms/kitchen.png"));
                     break;
                 case "Terrace":
                     assertFalse(Terrace);
                     Terrace = true;
-                    assertTrue (c.imageName.equals("Terrace.png"));
+                    assertTrue (c.imageName.equals("/cards/rooms/terrace.png"));
                     break;
                 case "Planetarium":
                     assertFalse(Planetarium);
                     Planetarium = true;
-                    assertTrue (c.imageName.equals("Planetarium.png"));
+                    assertTrue (c.imageName.equals("/cards/rooms/planetarium.png"));
                     break;
                 case "Cinema":
                     assertFalse(Cinema);
                     Cinema = true;
-                    assertTrue (c.imageName.equals("Cinema.png"));
+                    assertTrue (c.imageName.equals("/cards/rooms/cinema.png"));
                     break;
                 case "LivingRoom":
                     assertFalse(LivingRoom);
                     LivingRoom = true;
-                    assertTrue (c.imageName.equals("LivingRoom.png"));
+                    assertTrue (c.imageName.equals("/cards/rooms/livingroom.png"));
                     break;
                 case "Bath":
                     assertFalse(Bath);
                     Bath = true;
-                    assertTrue (c.imageName.equals("Bath.png"));
+                    assertTrue (c.imageName.equals("/cards/rooms/bath.png"));
                     break;
                 case "GuestHouse":
                     assertFalse(GuestHouse);
                     GuestHouse = true;
-                    assertTrue (c.imageName.equals("GuestHouse.png"));
+                    assertTrue (c.imageName.equals("/cards/rooms/guesthouse.png"));
                     break;
                 default:
                     assertTrue (false);

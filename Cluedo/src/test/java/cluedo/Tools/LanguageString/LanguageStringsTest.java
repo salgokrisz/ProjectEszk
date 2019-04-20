@@ -1,5 +1,7 @@
 package cluedo.Tools.LanguageString;
 
+import cluedo.tools.languagestring.LanguageStrings;
+import cluedo.tools.languagestring.Language;
 import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public class LanguageStringsTest {
             assertTrue(false);
         }
         
-        List<Integer> l = new ArrayList<Integer>();
+        List<Integer> l = new ArrayList<>();
         l.add(1);
         l.add(2);
         l.add(3);
@@ -102,13 +104,12 @@ public class LanguageStringsTest {
     
     @Test
     public void GetCurrentLanguageTest(){
-        assertEquals("Default Language is the ENG.", LanguageStrings.getCurrentLanguage(), Language.ENG);
         LanguageStrings.changeLanguage (Language.HUN);
-        assertEquals("ChangeLanguage to HUN.", LanguageStrings.getCurrentLanguage(), Language.HUN);
+        assertEquals("ChangeLanguage to HUN.", Language.HUN, LanguageStrings.getCurrentLanguage());
         LanguageStrings.changeLanguage (Language.HUN);
-        assertEquals("ChangeLanguage to the same with the current.", LanguageStrings.getCurrentLanguage(), Language.HUN);
+        assertEquals("ChangeLanguage to the same with the current.", Language.HUN, LanguageStrings.getCurrentLanguage());
         LanguageStrings.changeLanguage (Language.ENG);
-        assertEquals("ChangeLanguage to ENG.", LanguageStrings.getCurrentLanguage(), Language.ENG);
+        assertEquals("ChangeLanguage to ENG.", Language.ENG, LanguageStrings.getCurrentLanguage());
     }
     
     @Test    

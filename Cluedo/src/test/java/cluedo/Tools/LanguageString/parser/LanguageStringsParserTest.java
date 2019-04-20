@@ -1,14 +1,15 @@
 package cluedo.Tools.LanguageString.parser;
 
-import cluedo.Tools.LanguageString.Language;
+import cluedo.tools.languagestring.parser.LanguageStringsParser;
+import cluedo.tools.languagestring.Language;
 
 import java.util.HashMap;
 import java.nio.file.Paths;
+import java.util.Map;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 public class LanguageStringsParserTest {   
@@ -39,19 +40,19 @@ public class LanguageStringsParserTest {
         TestParser (Language.HUN);
     }
     
-    private void TestParser(Language L) {
+    private void TestParser(Language l) {
         String t1 = "";
         String t2 = "";
         String t3 = "";
         String t4 = "";
         String t5 = "";
-        if (L == Language.HUN) {
+        if (l == Language.HUN) {
             t1 = t1_hun;
             t2 = t2_hun;
             t3 = t3_hun;
             t4 = t4_hun;
             t5 = t5_hun;
-        } else  if (L == Language.ENG) {
+        } else  if (l == Language.ENG) {
             t1 = t1_eng;
             t2 = t2_eng;
             t3 = t3_eng;
@@ -60,8 +61,8 @@ public class LanguageStringsParserTest {
         } else {
             assertTrue(false);
         }
-        HashMap<String, String> strings = null;
-        strings = LanguageStringsParser.Parse (L, true, GetTXTPath_forTest(L));
+        Map<String, String> strings = null;
+        strings = LanguageStringsParser.parse (l, true, GetTXTPath_forTest(l));
         
         assertNotNull(strings);
         assertEquals(5, strings.size());
@@ -76,7 +77,7 @@ public class LanguageStringsParserTest {
             
     private String GetTXTPath_forTest (Language L) {
         String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-        currentPath += "/src/main/java/cluedo/Resources/";
+        currentPath += "/src/main/java/cluedo/resources/";
         switch (L) {
             case HUN : return currentPath + "StringsHUN_test.txt";
             case ENG : return currentPath + "StringsENG_test.txt";

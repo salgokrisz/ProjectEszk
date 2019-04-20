@@ -1,9 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.role;
+
+import static cluedo.logic.role.Role.image;
+import javax.swing.ImageIcon;
 
 /**
   This class represents a character called Peacock.
@@ -15,18 +14,25 @@ public class Peacock extends Role{
     public Peacock(String playerName) {
         super(playerName);
         this.color=Color.BLUE;
+        abilityDescription="Peacock.description";
+        image=new ImageIcon(getClass().getResource("/settings/peacock.png"));
     }
     public Peacock(Peacock other){
         super( other.getName());
         this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
     }
-      public Object clone(){
+      public Object cloneObject(){
         return new Peacock(this);
     }
     @Override
     public void useSpecialAbility() {
         //TODO: write Peacock's special ability
     }
-    
+     @Override
+    public String toString(){
+        StringBuilder sb=new StringBuilder();
+        sb.append(name).append(" (").append("Peacock").append(")");
+        return sb.toString();
+    }
 }

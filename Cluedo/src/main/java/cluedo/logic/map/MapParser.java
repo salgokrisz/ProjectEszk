@@ -1,60 +1,89 @@
 package cluedo.logic.map;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
-
-import cluedo.exceptions.WrongFiledTypeException;
+import static cluedo.tools.Tools.LOG;
 
 public class MapParser{
-
-    private static char[][] mapCharArray;
-    private static ArrayList<ArrayList<String>> mapList;
-    private static File fileName;
-
-    public MapParser(){
-        mapList=new ArrayList<>();
-        //mapCharArray = ca;
-    }
+    private static List<List<String>> mapList=new ArrayList<>();
 
     public void openFile(String fn){
+<<<<<<< HEAD
         try {
                 //ClassLoader classLoader = getClass().getClassLoader();
 	        //File file = new File(classLoader.getResource(fn).getFile());          
                 BufferedReader br = new BufferedReader(new FileReader(fn));
 
+=======
+        mapList.clear();
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(fn).getFile());
+        try (FileReader fr=new FileReader(file); BufferedReader br = new BufferedReader(fr);){
+>>>>>>> 8a04e17b8a09bf4fc6732b13cd0ed6eec82bb544
                 String line;
-                while ((line = br.readLine()) != null) {
+                boolean wasErrorInFile=false;
+                while ((line = br.readLine()) != null && !wasErrorInFile) {
                     ArrayList<String> tmpList = new ArrayList<>();
                     String[]  tmpArr = line.split(",");
-                    for (int i = 0; i < tmpArr.length; ++i){
+                    int i=0;
+                    while (i < tmpArr.length && !wasErrorInFile){
+                        if(isCorrectCharacter(tmpArr[i])){
                         tmpList.add(tmpArr[i]);
+                        }else{
+                            wasErrorInFile=true;
+                        }
+                        i+=1;
                     }
                     mapList.add(tmpList);
                 }
+                if(wasErrorInFile){
+                    mapList.clear();
+                }
         }catch(FileNotFoundException e){
-            System.out.println("File not found");
+            LOG.warning("File not found");
         }catch (IOException e){
-            System.out.println("IO Error");
+            LOG.warning("IO Error");
+        }catch(Exception e){
+            LOG.warning(e.getMessage());
+        }
+    }
+    private boolean correctPlayerRoleInString(String roleInString){
+        return roleInString.equals("Peacock")||roleInString.equals("Mustard")||
+                roleInString.equals("Plum") || roleInString.equals("Green")||
+                roleInString.equals("White") || roleInString.equals("Scarlet");
+    }
+    private boolean correctRoomName(String roomName){
+        return roomName.equals("Cards.Rooms.Hall")||roomName.equals("Cards.Rooms.Eatery")||roomName.equals("Cards.Rooms.Kitchen")
+               || roomName.equals("Cards.Rooms.Terrace")||roomName.equals("Cards.Rooms.Planetarium")||roomName.equals("Cards.Rooms.LivingRoom")
+                || roomName.equals("Cards.Rooms.Cinema") || roomName.equals("Cards.Rooms.GuestHouse") || roomName.equals("Cards.Rooms.Bath");
+    }
+    public boolean isCorrectCharacter(String fieldSymbol){
+        if(fieldSymbol.contains(":")){
+            String parts[]=fieldSymbol.split(":");
+            if(parts.length!=3 && parts.length!=2 && parts.length!=4){
+                return false;
+            }else{
+                switch(parts.length){
+                    case 4:
+                        return parts[0].equals("E")&&correctRoomName(parts[1])&&parts[2].equals("1")&&correctRoomName(parts[3]);
+                    case 3:
+                    return parts[0].equals("E")&&(correctRoomName(parts[1])||parts[1].equals("En"))&&parts[2].equals("0");
+                    case 2:
+                    if(parts[0].equals("St")){
+                        return correctPlayerRoleInString(parts[1]);
+                    }else if(parts[0].equals("R")){
+                        return correctRoomName(parts[1]);
+                    }
+                    default:
+                        return false;
+            }        
+        }
+        }else{
+            return fieldSymbol.equals("F") || fieldSymbol.equals("En")||fieldSymbol.equals("I");
         }
     }
 
-    public boolean isCorrectCharacters(ArrayList<ArrayList<String>> list){// throws WrongFiledTypeException{
-        boolean retVal = false;
-        for (int i = 0; i < list.size(); ++i){
-            for (int j = 0; j < list.get(i).size(); ++j){
-                if (list.get(i).get(j).equals("F") || list.get(i).get(j).equals("R") || list.get(i).get(j).equals("E")){		// TODO add more field types;
-                    retVal = true;
-                }
-                else{
-                    //throw new WrongFiledTypeException("Wrong field type found!");
-                }
-            }
-        }
-        return retVal;
-    }
-
-    public static ArrayList<ArrayList<String>> getMapList(){
+    public static List<List<String>> getMapList(){
         return mapList;
     }
 }

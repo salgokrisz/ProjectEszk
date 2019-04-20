@@ -1,124 +1,140 @@
 
 package cluedo.view.board;
 
-import cluedo.Tools.LanguageString.LanguageStrings;
+import cluedo.logic.cards.Card;
+import cluedo.tools.languagestring.LanguageStrings;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JCheckBox;
 
 /**
  * This class represents the clue paper for the game. On it the players can mark
  * the clues which are known by them.
- * @author bornemis
  */
 public class CluePaperPanel extends javax.swing.JPanel {
-
-
+    private Map<String, JCheckBox> checkBoxMap;
+    private static final String FONT_TYPE="Times New Roman";
     public CluePaperPanel() {
         initComponents();
+        fillUpCheckBoxMap();
     }
 private void customizeCheckBox(JCheckBox checkBox, String title){
     checkBox.setBackground(new java.awt.Color(255, 255, 255));
 
-    checkBox.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+    checkBox.setFont(new java.awt.Font(FONT_TYPE, 0, 12)); // NOI18N
 
     checkBox.setText(title);
 }
 
+private void fillUpCheckBoxMap(){
+    checkBoxMap=new HashMap<>();
+    checkBoxMap.put("Cards.Weapons.Knife", jcKnife);
+    checkBoxMap.put("Cards.Weapons.Candlestick", jcCandlestick);
+    checkBoxMap.put("Cards.Weapons.Revolver", jcRevolver);
+    checkBoxMap.put("Cards.Weapons.Poison", jcPoison);
+    checkBoxMap.put("Cards.Weapons.Trophy", jcTrophy);
+    checkBoxMap.put("Cards.Weapons.Rope", jcRope);
+    checkBoxMap.put("Cards.Weapons.Bat", jcBat);
+    checkBoxMap.put("Cards.Weapons.Axe", jcAxe);
+    checkBoxMap.put("Cards.Weapons.Dumbbell", jcDumbbell);
+    checkBoxMap.put("Cards.Rooms.Hall", jcHall);
+    checkBoxMap.put("Cards.Rooms.Eatery", jcEatery);
+    checkBoxMap.put("Cards.Rooms.Kitchen", jcKitchen);
+    checkBoxMap.put("Cards.Rooms.Terrace", jcTerrace);
+    checkBoxMap.put("Cards.Rooms.Planetarium", jcPlanetarium);
+    checkBoxMap.put("Cards.Rooms.Cinema", jcCinema);
+    checkBoxMap.put("Cards.Rooms.LivingRoom", jcLivingRoom);
+    checkBoxMap.put("Cards.Rooms.Bath", jcBath);
+    checkBoxMap.put("Cards.Rooms.GuestHouse", jcGuestHouse);
+    checkBoxMap.put("Cards.Persons.Mustard", jcMustard);
+    checkBoxMap.put("Cards.Persons.Peacock", jcPeacock);
+    checkBoxMap.put("Cards.Persons.Scarlet", jcScarlet);
+    checkBoxMap.put("Cards.Persons.Green", jcGreen);
+    checkBoxMap.put("Cards.Persons.White", jcWhite);
+    checkBoxMap.put("Cards.Persons.Plum", jcPlum);
+    
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+        jcHall=new JCheckBox();
+        jcEatery=new JCheckBox();
+        jcKitchen=new JCheckBox();
+        jcTerrace=new JCheckBox();
+        jcPlanetarium=new JCheckBox();
+        jcCinema=new JCheckBox();
+        jcLivingRoom=new JCheckBox();
+        jcBath=new JCheckBox();
+        jcGuestHouse=new JCheckBox();
         jlGuests = new javax.swing.JLabel();
         jlRooms = new javax.swing.JLabel();
         jlWeapons = new javax.swing.JLabel();
-        jcMustard = new javax.swing.JCheckBox();
-        jcPlum = new javax.swing.JCheckBox();
-        jcGreen = new javax.swing.JCheckBox();
-        jcPeacock = new javax.swing.JCheckBox();
-        jcScarlet = new javax.swing.JCheckBox();
-        jcWhite = new javax.swing.JCheckBox();
-        jcRoom1 = new javax.swing.JCheckBox();
-        jcRoom2 = new javax.swing.JCheckBox();
-        jcRoom3 = new javax.swing.JCheckBox();
-        jcRoom4 = new javax.swing.JCheckBox();
-        jcRoom5 = new javax.swing.JCheckBox();
-        jcRoom6 = new javax.swing.JCheckBox();
-        jcRoom7 = new javax.swing.JCheckBox();
-        jcRoom8 = new javax.swing.JCheckBox();
-        jcRoom9 = new javax.swing.JCheckBox();
-        jcKnife = new javax.swing.JCheckBox();
-        jcCandleHolder = new javax.swing.JCheckBox();
-        jcGun = new javax.swing.JCheckBox();
-        jcPoison = new javax.swing.JCheckBox();
-        jcTrophy = new javax.swing.JCheckBox();
-        jcRope = new javax.swing.JCheckBox();
-        jcHammer = new javax.swing.JCheckBox();
-        jcAxe = new javax.swing.JCheckBox();
-        jcWeight = new javax.swing.JCheckBox();
+        jcWhite = new JCheckBox();
+        jcKnife = new JCheckBox();
+        jcCandlestick = new JCheckBox();
+        jcRevolver = new JCheckBox();
+        jcPoison = new JCheckBox();
+        jcTrophy = new JCheckBox();
+        jcRope = new JCheckBox();
+        jcBat = new JCheckBox();
+        jcAxe = new JCheckBox();
+        jcDumbbell = new JCheckBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(403, 259));
 
-        jlGuests.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlGuests.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlGuests.setText(LanguageStrings.getString("GameBoard.Guests"));
 
-        jlRooms.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlRooms.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
 
-        jlWeapons.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlWeapons.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlWeapons.setText(LanguageStrings.getString("GameBoard.Weapons"));
-
+        jcMustard = new JCheckBox();
         customizeCheckBox(jcMustard, "Mustard");
-
+        jcPlum = new JCheckBox();
         customizeCheckBox(jcPlum, "Plum");
-
+        jcGreen = new JCheckBox();
         customizeCheckBox(jcGreen, "Green");
-
+        jcPeacock = new JCheckBox();
         customizeCheckBox(jcPeacock, "Peacock");
-
+        jcScarlet = new JCheckBox();
         customizeCheckBox(jcScarlet, "Scarlet");
 
         customizeCheckBox(jcWhite, "White");
+        customizeCheckBox(jcHall, LanguageStrings.getString("Cards.Rooms.Hall"));
+        customizeCheckBox(jcEatery, LanguageStrings.getString("Cards.Rooms.Eatery"));
+        customizeCheckBox(jcKitchen, LanguageStrings.getString("Cards.Rooms.Kitchen"));
+        customizeCheckBox(jcTerrace, LanguageStrings.getString("Cards.Rooms.Terrace"));
+        customizeCheckBox(jcPlanetarium, LanguageStrings.getString("Cards.Rooms.Planetarium"));
+        customizeCheckBox(jcCinema, LanguageStrings.getString("Cards.Rooms.Cinema"));
+        customizeCheckBox(jcLivingRoom, LanguageStrings.getString("Cards.Rooms.LivingRoom"));
+        customizeCheckBox(jcBath, LanguageStrings.getString("Cards.Rooms.Bath"));
+        customizeCheckBox(jcGuestHouse, LanguageStrings.getString("Cards.Rooms.GuestHouse"));
+        
+        customizeCheckBox(jcKnife, LanguageStrings.getString("Cards.Weapons.Knife"));
 
-        customizeCheckBox(jcRoom1, "Room1");
+        customizeCheckBox(jcCandlestick, LanguageStrings.getString("Cards.Weapons.Candlestick"));
 
-        customizeCheckBox(jcRoom2, "Room2");
+        customizeCheckBox(jcRevolver, LanguageStrings.getString("Cards.Weapons.Revolver"));
 
-        customizeCheckBox(jcRoom3, "Room3");
+        customizeCheckBox(jcPoison, LanguageStrings.getString("Cards.Weapons.Poison"));
 
-        customizeCheckBox(jcRoom4, "Room4");
+        customizeCheckBox(jcTrophy, LanguageStrings.getString("Cards.Weapons.Trophy"));
 
-        customizeCheckBox(jcRoom5, "Room5");
+        customizeCheckBox(jcRope, LanguageStrings.getString("Cards.Weapons.Rope"));
 
-        customizeCheckBox(jcRoom6, "Room6");
+        customizeCheckBox(jcBat, LanguageStrings.getString("Cards.Weapons.Bat"));
 
-        customizeCheckBox(jcRoom7, "Room7");
+        customizeCheckBox(jcAxe, LanguageStrings.getString("Cards.Weapons.Axe"));
 
-        customizeCheckBox(jcRoom8, "Room8");
-
-        customizeCheckBox(jcRoom9, "Room9");
-
-        customizeCheckBox(jcKnife, LanguageStrings.getString("GameBoard.Knife"));
-
-        customizeCheckBox(jcCandleHolder, LanguageStrings.getString("GameBoard.CandleHolder"));
-
-        customizeCheckBox(jcGun, LanguageStrings.getString("GameBoard.Gun"));
-
-        customizeCheckBox(jcPoison, LanguageStrings.getString("GameBoard.Poison"));
-
-        customizeCheckBox(jcTrophy, LanguageStrings.getString("GameBoard.Trophy"));
-
-        customizeCheckBox(jcRope, LanguageStrings.getString("GameBoard.Rope"));
-
-        customizeCheckBox(jcHammer, LanguageStrings.getString("GameBoard.Racket"));
-
-        customizeCheckBox(jcAxe, LanguageStrings.getString("GameBoard.Axe"));
-
-        customizeCheckBox(jcWeight, LanguageStrings.getString("GameBoard.Weight"));
+        customizeCheckBox(jcDumbbell, LanguageStrings.getString("Cards.Weapons.Dumbbell"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,34 +150,33 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
                     .addComponent(jcMustard, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jcWeight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jcDumbbell, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jcAxe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jcKnife, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jcCandleHolder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jcCandlestick, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlWeapons)
                         .addGap(0, 37, Short.MAX_VALUE))
-                    .addComponent(jcGun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jcRevolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jcPoison, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jcTrophy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jcRope, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jcHammer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jcBat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jcRoom9, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                    .addComponent(jcRoom8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jcRoom7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jcGuestHouse, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                    .addComponent(jcBath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jcLivingRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jlRooms)
-                    .addComponent(jcRoom1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jcRoom2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jcRoom3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jcRoom4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jcRoom5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jcRoom6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jcHall, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jcEatery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jcKitchen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jcTerrace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jcPlanetarium, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jcCinema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(51, 51, 51))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -174,28 +189,28 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
                             .addComponent(jlWeapons))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jcRoom1)
+                            .addComponent(jcHall)
                             .addComponent(jcKnife))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jcMustard)
-                    .addComponent(jcRoom2)
-                    .addComponent(jcCandleHolder))
+                    .addComponent(jcEatery)
+                    .addComponent(jcCandlestick))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jcRoom3)
+                        .addComponent(jcKitchen)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcRoom4)
+                        .addComponent(jcTerrace)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcRoom5)
+                        .addComponent(jcPlanetarium)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcRoom6)
+                        .addComponent(jcCinema)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcRoom7)
+                        .addComponent(jcLivingRoom)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcRoom8)
+                        .addComponent(jcBath)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcRoom9))
+                        .addComponent(jcGuestHouse))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -203,7 +218,7 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
                                 .addComponent(jcPlum))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jcGun)))
+                                .addComponent(jcRevolver)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -221,58 +236,76 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jcRope)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jcHammer)))
+                                .addComponent(jcBat)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcAxe)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcWeight)))
+                        .addComponent(jcDumbbell)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jcAxe;
-    private javax.swing.JCheckBox jcCandleHolder;
-    private javax.swing.JCheckBox jcGreen;
-    private javax.swing.JCheckBox jcGun;
-    private javax.swing.JCheckBox jcHammer;
-    private javax.swing.JCheckBox jcKnife;
-    private javax.swing.JCheckBox jcMustard;
-    private javax.swing.JCheckBox jcPeacock;
-    private javax.swing.JCheckBox jcPlum;
-    private javax.swing.JCheckBox jcPoison;
-    private javax.swing.JCheckBox jcRoom1;
-    private javax.swing.JCheckBox jcRoom2;
-    private javax.swing.JCheckBox jcRoom3;
-    private javax.swing.JCheckBox jcRoom4;
-    private javax.swing.JCheckBox jcRoom5;
-    private javax.swing.JCheckBox jcRoom6;
-    private javax.swing.JCheckBox jcRoom7;
-    private javax.swing.JCheckBox jcRoom8;
-    private javax.swing.JCheckBox jcRoom9;
-    private javax.swing.JCheckBox jcRope;
-    private javax.swing.JCheckBox jcScarlet;
-    private javax.swing.JCheckBox jcTrophy;
-    private javax.swing.JCheckBox jcWeight;
-    private javax.swing.JCheckBox jcWhite;
+    private JCheckBox jcHall;
+    private JCheckBox jcEatery;
+    private JCheckBox jcKitchen;
+    private JCheckBox jcTerrace;
+    private JCheckBox jcPlanetarium;
+    private JCheckBox jcCinema;
+    private JCheckBox jcLivingRoom;
+    private JCheckBox jcBath;
+    private JCheckBox jcGuestHouse;
+    private JCheckBox jcAxe;
+    private JCheckBox jcCandlestick;
+    private JCheckBox jcRevolver;
+    private JCheckBox jcBat;
+    private JCheckBox jcKnife;
+    private JCheckBox jcPoison;
+    private JCheckBox jcRope;
+    private JCheckBox jcTrophy;
+    private JCheckBox jcDumbbell;
     private javax.swing.JLabel jlGuests;
     private javax.swing.JLabel jlRooms;
     private javax.swing.JLabel jlWeapons;
+    private JCheckBox jcWhite;
+    private JCheckBox jcMustard;
+    private JCheckBox jcPlum;
+    private JCheckBox jcPeacock;
+    private JCheckBox jcScarlet;
+    private JCheckBox jcGreen;
     // End of variables declaration//GEN-END:variables
 
    public void resetStrings() {
         jlGuests.setText(LanguageStrings.getString("GameBoard.Guests"));
         jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
         jlWeapons.setText(LanguageStrings.getString("GameBoard.Weapons"));
-        jcKnife.setText(LanguageStrings.getString("GameBoard.Knife"));
-        jcCandleHolder.setText(LanguageStrings.getString("GameBoard.CandleHolder"));
-        jcGun.setText(LanguageStrings.getString("GameBoard.Gun"));
-        jcPoison.setText(LanguageStrings.getString("GameBoard.Poison"));
-        jcTrophy.setText(LanguageStrings.getString("GameBoard.Trophy"));
-        jcRope.setText(LanguageStrings.getString("GameBoard.Rope"));
-        jcHammer.setText(LanguageStrings.getString("GameBoard.Racket"));
-        jcAxe.setText(LanguageStrings.getString("GameBoard.Axe"));
-        jcWeight.setText(LanguageStrings.getString("GameBoard.Weight"));
+        jcKnife.setText(LanguageStrings.getString("Cards.Weapons.Knife"));
+        jcCandlestick.setText(LanguageStrings.getString("Cards.Weapons.Candlestick"));
+        jcRevolver.setText(LanguageStrings.getString("Cards.Weapons.Revolver"));
+        jcPoison.setText(LanguageStrings.getString("Cards.Weapons.Poison"));
+        jcTrophy.setText(LanguageStrings.getString("Cards.Weapons.Trophy"));
+        jcRope.setText(LanguageStrings.getString("Cards.Weapons.Rope"));
+        jcBat.setText(LanguageStrings.getString("Cards.Weapons.Bat"));
+        jcAxe.setText(LanguageStrings.getString("Cards.Weapons.Axe"));
+        jcDumbbell.setText(LanguageStrings.getString("Cards.Weapons.Dumbbell"));
+        jcHall.setText(LanguageStrings.getString("Cards.Rooms.Hall"));
+        jcEatery.setText(LanguageStrings.getString("Cards.Rooms.Eatery"));
+        jcKitchen.setText(LanguageStrings.getString("Cards.Rooms.Kitchen"));
+        jcTerrace.setText(LanguageStrings.getString("Cards.Rooms.Terrace"));
+        jcPlanetarium.setText(LanguageStrings.getString("Cards.Rooms.Planetarium"));
+        jcCinema.setText(LanguageStrings.getString("Cards.Rooms.Cinema"));
+        jcLivingRoom.setText(LanguageStrings.getString("Cards.Rooms.LivingRoom"));
+        jcBath.setText(LanguageStrings.getString("Cards.Rooms.Bath"));
+        jcGuestHouse.setText(LanguageStrings.getString("Cards.Rooms.GuestHouse"));
+    }
+
+    public void markOwnedSuspectCards(List<Card> suspectCards) {
+        for(Card c:suspectCards){
+            JCheckBox checkBox=checkBoxMap.get(c.getUiStringKey());
+            checkBox.setSelected(true);
+            checkBox.setEnabled(false);
+            
+        }
     }
 }

@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.fields;
 
-import cluedo.logic.fields.FieldType.Type;
 
 /**
  * This class represents the entrance points of
@@ -16,18 +11,37 @@ import cluedo.logic.fields.FieldType.Type;
 public class EntranceField extends Field {
     private String roomName;
     private boolean roomHasSecret;
-    
-    public EntranceField(int x,int y,Type type,boolean walkeAble,boolean someOneOn,String roomName,boolean roomHasSecret){
-        super(x,y,type,walkeAble,someOneOn);
+    private String secretCorridorTo;
+    public EntranceField(int x,int y,boolean walkeAble,boolean someOneOn,String roomName,boolean roomHasSecret, String secretCorridorTo){
+        super(x,y,FieldType.ENTRANCE,walkeAble,someOneOn);
         this.roomName = roomName;
         this.roomHasSecret = roomHasSecret;
+        this.secretCorridorTo=secretCorridorTo;
+    }
+    
+    public EntranceField(EntranceField other){
+        super(other);
+        this.roomName=other.getRoomName();
+        this.roomHasSecret=other.getRoomHasSecret();
+        this.secretCorridorTo=other.getSecretCorridorTo();
+    }
+    @Override
+    public Object cloneObject(){
+        return new EntranceField(this);
+    }
+    public String getSecretCorridorTo() {
+        return secretCorridorTo;
+    }
+    
+    public void setSecretCorridorTo(String secretCorridorTo) {
+        this.secretCorridorTo = secretCorridorTo;
     }
 
     public String getRoomName() {
         return roomName;
     }
 
-    public boolean isRoomHasSecret() {
+    public boolean getRoomHasSecret() {
         return roomHasSecret;
     }
 
@@ -41,9 +55,22 @@ public class EntranceField extends Field {
 
     @Override
     public String toString() {
-        return this.toString()+" roomName:" + roomName + " roomHasSecret:" + roomHasSecret;
+        return super.toString()+" roomName:" + roomName + " roomHasSecret:" + roomHasSecret;
+    }
+    @Override
+    public boolean equals(Object obj){
+         if(obj==null){
+            return false;
+        }
+        if(obj.getClass()!=EntranceField.class){
+            return false;
+        }else{
+            return super.equals(obj);
+        }
     }
     
-    
-    
+    @Override
+    public int hashCode(){
+        return super.hashCode()+roomName.hashCode();
+    } 
 }

@@ -29,14 +29,6 @@ public class IntricsParser{
         return null;
     }
 
-    public void setText(String tex){
-        text = tex;
-    }
-
-    public void setType(String t){
-        type = t;
-    }
-
     public String getText(){
         return text;
     }

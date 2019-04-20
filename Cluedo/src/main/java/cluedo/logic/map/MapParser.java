@@ -8,10 +8,18 @@ public class MapParser{
     private static List<List<String>> mapList=new ArrayList<>();
 
     public void openFile(String fn){
+<<<<<<< HEAD
+        try {
+                //ClassLoader classLoader = getClass().getClassLoader();
+	        //File file = new File(classLoader.getResource(fn).getFile());          
+                BufferedReader br = new BufferedReader(new FileReader(fn));
+
+=======
         mapList.clear();
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource(fn).getFile());
         try (FileReader fr=new FileReader(file); BufferedReader br = new BufferedReader(fr);){
+>>>>>>> 8a04e17b8a09bf4fc6732b13cd0ed6eec82bb544
                 String line;
                 boolean wasErrorInFile=false;
                 while ((line = br.readLine()) != null && !wasErrorInFile) {

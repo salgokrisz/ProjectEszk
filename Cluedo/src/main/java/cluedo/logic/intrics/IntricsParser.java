@@ -1,4 +1,4 @@
-package game.logic.intrics;
+package cluedo.logic.intrics;
 
 import java.util.*;
 import java.io.*;
@@ -26,14 +26,6 @@ public class IntricsParser{
             System.out.println("IO Error");
         }
         return null;
-    }
-
-    public void setText(String tex){
-        text = tex;
-    }
-
-    public void setType(String t){
-        type = t;
     }
 
     public String getText(){

@@ -19,7 +19,7 @@ public class MapParser{
 
     public void openFile(String fn){
         try {
-                ClassLoader classLoader = getClass().getClassLoader();
+                //ClassLoader classLoader = getClass().getClassLoader();
 	        //File file = new File(classLoader.getResource(fn).getFile());          
                 BufferedReader br = new BufferedReader(new FileReader(fn));
 

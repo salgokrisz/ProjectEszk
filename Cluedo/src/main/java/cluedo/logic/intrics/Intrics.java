@@ -1,7 +1,6 @@
 package cluedo.logic.intrics;
 
 import java.util.*;
-import cluedo.logic.intrics.IntricsParser;
 
 public class Intrics{
     private String text;
@@ -21,7 +20,7 @@ public class Intrics{
     }
 
     public void setText(String text){
-        thie.text = text;
+        this.text = text;
     }
 
     public void setType(String type){

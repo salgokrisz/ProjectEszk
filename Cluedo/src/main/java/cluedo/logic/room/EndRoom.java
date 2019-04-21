@@ -12,8 +12,8 @@ public class EndRoom extends Room{
     private Card murderRoom;
     private Card murderer;
     
-      public EndRoom(String name, List<Point> coordinates){
-          super(name, coordinates);
+      public EndRoom(String name, List<Point> coordinates,RoomColor color){
+          super(name, coordinates,color);
       } 
       
       public EndRoom(EndRoom other){

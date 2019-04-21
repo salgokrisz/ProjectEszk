@@ -9,8 +9,8 @@ import java.util.List;
 public class SecretCorridoredRoom extends Room{
     private Room toRoom;
             
-    public SecretCorridoredRoom(String name, List<Point> coordinates){
-        super(name, coordinates);
+    public SecretCorridoredRoom(String name, List<Point> coordinates,RoomColor color){
+        super(name, coordinates,color);
     }
     
     public SecretCorridoredRoom(SecretCorridoredRoom other){

@@ -5,10 +5,10 @@ import cluedo.logic.fields.EntranceField;
 import cluedo.logic.fields.Field;
 import cluedo.logic.fields.FieldType;
 import cluedo.logic.fields.RoomField;
-import cluedo.logic.map.GameMap;
 import cluedo.logic.room.EndRoom;
 import cluedo.logic.room.Point;
 import cluedo.logic.room.Room;
+import cluedo.logic.room.RoomColor;
 import cluedo.logic.room.SecretCorridoredRoom;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,14 +35,14 @@ public class RoomFactory {
                     coordinates=determineCoordinates(roomField);
                     Room r;
                     if(entranceInfos.containsKey(roomField.getRoomName())){
-                        r=new SecretCorridoredRoom(roomField.getRoomName(),coordinates);
+                        r=new SecretCorridoredRoom(roomField.getRoomName(),coordinates,RoomColor.DEFAULT);
                     }else{
-                       r=new Room(roomField.getRoomName(), coordinates);
+                       r=new Room(roomField.getRoomName(), coordinates,RoomColor.DEFAULT);
                     }
                     rooms.put(roomField.getRoomName(),r);
                 }else if(field.getType()==FieldType.END && !rooms.containsKey("EndRoom")){
                     coordinates=determineCoordinates(field);
-                    Room r=new EndRoom("EndRoom", coordinates);
+                    Room r=new EndRoom("EndRoom", coordinates,RoomColor.DEFAULT);
                     rooms.put("EndRoom", r);
                 }
             }

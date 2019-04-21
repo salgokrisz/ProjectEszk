@@ -2,6 +2,7 @@ package cluedo.logic.player;
 
 import cluedo.logic.cards.Card;
 import cluedo.logic.role.Role;
+import cluedo.logic.room.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +17,7 @@ public class Player {
     protected Role role;
     protected final boolean isComputer;
     protected List<Card> suspectCards=new ArrayList<>();
+    protected Point startField;
      
     public Player(Role role,boolean isComputer){
         this.isComputer=isComputer;
@@ -32,6 +34,14 @@ public class Player {
     
     public Role getRole(){
         return role;
+    }
+    
+    public void setStartField(Point startFieldLocation){
+        startField = startFieldLocation;
+    }
+    
+    public Point getStartField(){
+        return startField;
     }
 
     public List<Card> getSuspectCards() {

@@ -1,6 +1,7 @@
 package cluedo.logic.intrics;
 
-import java.util.*;
+import java.util.Objects;
+
 
 public class Intrics{
     private String text;
@@ -30,6 +31,18 @@ public class Intrics{
     @Override
     public int hashCode(){
         return Objects.hash(text, type);
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o==null){
+            return false;
+        }
+        if(!o.getClass().equals(this.getClass())){
+            return false;
+        }
+        Intrics other = (Intrics) o;
+        return text.equals(other.getText()) && type.equals(other.getType());
     }
 
 }

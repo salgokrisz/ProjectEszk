@@ -18,7 +18,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -35,7 +34,7 @@ import javax.swing.JTabbedPane;
 public class GameBoard extends AbstractBaseWindow implements GameBoardListener{
     private JPanel jpBase;
     private FieldEnum[][] fieldMatrix=new FieldEnum[4][10];
-    private List<JPanel> roomLabelList=new ArrayList<>();
+    //private List<JPanel> roomLabelList=new ArrayList<>();//Commented out because PMD says it havent been used.
     private final GameController gameController;
     private JTabbedPane tabbedPane;
     private JButton cardButton;
@@ -101,8 +100,8 @@ CluePaperPanel cluePaperPanel;
         panelForButtons.setLayout(new BoxLayout(panelForButtons, BoxLayout.X_AXIS));
         cardButton=new JButton(LanguageStrings.getString("GameBoard.MyCards"));
         diceButton=new JButton();
-        cardButton.setBackground(new java.awt.Color(255, 30, 21));
-        diceButton.setBackground(new java.awt.Color(255, 30, 21));
+        cardButton.setBackground(new Color(255, 30, 21));
+        diceButton.setBackground(new Color(255, 30, 21));
         diceButton.setIcon(new ImageIcon(getClass().getResource("/board/dice.png")));
         panelForButtons.add(cardButton);
         JPanel dummyPanel=new JPanel();
@@ -180,5 +179,9 @@ CluePaperPanel cluePaperPanel;
     public void showInformation(String message){
         Object options[]={"Ok"};
         JOptionPane.showOptionDialog(this, message, LanguageStrings.getString("JOptionPane.InformationTitle"), JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+    }
+    
+    public FieldEnum[][] getFieldMatrix() { //Added because Pmd said that this variable is unused.
+        return fieldMatrix;
     }
 }

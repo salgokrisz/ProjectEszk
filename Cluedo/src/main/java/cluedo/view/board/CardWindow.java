@@ -4,7 +4,6 @@ package cluedo.view.board;
 import cluedo.logic.cards.Card;
 import cluedo.logic.player.Player;
 import cluedo.tools.languagestring.LanguageStrings;
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.event.ActionEvent;

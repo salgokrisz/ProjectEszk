@@ -5,7 +5,6 @@ import cluedo.tools.languagestring.LanguageStrings;
 import cluedo.view.board.GameBoard;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,40 +71,40 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         String[] roleModel=new String[] { "Random", MUSTARD, PEACOCK, GREEN, WHITE, SCARLET, PLUM };
-        jcbPlayerOneRole = new javax.swing.JComboBox<>();
-        jlPlayerOne = new javax.swing.JLabel();
-        jlPlayerTwo = new javax.swing.JLabel();
-        jcbPlayerTwoRole = new javax.swing.JComboBox<>();
-        jlPlayerThree = new javax.swing.JLabel();
-        jcbPlayerThreeRole = new javax.swing.JComboBox<>();
-        jlPlayerFour = new javax.swing.JLabel();
-        jcbPlayerFourRole = new javax.swing.JComboBox<>();
-        jlPlayerFive = new javax.swing.JLabel();
-        jcbPlayerFiveRole = new javax.swing.JComboBox<>();
-        jlPlayerSix = new javax.swing.JLabel();
-        jcbPlayerSixRole = new javax.swing.JComboBox<>();
-        jcbPlayerOnePersonality = new javax.swing.JComboBox<>();
-        jcbPlayerTwoPersonality = new javax.swing.JComboBox<>();
-        jcbPlayerThreePersonality = new javax.swing.JComboBox<>();
-        jcbPlayerFourPersonality = new javax.swing.JComboBox<>();
-        jcbPlayerFivePersonality = new javax.swing.JComboBox<>();
-        jcbPlayerSixPersonality = new javax.swing.JComboBox<>();
+        jcbPlayerOneRole = new JComboBox<>();
+        jlPlayerOne = new JLabel();
+        jlPlayerTwo = new JLabel();
+        jcbPlayerTwoRole = new JComboBox<>();
+        jlPlayerThree = new JLabel();
+        jcbPlayerThreeRole = new JComboBox<>();
+        jlPlayerFour = new JLabel();
+        jcbPlayerFourRole = new JComboBox<>();
+        jlPlayerFive = new JLabel();
+        jcbPlayerFiveRole = new JComboBox<>();
+        jlPlayerSix = new JLabel();
+        jcbPlayerSixRole = new JComboBox<>();
+        jcbPlayerOnePersonality = new JComboBox<>();
+        jcbPlayerTwoPersonality = new JComboBox<>();
+        jcbPlayerThreePersonality = new JComboBox<>();
+        jcbPlayerFourPersonality = new JComboBox<>();
+        jcbPlayerFivePersonality = new JComboBox<>();
+        jcbPlayerSixPersonality = new JComboBox<>();
         jtfPlayerOneName = new javax.swing.JTextField();
         jtfPlayerTwoName = new javax.swing.JTextField();
         jtfPlayerThreeName = new javax.swing.JTextField();
         jtfPlayerFourName = new javax.swing.JTextField();
         jtfPlayerFiveName = new javax.swing.JTextField();
         jtfPlayerSixName = new javax.swing.JTextField();
-        jcbPlayerOneDifficulty = new javax.swing.JComboBox<>();
-        jcbPlayerTwoDifficulty = new javax.swing.JComboBox<>();
-        jcbPlayerThreeDifficulty = new javax.swing.JComboBox<>();
-        jcbPlayerFourDifficulty = new javax.swing.JComboBox<>();
-        jcbPlayerFiveDifficulty = new javax.swing.JComboBox<>();
-        jcbPlayerSixDifficulty = new javax.swing.JComboBox<>();
-        jlTitle = new javax.swing.JLabel();
-        jlName = new javax.swing.JLabel();
-        jlRole = new javax.swing.JLabel();
-        jlLevel = new javax.swing.JLabel();
+        jcbPlayerOneDifficulty = new JComboBox<>();
+        jcbPlayerTwoDifficulty = new JComboBox<>();
+        jcbPlayerThreeDifficulty = new JComboBox<>();
+        jcbPlayerFourDifficulty = new JComboBox<>();
+        jcbPlayerFiveDifficulty = new JComboBox<>();
+        jcbPlayerSixDifficulty = new JComboBox<>();
+        jlTitle = new JLabel();
+        jlName = new JLabel();
+        jlRole = new JLabel();
+        jlLevel = new JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setSize(new java.awt.Dimension(0, 0));
@@ -113,12 +112,12 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         jpBase.setBackground(new java.awt.Color(255, 30, 21));
         jpBase.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         JLabel jlLogo = new JLabel();
-        jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cluedolabel.png"))); // NOI18N
+        jlLogo.setIcon(new ImageIcon(getClass().getResource("/cluedolabel.png"))); // NOI18N
         JButton jbChoose = new JButton();
         jbChoose.setBackground(new java.awt.Color(180, 0, 0));
         jbChoose.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbChoose.setText("Ok");
-        jbChoose.addActionListener((java.awt.event.ActionEvent evt) -> {
+        jbChoose.addActionListener((ActionEvent evt) -> {
             jbChooseActionPerformed();
         });
 
@@ -488,7 +487,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     }//GEN-LAST:event_jbChooseActionPerformed
     
       private void addActionListenerToJcbPlayerPersonality(JComboBox comboBox, int serialNumber){
-        comboBox.addActionListener((java.awt.event.ActionEvent evt) -> {
+        comboBox.addActionListener((ActionEvent evt) -> {
             jcbPlayerPersonalityActionPerformed(evt, serialNumber);
         });
     }
@@ -499,7 +498,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         playerComponents.get(serialNumber).getJcbDifficultyLevel().setEnabled(selectedOption.equals(LanguageStrings.getString("Menu.PlayerOptionAi"))); 
     }
     private void addActionListenerToButton(JButton button){
-    button.addActionListener((java.awt.event.ActionEvent evt) -> {
+    button.addActionListener((ActionEvent evt) -> {
         jbRoleActionPerfromed(evt);
     });
 }
@@ -540,34 +539,34 @@ public class RoleChooserWindow extends AbstractBaseWindow {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jcbPlayerFiveDifficulty;
-    private javax.swing.JComboBox<String> jcbPlayerFivePersonality;
-    private javax.swing.JComboBox<String> jcbPlayerFiveRole;
-    private javax.swing.JComboBox<String> jcbPlayerFourDifficulty;
-    private javax.swing.JComboBox<String> jcbPlayerFourPersonality;
-    private javax.swing.JComboBox<String> jcbPlayerFourRole;
-    private javax.swing.JComboBox<String> jcbPlayerOneDifficulty;
-    private javax.swing.JComboBox<String> jcbPlayerOnePersonality;
-    private javax.swing.JComboBox<String> jcbPlayerOneRole;
-    private javax.swing.JComboBox<String> jcbPlayerSixDifficulty;
-    private javax.swing.JComboBox<String> jcbPlayerSixPersonality;
-    private javax.swing.JComboBox<String> jcbPlayerSixRole;
-    private javax.swing.JComboBox<String> jcbPlayerThreeDifficulty;
-    private javax.swing.JComboBox<String> jcbPlayerThreePersonality;
-    private javax.swing.JComboBox<String> jcbPlayerThreeRole;
-    private javax.swing.JComboBox<String> jcbPlayerTwoDifficulty;
-    private javax.swing.JComboBox<String> jcbPlayerTwoPersonality;
-    private javax.swing.JComboBox<String> jcbPlayerTwoRole;
-    private javax.swing.JLabel jlLevel;
-    private javax.swing.JLabel jlName;
-    private javax.swing.JLabel jlPlayerFive;
-    private javax.swing.JLabel jlPlayerFour;
-    private javax.swing.JLabel jlPlayerOne;
-    private javax.swing.JLabel jlPlayerSix;
-    private javax.swing.JLabel jlPlayerThree;
-    private javax.swing.JLabel jlPlayerTwo;
-    private javax.swing.JLabel jlRole;
-    private javax.swing.JLabel jlTitle;
+    private JComboBox<String> jcbPlayerFiveDifficulty;
+    private JComboBox<String> jcbPlayerFivePersonality;
+    private JComboBox<String> jcbPlayerFiveRole;
+    private JComboBox<String> jcbPlayerFourDifficulty;
+    private JComboBox<String> jcbPlayerFourPersonality;
+    private JComboBox<String> jcbPlayerFourRole;
+    private JComboBox<String> jcbPlayerOneDifficulty;
+    private JComboBox<String> jcbPlayerOnePersonality;
+    private JComboBox<String> jcbPlayerOneRole;
+    private JComboBox<String> jcbPlayerSixDifficulty;
+    private JComboBox<String> jcbPlayerSixPersonality;
+    private JComboBox<String> jcbPlayerSixRole;
+    private JComboBox<String> jcbPlayerThreeDifficulty;
+    private JComboBox<String> jcbPlayerThreePersonality;
+    private JComboBox<String> jcbPlayerThreeRole;
+    private JComboBox<String> jcbPlayerTwoDifficulty;
+    private JComboBox<String> jcbPlayerTwoPersonality;
+    private JComboBox<String> jcbPlayerTwoRole;
+    private JLabel jlLevel;
+    private JLabel jlName;
+    private JLabel jlPlayerFive;
+    private JLabel jlPlayerFour;
+    private JLabel jlPlayerOne;
+    private JLabel jlPlayerSix;
+    private JLabel jlPlayerThree;
+    private JLabel jlPlayerTwo;
+    private JLabel jlRole;
+    private JLabel jlTitle;
     private javax.swing.JTextField jtfPlayerFiveName;
     private javax.swing.JTextField jtfPlayerFourName;
     private javax.swing.JTextField jtfPlayerOneName;

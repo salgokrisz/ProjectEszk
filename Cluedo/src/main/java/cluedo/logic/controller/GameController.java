@@ -35,12 +35,12 @@ public class GameController {
     private GamePhase actualGamePhase;
     Map<Player, Integer> droppedNumbersForDecidingStart = new HashMap<>();
     private final GameMap map;
-    private final Map<String, Room> roomMap;
+    //private final Map<String, Room> roomMap;//commented out because pmd
     public GameController(){
         actualGamePhase=GamePhase.INITIAL;
         map=new GameMap("maps/basicmap.txt");
         RoomFactory rf=new RoomFactory(map.getGameMap());
-        roomMap=rf.generateRooms();
+        //roomMap=rf.generateRooms();//commented out because pmd
     }
     public int getNumberOfPlayers() {
         return numberOfPlayers;
@@ -165,7 +165,11 @@ public class GameController {
     }
 
     public boolean isCorrectPlayerName(String playerName) {
-        return playerName == null ? false : playerName.matches("^[A-Za-zÖöÜüÓóŐőÚúÁáÉéÍíŰű].*$");
+        if(playerName == null){
+            return false;
+        }else{
+            return playerName.matches("^[A-Za-zÖöÜüÓóŐőÚúÁáÉéÍíŰű].*$");
+        }
     }
 
     public int chooseMaximumNumber(Map<Player, Integer> droppedNumbers) {
@@ -238,6 +242,7 @@ public class GameController {
             droppedNumber=Tools.randomizeNumber(6)+1;
             int roledNumberTwo=Tools.randomizeNumber(6)+1;
             if(roledNumberTwo==1){
+                System.out.println("Needs Inrics!!!"); // It needs to delete after the intrics will be implemented into the if statement. Now it just because of the Pmd.
                 //intrics
             }else{
                 droppedNumber+=roledNumberTwo;

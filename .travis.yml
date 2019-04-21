@@ -22,7 +22,7 @@ jobs:
 
       script: mvn test
       
-    - stage: pmd and coverage(Emma)
+    - stage: pmd
     
       script: 
              - mvn compile site
@@ -39,7 +39,7 @@ stages:
 
   - test
   
-  - pmd and coverage(Emma)
+  - pmd
   
   - sonar
 

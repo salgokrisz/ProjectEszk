@@ -35,14 +35,14 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     private static final String MUSTARD="Mustard";
     private static final String GREEN="Green";
     private static final String PLUM="Plum";
-    
+    private static final String HUMAN_PLAYER_OPTION="Menu.PlayerOptionHuman";
     public RoleChooserWindow(GameController gameController) {
         this.gameController=gameController;
         initComponents();
         initPlayerComponents();
     }
     public String[] refillPlayerOptions(){
-        return new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString("Menu.PlayerOptionHuman"), LanguageStrings.getString("Menu.PlayerOptionAi") };
+        return new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString(HUMAN_PLAYER_OPTION), LanguageStrings.getString("Menu.PlayerOptionAi") };
     }
     private String[] refillLevelOptions(){
         return new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  };
@@ -406,7 +406,7 @@ private void resetComboBox(JComboBox comboBox){
         comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
     }else{
         List<String> list=new ArrayList<>(Arrays.asList(playerOptions));
-        list.remove(LanguageStrings.getString("Menu.PlayerOptionHuman"));
+        list.remove(LanguageStrings.getString(HUMAN_PLAYER_OPTION));
         String[] items=Arrays.copyOf(list.toArray(), list.size(), String[].class);
         comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(items));
     }
@@ -480,7 +480,7 @@ private void resetComboBox(JComboBox comboBox){
         boolean oneHumanWasSelected=false;
         int i=0;
         while(i<gameController.getNumberOfPlayers() && !oneHumanWasSelected){
-            oneHumanWasSelected=((String)playerComponents.get(i).getJcbPlayerPersonality().getSelectedItem()).equals(LanguageStrings.getString("Menu.PlayerOptionHuman")); 
+            oneHumanWasSelected=((String)playerComponents.get(i).getJcbPlayerPersonality().getSelectedItem()).equals(LanguageStrings.getString(HUMAN_PLAYER_OPTION)); 
             i+=1;
         }
         return oneHumanWasSelected;
@@ -518,7 +518,7 @@ private void resetComboBox(JComboBox comboBox){
                   if(personalityComboBox.getItemCount()==3){
                   String selectedOption=(String)personalityComboBox.getSelectedItem();
                   List<String> allOptions=new ArrayList<>(Arrays.asList(playerOptions));
-                  allOptions.remove(LanguageStrings.getString("Menu.PlayerOptionHuman"));
+                  allOptions.remove(LanguageStrings.getString(HUMAN_PLAYER_OPTION));
                   String[] optionsWithoutHuman=Arrays.copyOf(allOptions.toArray(), allOptions.size(), String[].class);
                   personalityComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(optionsWithoutHuman));
                   personalityComboBox.setSelectedItem(selectedOption);
@@ -552,9 +552,9 @@ private void resetComboBox(JComboBox comboBox){
         JComboBox comboBox=(JComboBox) evt.getSource();
         String selectedOption=(String)comboBox.getSelectedItem();       
         playerComponents.get(serialNumber).getJcbDifficultyLevel().setEnabled(selectedOption.equals(LanguageStrings.getString("Menu.PlayerOptionAi"))); 
-        if(comboBox.getItemCount()==3 && selectedOption.equals(LanguageStrings.getString("Menu.PlayerOptionHuman"))){
+        if(comboBox.getItemCount()==3 && selectedOption.equals(LanguageStrings.getString(HUMAN_PLAYER_OPTION))){
         removeHumanOptionFromPlayerPersonalityComboBoxes(serialNumber);
-        }else if(!selectedOption.equals(LanguageStrings.getString("Menu.PlayerOptionHuman")) && previouslyThisWasHuman(serialNumber)){
+        }else if(!selectedOption.equals(LanguageStrings.getString(HUMAN_PLAYER_OPTION)) && previouslyThisWasHuman(serialNumber)){
             addHumanOptionToPlayerPersonalityComboBoxes(serialNumber);
         }
     }

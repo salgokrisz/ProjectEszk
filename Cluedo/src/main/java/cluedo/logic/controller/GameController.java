@@ -219,6 +219,8 @@ public Room getRoomForName(String roomName){
                 case 2:
                     ((EndRoom)roomMap.get(RoomFactory.ENDROOM_KEY)).setMurderRoom(killerCard);
                     break;
+                default:
+                    break;
             }
     }
     public void initializeSuspectCards(){

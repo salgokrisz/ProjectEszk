@@ -3,6 +3,7 @@ package cluedo.logic.player;
 
 import cluedo.logic.player.level.ExperienceLevel;
 import cluedo.logic.role.Role;
+import java.util.Objects;
 
 /**
  * This class represents an artificial Player which is
@@ -24,6 +25,21 @@ public class Ai extends Player {
 
     public ExperienceLevel getExperienceLevel() {
         return experienceLevel;
+    }
+    @Override
+    public boolean equals(Object obj){
+        boolean equals=super.equals(obj);
+        if(obj==null){
+            return false;
+        }
+        if(obj.getClass()!=Ai.class){
+            return false;
+        }
+        return equals;
+    }
+    @Override
+    public int hashCode(){
+        return Objects.hash(role);
     }
     
 }

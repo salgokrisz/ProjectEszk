@@ -74,10 +74,8 @@ public class MainAppWindow extends AbstractBaseWindow {
         bgPlayers.add(jrbTwo);
         jrbTwo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jrbTwo.setText("2");
-        jrbTwo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbTwoActionPerformed();
-            }
+        jrbTwo.addActionListener((java.awt.event.ActionEvent evt) -> {
+            jrbTwoActionPerformed();
         });
         JRadioButton jrbThree = new JRadioButton();
         jrbThree.setBackground(new java.awt.Color(255, 30, 21));

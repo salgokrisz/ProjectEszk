@@ -14,7 +14,25 @@ import javax.swing.JCheckBox;
  */
 public class CluePaperPanel extends javax.swing.JPanel {
     private Map<String, JCheckBox> checkBoxMap;
-    private static final String FONT_TYPE="Times New Roman";
+    private final String fontType="Times New Roman";
+    private final String knifeKey="Cards.Weapons.Knife";
+    private final String candleStickKey="Cards.Weapons.Candlestick";
+    private final String revolverKey="Cards.Weapons.Revolver";
+    private final String poisonKey="Cards.Weapons.Poison";
+    private final String trophyKey="Cards.Weapons.Trophy";
+    private final String ropeKey="Cards.Weapons.Rope";
+    private final String batKey="Cards.Weapons.Bat";
+    private final String axeKey="Cards.Weapons.Axe";
+    private final String dumbbellKey="Cards.Weapons.Dumbbell";
+    private final String hallKey="Cards.Rooms.Hall";
+    private final String eateryKey="Cards.Rooms.Eatery";
+    private final String kitchenKey="Cards.Rooms.Kitchen";
+    private final String terraceKey="Cards.Rooms.Terrace";
+    private final String planetariumKey="Cards.Rooms.Planetarium";
+    private final String cinemaKey="Cards.Rooms.Cinema";
+    private final String livingRoomKey="Cards.Rooms.LivingRoom";
+    private final String bathKey="Cards.Rooms.Bath";
+    private final String guestHouseKey="Cards.Rooms.GuestHouse";
     public CluePaperPanel() {
         initComponents();
         fillUpCheckBoxMap();
@@ -22,31 +40,31 @@ public class CluePaperPanel extends javax.swing.JPanel {
 private void customizeCheckBox(JCheckBox checkBox, String title){
     checkBox.setBackground(new java.awt.Color(255, 255, 255));
 
-    checkBox.setFont(new java.awt.Font(FONT_TYPE, 0, 12)); // NOI18N
+    checkBox.setFont(new java.awt.Font(fontType, 0, 12)); // NOI18N
 
     checkBox.setText(title);
 }
 
 private void fillUpCheckBoxMap(){
     checkBoxMap=new HashMap<>();
-    checkBoxMap.put("Cards.Weapons.Knife", jcKnife);
-    checkBoxMap.put("Cards.Weapons.Candlestick", jcCandlestick);
-    checkBoxMap.put("Cards.Weapons.Revolver", jcRevolver);
-    checkBoxMap.put("Cards.Weapons.Poison", jcPoison);
-    checkBoxMap.put("Cards.Weapons.Trophy", jcTrophy);
-    checkBoxMap.put("Cards.Weapons.Rope", jcRope);
-    checkBoxMap.put("Cards.Weapons.Bat", jcBat);
-    checkBoxMap.put("Cards.Weapons.Axe", jcAxe);
-    checkBoxMap.put("Cards.Weapons.Dumbbell", jcDumbbell);
-    checkBoxMap.put("Cards.Rooms.Hall", jcHall);
-    checkBoxMap.put("Cards.Rooms.Eatery", jcEatery);
-    checkBoxMap.put("Cards.Rooms.Kitchen", jcKitchen);
-    checkBoxMap.put("Cards.Rooms.Terrace", jcTerrace);
-    checkBoxMap.put("Cards.Rooms.Planetarium", jcPlanetarium);
-    checkBoxMap.put("Cards.Rooms.Cinema", jcCinema);
-    checkBoxMap.put("Cards.Rooms.LivingRoom", jcLivingRoom);
-    checkBoxMap.put("Cards.Rooms.Bath", jcBath);
-    checkBoxMap.put("Cards.Rooms.GuestHouse", jcGuestHouse);
+    checkBoxMap.put(knifeKey, jcKnife);
+    checkBoxMap.put(candleStickKey, jcCandlestick);
+    checkBoxMap.put(revolverKey, jcRevolver);
+    checkBoxMap.put(poisonKey, jcPoison);
+    checkBoxMap.put(trophyKey, jcTrophy);
+    checkBoxMap.put(ropeKey, jcRope);
+    checkBoxMap.put(batKey, jcBat);
+    checkBoxMap.put(axeKey, jcAxe);
+    checkBoxMap.put(dumbbellKey, jcDumbbell);
+    checkBoxMap.put(hallKey, jcHall);
+    checkBoxMap.put(eateryKey, jcEatery);
+    checkBoxMap.put(kitchenKey, jcKitchen);
+    checkBoxMap.put(terraceKey, jcTerrace);
+    checkBoxMap.put(planetariumKey, jcPlanetarium);
+    checkBoxMap.put(cinemaKey, jcCinema);
+    checkBoxMap.put(livingRoomKey, jcLivingRoom);
+    checkBoxMap.put(bathKey, jcBath);
+    checkBoxMap.put(guestHouseKey, jcGuestHouse);
     checkBoxMap.put("Cards.Persons.Mustard", jcMustard);
     checkBoxMap.put("Cards.Persons.Peacock", jcPeacock);
     checkBoxMap.put("Cards.Persons.Scarlet", jcScarlet);
@@ -84,13 +102,13 @@ private void fillUpCheckBoxMap(){
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(403, 259));
 
-        jlGuests.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
+        jlGuests.setFont(new java.awt.Font(fontType, 1, 14)); // NOI18N
         jlGuests.setText(LanguageStrings.getString("GameBoard.Guests"));
 
-        jlRooms.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
+        jlRooms.setFont(new java.awt.Font(fontType, 1, 14)); // NOI18N
         jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
 
-        jlWeapons.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
+        jlWeapons.setFont(new java.awt.Font(fontType, 1, 14)); // NOI18N
         jlWeapons.setText(LanguageStrings.getString("GameBoard.Weapons"));
         jcMustard = new JCheckBox();
         customizeCheckBox(jcMustard, "Mustard");
@@ -104,33 +122,33 @@ private void fillUpCheckBoxMap(){
         customizeCheckBox(jcScarlet, "Scarlet");
 
         customizeCheckBox(jcWhite, "White");
-        customizeCheckBox(jcHall, LanguageStrings.getString("Cards.Rooms.Hall"));
-        customizeCheckBox(jcEatery, LanguageStrings.getString("Cards.Rooms.Eatery"));
-        customizeCheckBox(jcKitchen, LanguageStrings.getString("Cards.Rooms.Kitchen"));
-        customizeCheckBox(jcTerrace, LanguageStrings.getString("Cards.Rooms.Terrace"));
-        customizeCheckBox(jcPlanetarium, LanguageStrings.getString("Cards.Rooms.Planetarium"));
-        customizeCheckBox(jcCinema, LanguageStrings.getString("Cards.Rooms.Cinema"));
-        customizeCheckBox(jcLivingRoom, LanguageStrings.getString("Cards.Rooms.LivingRoom"));
-        customizeCheckBox(jcBath, LanguageStrings.getString("Cards.Rooms.Bath"));
-        customizeCheckBox(jcGuestHouse, LanguageStrings.getString("Cards.Rooms.GuestHouse"));
+        customizeCheckBox(jcHall, LanguageStrings.getString(hallKey));
+        customizeCheckBox(jcEatery, LanguageStrings.getString(eateryKey));
+        customizeCheckBox(jcKitchen, LanguageStrings.getString(kitchenKey));
+        customizeCheckBox(jcTerrace, LanguageStrings.getString(terraceKey));
+        customizeCheckBox(jcPlanetarium, LanguageStrings.getString(planetariumKey));
+        customizeCheckBox(jcCinema, LanguageStrings.getString(cinemaKey));
+        customizeCheckBox(jcLivingRoom, LanguageStrings.getString(livingRoomKey));
+        customizeCheckBox(jcBath, LanguageStrings.getString(bathKey));
+        customizeCheckBox(jcGuestHouse, LanguageStrings.getString(guestHouseKey));
         
-        customizeCheckBox(jcKnife, LanguageStrings.getString("Cards.Weapons.Knife"));
+        customizeCheckBox(jcKnife, LanguageStrings.getString(knifeKey));
 
-        customizeCheckBox(jcCandlestick, LanguageStrings.getString("Cards.Weapons.Candlestick"));
+        customizeCheckBox(jcCandlestick, LanguageStrings.getString(candleStickKey));
 
-        customizeCheckBox(jcRevolver, LanguageStrings.getString("Cards.Weapons.Revolver"));
+        customizeCheckBox(jcRevolver, LanguageStrings.getString(revolverKey));
 
-        customizeCheckBox(jcPoison, LanguageStrings.getString("Cards.Weapons.Poison"));
+        customizeCheckBox(jcPoison, LanguageStrings.getString(poisonKey));
 
-        customizeCheckBox(jcTrophy, LanguageStrings.getString("Cards.Weapons.Trophy"));
+        customizeCheckBox(jcTrophy, LanguageStrings.getString(trophyKey));
 
-        customizeCheckBox(jcRope, LanguageStrings.getString("Cards.Weapons.Rope"));
+        customizeCheckBox(jcRope, LanguageStrings.getString(ropeKey));
 
-        customizeCheckBox(jcBat, LanguageStrings.getString("Cards.Weapons.Bat"));
+        customizeCheckBox(jcBat, LanguageStrings.getString(batKey));
 
-        customizeCheckBox(jcAxe, LanguageStrings.getString("Cards.Weapons.Axe"));
+        customizeCheckBox(jcAxe, LanguageStrings.getString(axeKey));
 
-        customizeCheckBox(jcDumbbell, LanguageStrings.getString("Cards.Weapons.Dumbbell"));
+        customizeCheckBox(jcDumbbell, LanguageStrings.getString(dumbbellKey));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -280,24 +298,24 @@ private void fillUpCheckBoxMap(){
         jlGuests.setText(LanguageStrings.getString("GameBoard.Guests"));
         jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
         jlWeapons.setText(LanguageStrings.getString("GameBoard.Weapons"));
-        jcKnife.setText(LanguageStrings.getString("Cards.Weapons.Knife"));
-        jcCandlestick.setText(LanguageStrings.getString("Cards.Weapons.Candlestick"));
-        jcRevolver.setText(LanguageStrings.getString("Cards.Weapons.Revolver"));
-        jcPoison.setText(LanguageStrings.getString("Cards.Weapons.Poison"));
-        jcTrophy.setText(LanguageStrings.getString("Cards.Weapons.Trophy"));
-        jcRope.setText(LanguageStrings.getString("Cards.Weapons.Rope"));
-        jcBat.setText(LanguageStrings.getString("Cards.Weapons.Bat"));
-        jcAxe.setText(LanguageStrings.getString("Cards.Weapons.Axe"));
-        jcDumbbell.setText(LanguageStrings.getString("Cards.Weapons.Dumbbell"));
-        jcHall.setText(LanguageStrings.getString("Cards.Rooms.Hall"));
-        jcEatery.setText(LanguageStrings.getString("Cards.Rooms.Eatery"));
-        jcKitchen.setText(LanguageStrings.getString("Cards.Rooms.Kitchen"));
-        jcTerrace.setText(LanguageStrings.getString("Cards.Rooms.Terrace"));
-        jcPlanetarium.setText(LanguageStrings.getString("Cards.Rooms.Planetarium"));
-        jcCinema.setText(LanguageStrings.getString("Cards.Rooms.Cinema"));
-        jcLivingRoom.setText(LanguageStrings.getString("Cards.Rooms.LivingRoom"));
-        jcBath.setText(LanguageStrings.getString("Cards.Rooms.Bath"));
-        jcGuestHouse.setText(LanguageStrings.getString("Cards.Rooms.GuestHouse"));
+        jcKnife.setText(LanguageStrings.getString(knifeKey));
+        jcCandlestick.setText(LanguageStrings.getString(candleStickKey));
+        jcRevolver.setText(LanguageStrings.getString(revolverKey));
+        jcPoison.setText(LanguageStrings.getString(poisonKey));
+        jcTrophy.setText(LanguageStrings.getString(trophyKey));
+        jcRope.setText(LanguageStrings.getString(ropeKey));
+        jcBat.setText(LanguageStrings.getString(batKey));
+        jcAxe.setText(LanguageStrings.getString(axeKey));
+        jcDumbbell.setText(LanguageStrings.getString(dumbbellKey));
+        jcHall.setText(LanguageStrings.getString(hallKey));
+        jcEatery.setText(LanguageStrings.getString(eateryKey));
+        jcKitchen.setText(LanguageStrings.getString(kitchenKey));
+        jcTerrace.setText(LanguageStrings.getString(terraceKey));
+        jcPlanetarium.setText(LanguageStrings.getString(planetariumKey));
+        jcCinema.setText(LanguageStrings.getString(cinemaKey));
+        jcLivingRoom.setText(LanguageStrings.getString(livingRoomKey));
+        jcBath.setText(LanguageStrings.getString(bathKey));
+        jcGuestHouse.setText(LanguageStrings.getString(guestHouseKey));
     }
 
     public void markOwnedSuspectCards(List<Card> suspectCards) {

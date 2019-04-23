@@ -43,7 +43,6 @@ CluePaperPanel cluePaperPanel;
     public GameBoard(GameController gameController){
         jpBase=new JPanel();
         cluePaperPanel=new CluePaperPanel();
-        //jpBase.setLayout(new BoxLayout(jpBase, BoxLayout.Y_AXIS));
         jpBase.setLayout(new BorderLayout());
         JScrollPane jscrollBase=new JScrollPane();
         fieldMatrix[0][0]=FieldEnum.ROOM;
@@ -164,7 +163,7 @@ CluePaperPanel cluePaperPanel;
            sb.append(c.getNameForUI()).append(System.lineSeparator());
        }
        cluePaperPanel.markOwnedSuspectCards(player.getSuspectCards());
-       Object options[]={"Ok"};
+       Object[] options={"Ok"};
         JOptionPane.showOptionDialog(this, sb.toString(), LanguageStrings.getString("JOptionPane.SuspectCardTitle"), JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     }
      @Override
@@ -177,7 +176,7 @@ CluePaperPanel cluePaperPanel;
     }
     @Override
     public void showInformation(String message){
-        Object options[]={"Ok"};
+        Object[] options={"Ok"};
         JOptionPane.showOptionDialog(this, message, LanguageStrings.getString("JOptionPane.InformationTitle"), JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     }
     

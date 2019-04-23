@@ -49,30 +49,40 @@ public class MapParser{
                || roomName.equals("Cards.Rooms.Terrace")||roomName.equals("Cards.Rooms.Planetarium")||roomName.equals("Cards.Rooms.LivingRoom")
                 || roomName.equals("Cards.Rooms.Cinema") || roomName.equals("Cards.Rooms.GuestHouse") || roomName.equals("Cards.Rooms.Bath");
     }
-    public boolean isCorrectCharacter(String fieldSymbol){
-        if(fieldSymbol.contains(":")){
-            String parts[]=fieldSymbol.split(":");
-            if(parts.length!=3 && parts.length!=2 && parts.length!=4){
-                return false;
-            }else{
-                switch(parts.length){
+    private boolean checkFieldWithDoubleDots(String fieldSymbol){
+        boolean correct=false;
+               String[] parts=fieldSymbol.split(":");
+            if(parts.length==3 || parts.length==2 || parts.length==4){
+                       switch(parts.length){
                     case 4:
-                        return parts[0].equals("E")&&correctRoomName(parts[1])&&parts[2].equals("1")&&correctRoomName(parts[3]);
+                        correct= parts[0].equals("E")&&correctRoomName(parts[1])&&parts[2].equals("1")&&correctRoomName(parts[3]);
+                    break;
                     case 3:
-                    return parts[0].equals("E")&&(correctRoomName(parts[1])||parts[1].equals("En"))&&parts[2].equals("0");
+                    correct= parts[0].equals("E")&&(correctRoomName(parts[1])||parts[1].equals("En"))&&parts[2].equals("0");
+                    break;
                     case 2:
                     if(parts[0].equals("St")){
-                        return correctPlayerRoleInString(parts[1]);
+                        correct= correctPlayerRoleInString(parts[1]);
                     }else if(parts[0].equals("R")){
-                        return correctRoomName(parts[1]);
+                        correct= correctRoomName(parts[1]);
                     }
+                    break;
                     default:
-                        return false;
-            }        
-        }
+                        break;
+            }  
+            }
+                
+               
+        return correct;
+    }
+    public boolean isCorrectCharacter(String fieldSymbol){
+        boolean correct;
+        if(fieldSymbol.contains(":")){
+            correct=checkFieldWithDoubleDots(fieldSymbol);
         }else{
-            return fieldSymbol.equals("F") || fieldSymbol.equals("En")||fieldSymbol.equals("I");
+            correct=fieldSymbol.equals("F") || fieldSymbol.equals("En")||fieldSymbol.equals("I");
         }
+        return correct;
     }
 
     public static List<List<String>> getMapList(){

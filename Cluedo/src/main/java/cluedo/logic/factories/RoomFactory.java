@@ -21,6 +21,7 @@ import java.util.Set;
  */
 public class RoomFactory {
     private final List<List<Field>> gameMap;
+    private final String endRoomName="EndRoom";
     public RoomFactory(List<List<Field>> gameMap){
         this.gameMap=gameMap;
     }
@@ -40,10 +41,10 @@ public class RoomFactory {
                        r=new Room(roomField.getRoomName(), coordinates,RoomColor.DEFAULT);
                     }
                     rooms.put(roomField.getRoomName(),r);
-                }else if(field.getType()==FieldType.END && !rooms.containsKey("EndRoom")){
+                }else if(field.getType()==FieldType.END && !rooms.containsKey(endRoomName)){
                     coordinates=determineCoordinates(field);
-                    Room r=new EndRoom("EndRoom", coordinates,RoomColor.DEFAULT);
-                    rooms.put("EndRoom", r);
+                    Room r=new EndRoom(endRoomName, coordinates,RoomColor.DEFAULT);
+                    rooms.put(endRoomName, r);
                 }
             }
         }

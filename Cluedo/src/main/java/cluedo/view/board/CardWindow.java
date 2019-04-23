@@ -21,14 +21,14 @@ import javax.swing.SwingConstants;
  */
 public class CardWindow extends JFrame{
     CardLayout card;  
-Container c;  
+Container container;  
     public CardWindow(Player player){  
         JPanel jpBase=new JPanel();
         jpBase.setLayout(new BoxLayout(jpBase, BoxLayout.Y_AXIS));
-        c=getContentPane();  
+        container=getContentPane();  
         card=new CardLayout(60,30);  
 //create CardLayout object with 40 hor space and 30 ver space  
-        c.setLayout(card);  
+        container.setLayout(card);  
         List<Card> suspectCards=player.getSuspectCards();
         List<JButton> cardButtons=new ArrayList<>();
         for(Card c: suspectCards){
@@ -39,19 +39,19 @@ Container c;
             cardButtons.add(button);
         }
         for(JButton b: cardButtons){
-            c.add(b);
+            container.add(b);
         }
-        jpBase.add(c);
+        jpBase.add(container);
         JButton next=new JButton(LanguageStrings.getString("CardWindow.Next"));
          next.addActionListener((ActionEvent evt) -> {
-            actionPerformed(evt);
+            actionPerformed();
         });
           setSize(400,400);
           setDefaultCloseOperation(EXIT_ON_CLOSE);  
           
     }  
-    public void actionPerformed(ActionEvent e) {  
-    card.next(c);  
+    public void actionPerformed() {  
+    card.next(container);  
     }  
  
 }

@@ -10,6 +10,7 @@ import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Player;
 import cluedo.logic.room.Point;
 import cluedo.tools.Tools;
+import static cluedo.tools.Tools.LOG;
 import cluedo.tools.languagestring.LanguageStrings;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.logging.Level;
 
 /**
  * This class is responsible for controlling the game.
@@ -230,7 +232,7 @@ public class GameController {
     public void fireShowInformation(String message){
         gameBoardListener.showInformation(message);
     }
-    public void rollDice() {
+    public int rollDice() {
         int droppedNumber;
         if(GamePhase.INITIAL==actualGamePhase){
             droppedNumber=Tools.randomizeNumber(6)+1;
@@ -240,22 +242,23 @@ public class GameController {
             droppedNumber=Tools.randomizeNumber(6)+1;
             int roledNumberTwo=Tools.randomizeNumber(6)+1;
             if(roledNumberTwo==1){
-                System.out.println("Needs Inrics!!!"); // It needs to delete after the intrics will be implemented into the if statement. Now it just because of the Pmd.
+              LOG.log(Level.INFO, "Needs Intrics!!!"); // It needs to delete after the intrics will be implemented into the if statement. Now it just because of the Pmd.
                 //intrics
             }else{
                 droppedNumber+=roledNumberTwo;
             }
         }
+        return droppedNumber;
     }
     
     private void findAndSetStartingFieldsOfThePlayers(){
         for (int i = 0; i<players.size();i++){
-            List<List<Field>> fieldMap = map.getGameMap();
+            List<List<Field>> fieldMap = map.getMap();
             for(int j = 0; j<fieldMap.size();j++){
                 for(int k = 0; k<fieldMap.get(j).size();k++){
                     if(fieldMap.get(j).get(k).getType().equals(FieldType.START)){
                         StartField field = (StartField)fieldMap.get(j).get(k);
-                        if(players.get(i).getRole().getClass().equals(field.getBelongsTo())){
+                        if(players.get(i).getRole().getClass().getName().equals("cluedo.logic.role."+field.getBelongsTo())){
                             players.get(i).setStartField(new Point(field.getX(),field.getY()));
                         }
                     }                    

@@ -43,6 +43,7 @@ JOptionPane.SuspectCardTitle=Suspect cards
 JOptionPane.DroppedNumber=Rolled number is: 
 JOptionPane.InformationTitle=Information
 JOptionPane.InformationAboutStarterPlayer=The player who starts the game is: 
+JOptionPane.SureToUseSecretCorridor=Are you sure you want to use secret corridor instead of rolling dice?
 
 #GameBoard
 GameBoard.Guests=Guests
@@ -83,6 +84,8 @@ Cards.Rooms.Cinema=Cinema
 Cards.Rooms.LivingRoom=Living room
 Cards.Rooms.Bath=Bath
 Cards.Rooms.GuestHouse=Guest house
+
+Card.Usage=Usage: 
 
 #IntricCards
 Cards.Intics.Type.duringSuspect=During suspect

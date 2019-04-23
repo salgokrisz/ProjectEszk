@@ -1,31 +1,27 @@
 package cluedo.logic.intrics;
 
+import cluedo.tools.languagestring.LanguageStrings;
 import java.util.Objects;
 
 
 public class Intrics{
-    private String text;
-    private IntricsType type;
+    private final String text;
+    private final IntricsType type;
 
     public Intrics(String text, IntricsType type){
         this.text = text;
         this.type = type;
     }
-
+    public Intrics(Intrics other){
+        this.text=other.getText();
+        this.type=other.getType();
+    }
     public String getText(){
         return this.text;
     }
 
     public IntricsType getType(){
         return this.type;
-    }
-
-    public void setText(String text){
-        this.text = text;
-    }
-
-    public void setType(IntricsType type){
-        this.type = type;
     }
 
     @Override
@@ -43,6 +39,16 @@ public class Intrics{
         }
         Intrics other = (Intrics) o;
         return text.equals(other.getText()) && type==other.getType();
+    }
+    @Override
+    public String toString(){
+        StringBuilder sb=new StringBuilder();
+        sb.append(LanguageStrings.getString(text)).append(System.lineSeparator()).append(LanguageStrings.getString("Card.Usage"))
+        .append(System.lineSeparator()).append(LanguageStrings.getString(type.toString()));
+        return sb.toString();
+    }
+    public Object cloneObject(){
+        return new Intrics(this);
     }
 
 }

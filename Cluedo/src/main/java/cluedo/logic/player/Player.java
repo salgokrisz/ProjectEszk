@@ -1,6 +1,7 @@
 package cluedo.logic.player;
 
 import cluedo.logic.cards.Card;
+import cluedo.logic.intrics.Intrics;
 import cluedo.logic.role.Role;
 import cluedo.logic.room.Point;
 import java.util.ArrayList;
@@ -18,20 +19,54 @@ public class Player {
     protected final boolean isComputer;
     protected List<Card> suspectCards=new ArrayList<>();
     protected Point startFieldLocation;
-     
+    protected List<Intrics> ownedIntricCards=new ArrayList<>();
+    protected Point position;
+    protected boolean isInRoom;
     public Player(Role role,boolean isComputer){
         this.isComputer=isComputer;
         this.role = role;
+        isInRoom=false;
     }
     public Player(Player other){
-        this.role=other.getRole();
+        role=other.getRole();
         isComputer=other.getIsComputer();
         suspectCards=other.getSuspectCards();
+        ownedIntricCards=other.getOwnedIntricCards();
+        position=other.getPosition();
+        isInRoom=other.getIsInRoom();
     }
+
+    public boolean getIsInRoom() {
+        return isInRoom;
+    }
+
+    public void setIsInRoom(boolean isInRoom) {
+        this.isInRoom = isInRoom;
+    }
+    
     public boolean getIsComputer() {
         return isComputer;
     }
-    
+    public Point getPosition(){
+        Point aClone=null;
+        if(position!=null){
+            aClone=(Point)position.cloneObject();
+        }
+        return aClone;
+    }
+    public void setPosition(Point position){
+        this.position=null;
+        if(position!=null){
+            this.position=(Point)position.cloneObject();
+        }
+    }
+    public List<Intrics> getOwnedIntricCards(){
+        List<Intrics> copy=new ArrayList<>();
+        for(Intrics i: ownedIntricCards){
+            copy.add((Intrics)i.cloneObject());
+        }
+        return copy;
+    }
     public Role getRole(){
         return role;
     }
@@ -90,5 +125,9 @@ public class Player {
     @Override
     public String toString(){
        return role.toString();
+    }
+
+    public void addIntricCard(Intrics intric) {
+        ownedIntricCards.add(intric);
     }
 }

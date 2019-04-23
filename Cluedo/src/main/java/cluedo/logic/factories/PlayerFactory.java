@@ -102,7 +102,9 @@ public class PlayerFactory {
                     if(fieldMap.get(i).get(j).getType().equals(FieldType.START)){
                         StartField field = (StartField)fieldMap.get(i).get(j);
                         if(player.getRole().getClass().getName().equals("cluedo.logic.role."+field.getBelongsTo())){
-                            player.setStartFieldLocation(new Point(field.getX(),field.getY()));
+                            Point position=new Point(field.getX(),field.getY());
+                            player.setStartFieldLocation(position);
+                            player.setPosition(position);
                             found=true;
                         }
                     }  

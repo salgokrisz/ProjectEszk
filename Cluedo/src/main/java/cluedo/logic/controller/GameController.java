@@ -4,7 +4,9 @@ import cluedo.logic.cards.Card;
 import cluedo.logic.cards.parser.CardParser;
 import cluedo.logic.factories.PlayerFactory;
 import cluedo.logic.factories.RoomFactory;
+import cluedo.logic.fields.EntranceField;
 import cluedo.logic.fields.Field;
+import cluedo.logic.fields.FieldType;
 import cluedo.logic.intrics.Intrics;
 import cluedo.logic.intrics.IntricsParser;
 import cluedo.logic.map.GameMap;
@@ -13,6 +15,7 @@ import cluedo.logic.role.Role;
 import cluedo.logic.room.EndRoom;
 import cluedo.logic.room.Point;
 import cluedo.logic.room.Room;
+import cluedo.logic.room.SecretCorridoredRoom;
 import cluedo.tools.Tools;
 import static cluedo.tools.Tools.LOG;
 import cluedo.tools.languagestring.LanguageStrings;
@@ -38,14 +41,18 @@ public class GameController {
     private GameBoardListener gameBoardListener;
     private GamePhase actualGamePhase;
     Map<Player, Integer> droppedNumbersForDecidingStart = new HashMap<>();
-   // private List<Intrics> intricCards=new LinkedList<>();//it is commented out becuse of pmd it will be needed later
+    private List<Intrics> intricCards=new LinkedList<>();
     private final GameMap map;
+    private final List<List<Field> > fieldMap;
     private final Map<String, Room> roomMap;//commented out because pmd
+    private int actualPlayerIndex;
     public GameController(){
         actualGamePhase=GamePhase.INITIAL;
         map=new GameMap("maps/basicmap.txt");
+        fieldMap=map.getMap();
         RoomFactory rf=new RoomFactory(map.getMap());//commented out because pmd
         roomMap=rf.generateRooms();//commented out because pmd
+        actualPlayerIndex=0;
     }
     public int getNumberOfPlayers() {
         return numberOfPlayers;
@@ -131,6 +138,7 @@ public Room getRoomForName(String roomName){
             players.add(serialNumbers.get(k));
         }
         humanPlayerIndex=findHumanPlayer();
+        actualPlayerIndex=0;
         fireShowInformation(LanguageStrings.getString("JOptionPane.InformationAboutStarterPlayer")+players.get(0).toString());
         actualGamePhase=GamePhase.ROLL;
     }
@@ -263,7 +271,7 @@ public Room getRoomForName(String roomName){
     }
     public void initializeGame() {
         initializeSuspectCards();
-       // intricCards=initializeIntricCards(); //it is commented out becuse of pmd it will be needed later
+        intricCards=initializeIntricCards(); //it is commented out becuse of pmd it will be needed later
         fireShowWhatToDo(LanguageStrings.getString("Actions.RollDiceStart"));
     }
 
@@ -304,6 +312,65 @@ public Room getRoomForName(String roomName){
             role=players.get(i).getRole();
         }
         return role;
+    }
+
+    public Intrics drawIntricCard() {
+        Intrics intric=intricCards.remove(0);
+        players.get(actualPlayerIndex).addIntricCard(intric);
+        return intric;
+    }
+    public int playerNumberOnField(Field field){
+        int playerNumber=0;
+        Point fieldPosition=new Point(field.getX(), field.getY());
+        for(Player p: players){
+            if(p.getPosition().equals(fieldPosition)){
+                playerNumber+=1;
+            }
+        }
+        return playerNumber;
+    }
+    public boolean isFreeToMoveInRoom(Point newPosition, Room room){
+        Field field=fieldMap.get(newPosition.getX()).get(newPosition.getY());
+        if(room.getClass()==SecretCorridoredRoom.class && ((SecretCorridoredRoom)room).getSecretFieldPosition().equals(newPosition)){
+                return false;
+        }
+        return field.getType()!=FieldType.ENTRANCE && playerNumberOnField(field)==0;
+    }
+    public Point findFreePositionInRoom(Room room){
+        List<Point> points=room.getCoordinates();
+        boolean isGood;
+        Point newPosition;
+        do{
+        int index=Tools.randomizeNumber(points.size());
+          newPosition=points.get(index);
+          isGood=isFreeToMoveInRoom(newPosition, room);
+          if(!isGood){
+              points.remove(index);
+          }
+    }while(!isGood);
+        return newPosition;
+    }
+    public void enterRoom(int row, int column, int playerIndex) {
+       EntranceField entryField=(EntranceField)fieldMap.get(row).get(column);
+       Room room=roomMap.get(entryField.getRoomName());
+       Point newPosition=findFreePositionInRoom(room);
+       moveToField(newPosition.getX(), newPosition.getY(), playerIndex);
+       players.get(playerIndex).setIsInRoom(true);
+    }
+    private void fireShowMovementOfPlayer(Point oldPosition, Player player){
+        gameBoardListener.showMovement(oldPosition, player);
+    }
+
+    public int getActualPlayerIndex() {
+        return actualPlayerIndex;
+    }
+
+    public void moveToField(int x, int y, int playerIndex) {
+        Player player=players.get(playerIndex);
+        Point oldPosition=player.getPosition();
+        Point newPosition=new Point(x, y);
+        player.setPosition(newPosition);
+        fireShowMovementOfPlayer(oldPosition, player);
     }
     
     

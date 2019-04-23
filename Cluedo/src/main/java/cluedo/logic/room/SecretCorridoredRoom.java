@@ -9,20 +9,27 @@ import java.util.List;
  */
 public class SecretCorridoredRoom extends Room{
     private Room toRoom;
-            
+    private boolean wasSetSecretEntranceImage ;  
     public SecretCorridoredRoom(String name, List<Point> coordinates,Color color){
         super(name, coordinates,color);
+        wasSetSecretEntranceImage=false;
     }
     
     public SecretCorridoredRoom(SecretCorridoredRoom other){
         super(other);
         this.toRoom=other.getToRoom();
+        this.wasSetSecretEntranceImage=other.getWasSetSecretEntranceImage();
+    }
+    public void setWasSetSecretEntranceImage(boolean wasSetSecretEntranceImage){
+        this.wasSetSecretEntranceImage=wasSetSecretEntranceImage;
     }
     @Override
     public Object cloneObject(){
         return new SecretCorridoredRoom(this);
     }
-    
+    public boolean getWasSetSecretEntranceImage(){
+        return wasSetSecretEntranceImage;
+    }
     public Room getToRoom(){
         if(toRoom==null){
             return null;

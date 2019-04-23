@@ -37,7 +37,7 @@ JOptionPane.ApplicationInfo=This game is based on the same titled Cluedo boardga
 JOptionPane.Description=Description
 JOptionPane.ErrorTitle=Error message
 JOptionPane.NameAttention=Giving all names is obligatory and they have to start with alphabetical character!
-JOptionPane.PersonalityAttention=Giving all AI or HUMAN options is obligatory!
+JOptionPane.PersonalityAttention=<html>Giving all AI or HUMAN options is obligatory<br>and there must be one human player!</html>
 JOptionPane.ToDo=To do(s)
 JOptionPane.SuspectCardTitle=Suspect cards
 JOptionPane.DroppedNumber=Rolled number is: 
@@ -51,6 +51,7 @@ GameBoard.Rooms=Rooms
 GameBoard.Board=Gameboard
 GameBoard.CluePaper=Clue paper
 GameBoard.MyCards=My cards
+GameBoard.EntranceMark=In
 
 #CardWindow
 CardWindow.Next=Next

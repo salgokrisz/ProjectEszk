@@ -95,7 +95,7 @@ public class RoomFactory {
     
     public boolean isEntranceOrEndOrRoomField(Field mapField, Field actField){
         return actField.getType()==FieldType.ROOM && mapField.getType()==FieldType.ROOM && ((RoomField)mapField).getRoomName().equals(((RoomField)actField).getRoomName())||mapField.getType()==FieldType.END && actField.getType()==FieldType.END
-                || mapField.getType()==FieldType.ENTRANCE && actField.getType()==FieldType.ROOM && ((EntranceField)mapField).getRoomName().equals(((RoomField)actField).getRoomName())||actField.getType()==FieldType.END && ((EntranceField)mapField).getRoomName().equals("End");
+                || mapField.getType()==FieldType.ENTRANCE && actField.getType()==FieldType.ROOM && ((EntranceField)mapField).getRoomName().equals(((RoomField)actField).getRoomName())|| actField.getType()==FieldType.END && mapField.getType()==FieldType.ENTRANCE && ((EntranceField)mapField).getRoomName().equals("End");
     }
     private List<Point> determineCoordinates(Field field){
         List<Point> coordinates=new ArrayList<>();

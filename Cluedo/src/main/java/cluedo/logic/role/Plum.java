@@ -27,6 +27,8 @@ public class Plum extends Role{
       public Object cloneObject(){
         return new Plum(this);
     }
+
+      
     @Override
     public void useSpecialAbility() {
         //TODO: write Plum's special ability

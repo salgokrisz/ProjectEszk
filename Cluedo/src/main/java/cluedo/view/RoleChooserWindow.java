@@ -6,6 +6,7 @@ import cluedo.view.board.GameBoard;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     private String[] levelOptions=refillLevelOptions();
     private static final String SCARLET="Scarlet";
     private static final String PEACOCK="Peacock";
-        private static final String WHITE="White";
+    private static final String WHITE="White";
     private static final String MUSTARD="Mustard";
     private static final String GREEN="Green";
     private static final String PLUM="Plum";
@@ -399,7 +400,18 @@ public class RoleChooserWindow extends AbstractBaseWindow {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+private void resetComboBox(JComboBox comboBox){
+    int selectedIndex=comboBox.getSelectedIndex();
+    if(comboBox.getItemCount()==3){
+        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
+    }else{
+        List<String> list=new ArrayList<>(Arrays.asList(playerOptions));
+        list.remove(LanguageStrings.getString("Menu.PlayerOptionHuman"));
+        String[] items=Arrays.copyOf(list.toArray(), list.size(), String[].class);
+        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(items));
+    }
+    comboBox.setSelectedIndex(selectedIndex);
+}
  @Override
     protected void resetStringsOnWindow(){
         super.resetStringsOnWindow();
@@ -415,12 +427,12 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         jlLevel.setText(LanguageStrings.getString("Menu.Level"));
         playerOptions=refillPlayerOptions();
         levelOptions=refillLevelOptions();
-        jcbPlayerOnePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
-        jcbPlayerTwoPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
-        jcbPlayerThreePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
-        jcbPlayerFourPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
-        jcbPlayerFivePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
-        jcbPlayerSixPersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
+        resetComboBox(jcbPlayerOnePersonality);
+        resetComboBox(jcbPlayerTwoPersonality);
+        resetComboBox(jcbPlayerThreePersonality);
+        resetComboBox(jcbPlayerFourPersonality);
+        resetComboBox(jcbPlayerFivePersonality);
+        resetComboBox(jcbPlayerSixPersonality);
         jcbPlayerOneDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
         jcbPlayerTwoDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
         jcbPlayerThreeDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
@@ -464,10 +476,18 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         }
         gameController.initializePlayers(playerInformations);
     }
-    
+    private boolean oneHumanWasSelected(){
+        boolean oneHumanWasSelected=false;
+        int i=0;
+        while(i<gameController.getNumberOfPlayers() && !oneHumanWasSelected){
+            oneHumanWasSelected=((String)playerComponents.get(i).getJcbPlayerPersonality().getSelectedItem()).equals(LanguageStrings.getString("Menu.PlayerOptionHuman")); 
+            i+=1;
+        }
+        return oneHumanWasSelected;
+    }
     private void jbChooseActionPerformed() {//GEN-FIRST:event_jbChooseActionPerformed
         if(allNamesAreCorrect()){
-            if(allPersonalitiesWereChosen()){
+            if(allPersonalitiesWereChosen() && oneHumanWasSelected()){
         int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null);
         if(answer==JOptionPane.YES_OPTION){
               sendPlayerPropertiesToController();
@@ -491,11 +511,52 @@ public class RoleChooserWindow extends AbstractBaseWindow {
             jcbPlayerPersonalityActionPerformed(evt, serialNumber);
         });
     }
+      private void removeHumanOptionFromPlayerPersonalityComboBoxes(int serialNumber){
+          for(int i=0; i<gameController.getNumberOfPlayers(); ++i){
+              if(i!=serialNumber){
+                  JComboBox personalityComboBox=playerComponents.get(i).getJcbPlayerPersonality();
+                  if(personalityComboBox.getItemCount()==3){
+                  String selectedOption=(String)personalityComboBox.getSelectedItem();
+                  List<String> allOptions=new ArrayList<>(Arrays.asList(playerOptions));
+                  allOptions.remove(LanguageStrings.getString("Menu.PlayerOptionHuman"));
+                  String[] optionsWithoutHuman=Arrays.copyOf(allOptions.toArray(), allOptions.size(), String[].class);
+                  personalityComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(optionsWithoutHuman));
+                  personalityComboBox.setSelectedItem(selectedOption);
+                  }
+              }
+          }
+      }
       
+      private boolean previouslyThisWasHuman(int serialNumber){
+          if(serialNumber==5){
+              serialNumber=0;
+          }else{
+              serialNumber+=1;
+          }
+         return playerComponents.get(serialNumber).getJcbPlayerPersonality().getItemCount()<3;
+      }
+      
+      private void addHumanOptionToPlayerPersonalityComboBoxes(int serialNumber){
+          for(int i=0; i<gameController.getNumberOfPlayers(); ++i){
+               if(i!=serialNumber){
+                   JComboBox personalityComboBox=playerComponents.get(i).getJcbPlayerPersonality();
+                   if(personalityComboBox.getItemCount()<3){
+                       String selectedOption=(String)personalityComboBox.getSelectedItem();
+                       personalityComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
+                       personalityComboBox.setSelectedItem(selectedOption);
+                   }
+               }
+          }
+      }
     private void jcbPlayerPersonalityActionPerformed(ActionEvent evt, int serialNumber){      
         JComboBox comboBox=(JComboBox) evt.getSource();
         String selectedOption=(String)comboBox.getSelectedItem();       
         playerComponents.get(serialNumber).getJcbDifficultyLevel().setEnabled(selectedOption.equals(LanguageStrings.getString("Menu.PlayerOptionAi"))); 
+        if(comboBox.getItemCount()==3 && selectedOption.equals(LanguageStrings.getString("Menu.PlayerOptionHuman"))){
+        removeHumanOptionFromPlayerPersonalityComboBoxes(serialNumber);
+        }else if(!selectedOption.equals(LanguageStrings.getString("Menu.PlayerOptionHuman")) && previouslyThisWasHuman(serialNumber)){
+            addHumanOptionToPlayerPersonalityComboBoxes(serialNumber);
+        }
     }
     private void addActionListenerToButton(JButton button){
     button.addActionListener((ActionEvent evt) -> {

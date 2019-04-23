@@ -3,10 +3,15 @@ package cluedo.logic.controller;
 import cluedo.logic.cards.Card;
 import cluedo.logic.cards.parser.CardParser;
 import cluedo.logic.factories.PlayerFactory;
+import cluedo.logic.factories.RoomFactory;
+import cluedo.logic.fields.Field;
 import cluedo.logic.intrics.Intrics;
 import cluedo.logic.intrics.IntricsParser;
 import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Player;
+import cluedo.logic.role.Role;
+import cluedo.logic.room.Point;
+import cluedo.logic.room.Room;
 import cluedo.tools.Tools;
 import static cluedo.tools.Tools.LOG;
 import cluedo.tools.languagestring.LanguageStrings;
@@ -34,12 +39,12 @@ public class GameController {
     Map<Player, Integer> droppedNumbersForDecidingStart = new HashMap<>();
    // private List<Intrics> intricCards=new LinkedList<>();//it is commented out becuse of pmd it will be needed later
     private final GameMap map;
-    //private final Map<String, Room> roomMap;//commented out because pmd
+    private final Map<String, Room> roomMap;//commented out because pmd
     public GameController(){
         actualGamePhase=GamePhase.INITIAL;
         map=new GameMap("maps/basicmap.txt");
-        //RoomFactory rf=new RoomFactory(map.getGameMap());//commented out because pmd
-        //roomMap=rf.generateRooms();//commented out because pmd
+        RoomFactory rf=new RoomFactory(map.getMap());//commented out because pmd
+        roomMap=rf.generateRooms();//commented out because pmd
     }
     public int getNumberOfPlayers() {
         return numberOfPlayers;
@@ -48,8 +53,23 @@ public class GameController {
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
     }
-
-
+    public int getMapHeight(){
+        return map.getRows();
+    }
+    public List<List<Field>> getFieldMap() {
+        return map.getMap();
+    }
+    public Map<String, Room> getRoomMap(){
+    Map<String, Room> copy=new HashMap<>();
+    Set<String> keys=roomMap.keySet();
+    for(String k: keys){
+        copy.put(k, (Room)roomMap.get(k).cloneObject());
+    }
+    return copy;
+}
+public Room getRoomForName(String roomName){
+    return roomMap.get(roomName);
+}
     public int getNumberOfComputerPlayers() {
         return numberOfComputerPlayers;
     }
@@ -254,6 +274,19 @@ public class GameController {
             }
         }
         return droppedNumber;
+    }
+
+    public Role findPuppetWhoStandsHere(int row, int column) {
+        Point position=new Point(row, column);
+        int i=0;
+        while(i<players.size() && !players.get(i).getStartFieldLocation().equals(position)){
+            i+=1;
+        }
+        Role role=null;
+        if(i<players.size()){
+            role=players.get(i).getRole();
+        }
+        return role;
     }
     
     

@@ -4,7 +4,15 @@ package cluedo.view.board;
 import cluedo.logic.cards.Card;
 import cluedo.logic.controller.GameBoardListener;
 import cluedo.logic.controller.GameController;
+import cluedo.logic.factories.RoomFactory;
+import cluedo.logic.fields.Field;
+import cluedo.logic.fields.FieldType;
+import cluedo.logic.fields.RoomField;
+import cluedo.logic.fields.StartField;
 import cluedo.logic.player.Player;
+import cluedo.logic.role.Role;
+import cluedo.logic.room.Room;
+import cluedo.logic.room.SecretCorridoredRoom;
 import cluedo.tools.languagestring.LanguageStrings;
 import cluedo.view.AbstractBaseWindow;
 import cluedo.view.FieldEnum;
@@ -85,11 +93,10 @@ CluePaperPanel cluePaperPanel;
         fieldMatrix[3][7]=FieldEnum.INTRIC;
         fieldMatrix[3][8]=FieldEnum.INTRIC;
         fieldMatrix[3][9]=FieldEnum.FIELD;
+        this.gameController=gameController;
         JPanel  panelForGameBoard=new JPanel(new BorderLayout());
      JPanel jpBoard=new JPanel(new FlowLayout(FlowLayout.LEADING,0,0));
-     jpBoard.setSize(30*53, 30*53);
-     jpBoard.setPreferredSize(new Dimension(30*53, 30*53));
-     jpBoard.setMaximumSize(new Dimension(30*53, 30*53));
+     
         processComponents(jpBoard);
         jscrollBase.setPreferredSize(jpBoard.getSize());
         jscrollBase.setViewportView(jpBoard);
@@ -133,23 +140,100 @@ CluePaperPanel cluePaperPanel;
         jpBase.setBackground(new Color(180, 0,0));
         Container cp=getContentPane();
         cp.add(jpBase);
-        this.gameController=gameController;
+        
         registerGameBoardListener();
     }
     private void registerGameBoardListener(){
         this.gameController.registerGameBoardListener(this);
     }
-    private void addButtonToBoard(JPanel jpBoard, int row, int column){
+    private void addButtonToBoard(JPanel jpBoard, int row, int column, Color color, ImageIcon icon, boolean enabled){
         PositionedButton button=new PositionedButton(row,column);
         button.setPreferredSize(new Dimension(53,53));
+        if(color!=null){
+            button.setBackground(color);
+        }
+        if(icon!=null){
+            button.setIcon(icon);
+        }
+        button.setEnabled(enabled);
         jpBoard.add(button);
     }
+   
     private void processComponents(JPanel jpBoard){
-        for(int i=0; i<26; ++i){
-            for(int j=0; j<30; ++j){
-            addButtonToBoard(jpBoard, i, j);
+        List<List<Field>> map=gameController.getFieldMap();
+        int maxWidth=map.get(0).size();
+        jpBoard.setBackground(new Color(180, 0,0));
+        for(int i=0; i<map.size(); ++i){
+            List<Field> row=map.get(i);
+            for(int j=0; j<row.size(); ++j){
+                Color color=null;
+                ImageIcon icon=null;
+                boolean enabled=true;
+                if (row.get(j).getType()==FieldType.ROOM || row.get(j).getType()==FieldType.END){        
+                    String roomKey;
+                    if(row.get(j).getType()==FieldType.ROOM){
+                       roomKey=((RoomField)row.get(j)).getRoomName();
+                    }else{
+                        roomKey=RoomFactory.ENDROOM_KEY;
+                    }
+                    Room room=gameController.getRoomForName(roomKey);
+                    if(room.getClass()==SecretCorridoredRoom.class && !((SecretCorridoredRoom)room).getWasSetSecretEntranceImage()){
+                        icon=new ImageIcon(getClass().getResource("/board/secret_corridor.png"));
+                        ((SecretCorridoredRoom)room).setWasSetSecretEntranceImage(true);
+                    }else{
+                       color=room.getColor();
+                       enabled=false;
+                    }
+                    ;
+                }else if(row.get(j).getType()==FieldType.INTRIC){
+                    icon=new ImageIcon(getClass().getResource("/board/intric_field.png"));
+                }else if(row.get(j).getType()==FieldType.ENTRANCE){
+                    icon=new ImageIcon(getClass().getResource("/board/entrance.png"));
+                }else if(row.get(j).getType()==FieldType.START){
+                    Role standsHere=gameController.findPuppetWhoStandsHere(i, j);
+                    if(standsHere==null){
+                    color=findColorAccordingToRole(((StartField)row.get(j)).getBelongsTo());
+                    }else{
+                        icon=standsHere.getPuppetImage();
+                    }
+                }else{
+                    icon=new ImageIcon(getClass().getResource("/board/field.png"));
+                }
+            addButtonToBoard(jpBoard, i, j, color, icon, enabled);
+            
             }
-        }  
+
+            if(maxWidth<row.size()){
+                maxWidth=row.size();
+            }
+        }
+        int height=gameController.getMapHeight();
+        jpBoard.setSize(maxWidth*53, height*53);
+     jpBoard.setPreferredSize(new Dimension(maxWidth*53, height*53));
+     jpBoard.setMaximumSize(new Dimension(maxWidth*53, height*53));
+    }
+    private Color findColorAccordingToRole(String roleInString){
+        Color color;
+        switch(roleInString){
+            case "Mustard":
+                color=new Color(255,94,0);
+                break;
+            case "Scarlet":
+                color=new Color(255, 0, 0);
+                break;
+            case "Peacock":
+                color=new Color(0,0,255);
+                break;
+            case "Green":
+                color=new Color(0,255,0);
+                break;
+            case "Plum":
+                color=new Color(148,44,124);
+                break;
+            default:
+                color=new Color(255,255,255);
+        }
+        return color;
     }
     @Override
     public void showWhatToDo(String message){

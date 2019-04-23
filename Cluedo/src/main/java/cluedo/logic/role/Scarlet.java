@@ -27,6 +27,9 @@ public class Scarlet extends Role{
       public Object cloneObject(){
         return new Scarlet(this);
     }
+
+
+      
     @Override
     public void useSpecialAbility() {
        //TODO: write Scarlet's special ability

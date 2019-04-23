@@ -3,6 +3,8 @@ package cluedo.logic.controller;
 import cluedo.logic.cards.Card;
 import cluedo.logic.cards.parser.CardParser;
 import cluedo.logic.factories.PlayerFactory;
+import cluedo.logic.intrics.Intrics;
+import cluedo.logic.intrics.IntricsParser;
 import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Player;
 import cluedo.tools.Tools;
@@ -30,6 +32,7 @@ public class GameController {
     private GameBoardListener gameBoardListener;
     private GamePhase actualGamePhase;
     Map<Player, Integer> droppedNumbersForDecidingStart = new HashMap<>();
+   // private List<Intrics> intricCards=new LinkedList<>();//it is commented out becuse of pmd it will be needed later
     private final GameMap map;
     //private final Map<String, Room> roomMap;//commented out because pmd
     public GameController(){
@@ -208,6 +211,12 @@ public class GameController {
         }
         fireShowOwnedSuspectCards();
     }
+    public List<Intrics> initializeIntricCards(){
+        IntricsParser ip=new IntricsParser();
+        List<Intrics> intrics=ip.parseFile("cards/intrics/intrics.txt");
+        Collections.shuffle(intrics);
+        return intrics;
+    }
     private void fireShowOwnedSuspectCards(){
         
         gameBoardListener.showAllSuspectCardInformations(players.get(humanPlayerIndex));
@@ -217,6 +226,7 @@ public class GameController {
     }
     public void initializeGame() {
         initializeSuspectCards();
+       // intricCards=initializeIntricCards(); //it is commented out becuse of pmd it will be needed later
         fireShowWhatToDo(LanguageStrings.getString("Actions.RollDiceStart"));
     }
 

@@ -58,7 +58,7 @@ public class RoomFactory {
         return rooms;
     }
     public Color determineColorForRoom(String roomName){
-        Color color=new Color(162,162,162);
+        Color color;
         switch(roomName){
             case CluePaperPanel.BATH_KEY:
                 color=new Color(73,52,208);
@@ -87,6 +87,8 @@ public class RoomFactory {
             case CluePaperPanel.TERRACE_KEY:
                 color=new Color(218,96,16);
                 break;
+            default:
+                color=new Color(162,162,162);
         }
         return color;
     }

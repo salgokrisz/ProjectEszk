@@ -184,7 +184,6 @@ CluePaperPanel cluePaperPanel;
                        color=room.getColor();
                        enabled=false;
                     }
-                    ;
                 }else if(row.get(j).getType()==FieldType.INTRIC){
                     icon=new ImageIcon(getClass().getResource("/board/intric_field.png"));
                 }else if(row.get(j).getType()==FieldType.ENTRANCE){

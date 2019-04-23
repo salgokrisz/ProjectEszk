@@ -10,6 +10,7 @@ import cluedo.logic.intrics.IntricsParser;
 import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Player;
 import cluedo.logic.role.Role;
+import cluedo.logic.room.EndRoom;
 import cluedo.logic.room.Point;
 import cluedo.logic.room.Room;
 import cluedo.tools.Tools;
@@ -207,7 +208,19 @@ public Room getRoomForName(String roomName){
         Collections.shuffle(suspectCards);
         return suspectCards.get(0);
     }
-
+    private void setFinalCard(int index, Card killerCard){
+        switch(index){
+                case 0:
+                    ((EndRoom)roomMap.get(RoomFactory.ENDROOM_KEY)).setMurderer(killerCard);
+                    break;
+                case 1:
+                    ((EndRoom)roomMap.get(RoomFactory.ENDROOM_KEY)).setMurderWeapon(killerCard);
+                    break;
+                case 2:
+                    ((EndRoom)roomMap.get(RoomFactory.ENDROOM_KEY)).setMurderRoom(killerCard);
+                    break;
+            }
+    }
     public void initializeSuspectCards(){
         List<List<Card>> cards=CardParser.parse();
         List<Card> suspectCards=new LinkedList<>();
@@ -215,6 +228,7 @@ public Room getRoomForName(String roomName){
             List<Card> parts=cards.get(i);
             Card killer=chooseKillerCard(parts);
             parts.remove(killer);
+            setFinalCard(i, killer);
             fillUpSupsectCardWithCards(parts, suspectCards);
         }
         Collections.shuffle(suspectCards);
@@ -229,6 +243,7 @@ public Room getRoomForName(String roomName){
                 playerCounter+=1;
             }
         }
+        ((EndRoom)roomMap.get(RoomFactory.ENDROOM_KEY)).setRemainingCards(suspectCards);
         fireShowOwnedSuspectCards();
     }
     public List<Intrics> initializeIntricCards(){

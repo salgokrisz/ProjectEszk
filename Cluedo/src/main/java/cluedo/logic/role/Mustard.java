@@ -16,11 +16,13 @@ public class Mustard extends Role{
         this.color=Color.ORANGE;
         abilityDescription="Mustard.description";
         image=new ImageIcon(getClass().getResource("/settings/mustard.png"));
+        puppetImage=new ImageIcon(getClass().getResource("/board/mustard_puppet.png"));
     }
     public Mustard(Mustard other){
         super(other.getName());
         this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
+        this.puppetImage=other.getPuppetImage();
     }
       public Object cloneObject(){
         return new Mustard(this);

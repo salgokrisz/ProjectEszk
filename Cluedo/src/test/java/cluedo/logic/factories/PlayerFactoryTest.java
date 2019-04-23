@@ -38,7 +38,7 @@ public class PlayerFactoryTest {
         List<String> players = new ArrayList<>();
         changeLanguageIfNecessary(Language.HUN);
         players.add("Ember:Wh:White");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new White("Wh");
         Player p = new Player(role,false);
@@ -52,7 +52,7 @@ public class PlayerFactoryTest {
         List<String> players = new ArrayList<>();
         changeLanguageIfNecessary(Language.ENG);
         players.add("Human:G:Green");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Green("G");
         Player p = new Player(role,false);
@@ -66,7 +66,7 @@ public class PlayerFactoryTest {
         List<String> players = new ArrayList<>();
         changeLanguageIfNecessary(Language.ENG);
         players.add("Human:Pl:Plum");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Plum("Pl");
         Player p = new Player(role,false);
@@ -80,7 +80,7 @@ public class PlayerFactoryTest {
         List<String> players = new ArrayList<>();
         changeLanguageIfNecessary(Language.HUN);
         players.add("Ember:Pe:Peacock");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Peacock("Pe");
         Player p = new Player(role,false);
@@ -94,7 +94,7 @@ public class PlayerFactoryTest {
         List<String> players = new ArrayList<>();
         changeLanguageIfNecessary(Language.ENG);
         players.add("Human:M:Mustard");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Mustard("M");
         Player p = new Player(role,false);
@@ -108,7 +108,7 @@ public class PlayerFactoryTest {
         List<String> players = new ArrayList<>();
         changeLanguageIfNecessary(Language.HUN);
         players.add("Ember:S:Scarlet");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Scarlet("S");
         Player p = new Player(role,false);
@@ -122,7 +122,7 @@ public class PlayerFactoryTest {
         List<String> players = new ArrayList<>();
         changeLanguageIfNecessary(Language.HUN);
         players.add("Számítógép:W:White:Kezdő");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new White("W");
         Player p = new Ai(role,true, ExperienceLevel.BEGINNER);
@@ -136,7 +136,7 @@ public class PlayerFactoryTest {
         List<String> players = new ArrayList<>();
         changeLanguageIfNecessary(Language.ENG);
         players.add("AI:G:Green:Beginner");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Green("G");
         Player p = new Ai(role,false, ExperienceLevel.BEGINNER);
@@ -150,7 +150,7 @@ public class PlayerFactoryTest {
         List<String> players = new ArrayList<>();
         changeLanguageIfNecessary(Language.ENG);
         players.add("AI:Mu:Mustard:Intermediate");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Mustard("Mu");
         Player p = new Ai(role,true, ExperienceLevel.INTERMEDIATE);
@@ -164,7 +164,7 @@ public class PlayerFactoryTest {
         List<String> players = new ArrayList<>();
         changeLanguageIfNecessary(Language.HUN);
         players.add("Számítógép:Pe:Peacock:Haladó");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Peacock("Pe");
         Player p = new Ai(role,true, ExperienceLevel.INTERMEDIATE);
@@ -178,7 +178,7 @@ public class PlayerFactoryTest {
         List<String> players = new ArrayList<>();
         changeLanguageIfNecessary(Language.HUN);
         players.add("Számítógép:Pl:Plum:Haladó");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Plum("Pl");
         Player p = new Ai(role,true, ExperienceLevel.INTERMEDIATE);
@@ -192,7 +192,7 @@ public class PlayerFactoryTest {
         List<String> players = new ArrayList<>();
         changeLanguageIfNecessary(Language.ENG);
         players.add("AI:Sc:Scarlet:Beginner");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Scarlet("Sc");
         Player p = new Ai(role,true, ExperienceLevel.BEGINNER);
@@ -208,7 +208,7 @@ public class PlayerFactoryTest {
         players.add("Human:S:Scarlet");
         players.add("Human:M:Mustard");
         players.add("Human:W:White");
-        List<Player> player =pf.createPlayers(players);
+        List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = "";
         for(int i = 0; i<player.size();i++){
            result = result +" "+ player.get(i).getRole().toString();
@@ -233,7 +233,7 @@ public class PlayerFactoryTest {
         playerInfos.add("AI:S:Scarlet:Beginner");
         playerInfos.add("AI:M:Mustard:Beginner");
         playerInfos.add("AI:W:White:Intermediate");
-        List<Player> players =pf.createPlayers(playerInfos);
+        List<Player> players =pf.createPlayers(playerInfos, new ArrayList<>());
         String result = "";
         for(int i = 0; i<players.size();i++){
            result = result +" "+ players.get(i).getRole().toString();
@@ -258,7 +258,7 @@ public class PlayerFactoryTest {
         playerInfos.add("AI:S:Scarlet:Beginner");
         playerInfos.add("Human:M:Mustard");
         playerInfos.add("AI:W:White:Intermediate");
-        List<Player> players =pf.createPlayers(playerInfos);
+        List<Player> players =pf.createPlayers(playerInfos, new ArrayList<>());
         String result = "";
         for(int i = 0; i<players.size();i++){
            result = result +" "+ players.get(i).getRole().toString();

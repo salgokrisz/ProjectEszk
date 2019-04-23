@@ -83,6 +83,23 @@ Cards.Rooms.LivingRoom=Nappali
 Cards.Rooms.Bath=Fűrdő
 Cards.Rooms.GuestHouse=Vendégház
 
+#IntricCards
+Cards.Intics.Type.duringSuspect=Gyanusítás közben
+Cards.Intrics.Desc.duringSuspect=A gyanusítás megválaszolatlan marad.
+Cards.Intrics.Type.lookAtCard=Valaki mutat
+Cards.Intrics.Desc.lookAtCard=Te is megnézheted a kártyát.
+Cards.Intrics.Type.afterDice=Dobás után
+Cards.Intrics.Desc.giveSix=Adj hatot a dobott számhoz.
+Cards.Intrics.Type.endOfTurn=Kör végén
+Cards.Intrics.Desc.turnAgain=Újra te jösz.
+Cards.Intrics.Desc.stepStartSomeone=Tegyél valakit vissza a kezdő helyére.
+Cards.Intrics.Type.startOfTurn=Kör kezdetén
+Cards.Intrics.Desc.remainPlace=Ha egy szobában vagy akkor maradj ott és gyanúsíts.
+Cards.Intrics.Type.insteadOfDice=Dobás helyett
+Cards.Intrics.Desc.stepAnyWhere=Lépj bárhova.
+Cards.Intrics.Type.clock=Óra
+Cards.Intrics.Desc.showCard=A jobb oldaladon ülő játékos megmutatja az egyik kártyáját.
+
 #RoleDescriptions
 
 Plum.description=<html>A játék során egyszer egy helyett kétszer<br>gyanúsíthatsz ugyanabból a helyiségből.</html>
@@ -102,21 +119,3 @@ Test.2=test2_hun
 Test.3=test3_hun
 Test.4=test4_hun
 Test.5=test5_hun
-
-#IntricCards
-Cards.Intics.Type.duringSuspect=Gyanusítás közben
-Cards.Intrics.Desc.duringSuspect=A gyanusítás megválaszolatlan marad.
-Cards.Intrics.Type.lookAtCard=Valaki mutat
-Cards.Intrics.Desc.lookAtCard=Te is megnézheted a kártyát.
-Cards.Intrics.Type.giveSix=Dobás után
-Cards.Intrics.Desc.giveSix=Adj hatot a dobott számhoz.
-Cards.Intrics.Type.turnAgain=Kör végén
-Cards.Intrics.Desc.turnAgain=Újra te jösz.
-Cards.Intrics.Type.stepStartSomeone=Kör végén
-Cards.Intrics.Desc.stepStartSomeone=Tegyél valakit vissza a kezdő helyére.
-Cards.Intrics.Type.remainPlace=Kör kezdetén
-Cards.Intrics.Desc.remainPlace=Ha egy szobában vagy akkor maradj ott és gyanúsíts.
-Cards.Intrics.Type.stepAnywhere=Dobás helyett
-Cards.Intrics.Desc.stepAnyWhere=Lépj bárhova.
-Cards.Intrics.Type.showCard=Kör végén
-Cards.Intrics.Desc.showCard=A jobb oldaladon ülő játékos megmutatja az egyik kártyáját.

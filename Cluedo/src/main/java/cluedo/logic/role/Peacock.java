@@ -16,11 +16,13 @@ public class Peacock extends Role{
         this.color=Color.BLUE;
         abilityDescription="Peacock.description";
         image=new ImageIcon(getClass().getResource("/settings/peacock.png"));
+        puppetImage=new ImageIcon(getClass().getResource("/board/peacock_puppet.png"));
     }
     public Peacock(Peacock other){
         super( other.getName());
         this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
+        this.puppetImage=other.getPuppetImage();
     }
       public Object cloneObject(){
         return new Peacock(this);

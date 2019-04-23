@@ -3,12 +3,8 @@ package cluedo.logic.controller;
 import cluedo.logic.cards.Card;
 import cluedo.logic.cards.parser.CardParser;
 import cluedo.logic.factories.PlayerFactory;
-import cluedo.logic.fields.Field;
-import cluedo.logic.fields.FieldType;
-import cluedo.logic.fields.StartField;
 import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Player;
-import cluedo.logic.room.Point;
 import cluedo.tools.Tools;
 import static cluedo.tools.Tools.LOG;
 import cluedo.tools.languagestring.LanguageStrings;
@@ -71,9 +67,8 @@ public class GameController {
  
     public void initializePlayers(List<String> playerInformations) {
         PlayerFactory pf = new PlayerFactory();
-        players = pf.createPlayers(playerInformations);
+        players = pf.createPlayers(playerInformations, map.getMap());
         humanPlayerIndex=findHumanPlayer();
-        findAndSetStartingFieldsOfThePlayers();
     }
 
     public List<Player> rollDicesForDecidingStarterPlayer(List<Player> playerList, int humanPlayerRoll) {
@@ -251,19 +246,5 @@ public class GameController {
         return droppedNumber;
     }
     
-    private void findAndSetStartingFieldsOfThePlayers(){
-        for (int i = 0; i<players.size();i++){
-            List<List<Field>> fieldMap = map.getMap();
-            for(int j = 0; j<fieldMap.size();j++){
-                for(int k = 0; k<fieldMap.get(j).size();k++){
-                    if(fieldMap.get(j).get(k).getType().equals(FieldType.START)){
-                        StartField field = (StartField)fieldMap.get(j).get(k);
-                        if(players.get(i).getRole().getClass().getName().equals("cluedo.logic.role."+field.getBelongsTo())){
-                            players.get(i).setStartField(new Point(field.getX(),field.getY()));
-                        }
-                    }                    
-                }
-            }
-        }
-    }
+    
 }

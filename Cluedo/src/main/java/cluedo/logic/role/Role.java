@@ -17,9 +17,18 @@ public abstract class Role {
     protected final String name;
     protected static String abilityDescription;
     protected static ImageIcon image;
+    protected ImageIcon puppetImage;
     public Role( String name){
         abilityIsAvailable=true;
         this.name=name;
+    }
+
+    public ImageIcon getPuppetImage() {
+        return puppetImage;
+    }
+
+    public boolean getAbilityIsAvailable() {
+        return abilityIsAvailable;
     }
 
     public static ImageIcon getImage() {
@@ -38,9 +47,6 @@ public abstract class Role {
         this.color = color;
     }
 
-    public boolean getAbilityIsAvailable() {
-        return abilityIsAvailable;
-    }
 
     public void setAbilityIsAvailable(boolean abilityIsAvailable) {
         this.abilityIsAvailable = abilityIsAvailable;

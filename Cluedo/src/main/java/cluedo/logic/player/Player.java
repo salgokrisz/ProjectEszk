@@ -17,7 +17,7 @@ public class Player {
     protected Role role;
     protected final boolean isComputer;
     protected List<Card> suspectCards=new ArrayList<>();
-    protected Point startField;
+    protected Point startFieldLocation;
      
     public Player(Role role,boolean isComputer){
         this.isComputer=isComputer;
@@ -36,12 +36,19 @@ public class Player {
         return role;
     }
     
-    public void setStartField(Point startFieldLocation){
-        startField = startFieldLocation;
+    public void setStartFieldLocation(Point startFieldLocation){
+        this.startFieldLocation=null;
+        if(startFieldLocation!=null){
+        this.startFieldLocation = (Point)startFieldLocation.cloneObject();
+        }
     }
     
-    public Point getStartField(){
-        return startField;
+    public Point getStartFieldLocation(){
+        Point aClone=null;
+        if(startFieldLocation!=null){
+            aClone=(Point)startFieldLocation.cloneObject();
+        }
+        return aClone;
     }
 
     public List<Card> getSuspectCards() {

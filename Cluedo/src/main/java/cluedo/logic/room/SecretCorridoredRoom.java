@@ -1,6 +1,7 @@
 
 package cluedo.logic.room;
 
+import java.awt.Color;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
 public class SecretCorridoredRoom extends Room{
     private Room toRoom;
             
-    public SecretCorridoredRoom(String name, List<Point> coordinates,RoomColor color){
+    public SecretCorridoredRoom(String name, List<Point> coordinates,Color color){
         super(name, coordinates,color);
     }
     

@@ -1,6 +1,7 @@
 
 package cluedo.logic.room;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class Room {
      protected final int width;
      protected final int height;
      protected final List<Point> coordinates;
-     protected final RoomColor color;
-     public Room(String name, List<Point> coordinates,RoomColor color){
+     protected final Color color;
+     public Room(String name, List<Point> coordinates,Color color){
          this.name=name;
          this.coordinates=coordinates;
          height=calculateHeight();
@@ -50,7 +51,7 @@ public class Room {
         return copy;
     }
     
-    public RoomColor getColor(){
+    public Color getColor(){
         return color;
     }
     

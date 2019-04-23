@@ -2,6 +2,7 @@
 package cluedo.logic.room;
 
 import cluedo.logic.cards.Card;
+import java.awt.Color;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ public class EndRoom extends Room{
     private Card murderRoom;
     private Card murderer;
     
-      public EndRoom(String name, List<Point> coordinates,RoomColor color){
+      public EndRoom(String name, List<Point> coordinates,Color color){
           super(name, coordinates,color);
       } 
       

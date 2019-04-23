@@ -5,9 +5,9 @@ import java.util.Objects;
 
 public class Intrics{
     private String text;
-    private String type;
+    private IntricsType type;
 
-    public Intrics(String text, String type){
+    public Intrics(String text, IntricsType type){
         this.text = text;
         this.type = type;
     }
@@ -16,7 +16,7 @@ public class Intrics{
         return this.text;
     }
 
-    public String getType(){
+    public IntricsType getType(){
         return this.type;
     }
 
@@ -24,7 +24,7 @@ public class Intrics{
         this.text = text;
     }
 
-    public void setType(String type){
+    public void setType(IntricsType type){
         this.type = type;
     }
 
@@ -42,7 +42,7 @@ public class Intrics{
             return false;
         }
         Intrics other = (Intrics) o;
-        return text.equals(other.getText()) && type.equals(other.getType());
+        return text.equals(other.getText()) && type==other.getType();
     }
 
 }

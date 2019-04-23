@@ -83,6 +83,23 @@ Cards.Rooms.LivingRoom=Living room
 Cards.Rooms.Bath=Bath
 Cards.Rooms.GuestHouse=Guest house
 
+#IntricCards
+Cards.Intics.Type.duringSuspect=During suspect
+Cards.Intrics.Desc.duringSuspect=The suspectings remains unanswered.
+Cards.Intrics.Type.lookAtCard=Someone looking card
+Cards.Intrics.Desc.lookAtCard=You can look that card too.
+Cards.Intrics.Type.afterDice=After Dice
+Cards.Intrics.Desc.giveSix=Give six to the rolled number.
+Cards.Intrics.Type.endOfTurn=End of Turn
+Cards.Intrics.Desc.turnAgain=Its your turn again.
+Cards.Intrics.Desc.stepStartSomeone=Put someone to their start field.
+Cards.Intrics.Type.startOfTurn=Start of Turn
+Cards.Intrics.Desc.remainPlace=If you are in a room than remain and suspect someone.
+Cards.Intrics.Type.insteadOfDice=Instead of Dice
+Cards.Intrics.Desc.stepAnyWhere=Step anywhere.
+Cards.Intrics.Type.clock=Clock
+Cards.Intrics.Desc.showCard=The player on your right will show you one of his\her cards.
+
 #RoleDescriptions
 
 Plum.description=<html>Once in the game you can start two rumours<br>instead of one from the same room.</html>
@@ -102,21 +119,3 @@ Test.2=test2_eng
 Test.3=test3_eng
 Test.4=test4_eng
 Test.5=test5_eng
-
-#IntricCards
-Cards.Intics.Type.duringSuspect=During suspect
-Cards.Intrics.Desc.duringSuspect=The suspectings remains unanswered.
-Cards.Intrics.Type.lookAtCard=Someone looking card
-Cards.Intrics.Desc.lookAtCard=You can look that card too.
-Cards.Intrics.Type.giveSix=After Dice
-Cards.Intrics.Desc.giveSix=Give six to the rolled number.
-Cards.Intrics.Type.turnAgain=End of Turn
-Cards.Intrics.Desc.turnAgain=Its your turn again.
-Cards.Intrics.Type.stepStartSomeone=End of Turn
-Cards.Intrics.Desc.stepStartSomeone=Put someone to their start field.
-Cards.Intrics.Type.remainPlace=Start of Turn
-Cards.Intrics.Desc.remainPlace=If you are in a room than remain and suspect someone.
-Cards.Intrics.Type.stepAnywhere=Instead of Dice
-Cards.Intrics.Desc.stepAnyWhere=Step anywhere.
-Cards.Intrics.Type.showCard=End of Turn
-Cards.Intrics.Desc.showCard=The player on your right will show you one of his\her cards.

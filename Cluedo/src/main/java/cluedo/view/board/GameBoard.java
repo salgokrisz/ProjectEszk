@@ -303,7 +303,6 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     private PositionedButton checkRoomClassAndIfHasImageAndCreateSecretCorridor(List<Field> row,int j,int i) {
         PositionedButton button;
         Room room = gameController.getRoomForName(checkRoomTypeAndGetRoomKey(row, j));
-        PositionedButton button;
         if (room.getClass() == SecretCorridoredRoom.class && !((SecretCorridoredRoom) room).getWasSetSecretEntranceImage()) {
             button = createSecretCorridorButton(room, i, j);
         } else {

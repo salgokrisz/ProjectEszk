@@ -118,15 +118,15 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
         }
     }  
     
-    private static int showOptionDialogWithoutImage(String message, Object[] options){
+    private static int showOptionDialogWithoutImage(String message, String title, Object[] options){
        return JOptionPane.showOptionDialog(null, message,
-               LanguageStrings.getString("JOptionPane.Approval"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+               title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, options, options[0]);
     }
     
-    public static int showOptionDialogWithImage(String message, Object[] options, URL imageUrl){
+    public static int showOptionDialogWithImage(String message,String title, Object[] options, URL imageUrl,int optionType, int messageType){
         return JOptionPane.showOptionDialog(null, message,
-                LanguageStrings.getString("JOptionPane.Approval"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                title, optionType, messageType,
                 new ImageIcon(imageUrl), options, options[0]);
     }
     
@@ -134,13 +134,13 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
          Object[] options = {LanguageStrings.getString("JOptionPane.Yes"), LanguageStrings.getString("JOptionPane.No")};
          int answer;       
          if(imageUrl==null){
-            answer= showOptionDialogWithoutImage(message, options);           
+            answer= showOptionDialogWithoutImage(message, LanguageStrings.getString("JOptionPane.Approval"), options);           
          }else{
              boolean validUrl=isLinkValid(imageUrl);
              if(validUrl){
-             answer=showOptionDialogWithImage(message, options, imageUrl);
+             answer=showOptionDialogWithImage(message, LanguageStrings.getString("JOptionPane.Approval"), options, imageUrl, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
              }else{
-                 answer=showOptionDialogWithoutImage(message, options);
+                 answer=showOptionDialogWithoutImage(message, LanguageStrings.getString("JOptionPane.Approval"), options);
              }
          }
         return answer;

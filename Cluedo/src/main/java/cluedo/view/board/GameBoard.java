@@ -35,7 +35,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import cluedo.logic.intrics.Intrics;
+import cluedo.logic.intrics.IntricsType;
 import cluedo.logic.room.Point;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -199,7 +201,13 @@ private void secretCorridorButtonActionPerformed() {
 private void intricButtonActionPerformed(){
     Object[] options={"Ok"};
     Intrics intricCard=gameController.drawIntricCard();
-    showOptionDialogWithImage(intricCard.toString(), options, getClass().getResource("/cards/intrics/basic_intric.png"));
+    URL url=getClass().getResource("/cards/intrics/basic_intric.png");
+    String text=intricCard.toString();
+    if(intricCard.getType()==IntricsType.CLOCK){
+        url=getClass().getResource("/cards/intrics/card_intric.png");
+        text="";
+    }
+    showOptionDialogWithImage(text, LanguageStrings.getString("JOptionPane.DrawnIntricCard"), options, url, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
 }
     private PositionedButton createEntranceButton(int row, int column) {
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/entrance.png"));

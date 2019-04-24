@@ -44,6 +44,7 @@ JOptionPane.DroppedNumber=A dobott érték:
 JOptionPane.InformationTitle=Információ
 JOptionPane.InformationAboutStarterPlayer=Az első játékos: 
 JOptionPane.SureToUseSecretCorridor=Biztos, hogy titkos átjárót akarsz használni kockadobás helyett?
+JOptionPane.DrawnIntricCard=A húzott intrika kártya:
 
 #GameBoard
 GameBoard.Guests=Vendégek

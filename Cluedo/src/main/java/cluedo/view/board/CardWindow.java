@@ -29,8 +29,7 @@ public class CardWindow extends JFrame {
         jpBase.setLayout(new BoxLayout(jpBase, BoxLayout.Y_AXIS));
         setTitle(LanguageStrings.getString("GameBoard.MyCards"));
         card = new JPanel(new CardLayout(60, 30));
-//create CardLayout object with 40 hor space and 30 ver space  
-        //  container.setLayout(card);  
+//create CardLayout object with 40 hor space and 30 ver space    
         List<Card> suspectCards = player.getSuspectCards();
         List<JButton> cardButtons = new ArrayList<>();
         for (Card c : suspectCards) {
@@ -42,7 +41,7 @@ public class CardWindow extends JFrame {
         for (JButton b : cardButtons) {
             card.add(b);
         }
-        jpBase.add(card);//jpBase.add(container);
+        jpBase.add(card);
         JButton next = new JButton(LanguageStrings.getString("CardWindow.Next"));
         next.addActionListener((ActionEvent evt) -> actionPerformed());
         jpBase.add(next);

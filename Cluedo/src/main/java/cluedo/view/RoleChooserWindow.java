@@ -1,5 +1,6 @@
 package cluedo.view;
 
+import cluedo.view.component.PlayerComponent;
 import cluedo.logic.controller.GameController;
 import cluedo.tools.languagestring.LanguageStrings;
 import cluedo.view.board.GameBoard;
@@ -123,7 +124,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         });
 
         jcbPlayerOneRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
-
+        addActionListenerToJcbPlayerRole(jcbPlayerOneRole, 0);
         jlPlayerOne.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayerOne.setText(LanguageStrings.getString("Menu.PlayerOne"));
 
@@ -131,27 +132,27 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         jlPlayerTwo.setText(LanguageStrings.getString("Menu.PlayerTwo"));
 
         jcbPlayerTwoRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
-
+        addActionListenerToJcbPlayerRole(jcbPlayerTwoRole, 1);
         jlPlayerThree.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayerThree.setText(LanguageStrings.getString("Menu.PlayerThree"));
 
         jcbPlayerThreeRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
-
+        addActionListenerToJcbPlayerRole(jcbPlayerThreeRole, 2);
         jlPlayerFour.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayerFour.setText(LanguageStrings.getString("Menu.PlayerFour"));
 
         jcbPlayerFourRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
-
+        addActionListenerToJcbPlayerRole(jcbPlayerFourRole, 3);
         jlPlayerFive.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayerFive.setText(LanguageStrings.getString("Menu.PlayerFive"));
 
         jcbPlayerFiveRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
-
+        addActionListenerToJcbPlayerRole(jcbPlayerFiveRole, 4);
         jlPlayerSix.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayerSix.setText(LanguageStrings.getString("Menu.PlayerSix"));
 
         jcbPlayerSixRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
-
+        addActionListenerToJcbPlayerRole(jcbPlayerSixRole, 5);
         jcbPlayerOnePersonality.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
         addActionListenerToJcbPlayerPersonality(jcbPlayerOnePersonality, 0);
 
@@ -505,7 +506,51 @@ private void resetComboBox(JComboBox comboBox){
             JOptionPane.showMessageDialog(this, LanguageStrings.getString("JOptionPane.NameAttention"), LanguageStrings.getString("JOptionPane.Attention"), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbChooseActionPerformed
-    
+      private void addActionListenerToJcbPlayerRole(JComboBox comboBox, int serialNumber){
+          comboBox.addActionListener((ActionEvent evt) -> {
+            jcbPlayerRoleActionPerformed(evt, serialNumber);
+        });
+      }
+      private String[] getAllComboBoxOptions(JComboBox comboBox){
+          int size=comboBox.getItemCount();
+          String[] options=new String[size];
+          for(int i=0; i<size; ++i){
+              options[i]=(String)comboBox.getItemAt(i);
+          }
+          return options;
+      }
+
+      private void modifyAvailableRoleOptions(String optionToAddOrRemove, int serialNumber, boolean added){
+          for(int i=0; i<gameController.getNumberOfPlayers(); ++i){
+              if(serialNumber!=i){
+                  JComboBox roleComboBox=playerComponents.get(i).getJcbPlayerRole();
+                  String selectedOption=(String)roleComboBox.getSelectedItem();
+                  String[] options=getAllComboBoxOptions(roleComboBox);
+                  List<String> listOptions=new ArrayList<>(Arrays.asList(options));
+                  if(added){
+                     listOptions.add(optionToAddOrRemove); 
+                  }else{
+                  listOptions.remove(optionToAddOrRemove);
+                  }
+                  String[] modifiedOptions=Arrays.copyOf(listOptions.toArray(), listOptions.size(), String[].class);
+                  roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(modifiedOptions));
+                  roleComboBox.setSelectedItem(selectedOption);
+              }
+          }
+      }
+      private void jcbPlayerRoleActionPerformed(ActionEvent evt, int serialNumber){
+          JComboBox jcbPlayerRole=(JComboBox)evt.getSource();
+          PlayerComponent playerComponent=playerComponents.get(serialNumber);
+          String actuallySelectedOption=(String)jcbPlayerRole.getSelectedItem();
+          String previouslySelectedOption=playerComponent.getPreviouslySelectedjcbPlayerRole();
+          if(!previouslySelectedOption.equals("Random") && !previouslySelectedOption.equals(actuallySelectedOption) && !actuallySelectedOption.equals("Random")){
+              modifyAvailableRoleOptions(previouslySelectedOption, serialNumber, true);
+              modifyAvailableRoleOptions(actuallySelectedOption, serialNumber, false);
+          }else if(previouslySelectedOption.equals("Random") && !previouslySelectedOption.equals(actuallySelectedOption) ){
+              modifyAvailableRoleOptions(actuallySelectedOption, serialNumber, false);
+          }
+          playerComponent.setPreviouslySelectedjcbPlayerRole(actuallySelectedOption);
+      }
       private void addActionListenerToJcbPlayerPersonality(JComboBox comboBox, int serialNumber){
         comboBox.addActionListener((ActionEvent evt) -> {
             jcbPlayerPersonalityActionPerformed(evt, serialNumber);

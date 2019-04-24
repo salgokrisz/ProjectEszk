@@ -1,5 +1,4 @@
-
-package cluedo.view;
+package cluedo.view.component;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -16,12 +15,22 @@ public final class PlayerComponent {
     private final JComboBox jcbPlayerRole;
     private final JComboBox jcbDifficultyLevel;
     private final JLabel jlPlayerNumberText;
+    private String previouslySelectedjcbPlayerRole;
     public PlayerComponent(JComboBox jcbPlayerPersonality, JTextField jtfName, JComboBox jcbPlayerRole, JComboBox jcbDifficultyLevel, JLabel jlPlayerNumberText){
         this.jcbPlayerPersonality=jcbPlayerPersonality;
         this.jtfName=jtfName;
         this.jcbPlayerRole=jcbPlayerRole;
         this.jcbDifficultyLevel=jcbDifficultyLevel;
         this.jlPlayerNumberText=jlPlayerNumberText;
+        previouslySelectedjcbPlayerRole="Random";
+    }
+
+    public String getPreviouslySelectedjcbPlayerRole() {
+        return previouslySelectedjcbPlayerRole;
+    }
+
+    public void setPreviouslySelectedjcbPlayerRole(String previouslySelectedjcbPlayerRole) {
+        this.previouslySelectedjcbPlayerRole = previouslySelectedjcbPlayerRole;
     }
 
     public JComboBox getJcbPlayerPersonality() {

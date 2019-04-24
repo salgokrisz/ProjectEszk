@@ -23,11 +23,13 @@ public class Player {
     protected Point position;
     protected boolean isInRoom;
     protected String actualRoomName;
+    protected boolean suspectedInThisRound;
     public Player(Role role,boolean isComputer){
         this.isComputer=isComputer;
         this.role = role;
         isInRoom=false;
         actualRoomName="";
+        suspectedInThisRound=false;
     }
     public Player(Player other){
         role=other.getRole();
@@ -36,6 +38,7 @@ public class Player {
         ownedIntricCards=other.getOwnedIntricCards();
         position=other.getPosition();
         isInRoom=other.getIsInRoom();
+        suspectedInThisRound=other.getSuspectedInThisRound();
     }
     public void setActualRoomName(String actualRoomName){
         this.actualRoomName=actualRoomName;
@@ -138,5 +141,15 @@ public class Player {
 
     public void addIntricCard(Intrics intric) {
         ownedIntricCards.add(intric);
+    }
+    public void setSuspectedInThisRound(boolean suspectedInThisRound){
+        this.suspectedInThisRound=suspectedInThisRound;
+    }
+    public boolean getSuspectedInThisRound() {
+        return suspectedInThisRound;
+    }
+
+    public boolean isAbleToUseSpecialAbility() {
+        return role.getAbilityIsAvailable();
     }
 }

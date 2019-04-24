@@ -46,6 +46,9 @@ JOptionPane.InformationAboutStarterPlayer=Az első játékos:
 JOptionPane.SureToUseSecretCorridor=Biztos, hogy titkos átjárót akarsz használni kockadobás helyett ebbe a szobába: 
 JOptionPane.DrawnIntricCard=A húzott intrika kártya: 
 JOptionPane.NoIntricCards=Még nincs intrika kártyád.
+JOptionPane.NextPlayer=A következő játékos: 
+JOptionPane.You=Te
+JOptionPane.SureToMove=Biztos, hogy át akarsz menni a kiválasztott mezőre (ezután nem folytathatod tovább a mozgást ebben a körben).
 
 #GameBoard
 GameBoard.Guests=Vendégek
@@ -56,6 +59,7 @@ GameBoard.CluePaper=Nyomozólap
 GameBoard.MySuspectCards=Gyanúkártyáim
 GameBoard.MyIntricCards=Intrika kártyáim
 GameBoard.EntranceMark=Be
+GameBoard.MySpecialAbility=Különleges képességem
 
 #CardWindow
 CardWindow.Next=Következő
@@ -119,6 +123,19 @@ White.description=<html>A játék során egyszer, bármelyik helyiségbe<br>bel�
 #Actions
 Actions.RollDiceStart=<html>Klikkelj a dobókockás gombra a dobáshoz.<br>A legnagyobb értéket dobó játékos kezdi a játékot.</html>
 Actions.RollDiceStartAgain=<html>Több játékos is ugyanazt dobta, mint te a kezdés eldöntéséhez.<br>Újat fogsz dobni a kezdő játékos eldöntéséhez.</html>
+Actions.RollDice=Klikkelj a dobókockás gombra a dobáshoz.
+Actions.ChooseSuspects=Válassz ki egy gyilkos személyt és egy gyilkos fegyvert a gyanúsításodhoz!
+Actions.Use=Használ
+Actions.ChooseFieldToMove=Kattints egy elérhető mezőre, ahhoz, hogy átmozogj!
+Actions.InformationsAboutAi=Összefoglaló a körről, számítógépes játékos: 
+Actions.AiEnteredRoom=Belépett ebbe a szobába: 
+Actions.AiMoved=Erre a mezőre lépett: 
+Actions.SerialMark=. 
+Actions.Row=sor
+Actions.Column=oszlop
+Actions.AiDrawnIntricCard=Intrika kártyát húzott.
+Actions.AiSuspectsCards=A gyanúsított kártyák:
+Actions.DroppedIntric=Kapsz egy intrika kártyát, mert az egyik dobókockával kérdőjelet dobtál.
 
 #Tests
 Test.1=test1_hun

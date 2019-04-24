@@ -17,6 +17,7 @@ public class White extends Role {
         abilityDescription="White.description";
         image=new ImageIcon(getClass().getResource("/settings/white.png"));
         puppetImage=new ImageIcon(getClass().getResource("/board/white_puppet.png"));
+        roleTypeInString="White";
     }
 
     public White(White other) {
@@ -24,6 +25,7 @@ public class White extends Role {
         this.abilityIsAvailable = other.getAbilityIsAvailable();
         this.color = other.getColor();
         this.puppetImage=other.getPuppetImage();
+        roleTypeInString=other.getRoleTypeInString();
     }
 
     public Object cloneObject() {

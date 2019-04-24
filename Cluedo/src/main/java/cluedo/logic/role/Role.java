@@ -18,6 +18,7 @@ public abstract class Role {
     protected static String abilityDescription;
     protected static ImageIcon image;
     protected ImageIcon puppetImage;
+    protected String roleTypeInString;
     public Role( String name){
         abilityIsAvailable=true;
         this.name=name;
@@ -38,6 +39,11 @@ public abstract class Role {
     public static String getAbilityDescription() {
         return abilityDescription;
     }
+
+    public String getRoleTypeInString() {
+        return roleTypeInString;
+    }
+
    
     public Color getColor() {
         return color;

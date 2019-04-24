@@ -46,6 +46,10 @@ JOptionPane.InformationAboutStarterPlayer=The player who starts the game is:
 JOptionPane.SureToUseSecretCorridor=Are you sure you want to use secret corridor instead of rolling dice to room: 
 JOptionPane.DrawnIntricCard=The drawn intric card: 
 JOptionPane.NoIntricCards=You have no intric card yet.
+JOptionPane.NextPlayer=The next player is: 
+JOptionPane.You=You
+JOptionPane.SureToMove=Are you sure you want to move to the selected field (after that you cannot continue moving in this round)?
+ 
 
 #GameBoard
 GameBoard.Guests=Guests
@@ -56,6 +60,7 @@ GameBoard.CluePaper=Clue paper
 GameBoard.MySuspectCards=My suspect cards
 GameBoard.MyIntricCards=My intric cards
 GameBoard.EntranceMark=In
+GameBoard.MySpecialAbility=My special ability
 
 #CardWindow
 CardWindow.Next=Next
@@ -119,6 +124,19 @@ White.description=<html>Once in the game you can enter to any room<br>which has 
 #Actions
 Actions.RollDiceStart=<html>Click on the dice button to roll dice.<br>The player with the greatest number will start the game.</html>
 Actions.RollDiceStartAgain=<html>More players have rolled the same number as you which was the maximum.<br>You will roll again and decide who starts.</html>
+Actions.RollDice=Click on the dice button to roll dice.
+Actions.ChooseSuspects=Select a murder and a murder weapon for your suspectation!
+Actions.Use=Use
+Actions.ChooseFieldToMove=Select a field from the availables by clicking on it to move there.
+Actions.InformationsAboutAi=Informations about the round of computer player: 
+Actions.AiEnteredRoom=Entered room:  
+Actions.AiMoved=Moved to field: 
+Actions.SerialMark=nd/th 
+Actions.Row=row
+Actions.Column=column
+Actions.AiDrawnIntricCard=Drawn intric card.
+Actions.AiSuspectsCards=Suspected cards:
+Actions.DroppedIntric=You will get an intric card because you have dropped a question mark sign with one of the dices.
 
 #Tests
 Test.1=test1_eng

@@ -614,42 +614,43 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     }
 
     private void addActionListenerToButton(JButton button) {
-        button.addActionListener((ActionEvent evt) -> jbRoleActionPerfromed(evt));
+        Object[] options={"Ok"};
+        button.addActionListener((ActionEvent evt) -> jbRoleActionPerfromed(getClass(), ((JButton)evt.getSource()).getText(), options));
     }
 
-    private void jbRoleActionPerfromed(ActionEvent evt) {
-        String chosenRole = ((JButton) evt.getSource()).getText();
+    public static int jbRoleActionPerfromed(Class<?> classType, String chosenRole, Object[] options) {
         String description = "";
         ImageIcon image = null;
         switch (chosenRole) {
             case PLUM:
                 description = LanguageStrings.getString("Plum.description");
-                image = new ImageIcon(getClass().getResource("/settings/plum.png"));
+                image = new ImageIcon(classType.getResource("/settings/plum.png"));
                 break;
             case GREEN:
                 description = LanguageStrings.getString("Green.description");
-                image = new ImageIcon(getClass().getResource("/settings/green.png"));
+                image = new ImageIcon(classType.getResource("/settings/green.png"));
                 break;
             case SCARLET:
                 description = LanguageStrings.getString("Scarlet.description");
-                image = new ImageIcon(getClass().getResource("/settings/scarlet.png"));
+                image = new ImageIcon(classType.getResource("/settings/scarlet.png"));
                 break;
             case WHITE:
                 description = LanguageStrings.getString("White.description");
-                image = new ImageIcon(getClass().getResource("/settings/white.png"));
+                image = new ImageIcon(classType.getResource("/settings/white.png"));
                 break;
             case PEACOCK:
                 description = LanguageStrings.getString("Peacock.description");
-                image = new ImageIcon(getClass().getResource("/settings/peacock.png"));
+                image = new ImageIcon(classType.getResource("/settings/peacock.png"));
                 break;
             case MUSTARD:
                 description = LanguageStrings.getString("Mustard.description");
-                image = new ImageIcon(getClass().getResource("/settings/mustard.png"));
+                image = new ImageIcon(classType.getResource("/settings/mustard.png"));
                 break;
             default:
                 break;
         }
-        JOptionPane.showMessageDialog(this, description, ((JButton) evt.getSource()).getText(), JOptionPane.INFORMATION_MESSAGE, image);
+        return JOptionPane.showOptionDialog(null, description, chosenRole, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE,image, options, options[0]);
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

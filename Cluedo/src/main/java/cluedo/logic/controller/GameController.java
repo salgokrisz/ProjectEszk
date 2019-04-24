@@ -10,6 +10,7 @@ import cluedo.logic.fields.FieldType;
 import cluedo.logic.intrics.Intrics;
 import cluedo.logic.intrics.IntricsParser;
 import cluedo.logic.map.GameMap;
+import cluedo.logic.player.Ai;
 import cluedo.logic.player.Player;
 import cluedo.logic.role.Role;
 import cluedo.logic.room.EndRoom;
@@ -34,7 +35,6 @@ import java.util.logging.Level;
  * This class is responsible for controlling the game.
  */
 public class GameController {
-
     private int humanPlayerIndex;
     private int numberOfPlayers;
     private int numberOfComputerPlayers;
@@ -47,6 +47,9 @@ public class GameController {
     private final List<List<Field>> fieldMap;
     private final Map<String, Room> roomMap;//commented out because pmd
     private int actualPlayerIndex;
+    private List<Card> allMurderCards=new ArrayList<Card>();
+    private List<Card> allMurderWeaponCards=new ArrayList<Card>();
+    private List<Card> allMurderRoomCards=new ArrayList<Card>();
 
     public GameController() {
         actualGamePhase = GamePhase.INITIAL;
@@ -127,6 +130,10 @@ public class GameController {
         return playersOnPosition;
     }
 
+    public void setActualGamePhase(GamePhase actualGamePhase) {
+        this.actualGamePhase = actualGamePhase;
+    }
+
     public List<Player> rollDicesForDecidingStarterPlayer(List<Player> playerList, int humanPlayerRoll) {
 
         for (int i = 0; i < playerList.size(); ++i) {
@@ -163,10 +170,114 @@ public class GameController {
         }
         humanPlayerIndex = findHumanPlayer();
         actualPlayerIndex = 0;
-        fireShowInformation(LanguageStrings.getString("JOptionPane.InformationAboutStarterPlayer") + players.get(0).toString());
+        StringBuilder message=new StringBuilder(LanguageStrings.getString("JOptionPane.InformationAboutStarterPlayer"));
+        if(humanPlayerIndex==actualPlayerIndex){
+            message.append(LanguageStrings.getString("JOptionPane.You"));
+        }else{
+          message.append(players.get(0).toString());  
+        }
+        fireShowInformation(message.toString());
         actualGamePhase = GamePhase.ROLL;
+        if(!players.get(actualPlayerIndex).getIsComputer()){
+        fireDisplayRollView();
+        }else{
+            controlComputerPlayer();
+        }
     }
-
+    private void controlComputerPlayer(){
+        Ai actualComputerPlayer=(Ai)players.get(actualPlayerIndex);
+                    actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.InformationsAboutAi"));
+                    actualComputerPlayer.appendToInformation(actualComputerPlayer.toString());
+                    actualComputerPlayer.appendToInformation(System.lineSeparator());
+        if(actualGamePhase==GamePhase.ROLL){
+            int droppedNumber=rollDice();
+            StringBuilder sb=new StringBuilder(LanguageStrings.getString("JOptionPane.DroppedNumber"));
+            sb.append(droppedNumber).append(System.lineSeparator());
+            ((Ai)players.get(actualPlayerIndex)).appendToInformation(sb.toString());
+            actualGamePhase=GamePhase.MOVE;
+            List<Point> availablePositionsToMove=((Ai)players.get(actualPlayerIndex)).getAvailablePositionsToMove();
+            Point destination;
+            Field field;
+            do{
+            destination=availablePositionsToMove.get(Tools.randomizeNumber(availablePositionsToMove.size()));
+            field=fieldMap.get(destination.getX()).get(destination.getY());
+            }while(field.getType()==FieldType.ROOM); 
+            if(field.getType()==FieldType.ENTRANCE){
+                actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.AiEnteredRoom"));
+                Room room=searchForRoomAccordingToFieldPosition(destination.getX(), destination.getY());
+                enterRoom(room, actualPlayerIndex);
+                actualComputerPlayer.appendToInformation(LanguageStrings.getString(actualComputerPlayer.getActualRoomName()));
+                actualComputerPlayer.appendToInformation(System.lineSeparator());
+            }else{
+                moveToField(destination.getX(), destination.getY(), actualPlayerIndex);
+                actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.AiMoved"));
+                actualComputerPlayer.appendToInformation(Integer.toString(destination.getX()+1));
+                actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.SerialMark"));
+                actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.Row"));
+                actualComputerPlayer.appendToInformation(", ");
+                actualComputerPlayer.appendToInformation(Integer.toString(destination.getY()+1));
+                actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.SerialMark"));
+                actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.Column"));
+                actualComputerPlayer.appendToInformation(System.lineSeparator());
+                if(field.getType()==FieldType.INTRIC){
+                    drawIntricCard();
+                    actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.AiDrawnIntricCard"));
+                    actualComputerPlayer.appendToInformation(System.lineSeparator());
+                }
+            }
+            if(players.get(actualPlayerIndex).getIsInRoom()){
+                actualGamePhase=GamePhase.SUSPECT;
+                Card murder=actualComputerPlayer.selectSuspect(allMurderCards);
+                Card murderWeapon=actualComputerPlayer.selectSuspect(allMurderCards);
+                Card murderRoom=actualComputerPlayer.findMurderRoomAccordingToPosition(allMurderRoomCards);
+                fireShowInformationsAboutSuspectedCards(murder, murderWeapon, murderRoom);
+            }else{
+                nextPlayerIsComing();
+                
+        }
+    }
+    }
+    
+    private void fireShowInformationsAboutSuspectedCards(Card murder, Card murderWeapon, Card murderRoom){
+        Ai actualComputerPlayer=(Ai)players.get(actualPlayerIndex);
+        actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.AiSuspectsCards"));
+        actualComputerPlayer.appendToInformation(System.lineSeparator());
+        actualComputerPlayer.appendToInformation(murder.getNameForUI());
+        actualComputerPlayer.appendToInformation(System.lineSeparator());
+        actualComputerPlayer.appendToInformation(murderWeapon.getNameForUI());
+        actualComputerPlayer.appendToInformation(System.lineSeparator());
+        actualComputerPlayer.appendToInformation(murderRoom.getNameForUI());
+        actualComputerPlayer.appendToInformation(System.lineSeparator());
+        LOG.log(Level.INFO, "Suspected murder Card: "+murder.getNameForUI());
+        LOG.log(Level.INFO, "Suspected murder weapon Card: "+murderWeapon.getNameForUI());
+        LOG.log(Level.INFO, "Suspected murder room Card: "+murderRoom.getNameForUI());
+    }
+    private void fireShowInformationsAboutComputerPlayer(){
+        Ai actualComputerPlayer=(Ai)players.get(actualPlayerIndex);
+        gameBoardListener.showInformation(actualComputerPlayer.getInformationsAboutMovement());
+        actualComputerPlayer.resetInformationsAboutMovement();
+    }
+    private void nextPlayerIsComing(){
+        actualGamePhase=GamePhase.ROLL;
+        if(players.get(actualPlayerIndex).getIsComputer()){
+            fireShowInformationsAboutComputerPlayer();
+        }
+                changeActualPlayerIndex();
+                fireShowNextPlayerMessage();
+                if(!players.get(actualPlayerIndex).getIsComputer()){
+                    fireDisplayRollView();
+                }else{
+                    fireDisplayComputerView();
+                    controlComputerPlayer();
+                }
+            
+    }
+    private void fireDisplayRollView(){
+        gameBoardListener.displayRollAndComputerView();
+        if(actualGamePhase!=GamePhase.INITIAL){
+        fireShowWhatToDo(LanguageStrings.getString("Actions.RollDice"));
+        }
+    }
     public Map<Integer, Player> determinateSerialNumbers(int starterIndex) {
         Map<Integer, Player> serialNumbers = new TreeMap<>();
         serialNumbers.put(0, players.get(starterIndex));
@@ -261,10 +372,23 @@ public class GameController {
     }
 
     public void initializeSuspectCards() {
-        List<List<Card>> cards = CardParser.parse();
+        List<List<Card>>cards = CardParser.parse();
         List<Card> suspectCards = new LinkedList<>();
         for (int i = 0; i < 3; ++i) {
             List<Card> parts = cards.get(i);
+            switch(i){
+                case 0:
+                    allMurderCards.addAll(parts);
+                    break;
+                case 1:
+                    allMurderWeaponCards.addAll(parts);
+                    break;
+                case 2:
+                    allMurderRoomCards.addAll(parts);
+                    break;
+                default:
+                    break;
+            }
             Card killer = chooseKillerCard(parts);
             parts.remove(killer);
             setFinalCard(i, killer);
@@ -305,9 +429,10 @@ public class GameController {
     public void initializeGame() {
         initializeSuspectCards();
         intricCards = initializeIntricCards(); //it is commented out becuse of pmd it will be needed later
+        fireDisplayRollView();
         fireShowWhatToDo(LanguageStrings.getString("Actions.RollDiceStart"));
     }
-
+    
     private void fillUpSupsectCardWithCards(List<Card> cards, List<Card> suspectCards) {
         Collections.shuffle(cards);
         suspectCards.addAll(cards);
@@ -317,6 +442,10 @@ public class GameController {
         gameBoardListener.showInformation(message);
     }
 
+    public GamePhase getActualGamePhase() {
+        return actualGamePhase;
+    }
+
     public int rollDice() {
         int droppedNumber;
         if (GamePhase.INITIAL == actualGamePhase) {
@@ -324,18 +453,41 @@ public class GameController {
             fireShowInformation(LanguageStrings.getString("JOptionPane.DroppedNumber") + droppedNumber);
             sortPlayers(droppedNumber);
         } else {
+            fireEnableRollDiceButton(false);
             droppedNumber = Tools.randomizeNumber(6) + 1;
             int roledNumberTwo = Tools.randomizeNumber(6) + 1;
             if (roledNumberTwo == 1) {
-                LOG.log(Level.INFO, "Needs Intrics!!!"); // It needs to delete after the intrics will be implemented into the if statement. Now it just because of the Pmd.
+                Intrics drawnCard=drawIntricCard();
+                if(!players.get(actualPlayerIndex).getIsComputer()){
+                    fireShowInformation(LanguageStrings.getString("Actions.DroppedIntric"));
+                fireShowDrawnIntricCardInfo(drawnCard);
+                }
                 //intrics
             } else {
                 droppedNumber += roledNumberTwo;
             }
+            if(!players.get(actualPlayerIndex).getIsComputer()){
+            fireShowInformation(LanguageStrings.getString("JOptionPane.DroppedNumber") + droppedNumber);
+            }
+            actualGamePhase=GamePhase.MOVE;
+                List<Point> availablePositions=chooseAvailableFieldsInARadius(droppedNumber);
+            if(!players.get(actualPlayerIndex).getIsComputer()){
+                fireDisplayMoveView(availablePositions);
+            }else{
+                ((Ai)players.get(actualPlayerIndex)).setAvailablePositionsToMove(availablePositions);
+            }
         }
         return droppedNumber;
     }
-
+    private void fireDisplayMoveView(List<Point> availablePositions){
+        gameBoardListener.displayMoveView(availablePositions);
+    }
+    private void fireShowDrawnIntricCardInfo(Intrics drawnCard){
+        gameBoardListener.showDrawnIntricCardInfo(drawnCard);
+    }
+    private void fireEnableRollDiceButton(boolean isEnabled){
+        gameBoardListener.enableRollDiceButton(isEnabled);
+    }
     public Role findPuppetWhoHasThisStartField(int row, int column) {
         Point position = new Point(row, column);
         int i = 0;
@@ -418,7 +570,8 @@ public class GameController {
         Player player = players.get(playerIndex);
         Point oldPosition = player.getPosition();
         fieldMap.get(oldPosition.getX()).get(oldPosition.getY()).modifyPlayerNumber(-1, numberOfPlayers);
-        fieldMap.get(x).get(y).modifyPlayerNumber(1, numberOfPlayers);
+        Field field=fieldMap.get(x).get(y);
+        field.modifyPlayerNumber(1, numberOfPlayers);
         Point newPosition = new Point(x, y);
         player.setPosition(newPosition);
         if (fieldMap.get(x).get(y).getType() != FieldType.ROOM) {
@@ -426,8 +579,50 @@ public class GameController {
             player.setActualRoomName("");
         }
         fireShowMovementOfPlayer(oldPosition, player);
+        Player actualPlayer=players.get(actualPlayerIndex);
+        if(field.getType()==FieldType.INTRIC && !actualPlayer.getIsComputer()){
+            Intrics intricCard = drawIntricCard();
+            fireShowDrawnIntricCardInfo(intricCard);
+        }
+        fireReEnableFieldButtons();
+        if(!actualPlayer.getIsComputer()){
+        if(actualPlayer.getIsInRoom() && !actualPlayer.getSuspectedInThisRound()){
+            actualGamePhase=GamePhase.SUSPECT;
+                fireShowSuspectView();
+        }else{
+            nextPlayerIsComing();
+        }
+        }
     }
-
+    public Player getActualPlayer(){
+        return players.get(actualPlayerIndex);
+    }
+    private void fireReEnableFieldButtons(){
+        gameBoardListener.enableFieldButtons(true);
+    }
+    private void fireShowSuspectView(){
+        gameBoardListener.showSuspectView();
+    }
+    private void fireDisplayComputerView(){
+        gameBoardListener.displayRollAndComputerView();
+    }
+    private void fireShowNextPlayerMessage(){
+        StringBuilder message=new StringBuilder(LanguageStrings.getString("JOptionPane.NextPlayer"));
+        
+        if(actualPlayerIndex==humanPlayerIndex){
+            message.append(LanguageStrings.getString("JOptionPane.You"));
+        }else{
+            message.append(players.get(actualPlayerIndex).toString()).append(System.lineSeparator());
+        }
+        gameBoardListener.showInformation(message.toString());
+    }
+    public void changeActualPlayerIndex(){
+        if(actualPlayerIndex==numberOfPlayers-1){
+            actualPlayerIndex=0;
+        }else{
+            actualPlayerIndex+=1;
+        }
+    }
     public Room findSecretPassageToRoom(int playerIndex) {
         Room actualRoom = roomMap.get(players.get(playerIndex).getActualRoomName());
         Room toRoom = null;
@@ -437,4 +632,27 @@ public class GameController {
         return toRoom;
     }
 
+    public List<Point> chooseAvailableFieldsInARadius(int droppedNumber) {
+        Point actualPlayerPosition=players.get(actualPlayerIndex).getPosition();
+        List<Point> availablePointsOfFields=new ArrayList<>();
+        availablePointsOfFields.add(actualPlayerPosition);
+        int minRow=actualPlayerPosition.getX()-droppedNumber;
+        int maxRow=actualPlayerPosition.getX()+droppedNumber;
+        int minColumn=actualPlayerPosition.getY()-droppedNumber;
+        int maxColumn=actualPlayerPosition.getY()+droppedNumber;
+        for(int i=minRow; i<maxRow; ++i){
+            if(i>=0 && i<fieldMap.size()){
+            for(int j=minColumn; j<maxColumn; ++j){
+                if(j>=0 && j<fieldMap.get(i).size()){
+                    availablePointsOfFields.add(new Point(fieldMap.get(i).get(j).getX(), fieldMap.get(i).get(j).getY()));
+                }
+            }
+            }
+        }
+        return availablePointsOfFields;
+    }
+
+    public void playerUsesSpecialAbility(Player player) {
+        player.getRole().useSpecialAbility();
+    }
 }

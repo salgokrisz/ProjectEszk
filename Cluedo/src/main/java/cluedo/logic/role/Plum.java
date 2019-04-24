@@ -17,12 +17,14 @@ public class Plum extends Role{
         abilityDescription="Plum.description";
         image=new ImageIcon(getClass().getResource("/settings/plum.png"));
         puppetImage=new ImageIcon(getClass().getResource("/board/plum_puppet.png"));
+        roleTypeInString="Plum";
     }
     public Plum(Plum other){
         super(other.getName());
          this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
         this.puppetImage=other.getPuppetImage();
+        roleTypeInString=other.getRoleTypeInString();
     }
       public Object cloneObject(){
         return new Plum(this);

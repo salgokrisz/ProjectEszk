@@ -17,12 +17,14 @@ public class Mustard extends Role{
         abilityDescription="Mustard.description";
         image=new ImageIcon(getClass().getResource("/settings/mustard.png"));
         puppetImage=new ImageIcon(getClass().getResource("/board/mustard_puppet.png"));
+        roleTypeInString="Mustard";
     }
     public Mustard(Mustard other){
         super(other.getName());
         this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
         this.puppetImage=other.getPuppetImage();
+        roleTypeInString=other.getRoleTypeInString();
     }
       public Object cloneObject(){
         return new Mustard(this);

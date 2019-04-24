@@ -16,12 +16,14 @@ public class Green extends Role{
         abilityDescription="Green.description";
         image=new ImageIcon(getClass().getResource("/settings/green.png"));
         puppetImage=new ImageIcon(getClass().getResource("/board/green_puppet.png"));
+        roleTypeInString="Green";
     }
     public Green(Green other){
         super(other.getName());
          this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
         this.puppetImage=other.getPuppetImage();
+        roleTypeInString=other.getRoleTypeInString();
     }
       public Object cloneObject(){
         return new Green(this);

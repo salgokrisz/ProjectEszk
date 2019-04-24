@@ -16,7 +16,6 @@ import cluedo.tools.languagestring.LanguageStrings;
 import cluedo.view.AbstractBaseWindow;
 import cluedo.view.board.component.PositionedButton;
 import java.awt.BorderLayout;
-import static java.awt.BorderLayout.CENTER;
 import static java.awt.BorderLayout.EAST;
 import static java.awt.BorderLayout.SOUTH;
 import static java.awt.BorderLayout.WEST;
@@ -36,6 +35,8 @@ import javax.swing.JTabbedPane;
 import cluedo.logic.intrics.Intrics;
 import cluedo.logic.intrics.IntricsType;
 import cluedo.logic.room.Point;
+import cluedo.view.RoleChooserWindow;
+import static java.awt.BorderLayout.NORTH;
 import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.SwingUtilities;
@@ -45,19 +46,22 @@ import javax.swing.SwingUtilities;
  * contains the field buttons and the clue paper and the cards of the player.
  */
 public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
-
+    private boolean recognizeActions;
     private JPanel jpBase;
     private final GameController gameController;
     private JTabbedPane tabbedPane;
     private JButton suspectCardsButton;
     private JButton intricCardsButton;
     private JButton diceButton;
-    CluePaperPanel cluePaperPanel;
+    private CluePaperPanel cluePaperPanel;
     private List<List<PositionedButton>> buttonedMap = new ArrayList<>();
+    private JPanel panelForCluePaper;
+    private final JButton specialAbilityButton;
 
     public GameBoard(GameController gameController) {
+        recognizeActions=true;
         jpBase = new JPanel();
-        cluePaperPanel = new CluePaperPanel();
+        cluePaperPanel = new CluePaperPanel(false);
         jpBase.setLayout(new BorderLayout());
         JScrollPane jscrollBase = new JScrollPane();
         this.gameController = gameController;
@@ -68,7 +72,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         jscrollBase.setPreferredSize(jpBoard.getSize());
         jscrollBase.setViewportView(jpBoard);
         tabbedPane = new JTabbedPane();
-        panelForGameBoard.add(jscrollBase, CENTER);
+        panelForGameBoard.add(jscrollBase, BorderLayout.CENTER);
         JPanel panelForButtons = new JPanel();
         panelForButtons.setLayout(new BoxLayout(panelForButtons, BoxLayout.X_AXIS));
         suspectCardsButton = new JButton(LanguageStrings.getString("GameBoard.MySuspectCards"));
@@ -100,7 +104,28 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
        panelForButtons.add(intricCardsButton);
         diceButton.addActionListener((ActionEvent evt) -> {
             gameController.rollDice();
+            
         });
+        specialAbilityButton=new JButton(LanguageStrings.getString("GameBoard.MySpecialAbility"));
+        specialAbilityButton.setBackground(new Color(255, 30, 21));
+        specialAbilityButton.addActionListener((ActionEvent evt) -> {
+            Object[] options;
+            if(gameController.getHumanPlayer().isAbleToUseSpecialAbility()){
+                options=new Object[2];
+                options[0]="Ok";
+                options[1]=LanguageStrings.getString("Actions.Use");
+            }else{
+                options=new Object[1];
+                options[0]="Ok";
+            }
+            Player actualPlayer=gameController.getActualPlayer();
+            int chosenOption=RoleChooserWindow.jbRoleActionPerfromed(getClass(), actualPlayer.getRole().getRoleTypeInString(), options);
+            if(options.length==2 && chosenOption==1){
+                gameController.playerUsesSpecialAbility(gameController.getHumanPlayer());
+            }
+            
+        });
+        panelForButtons.add(specialAbilityButton);
         JPanel dummyPanel = new JPanel();
         dummyPanel.setPreferredSize(new Dimension(10, 10));
         dummyPanel.setBackground(new Color(180, 0, 0));
@@ -109,29 +134,63 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         panelForButtons.setBackground(new Color(180, 0, 0));
         panelForGameBoard.add(panelForButtons, SOUTH);
         tabbedPane.addTab(LanguageStrings.getString("GameBoard.Board"), panelForGameBoard);
-        JPanel dummyPanelForCluePaper = new JPanel(new BorderLayout());
+        panelForCluePaper = new JPanel(new BorderLayout());
         dummyPanel = new JPanel();
         dummyPanel.setPreferredSize(new Dimension(300, 400));
         dummyPanel.setBackground(new Color(180, 0, 0));
-        dummyPanelForCluePaper.add(dummyPanel, SOUTH);
+        panelForCluePaper.add(dummyPanel, SOUTH);
         dummyPanel = new JPanel();
         dummyPanel.setPreferredSize(new Dimension(500, 400));
         dummyPanel.setBackground(new Color(180, 0, 0));
-        dummyPanelForCluePaper.add(dummyPanel, WEST);
+        panelForCluePaper.add(dummyPanel, WEST);
         dummyPanel = new JPanel();
         dummyPanel.setPreferredSize(new Dimension(500, 400));
         dummyPanel.setBackground(new Color(180, 0, 0));
-        dummyPanelForCluePaper.add(dummyPanel, EAST);
-        dummyPanelForCluePaper.add(cluePaperPanel, CENTER);
-        tabbedPane.addTab(LanguageStrings.getString("GameBoard.CluePaper"), dummyPanelForCluePaper);
-        jpBase.add(tabbedPane, CENTER);
+        panelForCluePaper.add(dummyPanel, EAST);
+        panelForCluePaper.add(cluePaperPanel, BorderLayout.CENTER);
+        tabbedPane.addTab(LanguageStrings.getString("GameBoard.CluePaper"), panelForCluePaper);
+        jpBase.add(tabbedPane, BorderLayout.CENTER);
         jpBase.setBackground(new Color(180, 0, 0));
         Container cp = getContentPane();
         cp.add(jpBase);
 
         registerGameBoardListener();
     }
-
+    @Override
+    public void enableFieldButtons(boolean enabled){
+        List<List<Field>> fieldMap=gameController.getFieldMap();
+        for(int i=0; i<buttonedMap.size();++i){
+            List<PositionedButton> row=buttonedMap.get(i);
+            for(int j=0; j<row.size();++j){
+                Field field=fieldMap.get(i).get(j);
+                PositionedButton button=buttonedMap.get(i).get(j);
+                button.setEnabled(button.getIsEnabledToClickOn()|| field.getPlayerNumber()>=1);
+            }
+        }
+    }
+    @Override
+    public void displayMoveView(List<Point> availablePositions){
+        recognizeActions=true;
+        List<List<Field>> fieldMap=gameController.getFieldMap();
+        for(int i=0; i<buttonedMap.size(); ++i){
+                    List<PositionedButton> row=buttonedMap.get(i);
+                    for(int j=0; j<row.size(); ++j){
+                        Point actPoint=new Point(i, j);
+                        Field field=fieldMap.get(i).get(j);
+                        boolean enabled=true;
+                        if(field.getType()==FieldType.ROOM){
+                            Room room=gameController.getRoomForName(((RoomField)field).getRoomName());
+                            if(room.getClass()==SecretCorridoredRoom.class){
+                                enabled=((SecretCorridoredRoom)room).getSecretFieldPosition().equals(actPoint);
+                            }else{
+                                enabled=false;
+                            }
+                        }
+                        buttonedMap.get(i).get(j).setEnabled(enabled && availablePositions.contains(actPoint));
+                    }
+                }
+        showInformation(LanguageStrings.getString("Actions.ChooseFieldToMove"));
+    }
     private void registerGameBoardListener() {
         this.gameController.registerGameBoardListener(this);
     }
@@ -171,10 +230,15 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     }
 
     private void secretCorridorButtonActionPerformed() {
+        if(recognizeActions){
+            int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SureToMove"), null);
+        if(answer==JOptionPane.YES_OPTION){
         Room toRoom = gameController.findSecretPassageToRoom(gameController.getActualPlayerIndex());
-        int answer = showConfirmation(LanguageStrings.getString("JOptionPane.SureToUseSecretCorridor") + System.lineSeparator() + LanguageStrings.getString(toRoom.getName()), null);
+        answer = showConfirmation(LanguageStrings.getString("JOptionPane.SureToUseSecretCorridor") + System.lineSeparator() + LanguageStrings.getString(toRoom.getName()), null);
         if (answer == JOptionPane.YES_OPTION) {
             gameController.enterRoom(toRoom, gameController.getActualPlayerIndex());
+        }
+        }
         }
     }
 
@@ -195,19 +259,14 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     }
 
     private void intricButtonActionPerformed(ActionEvent evt) {
-        Object[] options = {"Ok"};
         PositionedButton button = (PositionedButton) evt.getSource();
         Point position = new Point(button.getRow(), button.getColumn());
-        if (!position.equals(gameController.getHumanPlayer().getPosition())) {
+        if (!position.equals(gameController.getHumanPlayer().getPosition()) && recognizeActions) {
+            int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SureToMove"), null);
+        if(answer==JOptionPane.YES_OPTION){
             fieldButtonActionPerformed(evt);
-            Intrics intricCard = gameController.drawIntricCard();
-            URL url = getClass().getResource("/cards/intrics/basic_intric.png");
-            String text = intricCard.toString();
-            if (intricCard.getType() == IntricsType.CLOCK) {
-                url = getClass().getResource("/cards/intrics/card_intric.png");
-                text = "";
-            }
-            showOptionDialogWithImage(text, LanguageStrings.getString("JOptionPane.DrawnIntricCard"), options, url, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            
+        }
         }
     }
 
@@ -220,9 +279,14 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     }
 
     private void entranceButtonActionPerformed(ActionEvent evt) {
+        if(recognizeActions){
+            int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SureToMove"), null);
+        if(answer==JOptionPane.YES_OPTION){
         PositionedButton button = (PositionedButton) evt.getSource();
         Room room = gameController.searchForRoomAccordingToFieldPosition(button.getRow(), button.getColumn());
         gameController.enterRoom(room, gameController.getActualPlayerIndex());
+        }
+        }
     }
 
     private PositionedButton createStartButton(int row, int column, StartField field) {
@@ -242,10 +306,22 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     }
 
     private void fieldButtonActionPerformed(ActionEvent evt) {
-        PositionedButton button = (PositionedButton) evt.getSource();
+        if(recognizeActions){
+                PositionedButton button = (PositionedButton) evt.getSource();
+            List<List<Field>> fieldMap=gameController.getFieldMap();
+            Field field=fieldMap.get(button.getRow()).get(button.getColumn());
+            int answer=JOptionPane.YES_OPTION;
+            if(field.getType()!=FieldType.INTRIC && field.getType()!=FieldType.START){
+            answer=showConfirmation(LanguageStrings.getString("JOptionPane.SureToMove"), null);
+            }
+            
+        if(answer==JOptionPane.YES_OPTION){
+        
         Point position = new Point(button.getRow(), button.getColumn());
         if (!position.equals(gameController.getHumanPlayer().getPosition())) {
             gameController.moveToField(button.getRow(), button.getColumn(), gameController.getActualPlayerIndex());
+        }
+        }
         }
     }
 
@@ -299,11 +375,57 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         }
         return maxWidth;
     }
-    
+
+    @Override
+    public void enableRollDiceButton(boolean enabled){
+        diceButton.setEnabled(enabled);
+    }
+    @Override
+    public void displayRollAndComputerView(){
+        recognizeActions=false;
+        diceButton.setEnabled(true);
+    }
+    @Override
+    public void showSuspectView(){
+        CluePaperPanel panelForSuspectation=new CluePaperPanel(true);
+        javax.swing.JLabel jlToDo=new javax.swing.JLabel();
+            jlToDo.setFont(new java.awt.Font(FONT_TYPE, 1, 16));
+            jlToDo.setText(LanguageStrings.getString("Actions.ChooseSuspects"));
+            panelForCluePaper=new JPanel(new BorderLayout());
+            panelForCluePaper.add(jlToDo, NORTH);
+            cluePaperPanel.enableCheckBoxes(true, gameController.getActualPlayer());
+            panelForCluePaper.add(cluePaperPanel, SOUTH);
+            panelForCluePaper.add(panelForSuspectation, BorderLayout.CENTER);
+             JPanel dummyPanel = new JPanel();
+        dummyPanel.setPreferredSize(new Dimension(500, 400));
+        dummyPanel.setBackground(new Color(180, 0, 0));
+        panelForCluePaper.add(dummyPanel, WEST);
+        dummyPanel = new JPanel();
+        dummyPanel.setPreferredSize(new Dimension(500, 400));
+        dummyPanel.setBackground(new Color(180, 0, 0));
+        panelForCluePaper.add(dummyPanel, EAST);
+        tabbedPane.removeTabAt(1);
+        tabbedPane.addTab(LanguageStrings.getString("GameBoard.CluePaper"), panelForCluePaper);
+        jpBase.add(tabbedPane, BorderLayout.CENTER);
+        jpBase.setBackground(new Color(180, 0, 0));
+        Container cp = getContentPane();
+        cp.add(jpBase);
+    }
+    @Override
+    public void showDrawnIntricCardInfo(Intrics intricCard){
+        Object[] options = {"Ok"};
+        URL url = getClass().getResource("/cards/intrics/basic_intric.png");
+            String text = intricCard.toString();
+            if (intricCard.getType() == IntricsType.CLOCK) {
+                url = getClass().getResource("/cards/intrics/card_intric.png");
+                text = "";
+            }
+            showOptionDialogWithImage(text, LanguageStrings.getString("JOptionPane.DrawnIntricCard"), options, url, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
+    }
+
     private PositionedButton checkRoomClassAndIfHasImageAndCreateSecretCorridor(List<Field> row,int j,int i) {
         PositionedButton button;
         Room room = gameController.getRoomForName(checkRoomTypeAndGetRoomKey(row, j));
-        PositionedButton button;
         if (room.getClass() == SecretCorridoredRoom.class && !((SecretCorridoredRoom) room).getWasSetSecretEntranceImage()) {
             button = createSecretCorridorButton(room, i, j);
         } else {
@@ -347,7 +469,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         }
         return color;
     }
-
+    
     @Override
     public void showWhatToDo(String message) {
         JOptionPane.showMessageDialog(this, message, LanguageStrings.getString("JOptionPane.ToDo"), JOptionPane.INFORMATION_MESSAGE);

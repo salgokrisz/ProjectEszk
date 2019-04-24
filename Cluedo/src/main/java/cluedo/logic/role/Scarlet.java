@@ -17,12 +17,14 @@ public class Scarlet extends Role{
         abilityDescription="Scarlet.description";
         image=new ImageIcon(getClass().getResource("/settings/scarlet.png"));
         puppetImage=new ImageIcon(getClass().getResource("/board/scarlet_puppet.png"));
+        roleTypeInString="Scarlet";
     }
     public Scarlet(Scarlet other){
         super( other.getName());
         this.color=other.getColor();
         this.abilityIsAvailable=other.getAbilityIsAvailable();
         this.puppetImage=other.getPuppetImage();
+        roleTypeInString=other.getRoleTypeInString();
     }
       public Object cloneObject(){
         return new Scarlet(this);

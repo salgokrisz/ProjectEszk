@@ -1,8 +1,10 @@
 
 package cluedo.logic.controller;
 
+import cluedo.logic.intrics.Intrics;
 import cluedo.logic.player.Player;
 import cluedo.logic.room.Point;
+import java.util.List;
 
 /**
  *This interface is responsible for helping data flow between the backgound logic
@@ -13,4 +15,13 @@ public interface GameBoardListener {
     void showAllSuspectCardInformations(Player player);
     void showInformation(String message);
     void showMovement(Point oldPosition, Player player);
+    void enableRollDiceButton(boolean enabled);
+    void showDrawnIntricCardInfo(Intrics drawnCard);
+    void displayRollAndComputerView();
+
+    void showSuspectView();
+
+    void displayMoveView(List<Point> availablePositions);
+
+    void enableFieldButtons(boolean b);
 }

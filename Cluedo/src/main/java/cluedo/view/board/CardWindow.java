@@ -15,43 +15,44 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 /**
  *This class is responsible for showing the cards of the given player
  */
 public class CardWindow extends JFrame{
-    CardLayout card;  
+    JPanel card;  
 Container container;  
     public CardWindow(Player player){  
         JPanel jpBase=new JPanel();
         jpBase.setLayout(new BoxLayout(jpBase, BoxLayout.Y_AXIS));
-        container=getContentPane();  
-        card=new CardLayout(60,30);  
+        setTitle(LanguageStrings.getString("GameBoard.MyCards"));
+        card=new JPanel(new CardLayout(60,30));  
 //create CardLayout object with 40 hor space and 30 ver space  
-        container.setLayout(card);  
+      //  container.setLayout(card);  
         List<Card> suspectCards=player.getSuspectCards();
         List<JButton> cardButtons=new ArrayList<>();
         for(Card c: suspectCards){
-            JButton button=new JButton();
-            button.setIcon(new ImageIcon(getClass().getResource(c.getImageName())));
-            button.setHorizontalTextPosition(SwingConstants.BOTTOM);
-            button.setText(c.getNameForUI());
+            JButton button=new JButton(c.getNameForUI(), new ImageIcon(getClass().getResource(c.getImageName())));
+            button.setVerticalTextPosition(SwingConstants.BOTTOM);
+            button.setHorizontalTextPosition(SwingConstants.CENTER);
             cardButtons.add(button);
         }
         for(JButton b: cardButtons){
-            container.add(b);
+            card.add(b);
         }
-        jpBase.add(container);
+        jpBase.add(card);//jpBase.add(container);
         JButton next=new JButton(LanguageStrings.getString("CardWindow.Next"));
          next.addActionListener((ActionEvent evt) -> {
             actionPerformed();
         });
+         jpBase.add(next);
           setSize(400,400);
-          setDefaultCloseOperation(EXIT_ON_CLOSE);  
-          
+          setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+          getContentPane().add(jpBase);
     }  
     public void actionPerformed() {  
-    card.next(container);  
+    ((CardLayout)card.getLayout()).next(card);  
     }  
  
 }

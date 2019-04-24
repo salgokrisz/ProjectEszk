@@ -19,60 +19,63 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-
-
 /**
  * This class is responsible for the appearance of the role chooser window. The
  * player can select properties like name, player level etc. from this page.
  */
 public class RoleChooserWindow extends AbstractBaseWindow {
-    private Map<Integer, PlayerComponent> playerComponents=new HashMap<>();
+
+    private Map<Integer, PlayerComponent> playerComponents = new HashMap<>();
     private final GameController gameController;
-    private String[] playerOptions=refillPlayerOptions();
-    private String[] levelOptions=refillLevelOptions();
-    private static final String SCARLET="Scarlet";
-    private static final String PEACOCK="Peacock";
-    private static final String WHITE="White";
-    private static final String MUSTARD="Mustard";
-    private static final String GREEN="Green";
-    private static final String PLUM="Plum";
-    private static final String HUMAN_PLAYER_OPTION="Menu.PlayerOptionHuman";
+    private String[] playerOptions = refillPlayerOptions();
+    private String[] levelOptions = refillLevelOptions();
+    private static final String SCARLET = "Scarlet";
+    private static final String PEACOCK = "Peacock";
+    private static final String WHITE = "White";
+    private static final String MUSTARD = "Mustard";
+    private static final String GREEN = "Green";
+    private static final String PLUM = "Plum";
+    private static final String HUMAN_PLAYER_OPTION = "Menu.PlayerOptionHuman";
+
     public RoleChooserWindow(GameController gameController) {
-        this.gameController=gameController;
+        this.gameController = gameController;
         initComponents();
         initPlayerComponents();
     }
-    public String[] refillPlayerOptions(){
-        return new String[] { LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString(HUMAN_PLAYER_OPTION), LanguageStrings.getString("Menu.PlayerOptionAi") };
+
+    public String[] refillPlayerOptions() {
+        return new String[]{LanguageStrings.getString("Menu.PlayerOptionNone"), LanguageStrings.getString(HUMAN_PLAYER_OPTION), LanguageStrings.getString("Menu.PlayerOptionAi")};
     }
-    private String[] refillLevelOptions(){
-        return new String[] { LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")  };
+
+    private String[] refillLevelOptions() {
+        return new String[]{LanguageStrings.getString("Menu.LevelOptionRandom"), LanguageStrings.getString("Menu.LevelOptionBeginner"), LanguageStrings.getString("Menu.LevelOptionIntermediate")};
     }
-    private void initPlayerComponents(){
+
+    private void initPlayerComponents() {
         playerComponents.put(0, new PlayerComponent(jcbPlayerOnePersonality, jtfPlayerOneName, jcbPlayerOneRole, jcbPlayerOneDifficulty, jlPlayerOne));
         playerComponents.put(1, new PlayerComponent(jcbPlayerTwoPersonality, jtfPlayerTwoName, jcbPlayerTwoRole, jcbPlayerTwoDifficulty, jlPlayerTwo));
         playerComponents.put(2, new PlayerComponent(jcbPlayerThreePersonality, jtfPlayerThreeName, jcbPlayerThreeRole, jcbPlayerThreeDifficulty, jlPlayerThree));
         playerComponents.put(3, new PlayerComponent(jcbPlayerFourPersonality, jtfPlayerFourName, jcbPlayerFourRole, jcbPlayerFourDifficulty, jlPlayerFour));
         playerComponents.put(4, new PlayerComponent(jcbPlayerFivePersonality, jtfPlayerFiveName, jcbPlayerFiveRole, jcbPlayerFiveDifficulty, jlPlayerFive));
-        playerComponents.put(5, new PlayerComponent(jcbPlayerSixPersonality, jtfPlayerSixName, jcbPlayerSixRole, jcbPlayerSixDifficulty, jlPlayerSix));       
-        for(int i=0; i<playerComponents.size(); ++i){
-            boolean visible=true;
-            if(i>=gameController.getNumberOfPlayers()){
-                visible=false;
+        playerComponents.put(5, new PlayerComponent(jcbPlayerSixPersonality, jtfPlayerSixName, jcbPlayerSixRole, jcbPlayerSixDifficulty, jlPlayerSix));
+        for (int i = 0; i < playerComponents.size(); ++i) {
+            boolean visible = true;
+            if (i >= gameController.getNumberOfPlayers()) {
+                visible = false;
             }
-                PlayerComponent playerComponent=playerComponents.get(i);
-                playerComponent.getJcbDifficultyLevel().setVisible(visible);
-                playerComponent.getJcbPlayerPersonality().setVisible(visible);
-                playerComponent.getJcbPlayerRole().setVisible(visible);
-                playerComponent.getJtfName().setVisible(visible);
-                playerComponent.getJlPlayerNumberText().setVisible(visible);
+            PlayerComponent playerComponent = playerComponents.get(i);
+            playerComponent.getJcbDifficultyLevel().setVisible(visible);
+            playerComponent.getJcbPlayerPersonality().setVisible(visible);
+            playerComponent.getJcbPlayerRole().setVisible(visible);
+            playerComponent.getJtfName().setVisible(visible);
+            playerComponent.getJlPlayerNumberText().setVisible(visible);
         }
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        String[] roleModel=new String[] { "Random", MUSTARD, PEACOCK, GREEN, WHITE, SCARLET, PLUM };
+        String[] roleModel = new String[]{"Random", MUSTARD, PEACOCK, GREEN, WHITE, SCARLET, PLUM};
         jcbPlayerOneRole = new JComboBox<>();
         jlPlayerOne = new JLabel();
         jlPlayerTwo = new JLabel();
@@ -197,7 +200,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
 
         jlRole.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlRole.setText(LanguageStrings.getString("Menu.Role"));
-       
+
         jlLevel.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlLevel.setText(LanguageStrings.getString("Menu.Level"));
         JButton jbMustard = new JButton();
@@ -234,187 +237,189 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         javax.swing.GroupLayout jpBaseLayout = new javax.swing.GroupLayout(jpBase);
         jpBase.setLayout(jpBaseLayout);
         jpBaseLayout.setHorizontalGroup(
-            jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpBaseLayout.createSequentialGroup()
-                .addComponent(jlLogo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jpBaseLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpBaseLayout.createSequentialGroup()
-                        .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jpBaseLayout.createSequentialGroup()
-                                    .addComponent(jlPlayerFour, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jcbPlayerFourPersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(jpBaseLayout.createSequentialGroup()
-                                    .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpBaseLayout.createSequentialGroup()
+                                .addComponent(jlLogo)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jpBaseLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jpBaseLayout.createSequentialGroup()
-                                            .addComponent(jlPlayerTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jcbPlayerTwoPersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(jpBaseLayout.createSequentialGroup()
+                                                                        .addComponent(jlPlayerFour, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(jcbPlayerFourPersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                                .addGroup(jpBaseLayout.createSequentialGroup()
+                                                                        .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(jpBaseLayout.createSequentialGroup()
+                                                                                        .addComponent(jlPlayerTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(jcbPlayerTwoPersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(jpBaseLayout.createSequentialGroup()
+                                                                                        .addComponent(jlPlayerThree, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(jcbPlayerThreePersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(jpBaseLayout.createSequentialGroup()
+                                                                                        .addComponent(jlPlayerOne, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(jcbPlayerOnePersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGroup(jpBaseLayout.createSequentialGroup()
+                                                                                        .addComponent(jlPlayerFive, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                                        .addComponent(jcbPlayerFivePersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(jtfPlayerOneName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(jtfPlayerThreeName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(jtfPlayerTwoName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(jtfPlayerFourName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(jtfPlayerFiveName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(jtfPlayerSixName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                        .addGroup(jpBaseLayout.createSequentialGroup()
+                                                                .addComponent(jlPlayerSix, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                .addComponent(jcbPlayerSixPersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(685, 685, 685)))
+                                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jcbPlayerOneRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jcbPlayerTwoRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jcbPlayerThreeRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jlRole, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jcbPlayerFourRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jcbPlayerFiveRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jcbPlayerSixRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(242, 242, 242)
+                                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jcbPlayerSixDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jcbPlayerFiveDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jcbPlayerFourDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jlLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jcbPlayerOneDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jcbPlayerTwoDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jcbPlayerThreeDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addContainerGap(120, Short.MAX_VALUE))
                                         .addGroup(jpBaseLayout.createSequentialGroup()
-                                            .addComponent(jlPlayerThree, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jcbPlayerThreePersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jpBaseLayout.createSequentialGroup()
-                                            .addComponent(jlPlayerOne, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jcbPlayerOnePersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jpBaseLayout.createSequentialGroup()
-                                            .addComponent(jlPlayerFive, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jcbPlayerFivePersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jtfPlayerOneName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jtfPlayerThreeName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jtfPlayerTwoName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jtfPlayerFourName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jtfPlayerFiveName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jtfPlayerSixName, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jpBaseLayout.createSequentialGroup()
-                                .addComponent(jlPlayerSix, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jcbPlayerSixPersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(685, 685, 685)))
-                        .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbPlayerOneRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbPlayerTwoRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbPlayerThreeRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlRole, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbPlayerFourRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbPlayerFiveRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbPlayerSixRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(242, 242, 242)
-                        .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbPlayerSixDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbPlayerFiveDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbPlayerFourDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbPlayerOneDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbPlayerTwoDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbPlayerThreeDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(120, Short.MAX_VALUE))
-                    .addGroup(jpBaseLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jbMustard, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbGreen, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbPeacock, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbPlum, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbScarlet)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbWhite, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(104, 104, 104)
-                        .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlTitle)
-                            .addComponent(jbChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                                .addGap(29, 29, 29)
+                                                .addComponent(jbMustard, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jbGreen, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jbPeacock, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jbPlum, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jbScarlet)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jbWhite, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(104, 104, 104)
+                                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jlTitle)
+                                                        .addComponent(jbChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jpBaseLayout.setVerticalGroup(
-            jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpBaseLayout.createSequentialGroup()
-                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpBaseLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jlTitle)
-                        .addGap(28, 28, 28)
-                        .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jlName)
-                            .addComponent(jlRole)
-                            .addComponent(jlLevel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jpBaseLayout.createSequentialGroup()
-                        .addComponent(jlLogo)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlPlayerOne, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPlayerOnePersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfPlayerOneName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPlayerOneRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPlayerOneDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(68, 68, 68)
-                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcbPlayerTwoPersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPlayerTwoDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfPlayerTwoName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlPlayerTwo)
-                    .addComponent(jcbPlayerTwoRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(68, 68, 68)
-                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcbPlayerThreeDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPlayerThreeRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPlayerThreePersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfPlayerThreeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlPlayerThree))
-                .addGap(68, 68, 68)
-                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlPlayerFour)
-                    .addComponent(jcbPlayerFourPersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfPlayerFourName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPlayerFourRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPlayerFourDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(68, 68, 68)
-                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlPlayerFive)
-                    .addComponent(jcbPlayerFivePersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfPlayerFiveName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPlayerFiveRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPlayerFiveDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(68, 68, 68)
-                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlPlayerSix)
-                    .addComponent(jcbPlayerSixPersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfPlayerSixName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPlayerSixRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbPlayerSixDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbMustard, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbGreen, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbPeacock, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbPlum, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbScarlet, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbWhite, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(96, 96, 96))
+                jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpBaseLayout.createSequentialGroup()
+                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jpBaseLayout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(jlTitle)
+                                                .addGap(28, 28, 28)
+                                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jlName)
+                                                        .addComponent(jlRole)
+                                                        .addComponent(jlLevel))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(jpBaseLayout.createSequentialGroup()
+                                                .addComponent(jlLogo)
+                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jlPlayerOne, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jcbPlayerOnePersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtfPlayerOneName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jcbPlayerOneRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jcbPlayerOneDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(68, 68, 68)
+                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jcbPlayerTwoPersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jcbPlayerTwoDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtfPlayerTwoName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jlPlayerTwo)
+                                        .addComponent(jcbPlayerTwoRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(68, 68, 68)
+                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jcbPlayerThreeDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jcbPlayerThreeRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jcbPlayerThreePersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtfPlayerThreeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jlPlayerThree))
+                                .addGap(68, 68, 68)
+                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jlPlayerFour)
+                                        .addComponent(jcbPlayerFourPersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtfPlayerFourName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jcbPlayerFourRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jcbPlayerFourDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(68, 68, 68)
+                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jlPlayerFive)
+                                        .addComponent(jcbPlayerFivePersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtfPlayerFiveName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jcbPlayerFiveRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jcbPlayerFiveDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(68, 68, 68)
+                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jlPlayerSix)
+                                        .addComponent(jcbPlayerSixPersonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtfPlayerSixName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jcbPlayerSixRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jcbPlayerSixDifficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jbMustard, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jbGreen, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jbPeacock, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jbPlum, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jbScarlet, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jbWhite, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jbChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(96, 96, 96))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpBase, javax.swing.GroupLayout.DEFAULT_SIZE, 1336, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jpBase, javax.swing.GroupLayout.DEFAULT_SIZE, 1336, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jpBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void resetComboBox(JComboBox comboBox){
-    int selectedIndex=comboBox.getSelectedIndex();
-    if(comboBox.getItemCount()==3){
-        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
-    }else{
-        List<String> list=new ArrayList<>(Arrays.asList(playerOptions));
-        list.remove(LanguageStrings.getString(HUMAN_PLAYER_OPTION));
-        String[] items=Arrays.copyOf(list.toArray(), list.size(), String[].class);
-        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(items));
+
+    private void resetComboBox(JComboBox comboBox) {
+        int selectedIndex = comboBox.getSelectedIndex();
+        if (comboBox.getItemCount() == 3) {
+            comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
+        } else {
+            List<String> list = new ArrayList<>(Arrays.asList(playerOptions));
+            list.remove(LanguageStrings.getString(HUMAN_PLAYER_OPTION));
+            String[] items = Arrays.copyOf(list.toArray(), list.size(), String[].class);
+            comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(items));
+        }
+        comboBox.setSelectedIndex(selectedIndex);
     }
-    comboBox.setSelectedIndex(selectedIndex);
-}
- @Override
-    protected void resetStringsOnWindow(){
+
+    @Override
+    protected void resetStringsOnWindow() {
         super.resetStringsOnWindow();
         jlPlayerOne.setText(LanguageStrings.getString("Menu.PlayerOne"));
         jlPlayerTwo.setText(LanguageStrings.getString("Menu.PlayerTwo"));
@@ -423,11 +428,11 @@ private void resetComboBox(JComboBox comboBox){
         jlPlayerFive.setText(LanguageStrings.getString("Menu.PlayerFive"));
         jlPlayerSix.setText(LanguageStrings.getString("Menu.PlayerSix"));
         jlTitle.setText(LanguageStrings.getString("Menu.PlayerTitle"));
-        jlName.setText(LanguageStrings.getString("Menu.Name")+"*");
+        jlName.setText(LanguageStrings.getString("Menu.Name") + "*");
         jlRole.setText(LanguageStrings.getString("Menu.Role"));
         jlLevel.setText(LanguageStrings.getString("Menu.Level"));
-        playerOptions=refillPlayerOptions();
-        levelOptions=refillLevelOptions();
+        playerOptions = refillPlayerOptions();
+        levelOptions = refillLevelOptions();
         resetComboBox(jcbPlayerOnePersonality);
         resetComboBox(jcbPlayerTwoPersonality);
         resetComboBox(jcbPlayerThreePersonality);
@@ -441,208 +446,217 @@ private void resetComboBox(JComboBox comboBox){
         jcbPlayerFiveDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
         jcbPlayerSixDifficulty.setModel(new javax.swing.DefaultComboBoxModel<>(levelOptions));
     }
-    
-    private boolean allNamesAreCorrect(){
-        boolean l=true;
-        int i=0;
-        while(i<gameController.getNumberOfPlayers() && l){
-            l=gameController.isCorrectPlayerName(playerComponents.get(i).getJtfName().getText());
-            i+=1;
+
+    private boolean allNamesAreCorrect() {
+        boolean l = true;
+        int i = 0;
+        while (i < gameController.getNumberOfPlayers() && l) {
+            l = gameController.isCorrectPlayerName(playerComponents.get(i).getJtfName().getText());
+            i += 1;
         }
-       return l;
+        return l;
     }
-    
-    private boolean allPersonalitiesWereChosen(){
-         boolean l=true;
-        int i=0;
-        while(i<gameController.getNumberOfPlayers() && l){
-            l=playerComponents.get(i).getJcbPlayerPersonality().getSelectedIndex()!=0;
-            i+=1;
+
+    private boolean allPersonalitiesWereChosen() {
+        boolean l = true;
+        int i = 0;
+        while (i < gameController.getNumberOfPlayers() && l) {
+            l = playerComponents.get(i).getJcbPlayerPersonality().getSelectedIndex() != 0;
+            i += 1;
         }
-       return l;
+        return l;
     }
-    
-    private void sendPlayerPropertiesToController(){
-        List<String> playerInformations=new ArrayList<>();
-        for(int i=0; i<gameController.getNumberOfPlayers(); ++i){
-            StringBuilder sb=new StringBuilder();
-            sb.append((String)playerComponents.get(i).getJcbPlayerPersonality().getSelectedItem());
+
+    private void sendPlayerPropertiesToController() {
+        List<String> playerInformations = new ArrayList<>();
+        for (int i = 0; i < gameController.getNumberOfPlayers(); ++i) {
+            StringBuilder sb = new StringBuilder();
+            sb.append((String) playerComponents.get(i).getJcbPlayerPersonality().getSelectedItem());
             sb.append(":");
-            sb.append((String)playerComponents.get(i).getJtfName().getText());
+            sb.append((String) playerComponents.get(i).getJtfName().getText());
             sb.append(":");
-            sb.append((String)playerComponents.get(i).getJcbPlayerRole().getSelectedItem());
+            sb.append((String) playerComponents.get(i).getJcbPlayerRole().getSelectedItem());
             sb.append(":");
-            sb.append((String)playerComponents.get(i).getJcbDifficultyLevel().getSelectedItem());
+            sb.append((String) playerComponents.get(i).getJcbDifficultyLevel().getSelectedItem());
             playerInformations.add(sb.toString());
         }
         gameController.initializePlayers(playerInformations);
     }
-    private boolean oneHumanWasSelected(){
-        boolean oneHumanWasSelected=false;
-        int i=0;
-        while(i<gameController.getNumberOfPlayers() && !oneHumanWasSelected){
-            oneHumanWasSelected=((String)playerComponents.get(i).getJcbPlayerPersonality().getSelectedItem()).equals(LanguageStrings.getString(HUMAN_PLAYER_OPTION)); 
-            i+=1;
+
+    private boolean oneHumanWasSelected() {
+        boolean oneHumanWasSelected = false;
+        int i = 0;
+        while (i < gameController.getNumberOfPlayers() && !oneHumanWasSelected) {
+            oneHumanWasSelected = ((String) playerComponents.get(i).getJcbPlayerPersonality().getSelectedItem()).equals(LanguageStrings.getString(HUMAN_PLAYER_OPTION));
+            i += 1;
         }
         return oneHumanWasSelected;
     }
+
     private void jbChooseActionPerformed() {//GEN-FIRST:event_jbChooseActionPerformed
-        if(allNamesAreCorrect()){
-            if(allPersonalitiesWereChosen() && oneHumanWasSelected()){
-        int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null);
-        if(answer==JOptionPane.YES_OPTION){
-              sendPlayerPropertiesToController();
-              SwingUtilities.invokeLater(() -> {
-            GameBoard gameBoard = new GameBoard(gameController);
-            gameBoard.setVisible(true);
-            doUponExit();
-            gameController.initializeGame();
-        });
-        }
-        }else{
-            JOptionPane.showMessageDialog(this, LanguageStrings.getString("JOptionPane.PersonalityAttention"), LanguageStrings.getString("JOptionPane.Attention"), JOptionPane.ERROR_MESSAGE);
-        }
-        }else{
+        if (allNamesAreCorrect()) {
+            if (allPersonalitiesWereChosen() && oneHumanWasSelected()) {
+                int answer = showConfirmation(LanguageStrings.getString("JOptionPane.SettingsApproval"), null);
+                if (answer == JOptionPane.YES_OPTION) {
+                    sendPlayerPropertiesToController();
+                    SwingUtilities.invokeLater(() -> {
+                        GameBoard gameBoard = new GameBoard(gameController);
+                        gameBoard.setVisible(true);
+                        doUponExit();
+                        gameController.initializeGame();
+                    });
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, LanguageStrings.getString("JOptionPane.PersonalityAttention"), LanguageStrings.getString("JOptionPane.Attention"), JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
             JOptionPane.showMessageDialog(this, LanguageStrings.getString("JOptionPane.NameAttention"), LanguageStrings.getString("JOptionPane.Attention"), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbChooseActionPerformed
-      private void addActionListenerToJcbPlayerRole(JComboBox comboBox, int serialNumber){
-          comboBox.addActionListener((ActionEvent evt) -> {
+
+    private void addActionListenerToJcbPlayerRole(JComboBox comboBox, int serialNumber) {
+        comboBox.addActionListener((ActionEvent evt) -> {
             jcbPlayerRoleActionPerformed(evt, serialNumber);
         });
-      }
-      private String[] getAllComboBoxOptions(JComboBox comboBox){
-          int size=comboBox.getItemCount();
-          String[] options=new String[size];
-          for(int i=0; i<size; ++i){
-              options[i]=(String)comboBox.getItemAt(i);
-          }
-          return options;
-      }
+    }
 
-      private void modifyAvailableRoleOptions(String optionToAddOrRemove, int serialNumber, boolean added){
-          for(int i=0; i<gameController.getNumberOfPlayers(); ++i){
-              if(serialNumber!=i){
-                  JComboBox roleComboBox=playerComponents.get(i).getJcbPlayerRole();
-                  String selectedOption=(String)roleComboBox.getSelectedItem();
-                  String[] options=getAllComboBoxOptions(roleComboBox);
-                  List<String> listOptions=new ArrayList<>(Arrays.asList(options));
-                  if(added){
-                     listOptions.add(optionToAddOrRemove); 
-                  }else{
-                  listOptions.remove(optionToAddOrRemove);
-                  }
-                  String[] modifiedOptions=Arrays.copyOf(listOptions.toArray(), listOptions.size(), String[].class);
-                  roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(modifiedOptions));
-                  roleComboBox.setSelectedItem(selectedOption);
-              }
-          }
-      }
-      private void jcbPlayerRoleActionPerformed(ActionEvent evt, int serialNumber){
-          JComboBox jcbPlayerRole=(JComboBox)evt.getSource();
-          PlayerComponent playerComponent=playerComponents.get(serialNumber);
-          String actuallySelectedOption=(String)jcbPlayerRole.getSelectedItem();
-          String previouslySelectedOption=playerComponent.getPreviouslySelectedjcbPlayerRole();
-          if(!previouslySelectedOption.equals("Random") && !previouslySelectedOption.equals(actuallySelectedOption) && !actuallySelectedOption.equals("Random")){
-              modifyAvailableRoleOptions(previouslySelectedOption, serialNumber, true);
-              modifyAvailableRoleOptions(actuallySelectedOption, serialNumber, false);
-          }else if(previouslySelectedOption.equals("Random") && !previouslySelectedOption.equals(actuallySelectedOption) ){
-              modifyAvailableRoleOptions(actuallySelectedOption, serialNumber, false);
-          }
-          playerComponent.setPreviouslySelectedjcbPlayerRole(actuallySelectedOption);
-      }
-      private void addActionListenerToJcbPlayerPersonality(JComboBox comboBox, int serialNumber){
+    private String[] getAllComboBoxOptions(JComboBox comboBox) {
+        int size = comboBox.getItemCount();
+        String[] options = new String[size];
+        for (int i = 0; i < size; ++i) {
+            options[i] = (String) comboBox.getItemAt(i);
+        }
+        return options;
+    }
+
+    private void modifyAvailableRoleOptions(String optionToAddOrRemove, int serialNumber, boolean added) {
+        for (int i = 0; i < gameController.getNumberOfPlayers(); ++i) {
+            if (serialNumber != i) {
+                JComboBox roleComboBox = playerComponents.get(i).getJcbPlayerRole();
+                String selectedOption = (String) roleComboBox.getSelectedItem();
+                String[] options = getAllComboBoxOptions(roleComboBox);
+                List<String> listOptions = new ArrayList<>(Arrays.asList(options));
+                if (added) {
+                    listOptions.add(optionToAddOrRemove);
+                } else {
+                    listOptions.remove(optionToAddOrRemove);
+                }
+                String[] modifiedOptions = Arrays.copyOf(listOptions.toArray(), listOptions.size(), String[].class);
+                roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(modifiedOptions));
+                roleComboBox.setSelectedItem(selectedOption);
+            }
+        }
+    }
+
+    private void jcbPlayerRoleActionPerformed(ActionEvent evt, int serialNumber) {
+        JComboBox jcbPlayerRole = (JComboBox) evt.getSource();
+        PlayerComponent playerComponent = playerComponents.get(serialNumber);
+        String actuallySelectedOption = (String) jcbPlayerRole.getSelectedItem();
+        String previouslySelectedOption = playerComponent.getPreviouslySelectedjcbPlayerRole();
+        if (!previouslySelectedOption.equals("Random") && !previouslySelectedOption.equals(actuallySelectedOption) && !actuallySelectedOption.equals("Random")) {
+            modifyAvailableRoleOptions(previouslySelectedOption, serialNumber, true);
+            modifyAvailableRoleOptions(actuallySelectedOption, serialNumber, false);
+        } else if (previouslySelectedOption.equals("Random") && !previouslySelectedOption.equals(actuallySelectedOption)) {
+            modifyAvailableRoleOptions(actuallySelectedOption, serialNumber, false);
+        }
+        playerComponent.setPreviouslySelectedjcbPlayerRole(actuallySelectedOption);
+    }
+
+    private void addActionListenerToJcbPlayerPersonality(JComboBox comboBox, int serialNumber) {
         comboBox.addActionListener((ActionEvent evt) -> {
             jcbPlayerPersonalityActionPerformed(evt, serialNumber);
         });
     }
-      private void removeHumanOptionFromPlayerPersonalityComboBoxes(int serialNumber){
-          for(int i=0; i<gameController.getNumberOfPlayers(); ++i){
-              if(i!=serialNumber){
-                  JComboBox personalityComboBox=playerComponents.get(i).getJcbPlayerPersonality();
-                  if(personalityComboBox.getItemCount()==3){
-                  String selectedOption=(String)personalityComboBox.getSelectedItem();
-                  List<String> allOptions=new ArrayList<>(Arrays.asList(playerOptions));
-                  allOptions.remove(LanguageStrings.getString(HUMAN_PLAYER_OPTION));
-                  String[] optionsWithoutHuman=Arrays.copyOf(allOptions.toArray(), allOptions.size(), String[].class);
-                  personalityComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(optionsWithoutHuman));
-                  personalityComboBox.setSelectedItem(selectedOption);
-                  }
-              }
-          }
-      }
-      
-      private boolean previouslyThisWasHuman(int serialNumber){
-          if(serialNumber==5){
-              serialNumber=0;
-          }else{
-              serialNumber+=1;
-          }
-         return playerComponents.get(serialNumber).getJcbPlayerPersonality().getItemCount()<3;
-      }
-      
-      private void addHumanOptionToPlayerPersonalityComboBoxes(int serialNumber){
-          for(int i=0; i<gameController.getNumberOfPlayers(); ++i){
-               if(i!=serialNumber){
-                   JComboBox personalityComboBox=playerComponents.get(i).getJcbPlayerPersonality();
-                   if(personalityComboBox.getItemCount()<3){
-                       String selectedOption=(String)personalityComboBox.getSelectedItem();
-                       personalityComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
-                       personalityComboBox.setSelectedItem(selectedOption);
-                   }
-               }
-          }
-      }
-    private void jcbPlayerPersonalityActionPerformed(ActionEvent evt, int serialNumber){      
-        JComboBox comboBox=(JComboBox) evt.getSource();
-        String selectedOption=(String)comboBox.getSelectedItem();       
-        playerComponents.get(serialNumber).getJcbDifficultyLevel().setEnabled(selectedOption.equals(LanguageStrings.getString("Menu.PlayerOptionAi"))); 
-        if(comboBox.getItemCount()==3 && selectedOption.equals(LanguageStrings.getString(HUMAN_PLAYER_OPTION))){
-        removeHumanOptionFromPlayerPersonalityComboBoxes(serialNumber);
-        }else if(!selectedOption.equals(LanguageStrings.getString(HUMAN_PLAYER_OPTION)) && previouslyThisWasHuman(serialNumber)){
+
+    private void removeHumanOptionFromPlayerPersonalityComboBoxes(int serialNumber) {
+        for (int i = 0; i < gameController.getNumberOfPlayers(); ++i) {
+            if (i != serialNumber) {
+                JComboBox personalityComboBox = playerComponents.get(i).getJcbPlayerPersonality();
+                if (personalityComboBox.getItemCount() == 3) {
+                    String selectedOption = (String) personalityComboBox.getSelectedItem();
+                    List<String> allOptions = new ArrayList<>(Arrays.asList(playerOptions));
+                    allOptions.remove(LanguageStrings.getString(HUMAN_PLAYER_OPTION));
+                    String[] optionsWithoutHuman = Arrays.copyOf(allOptions.toArray(), allOptions.size(), String[].class);
+                    personalityComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(optionsWithoutHuman));
+                    personalityComboBox.setSelectedItem(selectedOption);
+                }
+            }
+        }
+    }
+
+    private boolean previouslyThisWasHuman(int serialNumber) {
+        if (serialNumber == 5) {
+            serialNumber = 0;
+        } else {
+            serialNumber += 1;
+        }
+        return playerComponents.get(serialNumber).getJcbPlayerPersonality().getItemCount() < 3;
+    }
+
+    private void addHumanOptionToPlayerPersonalityComboBoxes(int serialNumber) {
+        for (int i = 0; i < gameController.getNumberOfPlayers(); ++i) {
+            if (i != serialNumber) {
+                JComboBox personalityComboBox = playerComponents.get(i).getJcbPlayerPersonality();
+                if (personalityComboBox.getItemCount() < 3) {
+                    String selectedOption = (String) personalityComboBox.getSelectedItem();
+                    personalityComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(playerOptions));
+                    personalityComboBox.setSelectedItem(selectedOption);
+                }
+            }
+        }
+    }
+
+    private void jcbPlayerPersonalityActionPerformed(ActionEvent evt, int serialNumber) {
+        JComboBox comboBox = (JComboBox) evt.getSource();
+        String selectedOption = (String) comboBox.getSelectedItem();
+        playerComponents.get(serialNumber).getJcbDifficultyLevel().setEnabled(selectedOption.equals(LanguageStrings.getString("Menu.PlayerOptionAi")));
+        if (comboBox.getItemCount() == 3 && selectedOption.equals(LanguageStrings.getString(HUMAN_PLAYER_OPTION))) {
+            removeHumanOptionFromPlayerPersonalityComboBoxes(serialNumber);
+        } else if (!selectedOption.equals(LanguageStrings.getString(HUMAN_PLAYER_OPTION)) && previouslyThisWasHuman(serialNumber)) {
             addHumanOptionToPlayerPersonalityComboBoxes(serialNumber);
         }
     }
-    private void addActionListenerToButton(JButton button){
-    button.addActionListener((ActionEvent evt) -> {
-        jbRoleActionPerfromed(evt);
-    });
-}
-    private void jbRoleActionPerfromed(ActionEvent evt){
-      String chosenRole=((JButton)evt.getSource()).getText();
-      String description="";
-      ImageIcon image=null;
-      switch(chosenRole){
-          case PLUM:
-              description=LanguageStrings.getString("Plum.description");
-              image=new ImageIcon(getClass().getResource("/settings/plum.png"));
-              break;
-          case GREEN:
-              description=LanguageStrings.getString("Green.description");
-              image=new ImageIcon(getClass().getResource("/settings/green.png"));
-              break;
-          case SCARLET:
-              description=LanguageStrings.getString("Scarlet.description");
-              image=new ImageIcon(getClass().getResource("/settings/scarlet.png"));
-              break;
-          case WHITE:
-              description=LanguageStrings.getString("White.description");
-              image=new ImageIcon(getClass().getResource("/settings/white.png"));
-              break;
-          case PEACOCK:
-              description=LanguageStrings.getString("Peacock.description");
-              image=new ImageIcon(getClass().getResource("/settings/peacock.png"));
-              break;
-          case MUSTARD:
-              description=LanguageStrings.getString("Mustard.description");
-              image=new ImageIcon(getClass().getResource("/settings/mustard.png"));
-              break;
-          default:
-              break;
-      }
-    JOptionPane.showMessageDialog(this, description, ((JButton)evt.getSource()).getText(), JOptionPane.INFORMATION_MESSAGE, image);
-}
-  
+
+    private void addActionListenerToButton(JButton button) {
+        button.addActionListener((ActionEvent evt) -> {
+            jbRoleActionPerfromed(evt);
+        });
+    }
+
+    private void jbRoleActionPerfromed(ActionEvent evt) {
+        String chosenRole = ((JButton) evt.getSource()).getText();
+        String description = "";
+        ImageIcon image = null;
+        switch (chosenRole) {
+            case PLUM:
+                description = LanguageStrings.getString("Plum.description");
+                image = new ImageIcon(getClass().getResource("/settings/plum.png"));
+                break;
+            case GREEN:
+                description = LanguageStrings.getString("Green.description");
+                image = new ImageIcon(getClass().getResource("/settings/green.png"));
+                break;
+            case SCARLET:
+                description = LanguageStrings.getString("Scarlet.description");
+                image = new ImageIcon(getClass().getResource("/settings/scarlet.png"));
+                break;
+            case WHITE:
+                description = LanguageStrings.getString("White.description");
+                image = new ImageIcon(getClass().getResource("/settings/white.png"));
+                break;
+            case PEACOCK:
+                description = LanguageStrings.getString("Peacock.description");
+                image = new ImageIcon(getClass().getResource("/settings/peacock.png"));
+                break;
+            case MUSTARD:
+                description = LanguageStrings.getString("Mustard.description");
+                image = new ImageIcon(getClass().getResource("/settings/mustard.png"));
+                break;
+            default:
+                break;
+        }
+        JOptionPane.showMessageDialog(this, description, ((JButton) evt.getSource()).getText(), JOptionPane.INFORMATION_MESSAGE, image);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JComboBox<String> jcbPlayerFiveDifficulty;

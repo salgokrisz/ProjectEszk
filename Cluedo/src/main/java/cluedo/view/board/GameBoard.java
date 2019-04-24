@@ -14,7 +14,6 @@ import cluedo.logic.room.Room;
 import cluedo.logic.room.SecretCorridoredRoom;
 import cluedo.tools.languagestring.LanguageStrings;
 import cluedo.view.AbstractBaseWindow;
-import cluedo.view.FieldEnum;
 import cluedo.view.board.component.PositionedButton;
 import java.awt.BorderLayout;
 import static java.awt.BorderLayout.CENTER;
@@ -39,6 +38,7 @@ import cluedo.logic.intrics.IntricsType;
 import cluedo.logic.room.Point;
 import java.net.URL;
 import java.util.ArrayList;
+import javax.swing.SwingUtilities;
 
 /**
  * This class is responsible for the appearance of the whole game board. It
@@ -47,59 +47,18 @@ import java.util.ArrayList;
 public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
 
     private JPanel jpBase;
-    private FieldEnum[][] fieldMatrix = new FieldEnum[4][10];
-    //private List<JPanel> roomLabelList=new ArrayList<>();//Commented out because PMD says it havent been used.
     private final GameController gameController;
     private JTabbedPane tabbedPane;
     private JButton cardButton;
     private JButton diceButton;
     CluePaperPanel cluePaperPanel;
-    private List<List<PositionedButton>> buttonedMap=new ArrayList<>();
+    private List<List<PositionedButton>> buttonedMap = new ArrayList<>();
+
     public GameBoard(GameController gameController) {
         jpBase = new JPanel();
         cluePaperPanel = new CluePaperPanel();
         jpBase.setLayout(new BorderLayout());
         JScrollPane jscrollBase = new JScrollPane();
-        fieldMatrix[0][0] = FieldEnum.ROOM;
-        fieldMatrix[0][1] = FieldEnum.ROOM;
-        fieldMatrix[0][2] = FieldEnum.ROOM;
-        fieldMatrix[0][3] = FieldEnum.ROOM;
-        fieldMatrix[0][4] = FieldEnum.ENTRY;
-        fieldMatrix[0][5] = FieldEnum.FIELD;
-        fieldMatrix[0][6] = FieldEnum.ROOM;
-        fieldMatrix[0][7] = FieldEnum.ROOM;
-        fieldMatrix[0][8] = FieldEnum.ROOM;
-        fieldMatrix[0][9] = FieldEnum.FIELD;
-        fieldMatrix[1][0] = FieldEnum.ROOM;
-        fieldMatrix[1][1] = FieldEnum.ROOM;
-        fieldMatrix[1][2] = FieldEnum.ROOM;
-        fieldMatrix[1][3] = FieldEnum.ROOM;
-        fieldMatrix[1][4] = FieldEnum.INTRIC;
-        fieldMatrix[1][5] = FieldEnum.INTRIC;
-        fieldMatrix[1][6] = FieldEnum.ROOM;
-        fieldMatrix[1][7] = FieldEnum.ROOM;
-        fieldMatrix[1][8] = FieldEnum.ROOM;
-        fieldMatrix[1][9] = FieldEnum.ENTRY;
-        fieldMatrix[2][0] = FieldEnum.ROOM;
-        fieldMatrix[2][1] = FieldEnum.ROOM;
-        fieldMatrix[2][2] = FieldEnum.ROOM;
-        fieldMatrix[2][3] = FieldEnum.ROOM;
-        fieldMatrix[2][4] = FieldEnum.FIELD;
-        fieldMatrix[2][5] = FieldEnum.INTRIC;
-        fieldMatrix[2][6] = FieldEnum.ROOM;
-        fieldMatrix[2][7] = FieldEnum.ROOM;
-        fieldMatrix[2][8] = FieldEnum.ROOM;
-        fieldMatrix[2][9] = FieldEnum.ENTRY;
-        fieldMatrix[3][0] = FieldEnum.FIELD;
-        fieldMatrix[3][1] = FieldEnum.FIELD;
-        fieldMatrix[3][2] = FieldEnum.FIELD;
-        fieldMatrix[3][3] = FieldEnum.FIELD;
-        fieldMatrix[3][4] = FieldEnum.FIELD;
-        fieldMatrix[3][5] = FieldEnum.INTRIC;
-        fieldMatrix[3][6] = FieldEnum.FIELD;
-        fieldMatrix[3][7] = FieldEnum.INTRIC;
-        fieldMatrix[3][8] = FieldEnum.INTRIC;
-        fieldMatrix[3][9] = FieldEnum.FIELD;
         this.gameController = gameController;
         JPanel panelForGameBoard = new JPanel(new BorderLayout());
         JPanel jpBoard = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
@@ -112,6 +71,13 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         JPanel panelForButtons = new JPanel();
         panelForButtons.setLayout(new BoxLayout(panelForButtons, BoxLayout.X_AXIS));
         cardButton = new JButton(LanguageStrings.getString("GameBoard.MyCards"));
+        cardButton.addActionListener((ActionEvent evt) -> {
+            SwingUtilities.invokeLater(() -> {
+                       CardWindow cardWindow=new CardWindow(gameController.getHumanPlayer());
+                       cardWindow.setVisible(true);
+                       openedWindowsSet.add(cardWindow);
+                    });
+        });
         diceButton = new JButton();
         cardButton.setBackground(new Color(255, 30, 21));
         diceButton.setBackground(new Color(255, 30, 21));
@@ -158,7 +124,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     private PositionedButton createSecretCorridorButton(Room room, int row, int column) {
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/secret_corridor.png"));
         ((SecretCorridoredRoom) room).setWasSetSecretEntranceImage(true);
-        ((SecretCorridoredRoom)room).setSecretFieldPosition(new Point(row, column));
+        ((SecretCorridoredRoom) room).setSecretFieldPosition(new Point(row, column));
         PositionedButton button = new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
         button.addActionListener((ActionEvent evt) -> {
@@ -166,36 +132,37 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         });
         return button;
     }
+
     @Override
-    public void showMovement(Point oldPosition, Player player){
-        Point newPosition=player.getPosition();
-        PositionedButton button=buttonedMap.get(newPosition.getX()).get(newPosition.getY());
+    public void showMovement(Point oldPosition, Player player) {
+        Point newPosition = player.getPosition();
+        PositionedButton button = buttonedMap.get(newPosition.getX()).get(newPosition.getY());
         button.setIcon(player.getRole().getPuppetImage());
         button.setEnabled(true);
-        button=buttonedMap.get(oldPosition.getX()).get(oldPosition.getY());
-        List<Player> playersOnPosition=gameController.getListOfPlayersOnPosition(button.getRow(), button.getColumn());
-        if(playersOnPosition.isEmpty()){
-        if(button.getBasicIconImage()!=null){
-            button.setBackground(null);
-            button.setIcon(button.getBasicIconImage());
-        }else if(button.getBasicBackgroundColor()!=null){
-            button.setIcon(null);
-             button.setBackground(button.getBasicBackgroundColor());
-        }
-        }else{
+        button = buttonedMap.get(oldPosition.getX()).get(oldPosition.getY());
+        List<Player> playersOnPosition = gameController.getListOfPlayersOnPosition(button.getRow(), button.getColumn());
+        if (playersOnPosition.isEmpty()) {
+            if (button.getBasicIconImage() != null) {
+                button.setBackground(null);
+                button.setIcon(button.getBasicIconImage());
+            } else if (button.getBasicBackgroundColor() != null) {
+                button.setIcon(null);
+                button.setBackground(button.getBasicBackgroundColor());
+            }
+        } else {
             button.setIcon(playersOnPosition.get(0).getRole().getPuppetImage());
         }
         button.setEnabled(button.getIsEnabledToClickOn());
     }
-    
+
     private void secretCorridorButtonActionPerformed() {
-        Room toRoom=gameController.findSecretPassageToRoom(gameController.getActualPlayerIndex());
-        int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SureToUseSecretCorridor")+System.lineSeparator()+LanguageStrings.getString(toRoom.getName()), null);
-        if(answer==JOptionPane.YES_OPTION){
+        Room toRoom = gameController.findSecretPassageToRoom(gameController.getActualPlayerIndex());
+        int answer = showConfirmation(LanguageStrings.getString("JOptionPane.SureToUseSecretCorridor") + System.lineSeparator() + LanguageStrings.getString(toRoom.getName()), null);
+        if (answer == JOptionPane.YES_OPTION) {
             gameController.enterRoom(toRoom, gameController.getActualPlayerIndex());
         }
     }
-    
+
     private PositionedButton createRoomButton(Room room, int row, int column) {
         Color color = room.getColor();
         PositionedButton button = new PositionedButton(row, column, null, color, false);
@@ -213,22 +180,24 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         });
         return button;
     }
-private void intricButtonActionPerformed(ActionEvent evt){
-    Object[] options={"Ok"};
-    PositionedButton button=(PositionedButton)evt.getSource();
-    Point position=new Point(button.getRow(), button.getColumn());
-        if(!position.equals(gameController.getHumanPlayer().getPosition())){
-    fieldButtonActionPerformed(evt);
-    Intrics intricCard=gameController.drawIntricCard();
-    URL url=getClass().getResource("/cards/intrics/basic_intric.png");
-    String text=intricCard.toString();
-    if(intricCard.getType()==IntricsType.CLOCK){
-        url=getClass().getResource("/cards/intrics/card_intric.png");
-        text="";
+
+    private void intricButtonActionPerformed(ActionEvent evt) {
+        Object[] options = {"Ok"};
+        PositionedButton button = (PositionedButton) evt.getSource();
+        Point position = new Point(button.getRow(), button.getColumn());
+        if (!position.equals(gameController.getHumanPlayer().getPosition())) {
+            fieldButtonActionPerformed(evt);
+            Intrics intricCard = gameController.drawIntricCard();
+            URL url = getClass().getResource("/cards/intrics/basic_intric.png");
+            String text = intricCard.toString();
+            if (intricCard.getType() == IntricsType.CLOCK) {
+                url = getClass().getResource("/cards/intrics/card_intric.png");
+                text = "";
+            }
+            showOptionDialogWithImage(text, LanguageStrings.getString("JOptionPane.DrawnIntricCard"), options, url, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        }
     }
-    showOptionDialogWithImage(text, LanguageStrings.getString("JOptionPane.DrawnIntricCard"), options, url, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
-        }
-        }
+
     private PositionedButton createEntranceButton(int row, int column) {
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/entrance.png"));
         PositionedButton button = new PositionedButton(row, column, icon, null, true);
@@ -238,11 +207,13 @@ private void intricButtonActionPerformed(ActionEvent evt){
         });
         return button;
     }
-    private void entranceButtonActionPerformed(ActionEvent evt){
-        PositionedButton button=(PositionedButton)evt.getSource();
-        Room room=gameController.searchForRoomAccordingToFieldPosition(button.getRow(), button.getColumn());
+
+    private void entranceButtonActionPerformed(ActionEvent evt) {
+        PositionedButton button = (PositionedButton) evt.getSource();
+        Room room = gameController.searchForRoomAccordingToFieldPosition(button.getRow(), button.getColumn());
         gameController.enterRoom(room, gameController.getActualPlayerIndex());
     }
+
     private PositionedButton createStartButton(int row, int column, StartField field) {
         Role standsHere = gameController.findPuppetWhoHasThisStartField(row, column);
         ImageIcon icon = null;
@@ -262,22 +233,25 @@ private void intricButtonActionPerformed(ActionEvent evt){
         });
         return button;
     }
-    private void fieldButtonActionPerformed(ActionEvent evt){
-        PositionedButton button=(PositionedButton)evt.getSource();
-        Point position=new Point(button.getRow(), button.getColumn());
-        if(!position.equals(gameController.getHumanPlayer().getPosition())){
-        gameController.moveToField(button.getRow(), button.getColumn(), gameController.getActualPlayerIndex());
+
+    private void fieldButtonActionPerformed(ActionEvent evt) {
+        PositionedButton button = (PositionedButton) evt.getSource();
+        Point position = new Point(button.getRow(), button.getColumn());
+        if (!position.equals(gameController.getHumanPlayer().getPosition())) {
+            gameController.moveToField(button.getRow(), button.getColumn(), gameController.getActualPlayerIndex());
         }
     }
-    private PositionedButton createFieldButton(int row, int column){
+
+    private PositionedButton createFieldButton(int row, int column) {
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/field.png"));
-        PositionedButton button=new PositionedButton(row, column, icon, null, true);
+        PositionedButton button = new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
         button.addActionListener((ActionEvent evt) -> {
             fieldButtonActionPerformed(evt);
         });
         return button;
     }
+
     private void processComponents(JPanel jpBoard) {
         List<List<Field>> map = gameController.getFieldMap();
         int maxWidth = map.get(0).size();
@@ -286,7 +260,7 @@ private void intricButtonActionPerformed(ActionEvent evt){
             List<Field> row = map.get(i);
             buttonedMap.add(new ArrayList<>());
             for (int j = 0; j < row.size(); ++j) {
-                List<PositionedButton> buttonRow=buttonedMap.get(i);
+                List<PositionedButton> buttonRow = buttonedMap.get(i);
                 PositionedButton button;
                 if (row.get(j).getType() == FieldType.ROOM || row.get(j).getType() == FieldType.END) {
                     String roomKey;
@@ -302,17 +276,17 @@ private void intricButtonActionPerformed(ActionEvent evt){
                         button = createRoomButton(room, i, j);
 
                     }
-                    
+
                 } else if (row.get(j).getType() == FieldType.INTRIC) {
                     button = createIntricButton(i, j);
                 } else if (row.get(j).getType() == FieldType.ENTRANCE) {
                     button = createEntranceButton(i, j);
                 } else if (row.get(j).getType() == FieldType.START) {
-                    button = createStartButton(i, j, (StartField)row.get(j));
+                    button = createStartButton(i, j, (StartField) row.get(j));
 
                 } else {
-                    button=createFieldButton(i, j);
-                    
+                    button = createFieldButton(i, j);
+
                 }
                 button.setPreferredSize(new Dimension(53, 53));
                 buttonRow.add(button);
@@ -383,9 +357,5 @@ private void intricButtonActionPerformed(ActionEvent evt){
     public void showInformation(String message) {
         Object[] options = {"Ok"};
         JOptionPane.showOptionDialog(this, message, LanguageStrings.getString("JOptionPane.InformationTitle"), JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-    }
-
-    public FieldEnum[][] getFieldMatrix() { //Added because Pmd said that this variable is unused.
-        return fieldMatrix;
     }
 }

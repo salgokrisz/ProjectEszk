@@ -634,25 +634,24 @@ public class GameController {
     }
 
     public List<Point> chooseAvailableFieldsInARadius(int droppedNumber) {
-        Point actualPlayerPosition=players.get(actualPlayerIndex).getPosition();
-        List<Point> availablePointsOfFields=new ArrayList<>();
+        Point actualPlayerPosition = players.get(actualPlayerIndex).getPosition();
+        List<Point> availablePointsOfFields = new ArrayList<>();
         availablePointsOfFields.add(actualPlayerPosition);
-        int minRow=actualPlayerPosition.getX()-droppedNumber;
-        int maxRow=actualPlayerPosition.getX()+droppedNumber;
-        int minColumn=actualPlayerPosition.getY()-droppedNumber;
-        int maxColumn=actualPlayerPosition.getY()+droppedNumber;
-        for(int i=minRow; i<maxRow; ++i){
-            if(i>=0 && i<fieldMap.size()){
-            for(int j=minColumn; j<maxColumn; ++j){
-                if(j>=0 && j<fieldMap.get(i).size()){
+        int minRow = actualPlayerPosition.getX() - droppedNumber;
+        int maxRow = actualPlayerPosition.getX() + droppedNumber;
+        int differenceCounter = droppedNumber;
+        for (int i = minRow; i <= maxRow; ++i) {
+            for (int j = actualPlayerPosition.getY()-(2*droppedNumber-2*differenceCounter); j < actualPlayerPosition.getY()+(2*droppedNumber-2*differenceCounter); ++j) {
+                if (j >= 0 && j < fieldMap.get(i).size() && (2*droppedNumber-2*differenceCounter)==0) {
                     availablePointsOfFields.add(new Point(fieldMap.get(i).get(j).getX(), fieldMap.get(i).get(j).getY()));
                 }
             }
+            if(i==actualPlayerPosition.getX()){
+                differenceCounter = 0;
             }
         }
         return availablePointsOfFields;
     }
-
     public void playerUsesSpecialAbility(Player player) {
         player.getRole().useSpecialAbility();
     }

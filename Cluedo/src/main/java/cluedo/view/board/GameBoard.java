@@ -249,7 +249,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
                 List<PositionedButton> buttonRow = buttonedMap.get(i);
                 PositionedButton button = null;
                 if (row.get(j).getType() == FieldType.ROOM || row.get(j).getType() == FieldType.END) {                   
-                    checkRoomClassAndIfHasImageAndCreateSecretCorridor(row,j,i,button);
+                    button = checkRoomClassAndIfHasImageAndCreateSecretCorridor(row,j,i);
                 } else if (row.get(j).getType() == FieldType.INTRIC) {
                     button = createIntricButton(i, j);
                 } else if (row.get(j).getType() == FieldType.ENTRANCE) {
@@ -281,14 +281,15 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         return maxWidth;
     }
     
-    private void checkRoomClassAndIfHasImageAndCreateSecretCorridor(List<Field> row,int j,int i,PositionedButton button) {
+    private PositionedButton checkRoomClassAndIfHasImageAndCreateSecretCorridor(List<Field> row,int j,int i) {
+        PositionedButton button;
         Room room = gameController.getRoomForName(checkRoomTypeAndGetRoomKey(row, j));
         if (room.getClass() == SecretCorridoredRoom.class && !((SecretCorridoredRoom) room).getWasSetSecretEntranceImage()) {
             button = createSecretCorridorButton(room, i, j);
         } else {
             button = createRoomButton(room, i, j);
-
         }
+        return button;
     }
     
     private String checkRoomTypeAndGetRoomKey(List<Field> row,int j) {

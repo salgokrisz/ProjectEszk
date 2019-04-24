@@ -49,7 +49,8 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     private JPanel jpBase;
     private final GameController gameController;
     private JTabbedPane tabbedPane;
-    private JButton cardButton;
+    private JButton suspectCardsButton;
+    private JButton intricCardsButton;
     private JButton diceButton;
     CluePaperPanel cluePaperPanel;
     private List<List<PositionedButton>> buttonedMap = new ArrayList<>();
@@ -70,24 +71,40 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         panelForGameBoard.add(jscrollBase, CENTER);
         JPanel panelForButtons = new JPanel();
         panelForButtons.setLayout(new BoxLayout(panelForButtons, BoxLayout.X_AXIS));
-        cardButton = new JButton(LanguageStrings.getString("GameBoard.MyCards"));
-        cardButton.addActionListener((ActionEvent evt) -> 
+        suspectCardsButton = new JButton(LanguageStrings.getString("GameBoard.MySuspectCards"));
+        suspectCardsButton.addActionListener((ActionEvent evt) -> {
             SwingUtilities.invokeLater(() -> {
-                       CardWindow cardWindow=new CardWindow(gameController.getHumanPlayer());
+                       CardWindow cardWindow=new CardWindow(gameController.getHumanPlayer(), "suspects");
                        cardWindow.setVisible(true);
                        openedWindowsSet.add(cardWindow);
-                    })
-        );
+                     });
+                });
         diceButton = new JButton();
-        cardButton.setBackground(new Color(255, 30, 21));
+        suspectCardsButton.setBackground(new Color(255, 30, 21));
         diceButton.setBackground(new Color(255, 30, 21));
         diceButton.setIcon(new ImageIcon(getClass().getResource("/board/dice.png")));
-        panelForButtons.add(cardButton);
+        panelForButtons.add(suspectCardsButton);
+       intricCardsButton = new JButton(LanguageStrings.getString("GameBoard.MyIntricCards"));
+       intricCardsButton.setBackground(new Color(255, 30, 21));
+       intricCardsButton.addActionListener((ActionEvent evt) -> {
+            SwingUtilities.invokeLater(() -> {
+                       CardWindow cardWindow=new CardWindow(gameController.getHumanPlayer(), "intrics");
+                       if(cardWindow.hasCardToShow()){
+                       cardWindow.setVisible(true);
+                       openedWindowsSet.add(cardWindow);
+                       }else{
+                           JOptionPane.showMessageDialog(this, LanguageStrings.getString("JOptionPane.NoIntricCards"), LanguageStrings.getString("JOptionPane.InformationTitle"), JOptionPane.INFORMATION_MESSAGE);
+                       }
+                    });
+        });
+       panelForButtons.add(intricCardsButton);
+        diceButton.addActionListener((ActionEvent evt) -> {
+            gameController.rollDice();
+        });
         JPanel dummyPanel = new JPanel();
         dummyPanel.setPreferredSize(new Dimension(10, 10));
         dummyPanel.setBackground(new Color(180, 0, 0));
         panelForButtons.add(dummyPanel);
-        diceButton.addActionListener((ActionEvent evt) -> gameController.rollDice());
         panelForButtons.add(diceButton);
         panelForButtons.setBackground(new Color(180, 0, 0));
         panelForGameBoard.add(panelForButtons, SOUTH);
@@ -125,7 +142,9 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         ((SecretCorridoredRoom) room).setSecretFieldPosition(new Point(row, column));
         PositionedButton button = new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
-        button.addActionListener((ActionEvent evt) -> secretCorridorButtonActionPerformed());
+        button.addActionListener((ActionEvent evt) -> {
+            secretCorridorButtonActionPerformed();
+        });
         return button;
     }
 
@@ -284,10 +303,12 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     private PositionedButton checkRoomClassAndIfHasImageAndCreateSecretCorridor(List<Field> row,int j,int i) {
         PositionedButton button;
         Room room = gameController.getRoomForName(checkRoomTypeAndGetRoomKey(row, j));
+        PositionedButton button;
         if (room.getClass() == SecretCorridoredRoom.class && !((SecretCorridoredRoom) room).getWasSetSecretEntranceImage()) {
             button = createSecretCorridorButton(room, i, j);
         } else {
             button = createRoomButton(room, i, j);
+
         }
         return button;
     }
@@ -350,7 +371,8 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         cluePaperPanel.resetStrings();
         tabbedPane.setTitleAt(0, LanguageStrings.getString("GameBoard.Board"));
         tabbedPane.setTitleAt(1, LanguageStrings.getString("GameBoard.CluePaper"));
-        cardButton.setText(LanguageStrings.getString("GameBoard.MyCards"));
+        suspectCardsButton.setText(LanguageStrings.getString("GameBoard.MyCards"));
+        intricCardsButton.setText(LanguageStrings.getString("GameBoard.MyIntricCards"));
     }
 
     @Override

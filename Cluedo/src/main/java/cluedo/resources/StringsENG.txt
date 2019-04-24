@@ -44,7 +44,8 @@ JOptionPane.DroppedNumber=Rolled number is:
 JOptionPane.InformationTitle=Information
 JOptionPane.InformationAboutStarterPlayer=The player who starts the game is: 
 JOptionPane.SureToUseSecretCorridor=Are you sure you want to use secret corridor instead of rolling dice to room: 
-JOptionPane.DrawnIntricCard=The drawn intric card:
+JOptionPane.DrawnIntricCard=The drawn intric card: 
+JOptionPane.NoIntricCards=You have no intric card yet.
 
 #GameBoard
 GameBoard.Guests=Guests
@@ -52,7 +53,8 @@ GameBoard.Weapons=Weapons
 GameBoard.Rooms=Rooms
 GameBoard.Board=Gameboard
 GameBoard.CluePaper=Clue paper
-GameBoard.MyCards=My cards
+GameBoard.MySuspectCards=My suspect cards
+GameBoard.MyIntricCards=My intric cards
 GameBoard.EntranceMark=In
 
 #CardWindow

@@ -14,7 +14,7 @@ import org.junit.Test;
  */
 public class FieldFactoryTest {
     
-    @Test
+    /*@Test
     public void testFieldFactoryWithFullyFieldTypeFields(){
         FieldFactory ff = new FieldFactory("test1ForFieldFactoryParserTest.txt");
         List<List<Field>> generated = ff.getGeneratedMap();
@@ -26,5 +26,5 @@ public class FieldFactoryTest {
             }
         }
         assertEquals(expectedResult, generated);
-    }
+    }*/
 }

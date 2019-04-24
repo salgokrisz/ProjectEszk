@@ -29,6 +29,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
  public abstract class AbstractBaseWindow extends JFrame {
+     protected static final String OPTION_PANE_APPROVAL = "JOptionPane.Approval"; 
 protected JMenu mHelper = new JMenu(LanguageStrings.getString("ToolBar.Helper"));
 protected static final String FONT_TYPE="Times New Roman";
     JMenuItem miEnglish = new JMenuItem(LanguageStrings.getString("Menu.English"));
@@ -96,9 +97,7 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
     }
  
     protected ActionListener showDescription() {
-        return (ActionEvent e) -> {
-            JOptionPane.showMessageDialog(null, LanguageStrings.getString("JOptionPane.ApplicationInfo"), LanguageStrings.getString("JOptionPane.Description"), JOptionPane.INFORMATION_MESSAGE);
-        };
+        return (ActionEvent e) -> JOptionPane.showMessageDialog(null, LanguageStrings.getString("JOptionPane.ApplicationInfo"), LanguageStrings.getString("JOptionPane.Description"), JOptionPane.INFORMATION_MESSAGE);
     }
     
   public void closeWindow(){
@@ -134,13 +133,13 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
          Object[] options = {LanguageStrings.getString("JOptionPane.Yes"), LanguageStrings.getString("JOptionPane.No")};
          int answer;       
          if(imageUrl==null){
-            answer= showOptionDialogWithoutImage(message, LanguageStrings.getString("JOptionPane.Approval"), options);           
+            answer= showOptionDialogWithoutImage(message, LanguageStrings.getString(OPTION_PANE_APPROVAL), options);           
          }else{
              boolean validUrl=isLinkValid(imageUrl);
              if(validUrl){
-             answer=showOptionDialogWithImage(message, LanguageStrings.getString("JOptionPane.Approval"), options, imageUrl, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+             answer=showOptionDialogWithImage(message, LanguageStrings.getString(OPTION_PANE_APPROVAL), options, imageUrl, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
              }else{
-                 answer=showOptionDialogWithoutImage(message, LanguageStrings.getString("JOptionPane.Approval"), options);
+                 answer=showOptionDialogWithoutImage(message, LanguageStrings.getString(OPTION_PANE_APPROVAL), options);
              }
          }
         return answer;

@@ -127,9 +127,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         ((SecretCorridoredRoom) room).setSecretFieldPosition(new Point(row, column));
         PositionedButton button = new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
-        button.addActionListener((ActionEvent evt) -> {
-            secretCorridorButtonActionPerformed();
-        });
+        button.addActionListener((ActionEvent evt) -> secretCorridorButtonActionPerformed());
         return button;
     }
 
@@ -175,9 +173,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/intric_field.png"));
         PositionedButton button = new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
-        button.addActionListener((ActionEvent evt) -> {
-            intricButtonActionPerformed(evt);
-        });
+        button.addActionListener((ActionEvent evt) -> intricButtonActionPerformed(evt));
         return button;
     }
 
@@ -202,9 +198,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/entrance.png"));
         PositionedButton button = new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
-        button.addActionListener((ActionEvent evt) -> {
-            entranceButtonActionPerformed(evt);
-        });
+        button.addActionListener((ActionEvent evt) -> entranceButtonActionPerformed(evt));
         return button;
     }
 
@@ -228,9 +222,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         if (icon != null) {
             button.setIcon(icon);
         }
-        button.addActionListener((ActionEvent evt) -> {
-            fieldButtonActionPerformed(evt);
-        });
+        button.addActionListener((ActionEvent evt) -> fieldButtonActionPerformed(evt));
         return button;
     }
 

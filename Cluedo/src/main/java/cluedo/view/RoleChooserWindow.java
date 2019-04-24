@@ -36,6 +36,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     private static final String GREEN = "Green";
     private static final String PLUM = "Plum";
     private static final String HUMAN_PLAYER_OPTION = "Menu.PlayerOptionHuman";
+    private static final String RANDOM_CONST = "Random";
 
     public RoleChooserWindow(GameController gameController) {
         this.gameController = gameController;
@@ -75,7 +76,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        String[] roleModel = new String[]{"Random", MUSTARD, PEACOCK, GREEN, WHITE, SCARLET, PLUM};
+        String[] roleModel = new String[]{RANDOM_CONST, MUSTARD, PEACOCK, GREEN, WHITE, SCARLET, PLUM};
         jcbPlayerOneRole = new JComboBox<>();
         jlPlayerOne = new JLabel();
         jlPlayerTwo = new JLabel();
@@ -122,9 +123,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         jbChoose.setBackground(new java.awt.Color(180, 0, 0));
         jbChoose.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jbChoose.setText("Ok");
-        jbChoose.addActionListener((ActionEvent evt) -> {
-            jbChooseActionPerformed();
-        });
+        jbChoose.addActionListener((ActionEvent evt) -> jbChooseActionPerformed());
 
         jcbPlayerOneRole.setModel(new javax.swing.DefaultComboBoxModel<>(roleModel));
         addActionListenerToJcbPlayerRole(jcbPlayerOneRole, 0);
@@ -509,15 +508,14 @@ public class RoleChooserWindow extends AbstractBaseWindow {
             } else {
                 JOptionPane.showMessageDialog(this, LanguageStrings.getString("JOptionPane.PersonalityAttention"), LanguageStrings.getString("JOptionPane.Attention"), JOptionPane.ERROR_MESSAGE);
             }
+
         } else {
             JOptionPane.showMessageDialog(this, LanguageStrings.getString("JOptionPane.NameAttention"), LanguageStrings.getString("JOptionPane.Attention"), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbChooseActionPerformed
 
     private void addActionListenerToJcbPlayerRole(JComboBox comboBox, int serialNumber) {
-        comboBox.addActionListener((ActionEvent evt) -> {
-            jcbPlayerRoleActionPerformed(evt, serialNumber);
-        });
+        comboBox.addActionListener((ActionEvent evt) -> jcbPlayerRoleActionPerformed(evt, serialNumber));
     }
 
     private String[] getAllComboBoxOptions(JComboBox comboBox) {
@@ -553,19 +551,17 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         PlayerComponent playerComponent = playerComponents.get(serialNumber);
         String actuallySelectedOption = (String) jcbPlayerRole.getSelectedItem();
         String previouslySelectedOption = playerComponent.getPreviouslySelectedjcbPlayerRole();
-        if (!previouslySelectedOption.equals("Random") && !previouslySelectedOption.equals(actuallySelectedOption) && !actuallySelectedOption.equals("Random")) {
+        if (!previouslySelectedOption.equals(RANDOM_CONST) && !previouslySelectedOption.equals(actuallySelectedOption) && !actuallySelectedOption.equals(RANDOM_CONST)) {
             modifyAvailableRoleOptions(previouslySelectedOption, serialNumber, true);
             modifyAvailableRoleOptions(actuallySelectedOption, serialNumber, false);
-        } else if (previouslySelectedOption.equals("Random") && !previouslySelectedOption.equals(actuallySelectedOption)) {
+        } else if (previouslySelectedOption.equals(RANDOM_CONST) && !previouslySelectedOption.equals(actuallySelectedOption)) {
             modifyAvailableRoleOptions(actuallySelectedOption, serialNumber, false);
         }
         playerComponent.setPreviouslySelectedjcbPlayerRole(actuallySelectedOption);
     }
 
     private void addActionListenerToJcbPlayerPersonality(JComboBox comboBox, int serialNumber) {
-        comboBox.addActionListener((ActionEvent evt) -> {
-            jcbPlayerPersonalityActionPerformed(evt, serialNumber);
-        });
+        comboBox.addActionListener((ActionEvent evt) -> jcbPlayerPersonalityActionPerformed(evt, serialNumber));
     }
 
     private void removeHumanOptionFromPlayerPersonalityComboBoxes(int serialNumber) {
@@ -618,9 +614,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     }
 
     private void addActionListenerToButton(JButton button) {
-        button.addActionListener((ActionEvent evt) -> {
-            jbRoleActionPerfromed(evt);
-        });
+        button.addActionListener((ActionEvent evt) -> jbRoleActionPerfromed(evt));
     }
 
     private void jbRoleActionPerfromed(ActionEvent evt) {

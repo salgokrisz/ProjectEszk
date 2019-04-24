@@ -22,10 +22,12 @@ public class Player {
     protected List<Intrics> ownedIntricCards=new ArrayList<>();
     protected Point position;
     protected boolean isInRoom;
+    protected String actualRoomName;
     public Player(Role role,boolean isComputer){
         this.isComputer=isComputer;
         this.role = role;
         isInRoom=false;
+        actualRoomName="";
     }
     public Player(Player other){
         role=other.getRole();
@@ -35,7 +37,14 @@ public class Player {
         position=other.getPosition();
         isInRoom=other.getIsInRoom();
     }
+    public void setActualRoomName(String actualRoomName){
+        this.actualRoomName=actualRoomName;
+    }
 
+    public String getActualRoomName() {
+        return actualRoomName;
+    }
+    
     public boolean getIsInRoom() {
         return isInRoom;
     }

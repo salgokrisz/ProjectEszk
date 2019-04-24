@@ -43,7 +43,7 @@ JOptionPane.SuspectCardTitle=Gyanú kártyák
 JOptionPane.DroppedNumber=A dobott érték: 
 JOptionPane.InformationTitle=Információ
 JOptionPane.InformationAboutStarterPlayer=Az első játékos: 
-JOptionPane.SureToUseSecretCorridor=Biztos, hogy titkos átjárót akarsz használni kockadobás helyett?
+JOptionPane.SureToUseSecretCorridor=Biztos, hogy titkos átjárót akarsz használni kockadobás helyett ebbe a szobába: 
 JOptionPane.DrawnIntricCard=A húzott intrika kártya:
 
 #GameBoard
@@ -116,7 +116,7 @@ White.description=<html>A játék során egyszer, bármelyik helyiségbe<br>bel�
 
 #Actions
 Actions.RollDiceStart=<html>Klikkelj a dobókockás gombra a dobáshoz.<br>A legnagyobb értéket dobó játékos kezdi a játékot.</html>
-Actions.RollDiceStartAgain=<html>Több játékos is ugyanazt dobta, mint te a kezdés eldöntéséhez.<br>Nyomj újra  kockákra, hogy újra tudj dobni, a kezdő játékos eldöntéséhez.</html>
+Actions.RollDiceStartAgain=<html>Több játékos is ugyanazt dobta, mint te a kezdés eldöntéséhez.<br>Újat fogsz dobni a kezdő játékos eldöntéséhez.</html>
 
 #Tests
 Test.1=test1_hun

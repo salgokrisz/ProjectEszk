@@ -99,9 +99,22 @@ public Room getRoomForName(String roomName){
     public void initializePlayers(List<String> playerInformations) {
         PlayerFactory pf = new PlayerFactory();
         players = pf.createPlayers(playerInformations, map.getMap());
+        for(Player p: players){
+            Point startFieldLocation=p.getStartFieldLocation();
+            fieldMap.get(startFieldLocation.getX()).get(startFieldLocation.getY()).modifyPlayerNumber(1, numberOfPlayers);
+        }
         humanPlayerIndex=findHumanPlayer();
     }
-
+    public List<Player> getListOfPlayersOnPosition(int x, int y){
+        Point positionToFind=new Point(x, y);
+        List<Player> playersOnPosition=new ArrayList<>();
+        for(Player p: players){
+            if(p.getPosition().equals(positionToFind)){
+                playersOnPosition.add(p);
+            }
+        }
+        return playersOnPosition;
+    }
     public List<Player> rollDicesForDecidingStarterPlayer(List<Player> playerList, int humanPlayerRoll) {
         
         for (int i = 0; i < playerList.size(); ++i) {
@@ -120,18 +133,17 @@ public Room getRoomForName(String roomName){
         boolean diceButtonShouldBePressed=false;
         do {
             if(diceButtonShouldBePressed){
-                fireShowWhatToDo("Actions.RollDiceStartAgain");
-            }else{
-            playersWithMaxNumber = rollDicesForDecidingStarterPlayer(playersWithMaxNumber,humanPlayerRoll);
+                fireShowWhatToDo(LanguageStrings.getString("Actions.RollDiceStartAgain"));
+                humanPlayerRoll=Tools.randomizeNumber(6)+1;
+                fireShowInformation(LanguageStrings.getString("JOptionPane.DroppedNumber")+humanPlayerRoll);
             }
+            playersWithMaxNumber = rollDicesForDecidingStarterPlayer(playersWithMaxNumber,humanPlayerRoll);
             diceButtonShouldBePressed=playersWithMaxNumber.size()>1 && playersWithMaxNumber.contains(players.get(humanPlayerIndex));
         } while (playersWithMaxNumber.size() > 1);
         Player starterPlayer = playersWithMaxNumber.get(0);
-        Map<Integer, Player> serialNumbers = new TreeMap<>();
-        serialNumbers.put(0, starterPlayer);
         int starterIndex = findPlayerIndex(starterPlayer);
         assert starterIndex >= 0 && starterIndex < players.size() : "Players must contain starter player.";
-        determinateSerialNumbers(starterIndex,serialNumbers);       
+        Map<Integer, Player> serialNumbers=determinateSerialNumbers(starterIndex);       
         players.clear();
         Set<Integer> keys = serialNumbers.keySet();
         for (Integer k : keys) {
@@ -143,7 +155,9 @@ public Room getRoomForName(String roomName){
         actualGamePhase=GamePhase.ROLL;
     }
     
-    private void determinateSerialNumbers(int starterIndex,Map<Integer,Player> serialNumbers){
+   public Map<Integer, Player> determinateSerialNumbers(int starterIndex){
+        Map<Integer, Player> serialNumbers = new TreeMap<>();
+        serialNumbers.put(0, players.get(starterIndex));
         int placeCounter = 1;
         int i;
         boolean increase = false;
@@ -155,7 +169,7 @@ public Room getRoomForName(String roomName){
         } else {
             i = starterIndex - 1;
         } 
-        while (placeCounter != players.size() - 1) {
+        while (placeCounter != players.size()) {
             serialNumbers.put(placeCounter, players.get(i));
             if (increase) {
                 i += 1;
@@ -170,6 +184,7 @@ public Room getRoomForName(String roomName){
             }
             placeCounter += 1;
         }
+        return serialNumbers;
     }
 
     public int findPlayerIndex(Player player) {
@@ -301,7 +316,7 @@ public Room getRoomForName(String roomName){
         return droppedNumber;
     }
 
-    public Role findPuppetWhoStandsHere(int row, int column) {
+    public Role findPuppetWhoHasThisStartField(int row, int column) {
         Point position=new Point(row, column);
         int i=0;
         while(i<players.size() && !players.get(i).getStartFieldLocation().equals(position)){
@@ -350,12 +365,19 @@ public Room getRoomForName(String roomName){
     }while(!isGood);
         return newPosition;
     }
-    public void enterRoom(int row, int column, int playerIndex) {
-       EntranceField entryField=(EntranceField)fieldMap.get(row).get(column);
+    public Room searchForRoomAccordingToFieldPosition(int row, int column){
+        EntranceField entryField=(EntranceField)fieldMap.get(row).get(column);
        Room room=roomMap.get(entryField.getRoomName());
+       return room;
+    }
+    public Player getHumanPlayer(){
+        return players.get(humanPlayerIndex);
+    }
+    public void enterRoom(Room room, int playerIndex) {
        Point newPosition=findFreePositionInRoom(room);
        moveToField(newPosition.getX(), newPosition.getY(), playerIndex);
        players.get(playerIndex).setIsInRoom(true);
+       players.get(playerIndex).setActualRoomName(room.getName());
     }
     private void fireShowMovementOfPlayer(Point oldPosition, Player player){
         gameBoardListener.showMovement(oldPosition, player);
@@ -368,9 +390,24 @@ public Room getRoomForName(String roomName){
     public void moveToField(int x, int y, int playerIndex) {
         Player player=players.get(playerIndex);
         Point oldPosition=player.getPosition();
+        fieldMap.get(oldPosition.getX()).get(oldPosition.getY()).modifyPlayerNumber(-1, numberOfPlayers);
+        fieldMap.get(x).get(y).modifyPlayerNumber(1, numberOfPlayers);
         Point newPosition=new Point(x, y);
         player.setPosition(newPosition);
+        if(fieldMap.get(x).get(y).getType()!=FieldType.ROOM){
+            player.setIsInRoom(false);
+            player.setActualRoomName("");
+        }
         fireShowMovementOfPlayer(oldPosition, player);
+    }
+
+    public Room findSecretPassageToRoom(int playerIndex) {
+        Room actualRoom=roomMap.get(players.get(playerIndex).getActualRoomName());
+        Room toRoom=null;
+        if(actualRoom.getClass()==SecretCorridoredRoom.class){
+            toRoom=roomMap.get(((SecretCorridoredRoom)actualRoom).getToRoomName());
+        }
+        return toRoom;
     }
     
     

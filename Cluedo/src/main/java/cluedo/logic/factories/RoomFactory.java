@@ -53,7 +53,7 @@ public class RoomFactory {
         Set<String> corridorsFrom=entranceInfos.keySet();
         for(String s: corridorsFrom){
             SecretCorridoredRoom se=(SecretCorridoredRoom)rooms.get(s);
-            se.setToRoom(rooms.get(entranceInfos.get(s)));
+            se.setToRoomName(entranceInfos.get(s));
         }
         return rooms;
     }

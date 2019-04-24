@@ -159,7 +159,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/secret_corridor.png"));
         ((SecretCorridoredRoom) room).setWasSetSecretEntranceImage(true);
         ((SecretCorridoredRoom)room).setSecretFieldPosition(new Point(row, column));
-        PositionedButton button = new PositionedButton(row, column, icon, null);
+        PositionedButton button = new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
         button.addActionListener((ActionEvent evt) -> {
             secretCorridorButtonActionPerformed();
@@ -171,19 +171,34 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         Point newPosition=player.getPosition();
         PositionedButton button=buttonedMap.get(newPosition.getX()).get(newPosition.getY());
         button.setIcon(player.getRole().getPuppetImage());
+        button.setEnabled(true);
         button=buttonedMap.get(oldPosition.getX()).get(oldPosition.getY());
+        List<Player> playersOnPosition=gameController.getListOfPlayersOnPosition(button.getRow(), button.getColumn());
+        if(playersOnPosition.isEmpty()){
         if(button.getBasicIconImage()!=null){
+            button.setBackground(null);
             button.setIcon(button.getBasicIconImage());
         }else if(button.getBasicBackgroundColor()!=null){
+            button.setIcon(null);
              button.setBackground(button.getBasicBackgroundColor());
         }
+        }else{
+            button.setIcon(playersOnPosition.get(0).getRole().getPuppetImage());
+        }
+        button.setEnabled(button.getIsEnabledToClickOn());
     }
-private void secretCorridorButtonActionPerformed() {
-    showConfirmation(LanguageStrings.getString("JOptionPane.SureToUseSecretCorridor"), null);
-}
+    
+    private void secretCorridorButtonActionPerformed() {
+        Room toRoom=gameController.findSecretPassageToRoom(gameController.getActualPlayerIndex());
+        int answer=showConfirmation(LanguageStrings.getString("JOptionPane.SureToUseSecretCorridor")+System.lineSeparator()+LanguageStrings.getString(toRoom.getName()), null);
+        if(answer==JOptionPane.YES_OPTION){
+            gameController.enterRoom(toRoom, gameController.getActualPlayerIndex());
+        }
+    }
+    
     private PositionedButton createRoomButton(Room room, int row, int column) {
         Color color = room.getColor();
-        PositionedButton button = new PositionedButton(row, column, null, color);
+        PositionedButton button = new PositionedButton(row, column, null, color, false);
         button.setBackground(color);
         button.setEnabled(false);
         return button;
@@ -191,15 +206,19 @@ private void secretCorridorButtonActionPerformed() {
 
     private PositionedButton createIntricButton(int row, int column) {
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/intric_field.png"));
-        PositionedButton button = new PositionedButton(row, column, icon, null);
+        PositionedButton button = new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
         button.addActionListener((ActionEvent evt) -> {
-            intricButtonActionPerformed();
+            intricButtonActionPerformed(evt);
         });
         return button;
     }
-private void intricButtonActionPerformed(){
+private void intricButtonActionPerformed(ActionEvent evt){
     Object[] options={"Ok"};
+    PositionedButton button=(PositionedButton)evt.getSource();
+    Point position=new Point(button.getRow(), button.getColumn());
+        if(!position.equals(gameController.getHumanPlayer().getPosition())){
+    fieldButtonActionPerformed(evt);
     Intrics intricCard=gameController.drawIntricCard();
     URL url=getClass().getResource("/cards/intrics/basic_intric.png");
     String text=intricCard.toString();
@@ -208,10 +227,11 @@ private void intricButtonActionPerformed(){
         text="";
     }
     showOptionDialogWithImage(text, LanguageStrings.getString("JOptionPane.DrawnIntricCard"), options, url, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
-}
+        }
+        }
     private PositionedButton createEntranceButton(int row, int column) {
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/entrance.png"));
-        PositionedButton button = new PositionedButton(row, column, icon, null);
+        PositionedButton button = new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
         button.addActionListener((ActionEvent evt) -> {
             entranceButtonActionPerformed(evt);
@@ -220,19 +240,17 @@ private void intricButtonActionPerformed(){
     }
     private void entranceButtonActionPerformed(ActionEvent evt){
         PositionedButton button=(PositionedButton)evt.getSource();
-        gameController.enterRoom(button.getRow(), button.getColumn(), gameController.getActualPlayerIndex());
+        Room room=gameController.searchForRoomAccordingToFieldPosition(button.getRow(), button.getColumn());
+        gameController.enterRoom(room, gameController.getActualPlayerIndex());
     }
     private PositionedButton createStartButton(int row, int column, StartField field) {
-        Role standsHere = gameController.findPuppetWhoStandsHere(row, column);
-        Color color = null;
+        Role standsHere = gameController.findPuppetWhoHasThisStartField(row, column);
         ImageIcon icon = null;
-        if (standsHere == null) {
-            color = findColorAccordingToRole(field.getBelongsTo());
-        } else {
+        Color color = findColorAccordingToRole(field.getBelongsTo());
+        PositionedButton button = new PositionedButton(row, column, null, color, true);
+        if (standsHere != null) {
             icon = standsHere.getPuppetImage();
         }
-        PositionedButton button = new PositionedButton(row, column, icon, color);
-        
         if (color != null) {
             button.setBackground(color);
         }
@@ -246,11 +264,14 @@ private void intricButtonActionPerformed(){
     }
     private void fieldButtonActionPerformed(ActionEvent evt){
         PositionedButton button=(PositionedButton)evt.getSource();
-        gameController.moveToField(button.getX(), button.getY(), gameController.getActualPlayerIndex());
+        Point position=new Point(button.getRow(), button.getColumn());
+        if(!position.equals(gameController.getHumanPlayer().getPosition())){
+        gameController.moveToField(button.getRow(), button.getColumn(), gameController.getActualPlayerIndex());
+        }
     }
     private PositionedButton createFieldButton(int row, int column){
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/field.png"));
-        PositionedButton button=new PositionedButton(row, column, icon, null);
+        PositionedButton button=new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
         button.addActionListener((ActionEvent evt) -> {
             fieldButtonActionPerformed(evt);
@@ -281,6 +302,7 @@ private void intricButtonActionPerformed(){
                         button = createRoomButton(room, i, j);
 
                     }
+                    
                 } else if (row.get(j).getType() == FieldType.INTRIC) {
                     button = createIntricButton(i, j);
                 } else if (row.get(j).getType() == FieldType.ENTRANCE) {

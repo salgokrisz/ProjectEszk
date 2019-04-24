@@ -43,7 +43,7 @@ JOptionPane.SuspectCardTitle=Suspect cards
 JOptionPane.DroppedNumber=Rolled number is: 
 JOptionPane.InformationTitle=Information
 JOptionPane.InformationAboutStarterPlayer=The player who starts the game is: 
-JOptionPane.SureToUseSecretCorridor=Are you sure you want to use secret corridor instead of rolling dice?
+JOptionPane.SureToUseSecretCorridor=Are you sure you want to use secret corridor instead of rolling dice to room: 
 JOptionPane.DrawnIntricCard=The drawn intric card:
 
 #GameBoard
@@ -116,7 +116,7 @@ White.description=<html>Once in the game you can enter to any room<br>which has 
 
 #Actions
 Actions.RollDiceStart=<html>Click on the dice button to roll dice.<br>The player with the greatest number will start the game.</html>
-Actions.RollDiceStartAgain=<html>More players have rolled the same number as you which was the maximum.<br>Please click on the dices to roll again and decide who starts.</html>
+Actions.RollDiceStartAgain=<html>More players have rolled the same number as you which was the maximum.<br>You will roll again and decide who starts.</html>
 
 #Tests
 Test.1=test1_eng

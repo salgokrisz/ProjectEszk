@@ -8,7 +8,7 @@ import java.util.List;
  *This class represents the secret rooms as a whole in the program.
  */
 public class SecretCorridoredRoom extends Room{
-    private Room toRoom;
+    private String toRoomName;
     private boolean wasSetSecretEntranceImage ; 
     private Point secretFieldPosition;
     public SecretCorridoredRoom(String name, List<Point> coordinates,Color color){
@@ -20,6 +20,7 @@ public class SecretCorridoredRoom extends Room{
         if(secretFieldPosition!=null){
         this.secretFieldPosition=(Point)secretFieldPosition.cloneObject();
         } 
+        
     }
     public Point getSecretFieldPosition(){
         Point aClone=null;
@@ -30,8 +31,9 @@ public class SecretCorridoredRoom extends Room{
     }
     public SecretCorridoredRoom(SecretCorridoredRoom other){
         super(other);
-        this.toRoom=other.getToRoom();
+        this.toRoomName=other.getToRoomName();
         this.wasSetSecretEntranceImage=other.getWasSetSecretEntranceImage();
+        this.secretFieldPosition=other.getSecretFieldPosition();
     }
     public void setWasSetSecretEntranceImage(boolean wasSetSecretEntranceImage){
         this.wasSetSecretEntranceImage=wasSetSecretEntranceImage;
@@ -43,23 +45,16 @@ public class SecretCorridoredRoom extends Room{
     public boolean getWasSetSecretEntranceImage(){
         return wasSetSecretEntranceImage;
     }
-    public Room getToRoom(){
-        if(toRoom==null){
-            return null;
-        }else{
-        return (Room)toRoom.cloneObject();
-        }
+    public String getToRoomName(){
+        return toRoomName;
     }
-    public void setToRoom(Room toRoom){
-        this.toRoom=null;
-        if(toRoom!=null){
-            this.toRoom=(Room)toRoom.cloneObject();
-        }
+    public void setToRoomName(String toRoomName){
+        this.toRoomName=toRoomName;
     }
     @Override
     public String toString(){
         StringBuilder sb=new StringBuilder(super.toString());
-        sb.append(System.lineSeparator()).append("Secret corridor to room: ").append(toRoom.getName());
+        sb.append(System.lineSeparator()).append("Secret corridor to room: ").append(toRoomName);
         return sb.toString();
     }
 }

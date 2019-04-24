@@ -21,27 +21,35 @@ import javax.swing.JRadioButton;
  */
 public class CluePaperPanel extends javax.swing.JPanel {
     private Map<String, JCheckBox> checkBoxMap;
-    private static final String FONT_TYPE="Times New Roman";
-    public static final String KNIFE_KEY="Cards.Weapons.Knife";
-    public static final String CANDLESTICK_KEY="Cards.Weapons.Candlestick";
-    public static final String REVOLVER_KEY="Cards.Weapons.Revolver";
-    public static final String POISON_KEY="Cards.Weapons.Poison";
-    public static final String TROPHY_KEY="Cards.Weapons.Trophy";
-    public static final String ROPE_KEY="Cards.Weapons.Rope";
-    public static final String BAT_KEY="Cards.Weapons.Bat";
-    public static final String AXE_KEY="Cards.Weapons.Axe";
-    public static final String DUMBBELL_KEY="Cards.Weapons.Dumbbell";
-    public static final String HALL_KEY="Cards.Rooms.Hall";
-    public static final String EATERY_KEY="Cards.Rooms.Eatery";
-    public static final String KITCHEN_KEY="Cards.Rooms.Kitchen";
-    public static final String TERRACE_KEY="Cards.Rooms.Terrace";
-    public static final String PLANETARIUM_KEY="Cards.Rooms.Planetarium";
-    public static final String CINEMA_KEY="Cards.Rooms.Cinema";
-    public static final String LIVINGROOM_KEY="Cards.Rooms.LivingRoom";
-    public static final String BATH_KEY="Cards.Rooms.Bath";
-    public static final String GUESTHOUSE_KEY="Cards.Rooms.GuestHouse";
+    public static final String FONT_TYPE="Times New Roman";
+    public  static final String KNIFE_KEY="Cards.Weapons.Knife";
+    public  static final String CANDLESTICK_KEY="Cards.Weapons.Candlestick";
+    public  static final String REVOLVER_KEY="Cards.Weapons.Revolver";
+    public  static final String POISON_KEY="Cards.Weapons.Poison";
+    public  static final String TROPHY_KEY="Cards.Weapons.Trophy";
+    public  static final String ROPE_KEY="Cards.Weapons.Rope";
+    public  static final String BAT_KEY="Cards.Weapons.Bat";
+    public  static final String AXE_KEY="Cards.Weapons.Axe";
+    public  static final String DUMBBELL_KEY="Cards.Weapons.Dumbbell";
+    public  static final String HALL_KEY="Cards.Rooms.Hall";
+    public  static final String EATERY_KEY="Cards.Rooms.Eatery";
+    public  static final String KITCHEN_KEY="Cards.Rooms.Kitchen";
+    public  static final String TERRACE_KEY="Cards.Rooms.Terrace";
+    public  static final String PLANETARIUM_KEY="Cards.Rooms.Planetarium";
+    public  static final String CINEMA_KEY="Cards.Rooms.Cinema";
+    public  static final String LIVINGROOM_KEY="Cards.Rooms.LivingRoom";
+    public  static final String BATH_KEY="Cards.Rooms.Bath";
+    public  static final String GUESTHOUSE_KEY="Cards.Rooms.GuestHouse";
+    private static final String MUSTARD_CONST = "Mustard";
+    private static final String PEACOCK_CONST = "Peacock";
+    private static final String SCARLET_CONST = "Scarlet";
+    private static final String GREEN_CONST = "Green";
+    private static final String WHITE_CONST = "White";
+    private static final String PLUM_CONST = "Plum";
+    private static final String GAMEBOARD_GUEST_CONST = "GameBoard.Guests";
+    private static final String GAMEBOARD_WEAPON_CONST = "GameBoard.Weapons";
+    
     private final boolean suspect;
-    private JRadioButton jrbWhite;
     private JRadioButton jrbKnife;
     private JRadioButton jrbCandlestick;
     private JRadioButton jrbRevolver;
@@ -51,11 +59,6 @@ public class CluePaperPanel extends javax.swing.JPanel {
     private JRadioButton jrbBat;
     private JRadioButton jrbAxe;
     private JRadioButton jrbDumbbell;
-    private JRadioButton jrbMustard;
-    private JRadioButton jrbPlum;
-    private JRadioButton jrbGreen;
-    private JRadioButton jrbPeacock;
-    private JRadioButton jrbScarlet;
     private List<String> weaponKeys;
     private List<String> guestKeys;
     private String selectedGuestKey;
@@ -73,12 +76,12 @@ public class CluePaperPanel extends javax.swing.JPanel {
     }
     private void filUpGuestKeys(){
         guestKeys=new ArrayList<>();
-        guestKeys.add("Mustard");
-        guestKeys.add("Peacock");
-        guestKeys.add("Scarlet");
-        guestKeys.add("Green");
-        guestKeys.add("White");
-        guestKeys.add("Plum");
+        guestKeys.add(MUSTARD_CONST);
+        guestKeys.add(PEACOCK_CONST);
+        guestKeys.add(SCARLET_CONST);
+        guestKeys.add(GREEN_CONST);
+        guestKeys.add(WHITE_CONST);
+        guestKeys.add(PLUM_CONST);
     }
     private void fillUpWeaponKeys(){
         weaponKeys=new ArrayList<>();
@@ -103,9 +106,7 @@ private void customizeRadioButton(JRadioButton radioButton, String title){
     radioButton.setBackground(new java.awt.Color(180, 0, 0));
     radioButton.setFont(new java.awt.Font(FONT_TYPE, 0, 12)); // NOI18N
     radioButton.setText(title);
-    radioButton.addActionListener((ActionEvent evt) -> {
-            suspectButtonActionPerformed(evt);
-        });
+    radioButton.addActionListener((ActionEvent evt) -> suspectButtonActionPerformed(evt));
 }
 private int findTextOfButton(String text, List<String> list){
     int i=0;
@@ -131,10 +132,10 @@ private void suspectButtonActionPerformed(ActionEvent evt){
     if(i==-1){
         i=findTextOfButton(text, guestKeys);
         selectedGuestKey=guestKeys.get(i);
-        LOG.log(Level.INFO, "Selected guest to suspect: "+selectedGuestKey);
+        LOG.log(Level.INFO, "Selected guest to suspect: ",selectedGuestKey);
     }else{
         selectedWeaponKey=weaponKeys.get(i);
-        LOG.log(Level.INFO, "Selected weapon to suspect: "+selectedWeaponKey);
+        LOG.log(Level.INFO, "Selected weapon to suspect: ",selectedWeaponKey);
     }
     
 }
@@ -195,25 +196,25 @@ private void initRealCluePaper(){
         setMaximumSize(new java.awt.Dimension(403, 259));
 
         jlGuests.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
-        jlGuests.setText(LanguageStrings.getString("GameBoard.Guests"));
+        jlGuests.setText(LanguageStrings.getString(GAMEBOARD_GUEST_CONST));
 
         jlRooms.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
 
         jlWeapons.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
-        jlWeapons.setText(LanguageStrings.getString("GameBoard.Weapons"));
+        jlWeapons.setText(LanguageStrings.getString(GAMEBOARD_WEAPON_CONST));
         jcMustard = new JCheckBox();
-        customizeCheckBox(jcMustard, "Mustard");
+        customizeCheckBox(jcMustard, MUSTARD_CONST);
         jcPlum = new JCheckBox();
-        customizeCheckBox(jcPlum, "Plum");
+        customizeCheckBox(jcPlum, PLUM_CONST);
         jcGreen = new JCheckBox();
-        customizeCheckBox(jcGreen, "Green");
+        customizeCheckBox(jcGreen, GREEN_CONST);
         jcPeacock = new JCheckBox();
-        customizeCheckBox(jcPeacock, "Peacock");
+        customizeCheckBox(jcPeacock, PEACOCK_CONST);
         jcScarlet = new JCheckBox();
-        customizeCheckBox(jcScarlet, "Scarlet");
+        customizeCheckBox(jcScarlet, SCARLET_CONST);
 
-        customizeCheckBox(jcWhite, "White");
+        customizeCheckBox(jcWhite, WHITE_CONST);
         customizeCheckBox(jcHall, LanguageStrings.getString(HALL_KEY));
         customizeCheckBox(jcEatery, LanguageStrings.getString(EATERY_KEY));
         customizeCheckBox(jcKitchen, LanguageStrings.getString(KITCHEN_KEY));
@@ -359,7 +360,7 @@ private void initSuspectationPaper(){
     
         jlGuests = new javax.swing.JLabel();
         jlWeapons = new javax.swing.JLabel();
-        jrbWhite = new JRadioButton();
+        JRadioButton jrbWhite = new JRadioButton();
         jrbKnife = new JRadioButton();
         jrbCandlestick = new JRadioButton();
         jrbRevolver = new JRadioButton();
@@ -376,22 +377,22 @@ private void initSuspectationPaper(){
         setMaximumSize(new java.awt.Dimension(403, 259));
 
         jlGuests.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
-        jlGuests.setText(LanguageStrings.getString("GameBoard.Guests"));
+        jlGuests.setText(LanguageStrings.getString(GAMEBOARD_GUEST_CONST));
 
         jlWeapons.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
-        jlWeapons.setText(LanguageStrings.getString("GameBoard.Weapons"));
-        jrbMustard = new JRadioButton();
-        customizeRadioButton(jrbMustard, "Mustard");
-        jrbPlum = new JRadioButton();
-        customizeRadioButton(jrbPlum, "Plum");
-        jrbGreen = new JRadioButton();
-        customizeRadioButton(jrbGreen, "Green");
-        jrbPeacock = new JRadioButton();
-        customizeRadioButton(jrbPeacock, "Peacock");
-        jrbScarlet = new JRadioButton();
-        customizeRadioButton(jrbScarlet, "Scarlet");
+        jlWeapons.setText(LanguageStrings.getString(GAMEBOARD_WEAPON_CONST));
+        JRadioButton jrbMustard = new JRadioButton();
+        customizeRadioButton(jrbMustard, MUSTARD_CONST);
+        JRadioButton jrbPlum = new JRadioButton();
+        customizeRadioButton(jrbPlum, PLUM_CONST);
+        JRadioButton jrbGreen = new JRadioButton();
+        customizeRadioButton(jrbGreen, GREEN_CONST);
+        JRadioButton jrbPeacock = new JRadioButton();
+        customizeRadioButton(jrbPeacock, PEACOCK_CONST);
+        JRadioButton jrbScarlet = new JRadioButton();
+        customizeRadioButton(jrbScarlet, SCARLET_CONST);
 
-        customizeRadioButton(jrbWhite, "White");
+        customizeRadioButton(jrbWhite, WHITE_CONST);
         
         customizeRadioButton(jrbKnife, LanguageStrings.getString(KNIFE_KEY));
 
@@ -585,8 +586,8 @@ private void initSuspectationPaper(){
     // End of variables declaration//GEN-END:variables
 
    public void resetStrings() {
-       jlGuests.setText(LanguageStrings.getString("GameBoard.Guests"));
-       jlWeapons.setText(LanguageStrings.getString("GameBoard.Weapons"));
+       jlGuests.setText(LanguageStrings.getString(GAMEBOARD_GUEST_CONST));
+       jlWeapons.setText(LanguageStrings.getString(GAMEBOARD_WEAPON_CONST));
        if(suspect){
            jrbKnife.setText(LanguageStrings.getString(KNIFE_KEY));
         jrbCandlestick.setText(LanguageStrings.getString(CANDLESTICK_KEY));

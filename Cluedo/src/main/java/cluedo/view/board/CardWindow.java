@@ -31,9 +31,7 @@ public class CardWindow extends JFrame {
         jpBase.setLayout(new BoxLayout(jpBase, BoxLayout.Y_AXIS));
         setTitle(LanguageStrings.getString("GameBoard.MySuspectCards"));
         card=new JPanel(new CardLayout(60,30));  
-//create CardLayout object with 40 hor space and 30 ver space  
-      //  container.setLayout(card);  
-      
+//create CardLayout object with 40 hor space and 30 ver space      
       if(cardTypeToShow.equals("suspects")){
           cardButtons=getSuspectCardsOfPlayerInButtons(player);
       }else{
@@ -56,7 +54,7 @@ public class CardWindow extends JFrame {
     } 
     public final List<JButton> getIntricCardsOfPlayerInButtons(Player player){
          List<Intrics> intricCards=player.getOwnedIntricCards();
-         List<JButton> cardButtons=new ArrayList<>();
+         List<JButton> cardButtonsList=new ArrayList<>();
         for(Intrics c: intricCards){
             String text="";
             URL url=getClass().getResource("/cards/intrics/card_intric.png");
@@ -67,20 +65,20 @@ public class CardWindow extends JFrame {
             JButton button=new JButton(text, new ImageIcon(url));
             button.setVerticalTextPosition(SwingConstants.BOTTOM);
             button.setHorizontalTextPosition(SwingConstants.CENTER);
-            cardButtons.add(button);
+            cardButtonsList.add(button);
         }
-        return cardButtons;
+        return cardButtonsList;
     }
     public final List<JButton> getSuspectCardsOfPlayerInButtons(Player player){
          List<Card> suspectCards=player.getSuspectCards();
-         List<JButton> cardButtons=new ArrayList<>();
+         List<JButton> cardButtonsList=new ArrayList<>();
         for(Card c: suspectCards){
             JButton button=new JButton(c.getNameForUI(), new ImageIcon(getClass().getResource(c.getImageName())));
             button.setVerticalTextPosition(SwingConstants.BOTTOM);
             button.setHorizontalTextPosition(SwingConstants.CENTER);
-            cardButtons.add(button);
+            cardButtonsList.add(button);
         }
-        return cardButtons;
+        return cardButtonsList;
     }
     public void actionPerformed() {
         ((CardLayout) card.getLayout()).next(card);

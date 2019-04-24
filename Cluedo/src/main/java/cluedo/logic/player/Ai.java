@@ -80,7 +80,7 @@ public void drawSuspectCard(Card card){
     }
 }
     public List<Point> getAvailablePositionsToMove() {
-        List<Point> copy=new ArrayList<Point>();
+        List<Point> copy=new ArrayList<>();
         for(Point p: availablePositionsToMove){
             copy.add((Point)p.cloneObject());
         }
@@ -98,7 +98,7 @@ public void drawSuspectCard(Card card){
         sbInformation.append(text);
     }
 
-    public Card selectSuspect(List<Card> allMurderCards) {
+    public Card selectSuspect() {
         List<Card> notOwnedCards=new ArrayList<>();
         for(Card c:notOwnedCards){
             if(!alreadyKnownCards.contains(c)){

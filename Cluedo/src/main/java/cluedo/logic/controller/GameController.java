@@ -47,9 +47,10 @@ public class GameController {
     private final List<List<Field>> fieldMap;
     private final Map<String, Room> roomMap;//commented out because pmd
     private int actualPlayerIndex;
-    private List<Card> allMurderCards=new ArrayList<Card>();
-    private List<Card> allMurderWeaponCards=new ArrayList<Card>();
-    private List<Card> allMurderRoomCards=new ArrayList<Card>();
+    private List<Card> allMurderCards=new ArrayList<>();
+    private List<Card> allMurderWeaponCards=new ArrayList<>();
+    private List<Card> allMurderRoomCards=new ArrayList<>();
+    private static final String OPTION_PANE_DROPPED_NUMBER_CONST = "JOptionPane.DroppedNumber";
 
     public GameController() {
         actualGamePhase = GamePhase.INITIAL;
@@ -154,7 +155,7 @@ public class GameController {
             if (diceButtonShouldBePressed) {
                 fireShowWhatToDo(LanguageStrings.getString("Actions.RollDiceStartAgain"));
                 humanPlayerRoll = Tools.randomizeNumber(6) + 1;
-                fireShowInformation(LanguageStrings.getString("JOptionPane.DroppedNumber") + humanPlayerRoll);
+                fireShowInformation(LanguageStrings.getString(OPTION_PANE_DROPPED_NUMBER_CONST) + humanPlayerRoll);
             }
             playersWithMaxNumber = rollDicesForDecidingStarterPlayer(playersWithMaxNumber, humanPlayerRoll);
             diceButtonShouldBePressed = playersWithMaxNumber.size() > 1 && playersWithMaxNumber.contains(players.get(humanPlayerIndex));
@@ -191,7 +192,7 @@ public class GameController {
                     actualComputerPlayer.appendToInformation(System.lineSeparator());
         if(actualGamePhase==GamePhase.ROLL){
             int droppedNumber=rollDice();
-            StringBuilder sb=new StringBuilder(LanguageStrings.getString("JOptionPane.DroppedNumber"));
+            StringBuilder sb=new StringBuilder(LanguageStrings.getString(OPTION_PANE_DROPPED_NUMBER_CONST));
             sb.append(droppedNumber).append(System.lineSeparator());
             ((Ai)players.get(actualPlayerIndex)).appendToInformation(sb.toString());
             actualGamePhase=GamePhase.MOVE;
@@ -227,8 +228,8 @@ public class GameController {
             }
             if(players.get(actualPlayerIndex).getIsInRoom()){
                 actualGamePhase=GamePhase.SUSPECT;
-                Card murder=actualComputerPlayer.selectSuspect(allMurderCards);
-                Card murderWeapon=actualComputerPlayer.selectSuspect(allMurderCards);
+                Card murder=actualComputerPlayer.selectSuspect();
+                Card murderWeapon=actualComputerPlayer.selectSuspect();
                 Card murderRoom=actualComputerPlayer.findMurderRoomAccordingToPosition(allMurderRoomCards);
                 fireShowInformationsAboutSuspectedCards(murder, murderWeapon, murderRoom);
             }else{
@@ -450,7 +451,7 @@ public class GameController {
         int droppedNumber;
         if (GamePhase.INITIAL == actualGamePhase) {
             droppedNumber = Tools.randomizeNumber(6) + 1;
-            fireShowInformation(LanguageStrings.getString("JOptionPane.DroppedNumber") + droppedNumber);
+            fireShowInformation(LanguageStrings.getString(OPTION_PANE_DROPPED_NUMBER_CONST) + droppedNumber);
             sortPlayers(droppedNumber);
         } else {
             fireEnableRollDiceButton(false);
@@ -467,7 +468,7 @@ public class GameController {
                 droppedNumber += roledNumberTwo;
             }
             if(!players.get(actualPlayerIndex).getIsComputer()){
-            fireShowInformation(LanguageStrings.getString("JOptionPane.DroppedNumber") + droppedNumber);
+            fireShowInformation(LanguageStrings.getString(OPTION_PANE_DROPPED_NUMBER_CONST) + droppedNumber);
             }
             actualGamePhase=GamePhase.MOVE;
                 List<Point> availablePositions=chooseAvailableFieldsInARadius(droppedNumber);

@@ -294,9 +294,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         if (standsHere != null) {
             icon = standsHere.getPuppetImage();
         }
-        if (color != null) {
-            button.setBackground(color);
-        }
+        button.setBackground(color);
         button.setIcon(icon);
         button.addActionListener((ActionEvent evt) -> fieldButtonActionPerformed(evt));
         return button;

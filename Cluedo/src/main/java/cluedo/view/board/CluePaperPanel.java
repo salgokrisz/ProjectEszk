@@ -132,10 +132,10 @@ private void suspectButtonActionPerformed(ActionEvent evt){
     if(i==-1){
         i=findTextOfButton(text, guestKeys);
         selectedGuestKey=guestKeys.get(i);
-        LOG.log(Level.INFO, "Selected guest to suspect: ",selectedGuestKey);
+        LOG.log(Level.INFO, "Selected guest to suspect: {0}",selectedGuestKey);
     }else{
         selectedWeaponKey=weaponKeys.get(i);
-        LOG.log(Level.INFO, "Selected weapon to suspect: ",selectedWeaponKey);
+        LOG.log(Level.INFO, "Selected weapon to suspect: {0}",selectedWeaponKey);
     }
     
 }

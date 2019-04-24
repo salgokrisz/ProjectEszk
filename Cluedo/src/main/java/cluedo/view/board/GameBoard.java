@@ -77,8 +77,8 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
                        CardWindow cardWindow=new CardWindow(gameController.getHumanPlayer(), "suspects");
                        cardWindow.setVisible(true);
                        openedWindowsSet.add(cardWindow);
-                    });
-        });
+                     });
+                });
         diceButton = new JButton();
         suspectCardsButton.setBackground(new Color(255, 30, 21));
         diceButton.setBackground(new Color(255, 30, 21));
@@ -190,9 +190,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/intric_field.png"));
         PositionedButton button = new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
-        button.addActionListener((ActionEvent evt) -> {
-            intricButtonActionPerformed(evt);
-        });
+        button.addActionListener((ActionEvent evt) -> intricButtonActionPerformed(evt));
         return button;
     }
 
@@ -217,9 +215,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/entrance.png"));
         PositionedButton button = new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
-        button.addActionListener((ActionEvent evt) -> {
-            entranceButtonActionPerformed(evt);
-        });
+        button.addActionListener((ActionEvent evt) -> entranceButtonActionPerformed(evt));
         return button;
     }
 
@@ -240,12 +236,8 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         if (color != null) {
             button.setBackground(color);
         }
-        if (icon != null) {
-            button.setIcon(icon);
-        }
-        button.addActionListener((ActionEvent evt) -> {
-            fieldButtonActionPerformed(evt);
-        });
+        button.setIcon(icon);
+        button.addActionListener((ActionEvent evt) -> fieldButtonActionPerformed(evt));
         return button;
     }
 
@@ -261,9 +253,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/field.png"));
         PositionedButton button = new PositionedButton(row, column, icon, null, true);
         button.setIcon(icon);
-        button.addActionListener((ActionEvent evt) -> {
-            fieldButtonActionPerformed(evt);
-        });
+        button.addActionListener((ActionEvent evt) -> fieldButtonActionPerformed(evt));
         return button;
     }
 
@@ -276,22 +266,9 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
             buttonedMap.add(new ArrayList<>());
             for (int j = 0; j < row.size(); ++j) {
                 List<PositionedButton> buttonRow = buttonedMap.get(i);
-                PositionedButton button;
-                if (row.get(j).getType() == FieldType.ROOM || row.get(j).getType() == FieldType.END) {
-                    String roomKey;
-                    if (row.get(j).getType() == FieldType.ROOM) {
-                        roomKey = ((RoomField) row.get(j)).getRoomName();
-                    } else {
-                        roomKey = RoomFactory.ENDROOM_KEY;
-                    }
-                    Room room = gameController.getRoomForName(roomKey);
-                    if (room.getClass() == SecretCorridoredRoom.class && !((SecretCorridoredRoom) room).getWasSetSecretEntranceImage()) {
-                        button = createSecretCorridorButton(room, i, j);
-                    } else {
-                        button = createRoomButton(room, i, j);
-
-                    }
-
+                PositionedButton button = null;
+                if (row.get(j).getType() == FieldType.ROOM || row.get(j).getType() == FieldType.END) {                   
+                    button=checkRoomClassAndIfHasImageAndCreateSecretCorridor(row,j,i);
                 } else if (row.get(j).getType() == FieldType.INTRIC) {
                     button = createIntricButton(i, j);
                 } else if (row.get(j).getType() == FieldType.ENTRANCE) {
@@ -307,15 +284,43 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
                 buttonRow.add(button);
                 jpBoard.add(button);
             }
-
-            if (maxWidth < row.size()) {
-                maxWidth = row.size();
-            }
+            checkIfMaxWidthLesserThanRowSize(maxWidth,row);
+           
         }
         int height = gameController.getMapHeight();
         jpBoard.setSize(maxWidth * 53, height * 53);
         jpBoard.setPreferredSize(new Dimension(maxWidth * 53, height * 53));
         jpBoard.setMaximumSize(new Dimension(maxWidth * 53, height * 53));
+    }
+    
+    private int checkIfMaxWidthLesserThanRowSize(int maxWidth,List<Field> row) {
+        if (maxWidth < row.size()) {
+            maxWidth = row.size();
+        }
+        return maxWidth;
+    }
+    
+    private PositionedButton checkRoomClassAndIfHasImageAndCreateSecretCorridor(List<Field> row,int j,int i) {
+        Room room = gameController.getRoomForName(checkRoomTypeAndGetRoomKey(row, j));
+        PositionedButton button;
+        if (room.getClass() == SecretCorridoredRoom.class && !((SecretCorridoredRoom) room).getWasSetSecretEntranceImage()) {
+            button = createSecretCorridorButton(room, i, j);
+        } else {
+            button = createRoomButton(room, i, j);
+
+        }
+        return button;
+    }
+    
+    private String checkRoomTypeAndGetRoomKey(List<Field> row,int j) {
+        String roomKey;
+        if (row.get(j).getType() == FieldType.ROOM) {
+            roomKey = ((RoomField) row.get(j)).getRoomName();
+        } else {
+            roomKey = RoomFactory.ENDROOM_KEY;
+        }
+        return roomKey;
+        
     }
 
     private Color findColorAccordingToRole(String roleInString) {

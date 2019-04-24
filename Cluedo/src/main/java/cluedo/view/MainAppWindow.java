@@ -43,9 +43,7 @@ public class MainAppWindow extends AbstractBaseWindow {
         jbNewGame.setFont(new java.awt.Font(FONT_TYPE, 1, 18)); // NOI18N
         jbNewGame.setText(LanguageStrings.getString("Menu.NewGame"));
         jbNewGame.setEnabled(false);
-        jbNewGame.addActionListener((java.awt.event.ActionEvent evt) -> {
-            jbNewGameActionPerformed();
-        });
+        jbNewGame.addActionListener((java.awt.event.ActionEvent evt) -> jbNewGameActionPerformed());
         JLabel jlPicture = new JLabel();
         jlPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mystery.png"))); // NOI18N
         jlLanguageChooser.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
@@ -56,16 +54,12 @@ public class MainAppWindow extends AbstractBaseWindow {
         jrbEnglish.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbEnglish.setText(LanguageStrings.getString("Menu.English"));
         jrbEnglish.setSelected(true);
-        jrbEnglish.addActionListener((java.awt.event.ActionEvent evt) -> {
-            jrbEnglishActionPerformed();
-        });
+        jrbEnglish.addActionListener((java.awt.event.ActionEvent evt) -> jrbEnglishActionPerformed());
         jrbHungarian.setBackground(new java.awt.Color(255, 30, 21));
         bgLanguage.add(jrbHungarian);
         jrbHungarian.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbHungarian.setText(LanguageStrings.getString("Menu.Hungarian"));
-        jrbHungarian.addActionListener((java.awt.event.ActionEvent evt) -> {
-            jrbHungarianActionPerformed();
-        });
+        jrbHungarian.addActionListener((java.awt.event.ActionEvent evt) -> jrbHungarianActionPerformed());
         jlPlayers.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlPlayers.setText(LanguageStrings.getString("Menu.PlayerNumber"));
        JRadioButton jrbTwo = new JRadioButton();
@@ -74,41 +68,31 @@ public class MainAppWindow extends AbstractBaseWindow {
         bgPlayers.add(jrbTwo);
         jrbTwo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jrbTwo.setText("2");
-        jrbTwo.addActionListener((java.awt.event.ActionEvent evt) -> {
-            jrbTwoActionPerformed();
-        });
+        jrbTwo.addActionListener((java.awt.event.ActionEvent evt) -> jrbTwoActionPerformed());
         JRadioButton jrbThree = new JRadioButton();
         jrbThree.setBackground(new java.awt.Color(255, 30, 21));
         bgPlayers.add(jrbThree);
         jrbThree.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbThree.setText("3");
-        jrbThree.addActionListener((java.awt.event.ActionEvent evt) -> {
-            jrbThreeActionPerformed();
-        });
+        jrbThree.addActionListener((java.awt.event.ActionEvent evt) -> jrbThreeActionPerformed());
         JRadioButton jrbFour = new JRadioButton();
         jrbFour.setBackground(new java.awt.Color(255, 30, 21));
         bgPlayers.add(jrbFour);
         jrbFour.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbFour.setText("4");
-        jrbFour.addActionListener((java.awt.event.ActionEvent evt) -> {
-            jrbFourActionPerformed();
-        });
+        jrbFour.addActionListener((java.awt.event.ActionEvent evt) -> jrbFourActionPerformed());
         JRadioButton jrbFive = new JRadioButton();
         jrbFive.setBackground(new java.awt.Color(255, 30, 21));
         bgPlayers.add(jrbFive);
         jrbFive.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbFive.setText("5");
-        jrbFive.addActionListener((java.awt.event.ActionEvent evt) -> {
-            jrbFiveActionPerformed();
-        });
+        jrbFive.addActionListener((java.awt.event.ActionEvent evt) -> jrbFiveActionPerformed());
         JRadioButton jrbSix = new JRadioButton();
         jrbSix.setBackground(new java.awt.Color(255, 30, 21));
         bgPlayers.add(jrbSix);
         jrbSix.setFont(new java.awt.Font(FONT_TYPE, 1, 12)); // NOI18N
         jrbSix.setText("6");
-        jrbSix.addActionListener((java.awt.event.ActionEvent evt) -> {
-            jrbSixActionPerformed();
-        });
+        jrbSix.addActionListener((java.awt.event.ActionEvent evt) -> jrbSixActionPerformed());
         javax.swing.GroupLayout jpBaseLayout = new javax.swing.GroupLayout(jpBase);
         jpBase.setLayout(jpBaseLayout);
         jpBaseLayout.setHorizontalGroup(

@@ -1,4 +1,3 @@
-
 package cluedo.view.board;
 
 import cluedo.logic.cards.Card;
@@ -20,15 +19,15 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 /**
- *This class is responsible for showing the cards of the given player
+ * This class is responsible for showing the cards of the given player
  */
-public class CardWindow extends JFrame{
+public class CardWindow extends JFrame {
    private JPanel card;  
    private List<JButton> cardButtons;
 //private final String cardTypeToShow; //commented out because of the PMD, later it will be used
     public CardWindow(Player player, String cardTypeToShow){ 
        // this.cardTypeToShow=cardTypeToShow; //commented out because of the PMD, later it will be used
-        JPanel jpBase=new JPanel();
+        JPanel jpBase = new JPanel();
         jpBase.setLayout(new BoxLayout(jpBase, BoxLayout.Y_AXIS));
         setTitle(LanguageStrings.getString("GameBoard.MySuspectCards"));
         card=new JPanel(new CardLayout(60,30));  
@@ -40,10 +39,10 @@ public class CardWindow extends JFrame{
       }else{
           cardButtons=getIntricCardsOfPlayerInButtons(player);
       }
-        for(JButton b: cardButtons){
+        for (JButton b : cardButtons) {
             card.add(b);
         }
-        jpBase.add(card);//jpBase.add(container);
+        jpBase.add(card);
         if(cardButtons.size()>1){
         JButton next=new JButton(LanguageStrings.getString("CardWindow.Next"));
          next.addActionListener((ActionEvent evt) -> {
@@ -51,9 +50,9 @@ public class CardWindow extends JFrame{
         });
          jpBase.add(next);
         }
-          setSize(400,400);
-          setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-          getContentPane().add(jpBase);
+        setSize(400, 400);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().add(jpBase);
     } 
     public final List<JButton> getIntricCardsOfPlayerInButtons(Player player){
          List<Intrics> intricCards=player.getOwnedIntricCards();
@@ -83,12 +82,12 @@ public class CardWindow extends JFrame{
         }
         return cardButtons;
     }
-    public void actionPerformed() {  
-    ((CardLayout)card.getLayout()).next(card);  
-    }  
+    public void actionPerformed() {
+        ((CardLayout) card.getLayout()).next(card);
+    }
 
     public boolean hasCardToShow() {
         return !cardButtons.isEmpty();
     }
- 
+
 }

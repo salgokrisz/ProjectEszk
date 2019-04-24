@@ -43,8 +43,14 @@ public class Intrics{
     @Override
     public String toString(){
         StringBuilder sb=new StringBuilder();
-        sb.append(LanguageStrings.getString(text)).append(System.lineSeparator()).append(LanguageStrings.getString("Card.Usage"))
-        .append(System.lineSeparator()).append(LanguageStrings.getString(type.toString()));
+        sb.append(LanguageStrings.getString(text)).append(System.lineSeparator()).append(LanguageStrings.getString("Card.Usage")).append(System.lineSeparator())
+                .append(LanguageStrings.getString(type.toString()));
+        return sb.toString();
+    }
+    public String toStringForPanel(){
+        StringBuilder sb=new StringBuilder();
+        sb.append("<html>").append(LanguageStrings.getString(text)).append("<br>").append(LanguageStrings.getString("Card.Usage"))
+        .append("<br>").append(LanguageStrings.getString(type.toString())).append("</html>");
         return sb.toString();
     }
     public Object cloneObject(){

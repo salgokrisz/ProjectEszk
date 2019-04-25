@@ -147,6 +147,14 @@ Suspect.Nothing=Nothing
 Suspect.SureToShowThisCard=Are you sure you want to show as a proof this suspect card: 
 Suspect.Evidence=Evidence
 Suspect.ChooseClueTab=Change to clue paper tab to select suspected objects!
+Suspect.Choose=Choose
+Suspect.MustChooseGuestAndWeapon=You must choose a guest and a weapon as well to suspect!
+Suspect.SureToChooseTheeseObjects=Are you sure you want to choose these selected objects to suspect?
+Suspect.SelectedOptions=The chosen objects to suspect: 
+Suspect.ShownEvidenceCard=shows you this card: 
+Suspect.NobodyCouldShow=No player was able to show!
+Suspect.MarkInfos=Mark on your clue paper the newly known informations! If you are ready then click on the end round button on the gameboard tab!
+Suspect.WasUnableToProve= was unable to prove!
 
 #Tests
 Test.1=test1_eng

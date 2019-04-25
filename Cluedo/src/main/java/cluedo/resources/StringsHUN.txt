@@ -146,6 +146,14 @@ Suspect.Nothing=Semmi
 Suspect.SureToShowThisCard=Biztos, hogy meg akarod mutatni bizonyítékként ezt a gyanúkártyát: 
 Suspect.Evidence=Bizonyíték
 Suspect.ChooseClueTab=Válts a nyomozólap nézetre, hogy ki tudd választani, a gyanúsítottakat!
+Suspect.Choose=Kiválaszt
+Suspect.MustChooseGuestAndWeapon=Muszáj egy vendéget és egy fegyvert is kiválasztanod a gyanúsításhoz!
+Suspect.SureToChooseTheeseObjects=Biztos vagy benne, hogy ezeket a gyanúsítod?
+Suspect.SelectedOptions=A választott gyanúsított objektumok: 
+Suspect.ShownEvidenceCard=ezt a kártyát mutatja neked: 
+Suspect.NobodyCouldShow=Senki sem tudott mutatni!
+Suspect.MarkInfos=Jelöld a nyomozólapodon az újonnan megtudott információkat, ha kész, akkor kattints a köröd vége gombra a játéktábla fülön!
+Suspect.WasUnableToProve= nem tudott bizonyítani!
 
 #Tests
 Test.1=test1_hun

@@ -26,8 +26,10 @@ private final Card murderCard;
 private final Card murderWeaponCard;
 private final Card murderRoomCard;
 private boolean canShow;
+private final Player playerWhoProves;
 private Map<javax.swing.JButton, Card> cardButtonMap;
-    public AiSuspectCardWindow(GameController gameController, Card murderCard, Card murderWeaponCard, Card murderRoomCard) {
+    public AiSuspectCardWindow(Player playerWhoProves,GameController gameController, Card murderCard, Card murderWeaponCard, Card murderRoomCard) {
+        this.playerWhoProves=playerWhoProves;
         this.gameController=gameController;
         this.murderCard=murderCard;
         this.murderWeaponCard=murderWeaponCard;
@@ -59,8 +61,15 @@ private void showingThisCardAsProof(ActionEvent evt){
     if(answer==JOptionPane.YES_OPTION){
         gameController.fireRemoveAiSuspectCardWindow();
         this.dispose();
-       Card provedCard= cardButtonMap.get(button);
-       gameController.showCardForAi(provedCard);
+        Card provedCard= cardButtonMap.get(button);
+        Player actualPlayer=gameController.getActualPlayer();
+        if(!actualPlayer.getIsComputer()){
+       gameController.fireDisplayShowProofCardView(murderCard, playerWhoProves);
+       
+        }else{
+       gameController.showCardForAi(provedCard, playerWhoProves);
+        }
+        
     }
 }
     /**
@@ -155,8 +164,14 @@ private void showingThisCardAsProof(ActionEvent evt){
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNothingActionPerformed() {//GEN-FIRST:event_jbNothingActionPerformed
-        gameController.showCardForAi(null);
+        Player actualPlayer=gameController.getActualPlayer();
         gameController.fireRemoveAiSuspectCardWindow();
+        if(actualPlayer.getIsComputer()){
+        gameController.showCardForAi(null, playerWhoProves);
+        }else{
+            gameController.fireDisplayShowProofCardView(null, playerWhoProves);
+        }
+        
         this.dispose();
     }//GEN-LAST:event_jbNothingActionPerformed
 

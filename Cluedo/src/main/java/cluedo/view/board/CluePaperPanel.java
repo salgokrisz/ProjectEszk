@@ -2,9 +2,12 @@
 package cluedo.view.board;
 
 import cluedo.logic.cards.Card;
+import cluedo.logic.controller.GameController;
 import cluedo.logic.player.Player;
 import static cluedo.tools.Tools.LOG;
 import cluedo.tools.languagestring.LanguageStrings;
+import cluedo.view.AbstractBaseWindow;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,14 +15,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 /**
  * This class represents the clue paper for the game. On it the players can mark
  * the clues which are known by them.
  */
-public class CluePaperPanel extends javax.swing.JPanel {
+public class CluePaperPanel extends JPanel {
     private Map<String, JCheckBox> checkBoxMap;
     public static final String FONT_TYPE="Times New Roman";
     public  static final String KNIFE_KEY="Cards.Weapons.Knife";
@@ -63,8 +69,24 @@ public class CluePaperPanel extends javax.swing.JPanel {
     private List<String> guestKeys;
     private String selectedGuestKey;
     private String selectedWeaponKey;
-    public CluePaperPanel(boolean suspect) {
+    private JRadioButton jrbHall;
+    private JRadioButton jrbBath;
+    private JRadioButton jrbCinema;
+    private JRadioButton jrbGuestHouse;
+    private JRadioButton jrbPlanetarium;
+    private JRadioButton jrbKitchen;
+    private JRadioButton jrbLivingRoom;
+    private JRadioButton jrbTerrace;
+    private JRadioButton jrbEatery;
+    private JButton chooseButton;
+    private GameController gameController;
+    private String selectedRoomKey;
+    public CluePaperPanel(boolean suspect, GameController gameController) {
         this.suspect=suspect;
+        this.gameController=gameController;
+        if(suspect){
+        selectedRoomKey=gameController.getActualPlayer().getActualRoomName();
+                }
         fillUpWeaponKeys();
         filUpGuestKeys();
         initComponents();
@@ -73,6 +95,7 @@ public class CluePaperPanel extends javax.swing.JPanel {
         }
         selectedGuestKey="";
         selectedWeaponKey="";
+        
     }
     private void filUpGuestKeys(){
         guestKeys=new ArrayList<>();
@@ -358,6 +381,8 @@ private void initRealCluePaper(){
 
 private void initSuspectationPaper(){
     
+    JPanel jpBase=new JPanel(new BorderLayout());
+        jlRooms=new javax.swing.JLabel();
         jlGuests = new javax.swing.JLabel();
         jlWeapons = new javax.swing.JLabel();
         JRadioButton jrbWhite = new JRadioButton();
@@ -370,6 +395,15 @@ private void initSuspectationPaper(){
         jrbBat = new JRadioButton();
         jrbAxe = new JRadioButton();
         jrbDumbbell = new JRadioButton();
+        jrbHall=new JRadioButton();
+        jrbBath=new JRadioButton();
+        jrbCinema=new JRadioButton();
+        jrbGuestHouse=new JRadioButton();
+        jrbPlanetarium=new JRadioButton();
+        jrbKitchen=new JRadioButton();
+        jrbLivingRoom=new JRadioButton();
+        jrbTerrace=new JRadioButton();
+        jrbEatery=new JRadioButton();
 
             setBackground(new java.awt.Color(180,0, 0));
 
@@ -411,6 +445,24 @@ private void initSuspectationPaper(){
         customizeRadioButton(jrbAxe, LanguageStrings.getString(AXE_KEY));
 
         customizeRadioButton(jrbDumbbell, LanguageStrings.getString(DUMBBELL_KEY));
+        customizeRadioButton(jrbHall, HALL_KEY);
+        customizeRadioButton(jrbEatery, EATERY_KEY);
+        customizeRadioButton(jrbCinema, CINEMA_KEY);
+        customizeRadioButton(jrbLivingRoom, LIVINGROOM_KEY);
+        customizeRadioButton(jrbBath, BATH_KEY);
+        customizeRadioButton(jrbKitchen, KITCHEN_KEY);
+        customizeRadioButton(jrbGuestHouse, GUESTHOUSE_KEY);
+        customizeRadioButton(jrbTerrace, TERRACE_KEY);
+        customizeRadioButton(jrbPlanetarium, PLANETARIUM_KEY);
+        jrbHall.setEnabled(false);
+        jrbEatery.setEnabled(false);
+        jrbCinema.setEnabled(false);
+        jrbLivingRoom.setEnabled(false);
+        jrbBath.setEnabled(false);
+        jrbKitchen.setEnabled(false);
+        jrbGuestHouse.setEnabled(false);
+        jrbTerrace.setEnabled(false);
+        jrbPlanetarium.setEnabled(false);
         bgGuests.add(jrbPeacock);
         bgGuests.add(jrbScarlet);
         bgGuests.add(jrbPlum);
@@ -426,7 +478,7 @@ private void initSuspectationPaper(){
         bgWeapons.add(jrbBat);
         bgWeapons.add(jrbTrophy);
         bgWeapons.add(jrbKnife);
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -456,7 +508,19 @@ private void initSuspectationPaper(){
                     .addComponent(jrbTrophy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jrbRope, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jrbBat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18))      
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jrbGuestHouse, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                    .addComponent(jrbBath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jrbLivingRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlRooms)
+                    .addComponent(jrbHall, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jrbEatery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jrbKitchen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jrbTerrace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jrbPlanetarium, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jrbCinema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -467,15 +531,32 @@ private void initSuspectationPaper(){
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlRooms, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jlWeapons))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jrbHall)
                             .addComponent(jrbKnife))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jrbMustard)
+                    .addComponent(jrbEatery)
                     .addComponent(jrbCandlestick))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jrbKitchen)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jrbTerrace)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jrbPlanetarium)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jrbCinema)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jrbLivingRoom)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jrbBath)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jrbGuestHouse))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -508,7 +589,20 @@ private void initSuspectationPaper(){
                         .addComponent(jrbDumbbell)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
+        jpBase.add(this, BorderLayout.CENTER);
+        chooseButton=new JButton(LanguageStrings.getString("Suspect.Choose"));
+        chooseButton.addActionListener((ActionEvent evt) -> jbChooseActionPerformed());
 
+}
+private void jbChooseActionPerformed(){
+    if(selectedGuestKey.equals("")||selectedWeaponKey.equals("")){
+        AbstractBaseWindow.showErrorMessage(LanguageStrings.getString("Suspect.SelectedOptions")+System.lineSeparator()+LanguageStrings.getString(selectedGuestKey)+", "+LanguageStrings.getString(selectedWeaponKey)+", "+LanguageStrings.getString(selectedRoomKey)+System.lineSeparator()+LanguageStrings.getString("Suspect.MustChooseGuestAndWeapon"));
+    }else{
+        int answer=AbstractBaseWindow.showConfirmation(LanguageStrings.getString("Suspect.SureToChooseTheeseObjects"), null);
+        if(answer==JOptionPane.YES_OPTION){
+            gameController.humanPlayerSuspectCards(selectedGuestKey, selectedWeaponKey, selectedRoomKey);
+        }
+    }
 }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -588,8 +682,9 @@ private void initSuspectationPaper(){
    public void resetStrings() {
        jlGuests.setText(LanguageStrings.getString(GAMEBOARD_GUEST_CONST));
        jlWeapons.setText(LanguageStrings.getString(GAMEBOARD_WEAPON_CONST));
+       jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
        if(suspect){
-           jrbKnife.setText(LanguageStrings.getString(KNIFE_KEY));
+        jrbKnife.setText(LanguageStrings.getString(KNIFE_KEY));
         jrbCandlestick.setText(LanguageStrings.getString(CANDLESTICK_KEY));
         jrbRevolver.setText(LanguageStrings.getString(REVOLVER_KEY));
         jrbPoison.setText(LanguageStrings.getString(POISON_KEY));
@@ -598,8 +693,17 @@ private void initSuspectationPaper(){
         jrbBat.setText(LanguageStrings.getString(BAT_KEY));
         jrbAxe.setText(LanguageStrings.getString(AXE_KEY));
         jrbDumbbell.setText(LanguageStrings.getString(DUMBBELL_KEY));
+        jrbHall.setText(LanguageStrings.getString(HALL_KEY));
+        jrbEatery.setText(LanguageStrings.getString(EATERY_KEY));
+        jrbKitchen.setText(LanguageStrings.getString(KITCHEN_KEY));
+        jrbTerrace.setText(LanguageStrings.getString(TERRACE_KEY));
+        jrbPlanetarium.setText(LanguageStrings.getString(PLANETARIUM_KEY));
+        jrbCinema.setText(LanguageStrings.getString(CINEMA_KEY));
+        jrbLivingRoom.setText(LanguageStrings.getString(LIVINGROOM_KEY));
+        jrbBath.setText(LanguageStrings.getString(BATH_KEY));
+        jrbGuestHouse.setText(LanguageStrings.getString(GUESTHOUSE_KEY));
+        chooseButton.setText(LanguageStrings.getString("Suspect.Choose"));
        }else{ 
-        jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
         jcKnife.setText(LanguageStrings.getString(KNIFE_KEY));
         jcCandlestick.setText(LanguageStrings.getString(CANDLESTICK_KEY));
         jcRevolver.setText(LanguageStrings.getString(REVOLVER_KEY));

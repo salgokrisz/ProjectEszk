@@ -22,9 +22,7 @@ public class Ai extends Player {
     private List<Point> availablePositionsToMove=new ArrayList<>();
     private StringBuilder sbInformation;
     private List<Card> alreadyKnownCards;
-    private Card suspectedMurderInActualRound;
-    private Card suspectedMurderWeaponInActualRound;
-    private Card suspectedMurderRoomInActualRound;
+  
     private Card sureMurder;
     private Card sureMurderWeapon;
     private Card sureMurderRoom;
@@ -41,9 +39,7 @@ public class Ai extends Player {
         this.availablePositionsToMove=other.getAvailablePositionsToMove();
         this.sbInformation=other.getSbInformation();
         this.alreadyKnownCards=other.getAlreadyKnownCards();
-        this.suspectedMurderInActualRound=other.getSuspectedMurderInActualRound();
-        this.suspectedMurderWeaponInActualRound=other.getSuspectedMurderWeaponInActualRound();
-        this.suspectedMurderRoomInActualRound=other.getSuspectedMurderRoomInActualRound();
+        
         this.sureMurder=other.getSureMurder();
         this.sureMurderRoom=other.getSureMurderRoom();
         this.sureMurderWeapon=other.getSureMurderWeapon();
@@ -85,52 +81,7 @@ public class Ai extends Player {
 
 
 
-    public Card getSuspectedMurderInActualRound() {
-        Card aClone=null;
-        if(suspectedMurderInActualRound!=null){
-            aClone=(Card)suspectedMurderInActualRound.cloneObject();
-        }
-        return aClone;
-    }
-
-    public void setSuspectedMurderInActualRound(Card suspectedMurderInActualRound) {
-        this.suspectedMurderInActualRound=null;
-        if(suspectedMurderInActualRound!=null){
-            this.suspectedMurderInActualRound =(Card) suspectedMurderInActualRound.cloneObject();
-        }
-        
-    }
-
-    public Card getSuspectedMurderWeaponInActualRound() {
-        Card aClone=null;
-        if(suspectedMurderWeaponInActualRound!=null){
-            aClone=(Card)suspectedMurderWeaponInActualRound.cloneObject();
-        }
-        return aClone;
-
-    }
-
-    public void setSuspectedMurderWeaponInActualRound(Card suspectedMurderWeaponInActualRound) {
-        this.suspectedMurderWeaponInActualRound=null;
-        if(suspectedMurderWeaponInActualRound!=null){
-            this.suspectedMurderWeaponInActualRound =(Card) suspectedMurderWeaponInActualRound.cloneObject();
-        }
-    }
-
-    public Card getSuspectedMurderRoomInActualRound() {
-        Card aClone=null;
-        if(suspectedMurderRoomInActualRound!=null){
-            aClone=(Card)suspectedMurderRoomInActualRound.cloneObject();
-        }
-        return aClone;
-    }
-
-    public void setSuspectedMurderRoomInActualRound(Card suspectedMurderRoomInActualRound) {
-        this.suspectedMurderRoomInActualRound=null;
-        if(suspectedMurderRoomInActualRound!=null){
-            this.suspectedMurderRoomInActualRound =(Card) suspectedMurderRoomInActualRound.cloneObject();
-        }
-    }
+   
     
     public void addToAlreadyKnownCards(Card card){
         if(!alreadyKnownCards.contains(card)){

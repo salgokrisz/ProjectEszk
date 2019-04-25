@@ -34,7 +34,9 @@ public interface GameBoardListener {
 
     void displayComputerView();
 
-    void showSuspectCardsView(Card murder, Card murderWeapon, Card murderRoom);
+    void showSuspectCardsView(Card murder, Card murderWeapon, Card murderRoom,  Player playerWhoProves);
 
     void removeAiSuspectCardWindow();
+    
+    void showProofCardView(Card proofCard, Player playerWhoShowed);
 }

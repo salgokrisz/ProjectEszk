@@ -135,15 +135,18 @@ private void customizeRadioButton(JRadioButton radioButton, String title){
         radioButton.setSelected(true);
     }
 }
-private int findTextOfButton(String text, List<String> list){
+private int findTextOfButton(String text, List<String> list, boolean isWeapon){
     int i=0;
     boolean found=false;
     while(i<list.size() && !found){
-        String value=LanguageStrings.getString(list.get(i));
+        String value=list.get(i);
+        if(isWeapon){
+        value=LanguageStrings.getString(list.get(i));
         if(value==null){
-            value=text;
+            value="";
         }
-        found=value.equals(list.get(i));
+        }
+        found=value.equals(text);
             i+=1;
     }
     int foundIndex=-1;
@@ -155,9 +158,9 @@ private int findTextOfButton(String text, List<String> list){
 private void suspectButtonActionPerformed(ActionEvent evt){
     JRadioButton button=(JRadioButton)evt.getSource();
     String text=button.getText();
-    int i=findTextOfButton(text, weaponKeys);
+    int i=findTextOfButton(text, weaponKeys, true);
     if(i==-1){
-        i=findTextOfButton(text, guestKeys);
+        i=findTextOfButton(text, guestKeys, false);
         selectedGuestKey=guestKeys.get(i);
         LOG.log(Level.INFO, "Selected guest to suspect: {0}",selectedGuestKey);
     }else{
@@ -598,12 +601,13 @@ private void initSuspectationPaper(){
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         jpBase.add(this, BorderLayout.CENTER);
+        jpBase.setBackground(new Color(180, 0, 0));
         chooseButton=new JButton(LanguageStrings.getString("Suspect.Choose"));
         chooseButton.addActionListener((ActionEvent evt) -> jbChooseActionPerformed());
         chooseButton.setBackground(new Color(255, 30, 21));
         chooseButton.setFont(new java.awt.Font(FONT_TYPE, 1, 12));
-       /* JPanel panelForButton=new JPanel(new BorderLayout());
-        JPanel panel=new JPanel();
+        JPanel panelForButton=new JPanel(new BorderLayout());
+      /*  JPanel panel=new JPanel();
         panel.setPreferredSize(new Dimension(400, 50));
         panel.setBackground(new Color(180, 0, 0));
         panelForButton.setBackground(new Color(180, 0, 0));
@@ -615,7 +619,8 @@ private void initSuspectationPaper(){
         panel.setPreferredSize(new Dimension(500, 400));
         jpBase.add(panel, BorderLayout.WEST);
         jpBase.add(panel, BorderLayout.EAST);*/
-        jpBase.add(chooseButton, BorderLayout.SOUTH);
+      panelForButton.add(chooseButton, BorderLayout.CENTER);
+        jpBase.add( panelForButton, BorderLayout.SOUTH);
 
 }
 private void jbChooseActionPerformed(){

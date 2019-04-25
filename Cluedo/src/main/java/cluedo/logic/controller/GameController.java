@@ -269,10 +269,11 @@ public class GameController {
         return cardToShow;
     }
     private void computerPlayerWaitsForProof(Player playerWhoHasToProve){
+        Player actualPlayer=getActualPlayer();
          if (!playerWhoHasToProve.getIsComputer()) {
-            fireShowInformationsAboutSuspectedCards(playerWhoHasToProve.getSuspectedMurderInActualRound(), playerWhoHasToProve.getSuspectedMurderWeaponInActualRound(), playerWhoHasToProve.getSuspectedMurderRoomInActualRound(), playerWhoHasToProve);
+            fireShowInformationsAboutSuspectedCards(actualPlayer.getSuspectedMurderInActualRound(), actualPlayer.getSuspectedMurderWeaponInActualRound(), actualPlayer.getSuspectedMurderRoomInActualRound(), playerWhoHasToProve);
         } else {
-            Card cardToShow = computerPlayerDeterminesSuspectCardToShow((Ai) playerWhoHasToProve,playerWhoHasToProve.getSuspectedMurderInActualRound(), playerWhoHasToProve.getSuspectedMurderWeaponInActualRound(), playerWhoHasToProve.getSuspectedMurderRoomInActualRound());
+            Card cardToShow = computerPlayerDeterminesSuspectCardToShow((Ai) playerWhoHasToProve,actualPlayer.getSuspectedMurderInActualRound(), actualPlayer.getSuspectedMurderWeaponInActualRound(), actualPlayer.getSuspectedMurderRoomInActualRound());
        
             showCardForAi(cardToShow, playerWhoHasToProve);
         }

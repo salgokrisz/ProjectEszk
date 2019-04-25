@@ -138,6 +138,7 @@ Actions.AiDrawnIntricCard=Drawn intric card.
 Actions.AiSuspectsCards=Suspected cards:
 Actions.DroppedIntric=You will get an intric card because you have dropped a question mark sign with one of the dices.
 Actions.AiUsedSecretPassage=Used secret passage to room: 
+Actions.RollDiceOrUseSecretPassage=You are in a room with secret passage. Click on the secret corridor field in your room to use it or click on the dice button if you want to roll dices instead.
 
 #Tests
 Test.1=test1_eng

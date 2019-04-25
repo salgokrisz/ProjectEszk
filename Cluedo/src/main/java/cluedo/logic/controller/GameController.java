@@ -179,9 +179,11 @@ public class GameController {
         }
         fireShowInformation(message.toString());
         actualGamePhase = GamePhase.ROLL;
-        if(!players.get(actualPlayerIndex).getIsComputer()){
-        fireDisplayRollView();
+        Player actualPlayer=getActualPlayer();
+        if(!actualPlayer.getIsComputer()){
+        fireDisplayRollView(actualPlayer.getIsInRoom() && roomMap.get(actualPlayer.getActualRoomName()).getClass()==SecretCorridoredRoom.class);
         }else{
+            fireDisplayComputerView();
             controlComputerPlayer();
         }
     }
@@ -195,7 +197,7 @@ public class GameController {
                     actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.AiUsedSecretPassage"));
                     actualComputerPlayer.appendToInformation(LanguageStrings.getString(((SecretCorridoredRoom)roomMap.get(actualComputerPlayer.getActualRoomName())).getToRoomName()));
                     actualComputerPlayer.appendToInformation(System.lineSeparator());
-                    enterRoom(roomMap.get(actualComputerPlayer.getActualRoomName()),actualPlayerIndex);
+                    enterRoom(roomMap.get(actualComputerPlayer.getActualRoomName()),actualPlayerIndex, true);
             }else{
             int droppedNumber=rollDice();
             StringBuilder sb=new StringBuilder(LanguageStrings.getString(OPTION_PANE_DROPPED_NUMBER_CONST));
@@ -212,7 +214,7 @@ public class GameController {
             if(field.getType()==FieldType.ENTRANCE){
                 actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.AiEnteredRoom"));
                 Room room=searchForRoomAccordingToFieldPosition(destination.getX(), destination.getY());
-                enterRoom(room, actualPlayerIndex);
+                enterRoom(room, actualPlayerIndex, false);
                 actualComputerPlayer.appendToInformation(LanguageStrings.getString(actualComputerPlayer.getActualRoomName()));
                 actualComputerPlayer.appendToInformation(System.lineSeparator());
             }else{
@@ -270,18 +272,27 @@ public class GameController {
         }
                 changeActualPlayerIndex();
                 fireShowNextPlayerMessage();
-                if(!players.get(actualPlayerIndex).getIsComputer()){
-                    fireDisplayRollView();
+                Player actualPlayer=getActualPlayer();
+                if(!actualPlayer.getIsComputer()){
+                    fireDisplayRollView(actualPlayer.getIsInRoom() && roomMap.get(actualPlayer.getActualRoomName()).getClass()==SecretCorridoredRoom.class);
                 }else{
                     fireDisplayComputerView();
                     controlComputerPlayer();
                 }
             
     }
-    private void fireDisplayRollView(){
-        gameBoardListener.displayRollAndComputerView();
+    private void fireDisplayRollView(boolean secretCorridoreIsAvailable){
+        gameBoardListener.displayRollView(secretCorridoreIsAvailable);
         if(actualGamePhase!=GamePhase.INITIAL){
-        fireShowWhatToDo(LanguageStrings.getString("Actions.RollDice"));
+            Player actualPlayer=getActualPlayer();
+            String message=LanguageStrings.getString("Actions.RollDice");
+        if(actualPlayer.getIsInRoom()){
+            Room room=roomMap.get(actualPlayer.getActualRoomName());
+            if(room.getClass()==SecretCorridoredRoom.class){
+                message=LanguageStrings.getString("Actions.RollDiceOrUseSecretPassage");
+            }
+        }
+        fireShowWhatToDo(message);
         }
     }
     public Map<Integer, Player> determinateSerialNumbers(int starterIndex) {
@@ -435,7 +446,7 @@ public class GameController {
     public void initializeGame() {
         initializeSuspectCards();
         intricCards = initializeIntricCards(); //it is commented out becuse of pmd it will be needed later
-        fireDisplayRollView();
+        fireDisplayRollView(false);
         fireShowWhatToDo(LanguageStrings.getString("Actions.RollDiceStart"));
     }
     
@@ -557,8 +568,11 @@ public class GameController {
         return players.get(humanPlayerIndex);
     }
 
-    public void enterRoom(Room room, int playerIndex) {
+    public void enterRoom(Room room, int playerIndex, boolean usedSecretPassage) {
         Point newPosition = findFreePositionInRoom(room);
+        if(usedSecretPassage){
+            actualGamePhase=GamePhase.MOVE;
+        }
         moveToField(newPosition.getX(), newPosition.getY(), playerIndex);
         players.get(playerIndex).setIsInRoom(true);
         players.get(playerIndex).setActualRoomName(room.getName());
@@ -612,7 +626,7 @@ public class GameController {
         gameBoardListener.showSuspectView();
     }
     private void fireDisplayComputerView(){
-        gameBoardListener.displayRollAndComputerView();
+        gameBoardListener.displayComputerView();
     }
     private void fireShowNextPlayerMessage(){
         StringBuilder message=new StringBuilder(LanguageStrings.getString("JOptionPane.NextPlayer"));

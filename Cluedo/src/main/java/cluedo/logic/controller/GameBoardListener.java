@@ -17,11 +17,13 @@ public interface GameBoardListener {
     void showMovement(Point oldPosition, Player player);
     void enableRollDiceButton(boolean enabled);
     void showDrawnIntricCardInfo(Intrics drawnCard);
-    void displayRollAndComputerView();
+    void displayRollView(boolean isInSecretRoom);
 
     void showSuspectView();
 
     void displayMoveView(List<Point> availablePositions);
 
     void enableFieldButtons(boolean b);
+
+    void displayComputerView();
 }

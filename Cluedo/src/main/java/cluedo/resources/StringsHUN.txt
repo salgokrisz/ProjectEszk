@@ -137,6 +137,7 @@ Actions.AiDrawnIntricCard=Intrika kártyát húzott.
 Actions.AiSuspectsCards=A gyanúsított kártyák:
 Actions.DroppedIntric=Kapsz egy intrika kártyát, mert az egyik dobókockával kérdőjelet dobtál.
 Actions.AiUsedSecretPassage=Titkos átjárót használt ebbe a szobába: 
+Actions.RollDiceOrUseSecretPassage=Titkos átjárót tartalmazó szobában vagy. Kattints a szobádban levő titkos átjáró mezőjére, hogy használd, vagy a dobókocka gombjára, ha inkább dobni szeretnél.
 
 #Tests
 Test.1=test1_hun

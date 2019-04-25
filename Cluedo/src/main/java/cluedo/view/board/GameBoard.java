@@ -3,6 +3,7 @@ package cluedo.view.board;
 import cluedo.logic.cards.Card;
 import cluedo.logic.controller.GameBoardListener;
 import cluedo.logic.controller.GameController;
+import cluedo.logic.controller.GamePhase;
 import cluedo.logic.factories.RoomFactory;
 import cluedo.logic.fields.Field;
 import cluedo.logic.fields.FieldType;
@@ -59,6 +60,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     private final JButton specialAbilityButton;
     private static final String GAMEBOARD_CLUEPAPER_CONST = "GameBoard.CluePaper";
     private static final String SURE_TO_MOVE_CONST = "JOptionPane.SureToMove";
+    private boolean recognizeSecretPassageAction;
 
     public GameBoard(GameController gameController) {
         recognizeActions=true;
@@ -231,16 +233,25 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         }
         button.setEnabled(button.getIsEnabledToClickOn());
     }
-
+    @Override
+    public void displayComputerView(){
+        recognizeActions=false;
+        diceButton.setEnabled(true);
+        specialAbilityButton.setEnabled(false);
+    }
     private void secretCorridorButtonActionPerformed() {
-        if(recognizeActions){
+        if(recognizeActions || recognizeSecretPassageAction){
             int answer=showConfirmation(LanguageStrings.getString(SURE_TO_MOVE_CONST), null);
         if(answer==JOptionPane.YES_OPTION){
+            diceButton.setEnabled(false);
         Room toRoom = gameController.findSecretPassageToRoom(gameController.getActualPlayerIndex());
         answer = showConfirmation(LanguageStrings.getString("JOptionPane.SureToUseSecretCorridor") + System.lineSeparator() + LanguageStrings.getString(toRoom.getName()), null);
         if (answer == JOptionPane.YES_OPTION) {
-            gameController.enterRoom(toRoom, gameController.getActualPlayerIndex());
+            gameController.enterRoom(toRoom, gameController.getActualPlayerIndex(), true);
         }
+        }
+        if(recognizeSecretPassageAction){
+            recognizeSecretPassageAction=false;
         }
         }
     }
@@ -287,7 +298,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         if(answer==JOptionPane.YES_OPTION){
         PositionedButton button = (PositionedButton) evt.getSource();
         Room room = gameController.searchForRoomAccordingToFieldPosition(button.getRow(), button.getColumn());
-        gameController.enterRoom(room, gameController.getActualPlayerIndex());
+        gameController.enterRoom(room, gameController.getActualPlayerIndex(), false);
         }
         }
     }
@@ -381,9 +392,22 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     public void enableRollDiceButton(boolean enabled){
         diceButton.setEnabled(enabled);
     }
+    private void enableSpecialAbilityButtonIfItIsAvailable(){
+        boolean enabled;
+        if(gameController.getActualGamePhase()!=GamePhase.INITIAL){
+            enabled=gameController.getHumanPlayer().getRole().getAbilityIsAvailable();
+                }else{
+            enabled=false;
+        }
+        specialAbilityButton.setEnabled(enabled);
+    }
     @Override
-    public void displayRollAndComputerView(){
+    public void displayRollView(boolean isInSecretRoom){
+        enableSpecialAbilityButtonIfItIsAvailable();
         recognizeActions=false;
+        if(isInSecretRoom){
+           recognizeSecretPassageAction = true;
+        }
         diceButton.setEnabled(true);
     }
     @Override

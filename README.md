@@ -15,13 +15,13 @@ A teszteket az alábbi parancsokkal lehet futtatni:
 - Ha abban a mappában állunk, ahol a pom.xml van, akkor:
   - mvn clean test
 - Ha nem, akkor:
-  - mvn -f <classpath of pom.xml> clean test
+  - mvn -f classpath of pom.xml clean test
 ## Project buildelése
 A projectet az alábbi parancsokkal lehet buildelni:
 - Ha abban a mappában állunk, ahol a pom.xml van, akkor:
   - mvn clean install
 - Ha nem, akkor:
-  - mvn -f <classpath of pom.xml> clean install
+  - mvn -f classpath of pom.xml clean install
 
 Az install parancs a build ciklus összes fázisát lefuttatja. Ezeket a fázisokat elvégezhetjük külön parancsokkal is pl.: mvn compile,
 lásd: * [Maven build fázisainak parancsai]

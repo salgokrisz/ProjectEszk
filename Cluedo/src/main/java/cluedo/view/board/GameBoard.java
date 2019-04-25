@@ -188,6 +188,8 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
                 PositionedButton button=buttonedMap.get(i).get(j);
                 if(enabled){ 
                 button.setEnabled(button.getIsEnabledToClickOn()|| gameController.getListOfPlayersOnPosition(field.getX(), field.getY()).size()>=1);
+                recognizeActions=false;
+                recognizeSecretPassageAction=false;
                 }else{
                     button.setEnabled(enabled);
                 }
@@ -465,6 +467,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     @Override
     public void showSuspectView(){
         CluePaperPanel panelForSuspectation=new CluePaperPanel(true, gameController);
+        
         jlToDo=new JLabel();
             jlToDo.setFont(new java.awt.Font(FONT_TYPE, 1, 16));
             jlToDo.setText(LanguageStrings.getString("Actions.ChooseSuspects"));
@@ -479,22 +482,22 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
             JPanel dummyPanel = new JPanel();
         dummyPanel.setPreferredSize(new Dimension(500, 200));
         dummyPanel.setBackground(new Color(180, 0, 0));
-        panelForSelectionPaper.add(dummyPanel, WEST);
+        panelForCluePaper.add(dummyPanel, WEST);
      //   dummyPanel.setPreferredSize(new Dimension(500, 200));
         panelForRealCluePaper.add(dummyPanel, WEST);
         dummyPanel = new JPanel();
         
         dummyPanel.setPreferredSize(new Dimension(500, 200));
         dummyPanel.setBackground(new Color(180, 0, 0));
-       panelForSelectionPaper.add(dummyPanel, EAST);
+       panelForCluePaper.add(dummyPanel, EAST);
       //  dummyPanel.setPreferredSize(new Dimension(500, 200));
          panelForRealCluePaper.add(dummyPanel, EAST);
             panelForSelectionPaper.add(jlToDo, NORTH);
             panelForSelectionPaper.setBackground(new Color(180, 0, 0));
             cluePaperPanel.enableCheckBoxes(false, gameController.getActualPlayer());
             
-            panelForCluePaper.add(panelForRealCluePaper, SOUTH);
-            panelForCluePaper.add(panelForSelectionPaper, NORTH);  
+           // panelForCluePaper.add(panelForRealCluePaper, SOUTH);
+            panelForCluePaper.add(panelForSelectionPaper, BorderLayout.CENTER);  
         tabbedPane.removeTabAt(1);
         tabbedPane.addTab(LanguageStrings.getString(GAMEBOARD_CLUEPAPER_CONST), panelForCluePaper);
         jpBase.add(tabbedPane, BorderLayout.CENTER);

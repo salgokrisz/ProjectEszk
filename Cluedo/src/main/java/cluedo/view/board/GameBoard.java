@@ -61,7 +61,8 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     private static final String GAMEBOARD_CLUEPAPER_CONST = "GameBoard.CluePaper";
     private static final String SURE_TO_MOVE_CONST = "JOptionPane.SureToMove";
     private boolean recognizeSecretPassageAction;
-
+    private JButton finishedRoundButton;
+    private AiSuspectCardWindow aiSuspectCardWindow;
     public GameBoard(GameController gameController) {
         recognizeActions=true;
         jpBase = new JPanel();
@@ -106,6 +107,10 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
                     })
         );
        panelForButtons.add(intricCardsButton);
+       finishedRoundButton=new JButton(LanguageStrings.getString("GameBoard.EndRound"));
+       finishedRoundButton.setBackground(new Color(255, 30, 21));
+       finishedRoundButton.addActionListener((ActionEvent evt) -> gameController.nextPlayerIsComing());
+       finishedRoundButton.setEnabled(false);
         diceButton.addActionListener((ActionEvent evt) -> gameController.rollDice());
         specialAbilityButton=new JButton(LanguageStrings.getString("GameBoard.MySpecialAbility"));
         specialAbilityButton.setBackground(new Color(255, 30, 21));
@@ -127,6 +132,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
             
         });
         panelForButtons.add(specialAbilityButton);
+        panelForButtons.add(finishedRoundButton);
         JPanel dummyPanel = new JPanel();
         dummyPanel.setPreferredSize(new Dimension(10, 10));
         dummyPanel.setBackground(new Color(180, 0, 0));
@@ -158,6 +164,18 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         registerGameBoardListener();
     }
     @Override
+    public void removeAiSuspectCardWindow(){
+        aiSuspectCardWindow=null;
+    }
+    @Override
+    public void showSuspectCardsView(Card murder, Card murderWeapon, Card murderRoom){
+        SwingUtilities.invokeLater(() -> {
+                        aiSuspectCardWindow = new AiSuspectCardWindow(gameController, murder, murderWeapon, murderRoom);
+                        aiSuspectCardWindow.setVisible(true);
+                        openedWindowsSet.add(aiSuspectCardWindow);
+                    });
+    }
+    @Override
     public void enableFieldButtons(boolean enabled){
         List<List<Field>> fieldMap=gameController.getFieldMap();
         for(int i=0; i<buttonedMap.size();++i){
@@ -177,6 +195,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     @Override
     public void displayMoveView(List<Point> availablePositions){
         recognizeActions=true;
+        recognizeSecretPassageAction=false;
         List<List<Field>> fieldMap=gameController.getFieldMap();
         for(int i=0; i<buttonedMap.size(); ++i){
                     List<PositionedButton> row=buttonedMap.get(i);
@@ -404,10 +423,9 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     @Override
     public void displayRollView(boolean isInSecretRoom){
         enableSpecialAbilityButtonIfItIsAvailable();
+        finishedRoundButton.setEnabled(false);
         recognizeActions=false;
-        if(isInSecretRoom){
-           recognizeSecretPassageAction = true;
-        }
+           recognizeSecretPassageAction = isInSecretRoom;
         diceButton.setEnabled(true);
     }
     @Override
@@ -416,6 +434,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         javax.swing.JLabel jlToDo=new javax.swing.JLabel();
             jlToDo.setFont(new java.awt.Font(FONT_TYPE, 1, 16));
             jlToDo.setText(LanguageStrings.getString("Actions.ChooseSuspects"));
+            jlToDo.setBackground(new Color(180, 0, 0));
             panelForCluePaper=new JPanel(new BorderLayout());
             panelForCluePaper.add(jlToDo, NORTH);
             cluePaperPanel.enableCheckBoxes(true, gameController.getActualPlayer());
@@ -435,6 +454,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         jpBase.setBackground(new Color(180, 0, 0));
         Container cp = getContentPane();
         cp.add(jpBase);
+        showInformation(LanguageStrings.getString("Suspect.ChooseClueTab"));
     }
     @Override
     public void showDrawnIntricCardInfo(Intrics intricCard){
@@ -516,10 +536,14 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     protected void resetStringsOnWindow() {
         super.resetStringsOnWindow();
         cluePaperPanel.resetStrings();
+        if(aiSuspectCardWindow!=null){
+            aiSuspectCardWindow.resetStrings();
+        }
         tabbedPane.setTitleAt(0, LanguageStrings.getString("GameBoard.Board"));
         tabbedPane.setTitleAt(1, LanguageStrings.getString(GAMEBOARD_CLUEPAPER_CONST));
         suspectCardsButton.setText(LanguageStrings.getString("GameBoard.MyCards"));
         intricCardsButton.setText(LanguageStrings.getString("GameBoard.MyIntricCards"));
+        finishedRoundButton.setText(LanguageStrings.getString("GameBoard.EndRound"));
     }
 
     @Override

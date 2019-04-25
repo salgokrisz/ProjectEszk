@@ -152,4 +152,14 @@ public class Player {
     public boolean isAbleToUseSpecialAbility() {
         return role.getAbilityIsAvailable();
     }
+
+    public boolean ownsSuspectCardAccordingToTitle(String text) {
+        int i=0;
+        boolean owns=false;
+        while(i<suspectCards.size() && !owns){
+            owns=suspectCards.get(i).getNameForUI().equals(text);
+            i+=1;
+        }
+        return owns;
+    }
 }

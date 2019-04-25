@@ -61,6 +61,7 @@ GameBoard.MySuspectCards=My suspect cards
 GameBoard.MyIntricCards=My intric cards
 GameBoard.EntranceMark=In
 GameBoard.MySpecialAbility=My special ability
+GameBoard.EndRound=Finished my round
 
 #CardWindow
 CardWindow.Next=Next
@@ -139,6 +140,13 @@ Actions.AiSuspectsCards=Suspected cards:
 Actions.DroppedIntric=You will get an intric card because you have dropped a question mark sign with one of the dices.
 Actions.AiUsedSecretPassage=Used secret passage to room: 
 Actions.RollDiceOrUseSecretPassage=You are in a room with secret passage. Click on the secret corridor field in your room to use it or click on the dice button if you want to roll dices instead.
+Actions.ChooseCardToProve=<br> suspects these, choose one if you own one or no if you don't.
+
+#Suspect
+Suspect.Nothing=Nothing
+Suspect.SureToShowThisCard=Are you sure you want to show as a proof this suspect card: 
+Suspect.Evidence=Evidence
+Suspect.ChooseClueTab=Change to clue paper tab to select suspected objects!
 
 #Tests
 Test.1=test1_eng

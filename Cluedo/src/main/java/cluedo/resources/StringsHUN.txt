@@ -136,6 +136,7 @@ Actions.Column=oszlop
 Actions.AiDrawnIntricCard=Intrika kártyát húzott.
 Actions.AiSuspectsCards=A gyanúsított kártyák:
 Actions.DroppedIntric=Kapsz egy intrika kártyát, mert az egyik dobókockával kérdőjelet dobtál.
+Actions.AiUsedSecretPassage=Titkos átjárót használt ebbe a szobába: 
 
 #Tests
 Test.1=test1_hun

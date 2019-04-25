@@ -191,6 +191,12 @@ public class GameController {
                     actualComputerPlayer.appendToInformation(actualComputerPlayer.toString());
                     actualComputerPlayer.appendToInformation(System.lineSeparator());
         if(actualGamePhase==GamePhase.ROLL){
+            if(actualComputerPlayer.getIsInRoom() && roomMap.get(actualComputerPlayer.getActualRoomName()).getClass()==SecretCorridoredRoom.class){
+                    actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.AiUsedSecretPassage"));
+                    actualComputerPlayer.appendToInformation(LanguageStrings.getString(((SecretCorridoredRoom)roomMap.get(actualComputerPlayer.getActualRoomName())).getToRoomName()));
+                    actualComputerPlayer.appendToInformation(System.lineSeparator());
+                    enterRoom(roomMap.get(actualComputerPlayer.getActualRoomName()),actualPlayerIndex);
+            }else{
             int droppedNumber=rollDice();
             StringBuilder sb=new StringBuilder(LanguageStrings.getString(OPTION_PANE_DROPPED_NUMBER_CONST));
             sb.append(droppedNumber).append(System.lineSeparator());
@@ -221,21 +227,20 @@ public class GameController {
                 actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.Column"));
                 actualComputerPlayer.appendToInformation(System.lineSeparator());
                 if(field.getType()==FieldType.INTRIC){
-                    drawIntricCard();
                     actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.AiDrawnIntricCard"));
                     actualComputerPlayer.appendToInformation(System.lineSeparator());
                 }
             }
+            }
             if(players.get(actualPlayerIndex).getIsInRoom()){
                 actualGamePhase=GamePhase.SUSPECT;
-                Card murder=actualComputerPlayer.selectSuspect();
-                Card murderWeapon=actualComputerPlayer.selectSuspect();
+                Card murder=actualComputerPlayer.selectSuspect(allMurderCards);
+                Card murderWeapon=actualComputerPlayer.selectSuspect(allMurderWeaponCards);
                 Card murderRoom=actualComputerPlayer.findMurderRoomAccordingToPosition(allMurderRoomCards);
                 fireShowInformationsAboutSuspectedCards(murder, murderWeapon, murderRoom);
-            }else{
+            }
                 nextPlayerIsComing();
                 
-        }
     }
     }
     
@@ -581,9 +586,11 @@ public class GameController {
         }
         fireShowMovementOfPlayer(oldPosition, player);
         Player actualPlayer=players.get(actualPlayerIndex);
-        if(field.getType()==FieldType.INTRIC && !actualPlayer.getIsComputer()){
+        if(field.getType()==FieldType.INTRIC ){
             Intrics intricCard = drawIntricCard();
+            if(!actualPlayer.getIsComputer()){
             fireShowDrawnIntricCardInfo(intricCard);
+            }
         }
         fireReEnableFieldButtons();
         if(!actualPlayer.getIsComputer()){
@@ -637,22 +644,42 @@ public class GameController {
         Point actualPlayerPosition = players.get(actualPlayerIndex).getPosition();
         List<Point> availablePointsOfFields = new ArrayList<>();
         availablePointsOfFields.add(actualPlayerPosition);
-        int minRow = actualPlayerPosition.getX() - droppedNumber;
-        int maxRow = actualPlayerPosition.getX() + droppedNumber;
+        int actRow=actualPlayerPosition.getX();
+        int actColumn=actualPlayerPosition.getY();
+        int minRow = actRow - droppedNumber;
+        int maxRow = actRow + droppedNumber;
         int differenceCounter = droppedNumber;
+        boolean increase=false;
         for (int i = minRow; i <= maxRow; ++i) {
-            for (int j = actualPlayerPosition.getY()-(2*droppedNumber-2*differenceCounter); j < actualPlayerPosition.getY()+(2*droppedNumber-2*differenceCounter); ++j) {
-                if (j >= 0 && j < fieldMap.get(i).size() && (2*droppedNumber-2*differenceCounter)==0) {
-                    availablePointsOfFields.add(new Point(fieldMap.get(i).get(j).getX(), fieldMap.get(i).get(j).getY()));
+            if(i>=0 && i<map.getRows()){
+            int fieldNumberToExamine=droppedNumber-differenceCounter;
+            int from=actColumn-fieldNumberToExamine;
+            int to=actColumn+fieldNumberToExamine;
+            for (int j = from; j <= to; ++j) {
+                int rowSizeInFieldMap=fieldMap.get(i).size();
+                if (j >= 0 && j < rowSizeInFieldMap) {
+                    Field field=fieldMap.get(i).get(j);
+                    availablePointsOfFields.add(new Point(field.getX(), field.getY()));
                 }
             }
-            if(i==actualPlayerPosition.getX()){
+            }
+            if(i==actRow){
                 differenceCounter = 0;
+                increase=true;
+            }
+            if(increase){
+                differenceCounter+=1;
+            }else{
+                differenceCounter-=1;
             }
         }
         return availablePointsOfFields;
     }
     public void playerUsesSpecialAbility(Player player) {
         player.getRole().useSpecialAbility();
+    }
+
+    public void changeTypeOfField(int row, int column, FieldType fieldType) {
+        fieldMap.get(row).get(column).setType(fieldType);
     }
 }

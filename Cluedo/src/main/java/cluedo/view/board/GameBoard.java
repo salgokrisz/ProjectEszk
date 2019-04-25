@@ -161,9 +161,14 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         for(int i=0; i<buttonedMap.size();++i){
             List<PositionedButton> row=buttonedMap.get(i);
             for(int j=0; j<row.size();++j){
+                
                 Field field=fieldMap.get(i).get(j);
                 PositionedButton button=buttonedMap.get(i).get(j);
-                button.setEnabled(button.getIsEnabledToClickOn()|| field.getPlayerNumber()>=1);
+                if(enabled){ 
+                button.setEnabled(button.getIsEnabledToClickOn()|| gameController.getListOfPlayersOnPosition(field.getX(), field.getY()).size()>=1);
+                }else{
+                    button.setEnabled(enabled);
+                }
             }
         }
     }
@@ -195,6 +200,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     }
 
     private PositionedButton createSecretCorridorButton(Room room, int row, int column) {
+        gameController.changeTypeOfField(row, column, FieldType.SECRET);
         ImageIcon icon = new ImageIcon(getClass().getResource("/board/secret_corridor.png"));
         ((SecretCorridoredRoom) room).setWasSetSecretEntranceImage(true);
         ((SecretCorridoredRoom) room).setSecretFieldPosition(new Point(row, column));

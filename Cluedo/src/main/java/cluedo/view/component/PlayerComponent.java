@@ -1,5 +1,6 @@
 package cluedo.view.component;
 
+import cluedo.view.RoleChooserWindow;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -22,7 +23,7 @@ public final class PlayerComponent {
         this.jcbPlayerRole=jcbPlayerRole;
         this.jcbDifficultyLevel=jcbDifficultyLevel;
         this.jlPlayerNumberText=jlPlayerNumberText;
-        previouslySelectedjcbPlayerRole="Random";
+        previouslySelectedjcbPlayerRole=RoleChooserWindow.RANDOM_CONST;
     }
 
     public String getPreviouslySelectedjcbPlayerRole() {

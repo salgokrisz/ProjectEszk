@@ -36,7 +36,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     private static final String GREEN = "Green";
     private static final String PLUM = "Plum";
     private static final String HUMAN_PLAYER_OPTION = "Menu.PlayerOptionHuman";
-    private static final String RANDOM_CONST = "Random";
+    public static final String RANDOM_CONST = "Random";
 
     public RoleChooserWindow(GameController gameController) {
         this.gameController = gameController;
@@ -556,6 +556,8 @@ public class RoleChooserWindow extends AbstractBaseWindow {
             modifyAvailableRoleOptions(actuallySelectedOption, serialNumber, false);
         } else if (previouslySelectedOption.equals(RANDOM_CONST) && !previouslySelectedOption.equals(actuallySelectedOption)) {
             modifyAvailableRoleOptions(actuallySelectedOption, serialNumber, false);
+        }else if(!previouslySelectedOption.equals(actuallySelectedOption) && actuallySelectedOption.equals(RANDOM_CONST)){
+            modifyAvailableRoleOptions(previouslySelectedOption, serialNumber, true);
         }
         playerComponent.setPreviouslySelectedjcbPlayerRole(actuallySelectedOption);
     }
@@ -581,7 +583,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
     }
 
     private boolean previouslyThisWasHuman(int serialNumber) {
-        if (serialNumber == 5) {
+        if (serialNumber == 5 || serialNumber==gameController.getNumberOfPlayers()-1) {
             serialNumber = 0;
         } else {
             serialNumber += 1;

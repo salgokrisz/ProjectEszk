@@ -98,9 +98,9 @@ public void drawSuspectCard(Card card){
         sbInformation.append(text);
     }
 
-    public Card selectSuspect() {
+    public Card selectSuspect(List<Card> allMurderCards) {
         List<Card> notOwnedCards=new ArrayList<>();
-        for(Card c:notOwnedCards){
+        for(Card c:allMurderCards){
             if(!alreadyKnownCards.contains(c)){
                 notOwnedCards.add(c);
             }

@@ -31,10 +31,10 @@ public class SuspectPaperPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jpBase = new javax.swing.JPanel();
-        jlRooms = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jlGuests = new javax.swing.JLabel();
+        javax.swing.JPanel jpBase = new javax.swing.JPanel();
+        javax.swing.JLabel jlRooms = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
+        javax.swing.JLabel jlGuests = new javax.swing.JLabel();
 
         jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
 
@@ -80,9 +80,9 @@ public class SuspectPaperPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jlGuests;
-    private javax.swing.JLabel jlRooms;
-    private javax.swing.JPanel jpBase;
+    
+    
+    
+
     // End of variables declaration//GEN-END:variables
 }

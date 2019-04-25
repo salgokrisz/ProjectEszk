@@ -770,14 +770,7 @@ public class GameController {
             int rowSizeInFieldMap = fieldMap.get(rowToConsider).size();
             int leftColumn = actColumn - j;
             int rightColumn = actColumn + j;
-            if (leftColumn >= 0 && leftColumn < rowSizeInFieldMap) {
-                Field field = fieldMap.get(rowToConsider).get(leftColumn);
-                boolean oneOfTheNeighboursIsRoom = oneOfTheNeighboursIsRoom(field);
-                Point actPosition = new Point(field.getX(), field.getY());
-                if (!oneOfTheNeighboursIsRoom || oneOfTheNeighboursIsRoom && (actualPlayer.getPosition().equals(actPosition) || containsPathAndNoRoomFieldOrItIsAnEntranceField(availablePointsOfFields, field, actColumn, actRow, fieldNumberToExamine))) {
-                    availablePointsOfFields.add(actPosition);
-                }
-            }
+            checkIfLeftColumnGreaterNullAndLesserRowSizeInFieldMap(leftColumn,rowToConsider,rowSizeInFieldMap,actualPlayer,availablePointsOfFields,actColumn,actRow,fieldNumberToExamine);
             if (rightColumn >= 0 && rightColumn < rowSizeInFieldMap) {
                 Field field = fieldMap.get(rowToConsider).get(rightColumn);
                 boolean oneOfTheNeighboursIsRoom = oneOfTheNeighboursIsRoom(field);
@@ -785,6 +778,17 @@ public class GameController {
                 if ((field.getType() == FieldType.ENTRANCE || !fieldIsRoom(field)) && (!oneOfTheNeighboursIsRoom || oneOfTheNeighboursIsRoom && (actualPlayer.getPosition().equals(actPosition) || containsPathAndNoRoomFieldOrItIsAnEntranceField(availablePointsOfFields, field, actColumn, actRow, fieldNumberToExamine)))) {
                     availablePointsOfFields.add(actPosition);
                 }
+            }
+        }
+    }
+    
+    private void checkIfLeftColumnGreaterNullAndLesserRowSizeInFieldMap(int leftColumn,int rowToConsider,int rowSizeInFieldMap,Player actualPlayer,List<Point> availablePointsOfFields,int actColumn,int actRow,int fieldNumberToExamine) {
+        if (leftColumn >= 0 && leftColumn < rowSizeInFieldMap) {
+            Field field = fieldMap.get(rowToConsider).get(leftColumn);
+            boolean oneOfTheNeighboursIsRoom = oneOfTheNeighboursIsRoom(field);
+            Point actPosition = new Point(field.getX(), field.getY());
+            if (!oneOfTheNeighboursIsRoom || oneOfTheNeighboursIsRoom && (actualPlayer.getPosition().equals(actPosition) || containsPathAndNoRoomFieldOrItIsAnEntranceField(availablePointsOfFields, field, actColumn, actRow, fieldNumberToExamine))) {
+                availablePointsOfFields.add(actPosition);
             }
         }
     }

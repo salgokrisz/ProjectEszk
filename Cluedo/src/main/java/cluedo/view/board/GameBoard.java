@@ -205,19 +205,15 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
                         Point actPoint=new Point(i, j);
                         Field field=fieldMap.get(i).get(j);
                         boolean enabled=true;
-                        if(field.getType()==FieldType.ROOM){
-                            Room room=gameController.getRoomForName(((RoomField)field).getRoomName());
-                            if(room.getClass()==SecretCorridoredRoom.class){
-                                enabled=((SecretCorridoredRoom)room).getSecretFieldPosition().equals(actPoint);
-                            }else{
-                                enabled=false;
-                            }
+                        if(field.getType()==FieldType.ROOM || field.getType()==FieldType.SECRET || field.getType()==FieldType.END){
+                                enabled=false;             
                         }
                         buttonedMap.get(i).get(j).setEnabled(enabled && availablePositions.contains(actPoint));
                     }
                 }
         showInformation(LanguageStrings.getString("Actions.ChooseFieldToMove"));
     }
+    
     private void registerGameBoardListener() {
         this.gameController.registerGameBoardListener(this);
     }

@@ -15,7 +15,7 @@ A teszteket az alábbi parancsokkal lehet futtatni:
 - Ha abban a mappában állunk, ahol a pom.xml van, akkor:
   - mvn clean test
 - Ha nem, akkor:
-  - mvn -f <classpath of pom.xml> clean test
+  - mvn -f classpath of pom.xml clean test
 ## Project buildelése
 A projectet az alábbi parancsokkal lehet buildelni:
 - Ha abban a mappában állunk, ahol a pom.xml van, akkor:

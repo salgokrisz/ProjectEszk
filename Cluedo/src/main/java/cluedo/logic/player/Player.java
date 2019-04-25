@@ -2,7 +2,7 @@ package cluedo.logic.player;
 
 import cluedo.logic.cards.Card;
 import cluedo.logic.intrics.Intrics;
-import cluedo.logic.role.Role;
+import cluedo.logic.player.role.Role;
 import cluedo.logic.room.Point;
 import java.util.ArrayList;
 import java.util.List;

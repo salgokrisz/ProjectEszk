@@ -1,7 +1,7 @@
 
-package cluedo.logic.role;
+package cluedo.logic.player.role;
 
-import static cluedo.logic.role.Role.image;
+import static cluedo.logic.player.role.Role.image;
 import javax.swing.ImageIcon;
 
 /**

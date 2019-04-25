@@ -1,6 +1,6 @@
 package cluedo.logic.map.parser;
 
-import cluedo.logic.map.MapParser;
+import cluedo.logic.parsers.MapParser;
 import cluedo.exceptions.*;
 
 import java.util.*;

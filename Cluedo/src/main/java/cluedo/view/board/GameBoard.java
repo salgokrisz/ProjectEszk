@@ -10,7 +10,7 @@ import cluedo.logic.fields.FieldType;
 import cluedo.logic.fields.RoomField;
 import cluedo.logic.fields.StartField;
 import cluedo.logic.player.Player;
-import cluedo.logic.role.Role;
+import cluedo.logic.player.role.Role;
 import cluedo.logic.room.Room;
 import cluedo.logic.room.SecretCorridoredRoom;
 import cluedo.tools.languagestring.LanguageStrings;

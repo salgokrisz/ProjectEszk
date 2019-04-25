@@ -1,18 +1,18 @@
 package cluedo.logic.controller;
 
 import cluedo.logic.cards.Card;
-import cluedo.logic.cards.parser.CardParser;
+import cluedo.logic.parsers.CardParser;
 import cluedo.logic.factories.PlayerFactory;
 import cluedo.logic.factories.RoomFactory;
 import cluedo.logic.fields.EntranceField;
 import cluedo.logic.fields.Field;
 import cluedo.logic.fields.FieldType;
 import cluedo.logic.intrics.Intrics;
-import cluedo.logic.intrics.IntricsParser;
+import cluedo.logic.parsers.IntricsParser;
 import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Ai;
 import cluedo.logic.player.Player;
-import cluedo.logic.role.Role;
+import cluedo.logic.player.role.Role;
 import cluedo.logic.room.EndRoom;
 import cluedo.logic.room.Point;
 import cluedo.logic.room.Room;

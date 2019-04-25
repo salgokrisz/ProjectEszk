@@ -1,4 +1,4 @@
-package cluedo.tools.languagestring.parser;
+package cluedo.logic.parsers;
 
 import static cluedo.tools.Tools.LOG;
 import java.util.HashMap;

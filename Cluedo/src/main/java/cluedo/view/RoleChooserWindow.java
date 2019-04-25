@@ -556,7 +556,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
             modifyAvailableRoleOptions(actuallySelectedOption, serialNumber, false);
         } else if (previouslySelectedOption.equals(RANDOM_CONST) && !previouslySelectedOption.equals(actuallySelectedOption)) {
             modifyAvailableRoleOptions(actuallySelectedOption, serialNumber, false);
-        }else if(!previouslySelectedOption.equals(actuallySelectedOption) && actuallySelectedOption.equals(RANDOM_CONST)){
+        }else if(!previouslySelectedOption.equals(actuallySelectedOption)){
             modifyAvailableRoleOptions(previouslySelectedOption, serialNumber, true);
         }
         playerComponent.setPreviouslySelectedjcbPlayerRole(actuallySelectedOption);

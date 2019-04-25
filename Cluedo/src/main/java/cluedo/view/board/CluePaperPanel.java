@@ -55,6 +55,7 @@ public class CluePaperPanel extends JPanel {
     private static final String PLUM_CONST = "Plum";
     private static final String GAMEBOARD_GUEST_CONST = "GameBoard.Guests";
     private static final String GAMEBOARD_WEAPON_CONST = "GameBoard.Weapons";
+    private static final String GAMEBOARD_ROOM_CONST = "GameBoard.Rooms";
     
     private final boolean suspect;
     private JRadioButton jrbKnife;
@@ -229,7 +230,7 @@ private void initRealCluePaper(){
         jlGuests.setText(LanguageStrings.getString(GAMEBOARD_GUEST_CONST));
 
         jlRooms.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
-        jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
+        jlRooms.setText(LanguageStrings.getString(GAMEBOARD_ROOM_CONST));
 
         jlWeapons.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlWeapons.setText(LanguageStrings.getString(GAMEBOARD_WEAPON_CONST));
@@ -424,7 +425,7 @@ private void initSuspectationPaper(){
         jlWeapons.setText(LanguageStrings.getString(GAMEBOARD_WEAPON_CONST));
         
         jlRooms.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
-        jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
+        jlRooms.setText(LanguageStrings.getString(GAMEBOARD_ROOM_CONST));
         
         JRadioButton jrbMustard = new JRadioButton();
         customizeRadioButton(jrbMustard, MUSTARD_CONST);
@@ -711,7 +712,7 @@ private void jbChooseActionPerformed(){
    public void resetStrings() {
        jlGuests.setText(LanguageStrings.getString(GAMEBOARD_GUEST_CONST));
        jlWeapons.setText(LanguageStrings.getString(GAMEBOARD_WEAPON_CONST));
-       jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
+       jlRooms.setText(LanguageStrings.getString(GAMEBOARD_ROOM_CONST));
        if(suspect){
         jrbKnife.setText(LanguageStrings.getString(KNIFE_KEY));
         jrbCandlestick.setText(LanguageStrings.getString(CANDLESTICK_KEY));

@@ -834,7 +834,7 @@ public class GameController {
         int belowRow = field.getX() + 1;
         int upperRow = field.getX() - 1;
         boolean isRoom = false;
-        if (goodPosition(field.getX(), leftColumn) && !isRoom) {       
+        if (goodPosition(field.getX(), leftColumn)) {       
                 isRoom = fieldIsRoom(fieldMap.get(field.getX()).get(leftColumn));            
         }
         if (goodPosition(field.getX(), rightColumn) && !isRoom) {    

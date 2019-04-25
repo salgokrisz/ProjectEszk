@@ -8,6 +8,7 @@ import static cluedo.tools.Tools.LOG;
 import cluedo.tools.languagestring.LanguageStrings;
 import cluedo.view.AbstractBaseWindow;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -119,17 +120,20 @@ public class CluePaperPanel extends JPanel {
         weaponKeys.add(DUMBBELL_KEY);
     }
 private void customizeCheckBox(JCheckBox checkBox, String title){
-    checkBox.setBackground(new java.awt.Color(255, 255, 255));
+    checkBox.setBackground(new Color(255, 255, 255));
 
     checkBox.setFont(new java.awt.Font(FONT_TYPE, 0, 12)); // NOI18N
 
     checkBox.setText(title);
 }
 private void customizeRadioButton(JRadioButton radioButton, String title){
-    radioButton.setBackground(new java.awt.Color(180, 0, 0));
+    radioButton.setBackground(new Color(180, 0, 0));
     radioButton.setFont(new java.awt.Font(FONT_TYPE, 0, 12)); // NOI18N
     radioButton.setText(title);
     radioButton.addActionListener((ActionEvent evt) -> suspectButtonActionPerformed(evt));
+    if(title.equals(LanguageStrings.getString(selectedRoomKey))){
+        radioButton.setSelected(true);
+    }
 }
 private int findTextOfButton(String text, List<String> list){
     int i=0;
@@ -213,7 +217,7 @@ private void initRealCluePaper(){
         jcAxe = new JCheckBox();
         jcDumbbell = new JCheckBox();
 
-            setBackground(new java.awt.Color(255, 255, 255));
+            setBackground(new Color(255, 255, 255));
 
   
         setMaximumSize(new java.awt.Dimension(403, 259));
@@ -405,7 +409,7 @@ private void initSuspectationPaper(){
         jrbTerrace=new JRadioButton();
         jrbEatery=new JRadioButton();
 
-            setBackground(new java.awt.Color(180,0, 0));
+            setBackground(new Color(180,0, 0));
 
   
         setMaximumSize(new java.awt.Dimension(403, 259));
@@ -415,6 +419,10 @@ private void initSuspectationPaper(){
 
         jlWeapons.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
         jlWeapons.setText(LanguageStrings.getString(GAMEBOARD_WEAPON_CONST));
+        
+        jlRooms.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
+        jlRooms.setText(LanguageStrings.getString("GameBoard.Rooms"));
+        
         JRadioButton jrbMustard = new JRadioButton();
         customizeRadioButton(jrbMustard, MUSTARD_CONST);
         JRadioButton jrbPlum = new JRadioButton();
@@ -445,15 +453,15 @@ private void initSuspectationPaper(){
         customizeRadioButton(jrbAxe, LanguageStrings.getString(AXE_KEY));
 
         customizeRadioButton(jrbDumbbell, LanguageStrings.getString(DUMBBELL_KEY));
-        customizeRadioButton(jrbHall, HALL_KEY);
-        customizeRadioButton(jrbEatery, EATERY_KEY);
-        customizeRadioButton(jrbCinema, CINEMA_KEY);
-        customizeRadioButton(jrbLivingRoom, LIVINGROOM_KEY);
-        customizeRadioButton(jrbBath, BATH_KEY);
-        customizeRadioButton(jrbKitchen, KITCHEN_KEY);
-        customizeRadioButton(jrbGuestHouse, GUESTHOUSE_KEY);
-        customizeRadioButton(jrbTerrace, TERRACE_KEY);
-        customizeRadioButton(jrbPlanetarium, PLANETARIUM_KEY);
+        customizeRadioButton(jrbHall, LanguageStrings.getString(HALL_KEY));
+        customizeRadioButton(jrbEatery, LanguageStrings.getString(EATERY_KEY));
+        customizeRadioButton(jrbCinema, LanguageStrings.getString(CINEMA_KEY));
+        customizeRadioButton(jrbLivingRoom, LanguageStrings.getString(LIVINGROOM_KEY));
+        customizeRadioButton(jrbBath, LanguageStrings.getString(BATH_KEY));
+        customizeRadioButton(jrbKitchen, LanguageStrings.getString(KITCHEN_KEY));
+        customizeRadioButton(jrbGuestHouse, LanguageStrings.getString(GUESTHOUSE_KEY));
+        customizeRadioButton(jrbTerrace, LanguageStrings.getString(TERRACE_KEY));
+        customizeRadioButton(jrbPlanetarium, LanguageStrings.getString(PLANETARIUM_KEY));
         jrbHall.setEnabled(false);
         jrbEatery.setEnabled(false);
         jrbCinema.setEnabled(false);
@@ -592,6 +600,22 @@ private void initSuspectationPaper(){
         jpBase.add(this, BorderLayout.CENTER);
         chooseButton=new JButton(LanguageStrings.getString("Suspect.Choose"));
         chooseButton.addActionListener((ActionEvent evt) -> jbChooseActionPerformed());
+        chooseButton.setBackground(new Color(255, 30, 21));
+        chooseButton.setFont(new java.awt.Font(FONT_TYPE, 1, 12));
+       /* JPanel panelForButton=new JPanel(new BorderLayout());
+        JPanel panel=new JPanel();
+        panel.setPreferredSize(new Dimension(400, 50));
+        panel.setBackground(new Color(180, 0, 0));
+        panelForButton.setBackground(new Color(180, 0, 0));
+        panelForButton.add(panel, BorderLayout.WEST);
+        panelForButton.add(panel, BorderLayout.EAST);
+        panelForButton.add(chooseButton, BorderLayout.CENTER);
+        panel=new JPanel();
+        panel.setBackground(new Color(180, 0, 0));
+        panel.setPreferredSize(new Dimension(500, 400));
+        jpBase.add(panel, BorderLayout.WEST);
+        jpBase.add(panel, BorderLayout.EAST);*/
+        jpBase.add(chooseButton, BorderLayout.SOUTH);
 
 }
 private void jbChooseActionPerformed(){

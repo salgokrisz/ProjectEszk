@@ -475,18 +475,30 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
             jlToDo.setBackground(new Color(180, 0, 0));
             panelForCluePaper=new JPanel(new BorderLayout());
             panelForCluePaper.setBackground(new Color(180, 0, 0));
+            JPanel panelForSelectionPaper=new JPanel(new BorderLayout());
+             panelForSelectionPaper.add(panelForSuspectation, BorderLayout.CENTER);
+            JPanel panelForRealCluePaper=new JPanel(new BorderLayout());
+            panelForRealCluePaper.add(cluePaperPanel, BorderLayout.CENTER);
+           
             JPanel dummyPanel = new JPanel();
-        dummyPanel.setPreferredSize(new Dimension(500, 400));
+        dummyPanel.setPreferredSize(new Dimension(500, 200));
         dummyPanel.setBackground(new Color(180, 0, 0));
-        panelForCluePaper.add(dummyPanel, WEST);
+        panelForSelectionPaper.add(dummyPanel, WEST);
+     //   dummyPanel.setPreferredSize(new Dimension(500, 200));
+        panelForRealCluePaper.add(dummyPanel, WEST);
         dummyPanel = new JPanel();
-        dummyPanel.setPreferredSize(new Dimension(500, 400));
+        
+        dummyPanel.setPreferredSize(new Dimension(500, 200));
         dummyPanel.setBackground(new Color(180, 0, 0));
-        panelForCluePaper.add(dummyPanel, EAST);
-            panelForCluePaper.add(jlToDo, NORTH);
+       panelForSelectionPaper.add(dummyPanel, EAST);
+      //  dummyPanel.setPreferredSize(new Dimension(500, 200));
+         panelForRealCluePaper.add(dummyPanel, EAST);
+            panelForSelectionPaper.add(jlToDo, NORTH);
+            panelForSelectionPaper.setBackground(new Color(180, 0, 0));
             cluePaperPanel.enableCheckBoxes(false, gameController.getActualPlayer());
-            panelForCluePaper.add(cluePaperPanel, SOUTH);
-            panelForCluePaper.add(panelForSuspectation, BorderLayout.CENTER);  
+            
+            panelForCluePaper.add(panelForRealCluePaper, SOUTH);
+            panelForCluePaper.add(panelForSelectionPaper, NORTH);  
         tabbedPane.removeTabAt(1);
         tabbedPane.addTab(LanguageStrings.getString(GAMEBOARD_CLUEPAPER_CONST), panelForCluePaper);
         jpBase.add(tabbedPane, BorderLayout.CENTER);

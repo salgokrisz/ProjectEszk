@@ -47,14 +47,14 @@ public class CluePaperPanel extends JPanel {
     public  static final String LIVINGROOM_KEY="Cards.Rooms.LivingRoom";
     public  static final String BATH_KEY="Cards.Rooms.Bath";
     public  static final String GUESTHOUSE_KEY="Cards.Rooms.GuestHouse";
-    private static final String MUSTARD_CONST = "Mustard";
-    private static final String PEACOCK_CONST = "Peacock";
-    private static final String SCARLET_CONST = "Scarlet";
-    private static final String GREEN_CONST = "Green";
-    private static final String WHITE_CONST = "White";
-    private static final String PLUM_CONST = "Plum";
-    private static final String GAMEBOARD_GUEST_CONST = "GameBoard.Guests";
-    private static final String GAMEBOARD_WEAPON_CONST = "GameBoard.Weapons";
+    public static final String MUSTARD_CONST = "Mustard";
+    public static final String PEACOCK_CONST = "Peacock";
+    public static final String SCARLET_CONST = "Scarlet";
+    public static final String GREEN_CONST = "Green";
+    public static final String WHITE_CONST = "White";
+    public static final String PLUM_CONST = "Plum";
+    public static final String GAMEBOARD_GUEST_CONST = "GameBoard.Guests";
+    public static final String GAMEBOARD_WEAPON_CONST = "GameBoard.Weapons";
     
     private final boolean suspect;
     private JRadioButton jrbKnife;

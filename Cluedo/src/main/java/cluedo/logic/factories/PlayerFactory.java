@@ -99,9 +99,9 @@ public class PlayerFactory {
             while(i <fieldMap.size()&&!found){
                 int j=0;
                 while(j<fieldMap.get(i).size() && !found){
-                    if(fieldMap.get(i).get(j).getType().equals(FieldType.START)){
+                    if(fieldMap.get(i).get(j).getType().equals(FieldType.START)){     
                         StartField field = (StartField)fieldMap.get(i).get(j);
-                        if(player.getRole().getClass().getName().equals("cluedo.logic.role."+field.getBelongsTo())){
+                        if(player.getRole().getClass().getName().equals("cluedo.logic.player.role."+field.getBelongsTo())){
                             Point position=new Point(field.getX(),field.getY());
                             player.setStartFieldLocation(position);
                             player.setPosition(position);

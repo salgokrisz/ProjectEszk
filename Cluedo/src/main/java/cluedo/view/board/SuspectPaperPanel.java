@@ -28,7 +28,8 @@ private String selectedRoomKey;
 
     public SuspectPaperPanel(GameController gameController) {
         this.gameController=gameController;
-        selectedRoomKey=gameController.getActualPlayer().getActualRoomName();
+        selectedRoomKey=this.gameController.getActualPlayer().getActualRoomName();
+        System.out.println("selectedRoomKey: "+selectedRoomKey);
         fillUpWeaponKeys();
         filUpGuestKeys();
         selectedGuestKey="";
@@ -61,6 +62,7 @@ private void customizeRadioButton(JRadioButton radioButton, String title){
     radioButton.setFont(new java.awt.Font(FONT_TYPE, 0, 12)); // NOI18N
     radioButton.setText(title);
     radioButton.addActionListener((ActionEvent evt) -> suspectButtonActionPerformed(evt));
+    System.out.println("title: "+title);
     if(title.equals(LanguageStrings.getString(selectedRoomKey))){
         radioButton.setSelected(true);
     }
@@ -161,22 +163,22 @@ private void jbChooseActionPerformed(){
         jlGuests.setFont(new java.awt.Font(FONT_TYPE, 1, 14));
         jlGuests.setText(LanguageStrings.getString(CluePaperPanel.GAMEBOARD_GUEST_CONST));
 
-        customizeRadioButton(jrbMustard, LanguageStrings.getString(CluePaperPanel.MUSTARD_CONST));
+        customizeRadioButton(jrbMustard, CluePaperPanel.MUSTARD_CONST);
         bgGuests.add(jrbMustard);
 
-        customizeRadioButton(jrbPlum, LanguageStrings.getString(CluePaperPanel.PLUM_CONST));
+        customizeRadioButton(jrbPlum, CluePaperPanel.PLUM_CONST);
         bgGuests.add(jrbPlum);
 
-        customizeRadioButton(jrbGreen, LanguageStrings.getString(CluePaperPanel.GREEN_CONST));
+        customizeRadioButton(jrbGreen, CluePaperPanel.GREEN_CONST);
         bgGuests.add(jrbGreen);
 
-        customizeRadioButton(jrbPeacock, LanguageStrings.getString(CluePaperPanel.PEACOCK_CONST));
+        customizeRadioButton(jrbPeacock, CluePaperPanel.PEACOCK_CONST);
         bgGuests.add(jrbPeacock);
 
-        customizeRadioButton(jrbPeacock, LanguageStrings.getString(CluePaperPanel.SCARLET_CONST));
+        customizeRadioButton(jrbPeacock, CluePaperPanel.SCARLET_CONST);
         bgGuests.add(jrbScarlet);
 
-        customizeRadioButton(jrbWhite, LanguageStrings.getString(CluePaperPanel.WHITE_CONST));
+        customizeRadioButton(jrbWhite, CluePaperPanel.WHITE_CONST);
         bgGuests.add(jrbWhite);
 
         customizeRadioButton(jrbKnife, LanguageStrings.getString(CluePaperPanel.KNIFE_KEY));
@@ -277,17 +279,16 @@ private void jbChooseActionPerformed(){
                     .addGroup(jpBaseLayout.createSequentialGroup()
                         .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpBaseLayout.createSequentialGroup()
-                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jrbKnife, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                                    .addComponent(jrbCandleStick, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jpBaseLayout.createSequentialGroup()
                                 .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jrbPoison, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                                     .addComponent(jrbRevolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(90, 90, 90))
                             .addGroup(jpBaseLayout.createSequentialGroup()
-                                .addComponent(jlWeapons)
+                                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jrbKnife, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                                        .addComponent(jrbCandleStick, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jlWeapons))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlRooms, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -310,15 +311,15 @@ private void jbChooseActionPerformed(){
                     .addComponent(jlWeapons)
                     .addComponent(jlRooms, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jrbMustard)
-                    .addComponent(jrbKnife)
-                    .addComponent(jrbHall))
+                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jrbHall, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jrbMustard)
+                        .addComponent(jrbKnife)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jrbPlum)
-                        .addComponent(jrbCandleStick))
+                    .addComponent(jrbPlum)
+                    .addComponent(jrbCandleStick)
                     .addComponent(jrbEatery))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,10 +332,11 @@ private void jbChooseActionPerformed(){
                     .addComponent(jrbPoison)
                     .addComponent(jrbTerrace))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jrbScarlet)
+                .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jrbTrophy)
-                    .addComponent(jrbPlanetarium))
+                    .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jrbScarlet)
+                        .addComponent(jrbPlanetarium)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jrbWhite)
@@ -374,7 +376,6 @@ private void jbChooseActionPerformed(){
     private javax.swing.ButtonGroup bgGuests;
     private javax.swing.ButtonGroup bgWeapons;
     private javax.swing.JButton chooseButton;
-
     private javax.swing.JLabel jlGuests;
     private javax.swing.JLabel jlRooms;
     private javax.swing.JLabel jlWeapons;

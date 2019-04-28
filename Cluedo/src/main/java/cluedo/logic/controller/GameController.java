@@ -240,9 +240,9 @@ public class GameController {
                 actualComputerPlayer.appendToInformation(sb.toString());
                 actualGamePhase = GamePhase.MOVE;
                 List<Point> availablePositionsToMove = ((Ai) players.get(actualPlayerIndex)).getAvailablePositionsToMove();
-                Point destination = null;
-                Field field = null;
-                findAvailablePositionsToMove(field,destination,availablePositionsToMove,actualComputerPlayer);
+                
+               Point destination= findAvailablePositionToMove(availablePositionsToMove,actualComputerPlayer);
+               Field field=fieldMap.get(destination.getX()).get(destination.getY());
                 checkFieldTypeAndCallRightMethod(field,actualComputerPlayer,destination);
             }
             if (players.get(actualPlayerIndex).getIsInRoom()) {
@@ -253,14 +253,19 @@ public class GameController {
         }
     }
     
-    private void findAvailablePositionsToMove(Field field,Point destination,List<Point> availablePositionsToMove,Ai actualComputerPlayer) {
+    private Point findAvailablePositionToMove(List<Point> availablePositionsToMove,Ai actualComputerPlayer) {
+        Field field=null;
+        Point destination=null;
         do {
             destination = availablePositionsToMove.get(Tools.randomizeNumber(availablePositionsToMove.size()));
             field = fieldMap.get(destination.getX()).get(destination.getY());
         } while (actualComputerPlayer.getPosition().equals(new Point(field.getX(), field.getY())) || field.getType() == FieldType.ROOM || field.getType() == FieldType.END || field.getType() == FieldType.SECRET);
+        return destination;
     }
     
     private void checkFieldTypeAndCallRightMethod(Field field,Ai actualComputerPlayer,Point destination) {
+        System.out.println("field==null: "+(field==null));
+        System.out.println("destination==null: "+(destination==null));
         if (field.getType() == FieldType.ENTRANCE) {
             computerPlayerEntersRoom(actualComputerPlayer, destination);
         } else {

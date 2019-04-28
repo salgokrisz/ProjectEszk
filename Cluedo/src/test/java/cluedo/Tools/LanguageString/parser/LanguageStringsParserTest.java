@@ -1,6 +1,6 @@
 package cluedo.Tools.LanguageString.parser;
 
-import cluedo.tools.languagestring.parser.LanguageStringsParser;
+import cluedo.logic.parsers.LanguageStringsParser;
 import cluedo.tools.languagestring.Language;
 
 import java.util.HashMap;

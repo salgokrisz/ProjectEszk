@@ -1,5 +1,7 @@
-package cluedo.logic.intrics;
+package cluedo.logic.parsers;
 
+import cluedo.logic.intrics.Intrics;
+import cluedo.logic.intrics.IntricsType;
 import static cluedo.tools.Tools.LOG;
 import java.io.BufferedReader;
 import java.io.File;

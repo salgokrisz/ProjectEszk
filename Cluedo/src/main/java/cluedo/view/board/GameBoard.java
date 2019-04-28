@@ -10,7 +10,7 @@ import cluedo.logic.fields.FieldType;
 import cluedo.logic.fields.RoomField;
 import cluedo.logic.fields.StartField;
 import cluedo.logic.player.Player;
-import cluedo.logic.role.Role;
+import cluedo.logic.player.role.Role;
 import cluedo.logic.room.Room;
 import cluedo.logic.room.SecretCorridoredRoom;
 import cluedo.tools.languagestring.LanguageStrings;
@@ -187,7 +187,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
                 Field field=fieldMap.get(i).get(j);
                 PositionedButton button=buttonedMap.get(i).get(j);
                 if(enabled){ 
-                button.setEnabled(button.getIsEnabledToClickOn()|| gameController.getListOfPlayersOnPosition(field.getX(), field.getY()).size()>=1);
+                button.setEnabled(button.getIsEnabledToClickOn()|| gameController.getListOfPlayersOnPosition(field.getX(), field.getY()).isEmpty());
                 recognizeActions=false;
                 recognizeSecretPassageAction=false;
                 }else{
@@ -215,6 +215,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
                 }
         showInformation(LanguageStrings.getString("Actions.ChooseFieldToMove"));
     }
+    
     private void registerGameBoardListener() {
         this.gameController.registerGameBoardListener(this);
     }
@@ -482,7 +483,6 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         dummyPanel.setPreferredSize(new Dimension(500, 200));
         dummyPanel.setBackground(new Color(180, 0, 0));
         panelForCluePaper.add(dummyPanel, WEST);
-     //   dummyPanel.setPreferredSize(new Dimension(500, 200));
         panelForRealCluePaper.add(dummyPanel, WEST);
         panelForSelectionPaper.add(dummyPanel, WEST);
         dummyPanel = new JPanel();
@@ -490,14 +490,11 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         dummyPanel.setPreferredSize(new Dimension(500, 200));
         dummyPanel.setBackground(new Color(180, 0, 0));
        panelForCluePaper.add(dummyPanel, EAST);
-      //  dummyPanel.setPreferredSize(new Dimension(500, 200));
          panelForRealCluePaper.add(dummyPanel, EAST);
          panelForSelectionPaper.add(dummyPanel, EAST);
             panelForSelectionPaper.add(jlToDo, NORTH);
             panelForSelectionPaper.setBackground(new Color(180, 0, 0));
             cluePaperPanel.enableCheckBoxes(false, gameController.getActualPlayer());
-            
-           // panelForCluePaper.add(panelForRealCluePaper, SOUTH);
             panelForCluePaper.add(panelForSelectionPaper, BorderLayout.CENTER);  
         tabbedPane.removeTabAt(1);
         tabbedPane.addTab(LanguageStrings.getString(GAMEBOARD_CLUEPAPER_CONST), panelForCluePaper);

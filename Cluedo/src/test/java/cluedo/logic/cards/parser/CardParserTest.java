@@ -1,5 +1,6 @@
 package cluedo.logic.cards.parser;
 
+import cluedo.logic.parsers.CardParser;
 import cluedo.logic.cards.Card;
 
 import java.util.List;

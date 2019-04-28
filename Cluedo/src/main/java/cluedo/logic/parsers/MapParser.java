@@ -1,4 +1,4 @@
-package cluedo.logic.map;
+package cluedo.logic.parsers;
 
 import java.io.*;
 import java.util.*;

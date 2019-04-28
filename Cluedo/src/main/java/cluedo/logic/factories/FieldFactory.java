@@ -7,7 +7,7 @@ import cluedo.logic.fields.EntranceField;
 import cluedo.logic.fields.FieldType;
 import cluedo.logic.fields.RoomField;
 import cluedo.logic.fields.StartField;
-import cluedo.logic.map.MapParser;
+import cluedo.logic.parsers.MapParser;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -3,7 +3,7 @@ package cluedo.logic.player;
 
 import cluedo.logic.cards.Card;
 import cluedo.logic.player.level.ExperienceLevel;
-import cluedo.logic.role.Role;
+import cluedo.logic.player.role.Role;
 import cluedo.logic.room.Point;
 import cluedo.tools.Tools;
 import java.util.ArrayList;

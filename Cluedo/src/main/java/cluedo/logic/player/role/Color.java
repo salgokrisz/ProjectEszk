@@ -1,5 +1,5 @@
 
-package cluedo.logic.role;
+package cluedo.logic.player.role;
 
 /**
  * 

@@ -374,6 +374,7 @@ private void jbChooseActionPerformed(){
     private javax.swing.ButtonGroup bgGuests;
     private javax.swing.ButtonGroup bgWeapons;
     private javax.swing.JButton chooseButton;
+
     private javax.swing.JLabel jlGuests;
     private javax.swing.JLabel jlRooms;
     private javax.swing.JLabel jlWeapons;

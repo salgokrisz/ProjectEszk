@@ -81,7 +81,7 @@ private void showingThisCardAsProof(ActionEvent evt){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jpBase = new javax.swing.JPanel();
+        javax.swing.JPanel jpBase = new javax.swing.JPanel();
         jlTitle = new javax.swing.JLabel();
         jbMurderCard = new javax.swing.JButton(murderCard.getNameForUI(), new ImageIcon(getClass().getResource(murderCard.getImageName())));
         jbMurderWeaponCard = new javax.swing.JButton(murderWeaponCard.getNameForUI(), new ImageIcon(getClass().getResource(murderWeaponCard.getImageName())));
@@ -106,11 +106,7 @@ private void showingThisCardAsProof(ActionEvent evt){
         jbNothing.setBackground(new Color(255, 30, 21));
         jbNothing.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jbNothing.setText(LanguageStrings.getString("Suspect.Nothing"));
-        jbNothing.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                jbNothingActionPerformed();
-            }
-        });
+        jbNothing.addActionListener((ActionEvent evt) -> jbNothingActionPerformed());
 
         javax.swing.GroupLayout jpBaseLayout = new javax.swing.GroupLayout(jpBase);
         jpBase.setLayout(jpBaseLayout);
@@ -189,6 +185,5 @@ public void resetStrings(){
     private javax.swing.JButton jbMurderWeaponCard;
     private javax.swing.JButton jbNothing;
     private javax.swing.JLabel jlTitle;
-    private javax.swing.JPanel jpBase;
     // End of variables declaration//GEN-END:variables
 }

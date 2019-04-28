@@ -1,18 +1,18 @@
 package cluedo.logic.controller;
 
 import cluedo.logic.cards.Card;
-import cluedo.logic.cards.parser.CardParser;
+import cluedo.logic.parsers.CardParser;
 import cluedo.logic.factories.PlayerFactory;
 import cluedo.logic.factories.RoomFactory;
 import cluedo.logic.fields.EntranceField;
 import cluedo.logic.fields.Field;
 import cluedo.logic.fields.FieldType;
 import cluedo.logic.intrics.Intrics;
-import cluedo.logic.intrics.IntricsParser;
+import cluedo.logic.parsers.IntricsParser;
 import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Ai;
 import cluedo.logic.player.Player;
-import cluedo.logic.role.Role;
+import cluedo.logic.player.role.Role;
 import cluedo.logic.room.EndRoom;
 import cluedo.logic.room.Point;
 import cluedo.logic.room.Room;
@@ -240,23 +240,31 @@ public class GameController {
                 actualComputerPlayer.appendToInformation(sb.toString());
                 actualGamePhase = GamePhase.MOVE;
                 List<Point> availablePositionsToMove = ((Ai) players.get(actualPlayerIndex)).getAvailablePositionsToMove();
-                Point destination;
-                Field field;
-                do {
-                    destination = availablePositionsToMove.get(Tools.randomizeNumber(availablePositionsToMove.size()));
-                    field = fieldMap.get(destination.getX()).get(destination.getY());
-                } while (actualComputerPlayer.getPosition().equals(new Point(field.getX(), field.getY())) || field.getType() == FieldType.ROOM || field.getType() == FieldType.END || field.getType() == FieldType.SECRET);
-                if (field.getType() == FieldType.ENTRANCE) {
-                    computerPlayerEntersRoom(actualComputerPlayer, destination);
-                } else {
-                    computerPlayerMovesToFieldOrIntricField(actualComputerPlayer, destination, field);
-                }
+                Point destination = null;
+                Field field = null;
+                findAvailablePositionsToMove(field,destination,availablePositionsToMove,actualComputerPlayer);
+                checkFieldTypeAndCallRightMethod(field,actualComputerPlayer,destination);
             }
             if (players.get(actualPlayerIndex).getIsInRoom()) {
                 computerPlayerSuspects(actualComputerPlayer);
             } else {
                 nextPlayerIsComing();
             }
+        }
+    }
+    
+    private void findAvailablePositionsToMove(Field field,Point destination,List<Point> availablePositionsToMove,Ai actualComputerPlayer) {
+        do {
+            destination = availablePositionsToMove.get(Tools.randomizeNumber(availablePositionsToMove.size()));
+            field = fieldMap.get(destination.getX()).get(destination.getY());
+        } while (actualComputerPlayer.getPosition().equals(new Point(field.getX(), field.getY())) || field.getType() == FieldType.ROOM || field.getType() == FieldType.END || field.getType() == FieldType.SECRET);
+    }
+    
+    private void checkFieldTypeAndCallRightMethod(Field field,Ai actualComputerPlayer,Point destination) {
+        if (field.getType() == FieldType.ENTRANCE) {
+            computerPlayerEntersRoom(actualComputerPlayer, destination);
+        } else {
+            computerPlayerMovesToFieldOrIntricField(actualComputerPlayer, destination, field);
         }
     }
 
@@ -743,43 +751,46 @@ public class GameController {
                 rowToConsider = actRow - differenceCounter;
             } else {
                 rowToConsider = actRow + differenceCounter;
-            }
-
+            }            
             int fieldNumberToExamine = droppedNumber - differenceCounter;
             if (rowToConsider >= 0 && rowToConsider < map.getRows()) {
-                for (int j = 0; j <= fieldNumberToExamine; ++j) {
-                    int rowSizeInFieldMap = fieldMap.get(rowToConsider).size();
-                    int leftColumn = actColumn - j;
-                    int rightColumn = actColumn + j;
-                    if (leftColumn >= 0 && leftColumn < rowSizeInFieldMap) {
-                        Field field = fieldMap.get(rowToConsider).get(leftColumn);
-                        boolean oneOfTheNeighboursIsRoom = oneOfTheNeighboursIsRoom(field);
-                        Point actPosition = new Point(field.getX(), field.getY());
-                        if (!oneOfTheNeighboursIsRoom || oneOfTheNeighboursIsRoom && (actualPlayer.getPosition().equals(actPosition) || containsPathAndNoRoomFieldOrItIsAnEntranceField(availablePointsOfFields, field, actColumn, actRow, fieldNumberToExamine))) {
-
-                            availablePointsOfFields.add(actPosition);
-                        }
-                    }
-                    if (rightColumn >= 0 && rightColumn < rowSizeInFieldMap) {
-                        Field field = fieldMap.get(rowToConsider).get(rightColumn);
-                        boolean oneOfTheNeighboursIsRoom = oneOfTheNeighboursIsRoom(field);
-                        Point actPosition = new Point(field.getX(), field.getY());
-                        if ((field.getType() == FieldType.ENTRANCE || !fieldIsRoom(field))&&(!oneOfTheNeighboursIsRoom || oneOfTheNeighboursIsRoom && (actualPlayer.getPosition().equals(actPosition) || containsPathAndNoRoomFieldOrItIsAnEntranceField(availablePointsOfFields, field, actColumn, actRow, fieldNumberToExamine)))){
-                       
-                                availablePointsOfFields.add(actPosition);
-                        }
-                    }
-                }
+                iterateOverExaminableFields(fieldNumberToExamine,rowToConsider,actColumn,actualPlayer,availablePointsOfFields,actRow);
             }
             if (differenceCounter == droppedNumber) {
                 differenceCounter = 0;
                 reachedOneEndPoint = true;
             }
-
             differenceCounter += 1;
-
         }
         return availablePointsOfFields;
+    }
+    
+    private void iterateOverExaminableFields(int fieldNumberToExamine,int rowToConsider,int actColumn,Player actualPlayer,List<Point> availablePointsOfFields,int actRow) {
+        for (int j = 0; j <= fieldNumberToExamine; ++j) {
+            int rowSizeInFieldMap = fieldMap.get(rowToConsider).size();
+            int leftColumn = actColumn - j;
+            int rightColumn = actColumn + j;
+            checkIfLeftColumnGreaterNullAndLesserRowSizeInFieldMap(leftColumn,rowToConsider,rowSizeInFieldMap,actualPlayer,availablePointsOfFields,actColumn,actRow,fieldNumberToExamine);
+            if (rightColumn >= 0 && rightColumn < rowSizeInFieldMap) {
+                Field field = fieldMap.get(rowToConsider).get(rightColumn);
+                boolean oneOfTheNeighboursIsRoom = oneOfTheNeighboursIsRoom(field);
+                Point actPosition = new Point(field.getX(), field.getY());
+                if ((field.getType() == FieldType.ENTRANCE || !fieldIsRoom(field)) && (!oneOfTheNeighboursIsRoom || oneOfTheNeighboursIsRoom && (actualPlayer.getPosition().equals(actPosition) || containsPathAndNoRoomFieldOrItIsAnEntranceField(availablePointsOfFields, field, actColumn, actRow, fieldNumberToExamine)))) {
+                    availablePointsOfFields.add(actPosition);
+                }
+            }
+        }
+    }
+    
+    private void checkIfLeftColumnGreaterNullAndLesserRowSizeInFieldMap(int leftColumn,int rowToConsider,int rowSizeInFieldMap,Player actualPlayer,List<Point> availablePointsOfFields,int actColumn,int actRow,int fieldNumberToExamine) {
+        if (leftColumn >= 0 && leftColumn < rowSizeInFieldMap) {
+            Field field = fieldMap.get(rowToConsider).get(leftColumn);
+            boolean oneOfTheNeighboursIsRoom = oneOfTheNeighboursIsRoom(field);
+            Point actPosition = new Point(field.getX(), field.getY());
+            if (!oneOfTheNeighboursIsRoom || oneOfTheNeighboursIsRoom && (actualPlayer.getPosition().equals(actPosition) || containsPathAndNoRoomFieldOrItIsAnEntranceField(availablePointsOfFields, field, actColumn, actRow, fieldNumberToExamine))) {
+                availablePointsOfFields.add(actPosition);
+            }
+        }
     }
 
     private boolean willBeSuitableField(int row, int newColumn, int limit) {
@@ -794,40 +805,21 @@ public class GameController {
 
     private boolean containsPathAndNoRoomFieldOrItIsAnEntranceField(List<Point> availablePointsOfFields, Field field, int actColumn, int actRow, int fieldNumberToExamine) {
         boolean answer = false;
-
-        if ((availablePointsOfFields.contains(new Point(field.getX(), field.getY() - 1)) || willBeSuitableField(actRow, actColumn + 1, actColumn + fieldNumberToExamine) || willBeSuitableField(actRow, actColumn - 1, actColumn - fieldNumberToExamine)) && !answer && goodPosition(field.getX(), field.getY() - 1)) {
-
-  
-               
+        if ((availablePointsOfFields.contains(new Point(field.getX(), field.getY() - 1)) || willBeSuitableField(actRow, actColumn + 1, actColumn + fieldNumberToExamine) || willBeSuitableField(actRow, actColumn - 1, actColumn - fieldNumberToExamine)) && goodPosition(field.getX(), field.getY() - 1)) {  
                     Field neighborField = fieldMap.get(field.getX()).get(field.getY() - 1);
-                    answer = neighborField.getType() == FieldType.ENTRANCE || !fieldIsRoom(neighborField);
-                
-            
+                    answer = neighborField.getType() == FieldType.ENTRANCE || !fieldIsRoom(neighborField);            
         }
-        if (availablePointsOfFields.contains(new Point(field.getX(), field.getY() + 1)) &&!answer && goodPosition(field.getX(), field.getY() + 1)) {
-
-       
-            
+        if (availablePointsOfFields.contains(new Point(field.getX(), field.getY() + 1)) &&!answer && goodPosition(field.getX(), field.getY() + 1)) {            
                     Field neighborField = fieldMap.get(field.getX()).get(field.getY() + 1);
-                    answer = neighborField.getType() == FieldType.ENTRANCE || !fieldIsRoom(neighborField);
-                
-            
+                    answer = neighborField.getType() == FieldType.ENTRANCE || !fieldIsRoom(neighborField);            
         }
-        if (availablePointsOfFields.contains(new Point(field.getX() + 1, field.getY())) && !answer && goodPosition(field.getX() + 1, field.getY())) {
-
- 
-          
+        if (availablePointsOfFields.contains(new Point(field.getX() + 1, field.getY())) && !answer && goodPosition(field.getX() + 1, field.getY())) {          
                     Field neighborField = fieldMap.get(field.getX() + 1).get(field.getY());
-                    answer = neighborField.getType() == FieldType.ENTRANCE || !fieldIsRoom(neighborField);
-                
-            
+                    answer = neighborField.getType() == FieldType.ENTRANCE || !fieldIsRoom(neighborField);            
         }
         if (availablePointsOfFields.contains(new Point(field.getX() - 1, field.getY())) && !answer && goodPosition(field.getX() - 1, field.getY())) {
-
-           
                     Field neighborField = fieldMap.get(field.getX() - 1).get(field.getY());
-                    answer = neighborField.getType() == FieldType.ENTRANCE || !fieldIsRoom(neighborField);
-         
+                    answer = neighborField.getType() == FieldType.ENTRANCE || !fieldIsRoom(neighborField);         
         }
         return answer;
     }
@@ -846,25 +838,17 @@ public class GameController {
         int belowRow = field.getX() + 1;
         int upperRow = field.getX() - 1;
         boolean isRoom = false;
-        if (goodPosition(field.getX(), leftColumn) && !isRoom) {
-       
-                isRoom = fieldIsRoom(fieldMap.get(field.getX()).get(leftColumn));
-            
+        if (goodPosition(field.getX(), leftColumn)) {       
+                isRoom = fieldIsRoom(fieldMap.get(field.getX()).get(leftColumn));            
         }
-        if (goodPosition(field.getX(), rightColumn) && !isRoom) {
-    
-                isRoom = fieldIsRoom(fieldMap.get(field.getX()).get(rightColumn));
-            
+        if (goodPosition(field.getX(), rightColumn) && !isRoom) {    
+                isRoom = fieldIsRoom(fieldMap.get(field.getX()).get(rightColumn));            
         }
-        if (goodPosition(belowRow, field.getY()) && !isRoom) {
-          
-                isRoom = fieldIsRoom(fieldMap.get(belowRow).get(field.getY()));
-            
+        if (goodPosition(belowRow, field.getY()) && !isRoom) {          
+                isRoom = fieldIsRoom(fieldMap.get(belowRow).get(field.getY()));            
         }
-        if (goodPosition(upperRow, field.getY()) && !isRoom) {
-         
-                isRoom = fieldIsRoom(fieldMap.get(upperRow).get(field.getY()));
-            
+        if (goodPosition(upperRow, field.getY()) && !isRoom) {         
+                isRoom = fieldIsRoom(fieldMap.get(upperRow).get(field.getY()));            
         }
         return isRoom;
     }
@@ -922,10 +906,8 @@ private void humanPlayerWaitsForProof(Player playerToProve){
     private void tryToProve(int indexOfPreviousPlayer){
        Player playerWhoWantsToProve= determinePlayerWhoHasToProve(indexOfPreviousPlayer);
        Player actualPlayer=getActualPlayer();
-
            if(actualPlayer.getIsComputer()){
-               humanPlayerWaitsForProof(playerWhoWantsToProve);
-           
+               humanPlayerWaitsForProof(playerWhoWantsToProve);           
        }else{
            computerPlayerWaitsForProof(playerWhoWantsToProve);
        }
@@ -944,7 +926,6 @@ public void fireDisplayShowProofCardView(Card cardToShow, Player playerWhoShowed
         int i=0;
         Card card=null;
         while(i<suspectCards.size() && !suspectCards.get(i).getUiStringKey().equals(selectedCardKey)){
-            
             i+=1;
         }
         if(i<suspectCards.size()){

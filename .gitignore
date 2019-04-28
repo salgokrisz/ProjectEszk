@@ -57,4 +57,5 @@ pom.xml.releaseBackup
 pom.xml.tag
 =======
 /Cluedo/target/
+*log_files/
 >>>>>>> mapParser

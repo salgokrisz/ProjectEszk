@@ -36,6 +36,13 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.2</version>
+				<configuration>
+					<excludes>
+						<exclude>cluedo/main/**</exclude>
+						<exclude>cluedo/view/**</exclude>
+						<exclude>cluedo/exceptions/**</exclude>
+					</excludes>
+				</configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -58,13 +65,19 @@
                         <configuration>
                             <rules>
                                 <rule>
-                                    <element>PACKAGE</element>
+                                    <element>PACKAGE </element>
                                     <limits>
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.9</minimum>
+                                            <minimum>0.6</minimum>
                                         </limit>
+										<limit>
+											<counter>CLASS</counter>
+											<value>MISSEDCOUNT</value>
+											<maximum>0</maximum>
+										</limit>
+
                                     </limits>
                                 </rule>
                             </rules>

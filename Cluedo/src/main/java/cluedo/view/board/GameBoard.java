@@ -466,7 +466,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     }
     @Override
     public void showSuspectView(){
-        CluePaperPanel panelForSuspectation=new CluePaperPanel(true, gameController);
+        SuspectPaperPanel panelForSuspectation=new SuspectPaperPanel(gameController);
         
         jlToDo=new JLabel();
             jlToDo.setFont(new java.awt.Font(FONT_TYPE, 1, 16));
@@ -484,12 +484,14 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         dummyPanel.setBackground(new Color(180, 0, 0));
         panelForCluePaper.add(dummyPanel, WEST);
         panelForRealCluePaper.add(dummyPanel, WEST);
+        panelForSelectionPaper.add(dummyPanel, WEST);
         dummyPanel = new JPanel();
         
         dummyPanel.setPreferredSize(new Dimension(500, 200));
         dummyPanel.setBackground(new Color(180, 0, 0));
        panelForCluePaper.add(dummyPanel, EAST);
          panelForRealCluePaper.add(dummyPanel, EAST);
+         panelForSelectionPaper.add(dummyPanel, EAST);
             panelForSelectionPaper.add(jlToDo, NORTH);
             panelForSelectionPaper.setBackground(new Color(180, 0, 0));
             cluePaperPanel.enableCheckBoxes(false, gameController.getActualPlayer());

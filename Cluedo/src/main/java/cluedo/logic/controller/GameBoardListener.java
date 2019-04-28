@@ -39,4 +39,6 @@ public interface GameBoardListener {
     void removeAiSuspectCardWindow();
     
     void showProofCardView(Card proofCard, Player playerWhoShowed);
+    
+    void refreshNumberOfDrawnClockCards();
 }

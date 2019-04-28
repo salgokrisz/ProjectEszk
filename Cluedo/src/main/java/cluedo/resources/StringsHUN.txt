@@ -61,6 +61,7 @@ GameBoard.MyIntricCards=Intrika kártyáim
 GameBoard.EntranceMark=Be
 GameBoard.MySpecialAbility=Különleges képességem
 GameBoard.EndRound=Végeztem a körrömmel
+GameBoard.DrawnClockCards=Az eddig kihúzott órakártyák száma: 
 
 #CardWindow
 CardWindow.Next=Következő

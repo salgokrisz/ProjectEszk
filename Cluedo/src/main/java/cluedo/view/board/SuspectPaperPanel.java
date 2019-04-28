@@ -29,7 +29,6 @@ private String selectedRoomKey;
     public SuspectPaperPanel(GameController gameController) {
         this.gameController=gameController;
         selectedRoomKey=this.gameController.getActualPlayer().getActualRoomName();
-        System.out.println("selectedRoomKey: "+selectedRoomKey);
         fillUpWeaponKeys();
         filUpGuestKeys();
         selectedGuestKey="";
@@ -62,10 +61,33 @@ private void customizeRadioButton(JRadioButton radioButton, String title){
     radioButton.setFont(new java.awt.Font(FONT_TYPE, 0, 12)); // NOI18N
     radioButton.setText(title);
     radioButton.addActionListener((ActionEvent evt) -> suspectButtonActionPerformed(evt));
-    System.out.println("title: "+title);
     if(title.equals(LanguageStrings.getString(selectedRoomKey))){
         radioButton.setSelected(true);
     }
+}
+public void resetStrings(){
+    jlGuests.setText(LanguageStrings.getString(CluePaperPanel.GAMEBOARD_GUEST_CONST));
+       jlWeapons.setText(LanguageStrings.getString(CluePaperPanel.GAMEBOARD_WEAPON_CONST));
+       jlRooms.setText(LanguageStrings.getString(CluePaperPanel.GAMEBOARD_ROOM_CONST));
+        jrbKnife.setText(LanguageStrings.getString(CluePaperPanel.KNIFE_KEY));
+        jrbCandleStick.setText(LanguageStrings.getString(CluePaperPanel.CANDLESTICK_KEY));
+        jrbRevolver.setText(LanguageStrings.getString(CluePaperPanel.REVOLVER_KEY));
+        jrbPoison.setText(LanguageStrings.getString(CluePaperPanel.POISON_KEY));
+        jrbTrophy.setText(LanguageStrings.getString(CluePaperPanel.TROPHY_KEY));
+        jrbRope.setText(LanguageStrings.getString(CluePaperPanel.ROPE_KEY));
+        jrbBat.setText(LanguageStrings.getString(CluePaperPanel.BAT_KEY));
+        jrbAxe.setText(LanguageStrings.getString(CluePaperPanel.AXE_KEY));
+        jrbDumbbell.setText(LanguageStrings.getString(CluePaperPanel.DUMBBELL_KEY));
+        jrbHall.setText(LanguageStrings.getString(CluePaperPanel.HALL_KEY));
+        jrbEatery.setText(LanguageStrings.getString(CluePaperPanel.EATERY_KEY));
+        jrbKitchen.setText(LanguageStrings.getString(CluePaperPanel.KITCHEN_KEY));
+        jrbTerrace.setText(LanguageStrings.getString(CluePaperPanel.TERRACE_KEY));
+        jrbPlanetarium.setText(LanguageStrings.getString(CluePaperPanel.PLANETARIUM_KEY));
+        jrbCinema.setText(LanguageStrings.getString(CluePaperPanel.CINEMA_KEY));
+        jrbLivingRoom.setText(LanguageStrings.getString(CluePaperPanel.LIVINGROOM_KEY));
+        jrbBath.setText(LanguageStrings.getString(CluePaperPanel.BATH_KEY));
+        jrbGuestHouse.setText(LanguageStrings.getString(CluePaperPanel.GUESTHOUSE_KEY));
+        chooseButton.setText(LanguageStrings.getString("Suspect.Choose"));
 }
 private void suspectButtonActionPerformed(ActionEvent evt){
     JRadioButton button=(JRadioButton)evt.getSource();
@@ -102,10 +124,16 @@ private int findTextOfButton(String text, List<String> list, boolean isWeapon){
     return foundIndex;
 }
 private void jbChooseActionPerformed(){
+        String selectedWeapon="";
+        if(!selectedWeaponKey.equals("")){
+            selectedWeapon=LanguageStrings.getString(selectedWeaponKey);
+        }
+    String message=LanguageStrings.getString("Suspect.SelectedOptions")+System.lineSeparator()+selectedGuestKey+", "+selectedWeapon+", "+LanguageStrings.getString(selectedRoomKey)+System.lineSeparator();
     if(selectedGuestKey.equals("")||selectedWeaponKey.equals("")){
-        AbstractBaseWindow.showErrorMessage(LanguageStrings.getString("Suspect.SelectedOptions")+System.lineSeparator()+LanguageStrings.getString(selectedGuestKey)+", "+LanguageStrings.getString(selectedWeaponKey)+", "+LanguageStrings.getString(selectedRoomKey)+System.lineSeparator()+LanguageStrings.getString("Suspect.MustChooseGuestAndWeapon"));
+        
+        AbstractBaseWindow.showErrorMessage(message+LanguageStrings.getString("Suspect.MustChooseGuestAndWeapon"));
     }else{
-        int answer=AbstractBaseWindow.showConfirmation(LanguageStrings.getString("Suspect.SureToChooseTheeseObjects"), null);
+        int answer=AbstractBaseWindow.showConfirmation(message+LanguageStrings.getString("Suspect.SureToChooseTheeseObjects"), null);
         if(answer==JOptionPane.YES_OPTION){
             gameController.humanPlayerSuspectCards(selectedGuestKey, selectedWeaponKey, selectedRoomKey);
         }
@@ -175,7 +203,7 @@ private void jbChooseActionPerformed(){
         customizeRadioButton(jrbPeacock, CluePaperPanel.PEACOCK_CONST);
         bgGuests.add(jrbPeacock);
 
-        customizeRadioButton(jrbPeacock, CluePaperPanel.SCARLET_CONST);
+        customizeRadioButton(jrbScarlet, CluePaperPanel.SCARLET_CONST);
         bgGuests.add(jrbScarlet);
 
         customizeRadioButton(jrbWhite, CluePaperPanel.WHITE_CONST);
@@ -247,17 +275,20 @@ private void jbChooseActionPerformed(){
                 .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpBaseLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jrbWhite, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                            .addComponent(jrbScarlet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jrbPeacock, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jrbPlum, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jrbMustard, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jrbGreen, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jrbPeacock, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                            .addComponent(jrbScarlet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jrbWhite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jpBaseLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jlGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(82, 82, 82)
+                        .addComponent(jlGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBaseLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jrbGreen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jrbPlum, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jrbMustard, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(66, 66, 66)
                 .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jpBaseLayout.createSequentialGroup()
                         .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -354,7 +385,7 @@ private void jbChooseActionPerformed(){
                 .addGroup(jpBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jrbGuestHouse)
                     .addComponent(jrbDumbbell))
-                .addGap(34, 34, 34)
+                .addGap(10, 10, 10)
                 .addComponent(chooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );

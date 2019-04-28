@@ -62,6 +62,7 @@ GameBoard.MyIntricCards=My intric cards
 GameBoard.EntranceMark=In
 GameBoard.MySpecialAbility=My special ability
 GameBoard.EndRound=Finished my round
+GameBoard.DrawnClockCards=The number of clock cards drawn yet: 
 
 #CardWindow
 CardWindow.Next=Next

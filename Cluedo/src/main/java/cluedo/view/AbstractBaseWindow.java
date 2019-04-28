@@ -124,9 +124,13 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
     }
     
     public static int showOptionDialogWithImage(String message,String title, Object[] options, URL imageUrl,int optionType, int messageType){
+      ImageIcon imageIcon=null;
+      if(imageUrl!=null){
+          imageIcon=new ImageIcon(imageUrl);
+      }
         return JOptionPane.showOptionDialog(null, message,
                 title, optionType, messageType,
-                new ImageIcon(imageUrl), options, options[0]);
+                imageIcon, options, options[0]);
     }
     
         public static int showConfirmation(String message, URL imageUrl) {

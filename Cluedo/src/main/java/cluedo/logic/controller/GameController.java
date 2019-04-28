@@ -8,6 +8,7 @@ import cluedo.logic.fields.EntranceField;
 import cluedo.logic.fields.Field;
 import cluedo.logic.fields.FieldType;
 import cluedo.logic.intrics.Intrics;
+import cluedo.logic.intrics.IntricsType;
 import cluedo.logic.parsers.IntricsParser;
 import cluedo.logic.map.GameMap;
 import cluedo.logic.player.Ai;
@@ -51,6 +52,7 @@ public class GameController {
     private List<Card> allMurderRoomCards = new ArrayList<>();
     private static final String OPTION_PANE_DROPPED_NUMBER_CONST = "JOptionPane.DroppedNumber";
     private int playerNumberWhoTriedToShowInThisRound;
+    private int drawnNumberOfClockCards;
 
     public GameController() {
         actualGamePhase = GamePhase.INITIAL;
@@ -60,6 +62,7 @@ public class GameController {
         roomMap = rf.generateRooms();//commented out because pmd
         actualPlayerIndex = 0;
         playerNumberWhoTriedToShowInThisRound=0;
+        drawnNumberOfClockCards=0;
     }
 
     public int getNumberOfPlayers() {
@@ -264,8 +267,6 @@ public class GameController {
     }
     
     private void checkFieldTypeAndCallRightMethod(Field field,Ai actualComputerPlayer,Point destination) {
-        System.out.println("field==null: "+(field==null));
-        System.out.println("destination==null: "+(destination==null));
         if (field.getType() == FieldType.ENTRANCE) {
             computerPlayerEntersRoom(actualComputerPlayer, destination);
         } else {
@@ -313,6 +314,8 @@ public class GameController {
     }
 
     private void fireShowInformationsAboutSuspectedCards(Card murder, Card murderWeapon, Card murderRoom, Player playerWhoProves) {
+        Player actualPlayer=getActualPlayer();
+        if(actualPlayer.getIsComputer()){
         Ai actualComputerPlayer = (Ai) players.get(actualPlayerIndex);
         actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.AiSuspectsCards"));
         actualComputerPlayer.appendToInformation(System.lineSeparator());
@@ -322,6 +325,7 @@ public class GameController {
         actualComputerPlayer.appendToInformation(System.lineSeparator());
         actualComputerPlayer.appendToInformation(murderRoom.getNameForUI());
         actualComputerPlayer.appendToInformation(System.lineSeparator());
+        }
         fireShowSuspectedCardsView(murder, murderWeapon, murderRoom, playerWhoProves);
     }
 
@@ -599,7 +603,12 @@ public class GameController {
 
     public Intrics drawIntricCard() {
         Intrics intric = intricCards.remove(0);
+        if(intric.getType()!=IntricsType.CLOCK){
         players.get(actualPlayerIndex).addIntricCard(intric);
+        }else{
+            drawnNumberOfClockCards+=1;
+            gameBoardListener.refreshNumberOfDrawnClockCards();
+        }
         return intric;
     }
 
@@ -899,8 +908,8 @@ private void humanPlayerWaitsForProof(Player playerToProve){
     public void humanPlayerSuspectCards(String selectedGuestKey, String selectedWeaponKey, String selectedRoomKey) {
         Player playerToProve=determinePlayerWhoHasToProve(actualPlayerIndex);
         Card murder=getMurderSuspectCardFromAllAccordingToCardKey(selectedGuestKey, allMurderCards);
-        Card murderWeapon=getMurderSuspectCardFromAllAccordingToCardKey(selectedWeaponKey, allMurderWeaponCards);
-        Card murderRoom=getMurderSuspectCardFromAllAccordingToCardKey(selectedRoomKey, allMurderRoomCards);
+        Card murderWeapon=getMurderSuspectCardFromAllAccordingToCardKey(LanguageStrings.getString(selectedWeaponKey), allMurderWeaponCards);
+        Card murderRoom=getMurderSuspectCardFromAllAccordingToCardKey(LanguageStrings.getString(selectedRoomKey), allMurderRoomCards);
         Player actualPlayer=getActualPlayer();
         actualPlayer.setSuspectedMurderInActualRound(murder);
         actualPlayer.setSuspectedMurderWeaponInActualRound(murderWeapon);
@@ -918,25 +927,29 @@ private void humanPlayerWaitsForProof(Player playerToProve){
        }
     }
 public void fireDisplayShowProofCardView(Card cardToShow, Player playerWhoShowed){
+    playerNumberWhoTriedToShowInThisRound+=1;
     if(cardToShow==null && playerNumberWhoTriedToShowInThisRound<numberOfPlayers-1){
         fireShowInformation(playerWhoShowed.toString()+LanguageStrings.getString("Suspect.WasUnableToProve"));
-        playerNumberWhoTriedToShowInThisRound+=1;
         int indexOfPreviousPlayer=findPlayerIndex(playerWhoShowed);
         tryToProve(indexOfPreviousPlayer);
     }else{
     gameBoardListener.showProofCardView(cardToShow, playerWhoShowed);
     }
 }
-    private Card getMurderSuspectCardFromAllAccordingToCardKey(String selectedCardKey, List<Card> suspectCards) {
+    private Card getMurderSuspectCardFromAllAccordingToCardKey(String selectedCardText, List<Card> suspectCards) {
         int i=0;
         Card card=null;
-        while(i<suspectCards.size() && !suspectCards.get(i).getUiStringKey().equals(selectedCardKey)){
+        while(i<suspectCards.size() && !suspectCards.get(i).getNameForUI().equals(selectedCardText)){
             i+=1;
         }
         if(i<suspectCards.size()){
             card=suspectCards.get(i);
         }
         return card;
+    }
+
+    public int getDrawnNumberOfClockCards() {
+        return drawnNumberOfClockCards;
     }
 
 }

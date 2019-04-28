@@ -2,25 +2,16 @@
 package cluedo.view.board;
 
 import cluedo.logic.cards.Card;
-import cluedo.logic.controller.GameController;
 import cluedo.logic.player.Player;
-import static cluedo.tools.Tools.LOG;
 import cluedo.tools.languagestring.LanguageStrings;
-import cluedo.view.AbstractBaseWindow;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
+import java.util.Set;
 import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 
 /**
  * This class represents the clue paper for the game. On it the players can mark
@@ -55,71 +46,15 @@ public class CluePaperPanel extends JPanel {
     public static final String PLUM_CONST = "Plum";
     public static final String GAMEBOARD_GUEST_CONST = "GameBoard.Guests";
     public static final String GAMEBOARD_WEAPON_CONST = "GameBoard.Weapons";
-    private static final String GAMEBOARD_ROOM_CONST = "GameBoard.Rooms";
-    
-    private final boolean suspect;
-    private JRadioButton jrbKnife;
-    private JRadioButton jrbCandlestick;
-    private JRadioButton jrbRevolver;
-    private JRadioButton jrbPoison;
-    private JRadioButton jrbTrophy;
-    private JRadioButton jrbRope;
-    private JRadioButton jrbBat;
-    private JRadioButton jrbAxe;
-    private JRadioButton jrbDumbbell;
-    private List<String> weaponKeys;
-    private List<String> guestKeys;
-    private String selectedGuestKey;
-    private String selectedWeaponKey;
-    private JRadioButton jrbHall;
-    private JRadioButton jrbBath;
-    private JRadioButton jrbCinema;
-    private JRadioButton jrbGuestHouse;
-    private JRadioButton jrbPlanetarium;
-    private JRadioButton jrbKitchen;
-    private JRadioButton jrbLivingRoom;
-    private JRadioButton jrbTerrace;
-    private JRadioButton jrbEatery;
-    private JButton chooseButton;
-    private GameController gameController;
-    private String selectedRoomKey;
-    public CluePaperPanel(boolean suspect, GameController gameController) {
-        this.suspect=suspect;
-        this.gameController=gameController;
-        if(suspect){
-        selectedRoomKey=gameController.getActualPlayer().getActualRoomName();
-                }
-        fillUpWeaponKeys();
-        filUpGuestKeys();
+    public static final String GAMEBOARD_ROOM_CONST = "GameBoard.Rooms";
+
+
+    public CluePaperPanel() {
         initComponents();
-        if(!suspect){
         fillUpCheckBoxMap();
-        }
-        selectedGuestKey="";
-        selectedWeaponKey="";
         
     }
-    private void filUpGuestKeys(){
-        guestKeys=new ArrayList<>();
-        guestKeys.add(MUSTARD_CONST);
-        guestKeys.add(PEACOCK_CONST);
-        guestKeys.add(SCARLET_CONST);
-        guestKeys.add(GREEN_CONST);
-        guestKeys.add(WHITE_CONST);
-        guestKeys.add(PLUM_CONST);
-    }
-    private void fillUpWeaponKeys(){
-        weaponKeys=new ArrayList<>();
-        weaponKeys.add(CANDLESTICK_KEY);
-        weaponKeys.add(KNIFE_KEY);
-        weaponKeys.add(REVOLVER_KEY);
-        weaponKeys.add(POISON_KEY);
-        weaponKeys.add(ROPE_KEY);
-        weaponKeys.add(TROPHY_KEY);
-        weaponKeys.add(BAT_KEY);
-        weaponKeys.add(AXE_KEY);
-        weaponKeys.add(DUMBBELL_KEY);
-    }
+  
 private void customizeCheckBox(JCheckBox checkBox, String title){
     checkBox.setBackground(new Color(255, 255, 255));
 
@@ -127,49 +62,8 @@ private void customizeCheckBox(JCheckBox checkBox, String title){
 
     checkBox.setText(title);
 }
-private void customizeRadioButton(JRadioButton radioButton, String title){
-    radioButton.setBackground(new Color(180, 0, 0));
-    radioButton.setFont(new java.awt.Font(FONT_TYPE, 0, 12)); // NOI18N
-    radioButton.setText(title);
-    radioButton.addActionListener((ActionEvent evt) -> suspectButtonActionPerformed(evt));
-    if(title.equals(LanguageStrings.getString(selectedRoomKey))){
-        radioButton.setSelected(true);
-    }
-}
-private int findTextOfButton(String text, List<String> list, boolean isWeapon){
-    int i=0;
-    boolean found=false;
-    while(i<list.size() && !found){
-        String value=list.get(i);
-        if(isWeapon){
-        value=LanguageStrings.getString(list.get(i));
-        if(value==null){
-            value="";
-        }
-        }
-        found=value.equals(text);
-            i+=1;
-    }
-    int foundIndex=-1;
-    if(found){
-        foundIndex=i-1;
-    }
-    return foundIndex;
-}
-private void suspectButtonActionPerformed(ActionEvent evt){
-    JRadioButton button=(JRadioButton)evt.getSource();
-    String text=button.getText();
-    int i=findTextOfButton(text, weaponKeys, true);
-    if(i==-1){
-        i=findTextOfButton(text, guestKeys, false);
-        selectedGuestKey=guestKeys.get(i);
-        LOG.log(Level.INFO, "Selected guest to suspect: {0}",selectedGuestKey);
-    }else{
-        selectedWeaponKey=weaponKeys.get(i);
-        LOG.log(Level.INFO, "Selected weapon to suspect: {0}",selectedWeaponKey);
-    }
-    
-}
+
+
 private void fillUpCheckBoxMap(){
     checkBoxMap=new HashMap<>();
     checkBoxMap.put(KNIFE_KEY, jcKnife);
@@ -197,8 +91,14 @@ private void fillUpCheckBoxMap(){
     checkBoxMap.put("Cards.Persons.White", jcWhite);
     checkBoxMap.put("Cards.Persons.Plum", jcPlum);
 }
-private void initRealCluePaper(){
-    jcHall=new JCheckBox();
+
+
+
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+       jcHall=new JCheckBox();
         jcEatery=new JCheckBox();
         jcKitchen=new JCheckBox();
         jcTerrace=new JCheckBox();
@@ -384,268 +284,10 @@ private void initRealCluePaper(){
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcDumbbell)))
                 .addContainerGap(19, Short.MAX_VALUE))
-        );
-}
-
-private void initSuspectationPaper(){
-    
-    JPanel jpBase=new JPanel(new BorderLayout());
-        jlRooms=new javax.swing.JLabel();
-        jlGuests = new javax.swing.JLabel();
-        jlWeapons = new javax.swing.JLabel();
-        JRadioButton jrbWhite = new JRadioButton();
-        jrbKnife = new JRadioButton();
-        jrbCandlestick = new JRadioButton();
-        jrbRevolver = new JRadioButton();
-        jrbPoison = new JRadioButton();
-        jrbTrophy = new JRadioButton();
-        jrbRope = new JRadioButton();
-        jrbBat = new JRadioButton();
-        jrbAxe = new JRadioButton();
-        jrbDumbbell = new JRadioButton();
-        jrbHall=new JRadioButton();
-        jrbBath=new JRadioButton();
-        jrbCinema=new JRadioButton();
-        jrbGuestHouse=new JRadioButton();
-        jrbPlanetarium=new JRadioButton();
-        jrbKitchen=new JRadioButton();
-        jrbLivingRoom=new JRadioButton();
-        jrbTerrace=new JRadioButton();
-        jrbEatery=new JRadioButton();
-
-            setBackground(new Color(180,0, 0));
-
-  
-        setMaximumSize(new java.awt.Dimension(403, 259));
-
-        jlGuests.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
-        jlGuests.setText(LanguageStrings.getString(GAMEBOARD_GUEST_CONST));
-
-        jlWeapons.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
-        jlWeapons.setText(LanguageStrings.getString(GAMEBOARD_WEAPON_CONST));
-        
-        jlRooms.setFont(new java.awt.Font(FONT_TYPE, 1, 14)); // NOI18N
-        jlRooms.setText(LanguageStrings.getString(GAMEBOARD_ROOM_CONST));
-        
-        JRadioButton jrbMustard = new JRadioButton();
-        customizeRadioButton(jrbMustard, MUSTARD_CONST);
-        JRadioButton jrbPlum = new JRadioButton();
-        customizeRadioButton(jrbPlum, PLUM_CONST);
-        JRadioButton jrbGreen = new JRadioButton();
-        customizeRadioButton(jrbGreen, GREEN_CONST);
-        JRadioButton jrbPeacock = new JRadioButton();
-        customizeRadioButton(jrbPeacock, PEACOCK_CONST);
-        JRadioButton jrbScarlet = new JRadioButton();
-        customizeRadioButton(jrbScarlet, SCARLET_CONST);
-
-        customizeRadioButton(jrbWhite, WHITE_CONST);
-        
-        customizeRadioButton(jrbKnife, LanguageStrings.getString(KNIFE_KEY));
-
-        customizeRadioButton(jrbCandlestick, LanguageStrings.getString(CANDLESTICK_KEY));
-
-        customizeRadioButton(jrbRevolver, LanguageStrings.getString(REVOLVER_KEY));
-
-        customizeRadioButton(jrbPoison, LanguageStrings.getString(POISON_KEY));
-
-        customizeRadioButton(jrbTrophy, LanguageStrings.getString(TROPHY_KEY));
-
-        customizeRadioButton(jrbRope, LanguageStrings.getString(ROPE_KEY));
-
-        customizeRadioButton(jrbBat, LanguageStrings.getString(BAT_KEY));
-
-        customizeRadioButton(jrbAxe, LanguageStrings.getString(AXE_KEY));
-
-        customizeRadioButton(jrbDumbbell, LanguageStrings.getString(DUMBBELL_KEY));
-        customizeRadioButton(jrbHall, LanguageStrings.getString(HALL_KEY));
-        customizeRadioButton(jrbEatery, LanguageStrings.getString(EATERY_KEY));
-        customizeRadioButton(jrbCinema, LanguageStrings.getString(CINEMA_KEY));
-        customizeRadioButton(jrbLivingRoom, LanguageStrings.getString(LIVINGROOM_KEY));
-        customizeRadioButton(jrbBath, LanguageStrings.getString(BATH_KEY));
-        customizeRadioButton(jrbKitchen, LanguageStrings.getString(KITCHEN_KEY));
-        customizeRadioButton(jrbGuestHouse, LanguageStrings.getString(GUESTHOUSE_KEY));
-        customizeRadioButton(jrbTerrace, LanguageStrings.getString(TERRACE_KEY));
-        customizeRadioButton(jrbPlanetarium, LanguageStrings.getString(PLANETARIUM_KEY));
-        jrbHall.setEnabled(false);
-        jrbEatery.setEnabled(false);
-        jrbCinema.setEnabled(false);
-        jrbLivingRoom.setEnabled(false);
-        jrbBath.setEnabled(false);
-        jrbKitchen.setEnabled(false);
-        jrbGuestHouse.setEnabled(false);
-        jrbTerrace.setEnabled(false);
-        jrbPlanetarium.setEnabled(false);
-        bgGuests.add(jrbPeacock);
-        bgGuests.add(jrbScarlet);
-        bgGuests.add(jrbPlum);
-        bgGuests.add(jrbGreen);
-        bgGuests.add(jrbWhite);
-        bgGuests.add(jrbMustard);
-        bgWeapons.add(jrbAxe);
-        bgWeapons.add(jrbDumbbell);
-        bgWeapons.add(jrbCandlestick);
-        bgWeapons.add(jrbRevolver);
-        bgWeapons.add(jrbRope);
-        bgWeapons.add(jrbPoison);
-        bgWeapons.add(jrbBat);
-        bgWeapons.add(jrbTrophy);
-        bgWeapons.add(jrbKnife);
-          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jrbWhite, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jrbScarlet, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jrbPlum, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                                .addComponent(jrbGreen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jrbPeacock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(jlGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jrbMustard, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jrbDumbbell, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbAxe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbKnife, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbCandlestick, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlWeapons)
-                        .addGap(0, 37, Short.MAX_VALUE))
-                    .addComponent(jrbRevolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbPoison, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbTrophy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbRope, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbBat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jrbGuestHouse, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                    .addComponent(jrbBath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbLivingRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jlRooms)
-                    .addComponent(jrbHall, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbEatery, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbKitchen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbTerrace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbPlanetarium, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jrbCinema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(51, 51, 51))
-        );
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jlGuests, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jlRooms, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlWeapons))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jrbHall)
-                            .addComponent(jrbKnife))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jrbMustard)
-                    .addComponent(jrbEatery)
-                    .addComponent(jrbCandlestick))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jrbKitchen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jrbTerrace)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jrbPlanetarium)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jrbCinema)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jrbLivingRoom)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jrbBath)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jrbGuestHouse))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jrbPlum))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jrbRevolver)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jrbGreen)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jrbPeacock)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jrbScarlet)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jrbWhite))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jrbPoison)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jrbTrophy)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jrbRope)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jrbBat)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jrbAxe)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jrbDumbbell)))
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-        jpBase.add(this, BorderLayout.CENTER);
-        jpBase.setBackground(new Color(180, 0, 0));
-        chooseButton=new JButton(LanguageStrings.getString("Suspect.Choose"));
-        chooseButton.addActionListener((ActionEvent evt) -> jbChooseActionPerformed());
-        chooseButton.setBackground(new Color(255, 30, 21));
-        chooseButton.setFont(new java.awt.Font(FONT_TYPE, 1, 12));
-        JPanel panelForButton=new JPanel(new BorderLayout());
-      /*  JPanel panel=new JPanel();
-        panel.setPreferredSize(new Dimension(400, 50));
-        panel.setBackground(new Color(180, 0, 0));
-        panelForButton.setBackground(new Color(180, 0, 0));
-        panelForButton.add(panel, BorderLayout.WEST);
-        panelForButton.add(panel, BorderLayout.EAST);
-        panelForButton.add(chooseButton, BorderLayout.CENTER);
-        panel=new JPanel();
-        panel.setBackground(new Color(180, 0, 0));
-        panel.setPreferredSize(new Dimension(500, 400));
-        jpBase.add(panel, BorderLayout.WEST);
-        jpBase.add(panel, BorderLayout.EAST);*/
-      panelForButton.add(chooseButton, BorderLayout.CENTER);
-        jpBase.add( panelForButton, BorderLayout.SOUTH);
-
-}
-private void jbChooseActionPerformed(){
-    if(selectedGuestKey.equals("")||selectedWeaponKey.equals("")){
-        AbstractBaseWindow.showErrorMessage(LanguageStrings.getString("Suspect.SelectedOptions")+System.lineSeparator()+LanguageStrings.getString(selectedGuestKey)+", "+LanguageStrings.getString(selectedWeaponKey)+", "+LanguageStrings.getString(selectedRoomKey)+System.lineSeparator()+LanguageStrings.getString("Suspect.MustChooseGuestAndWeapon"));
-    }else{
-        int answer=AbstractBaseWindow.showConfirmation(LanguageStrings.getString("Suspect.SureToChooseTheeseObjects"), null);
-        if(answer==JOptionPane.YES_OPTION){
-            gameController.humanPlayerSuspectCards(selectedGuestKey, selectedWeaponKey, selectedRoomKey);
-        }
-    }
-}
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-        if(!suspect){
-            initRealCluePaper();
-        }else{
-            initSuspectationPaper();
-        }
-        
+        );      
     }// </editor-fold>//GEN-END:initComponents
     public void enableCheckBoxes(boolean enabled, Player player){
-        if(!suspect){
+
         jcHall.setEnabled(enabled);
         jcEatery.setEnabled(enabled);
         jcKitchen.setEnabled(enabled);
@@ -673,13 +315,11 @@ private void jbChooseActionPerformed(){
         if(enabled){
             markOwnedSuspectCards(player.getSuspectCards());
         }
-        }
+        
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private ButtonGroup bgGuests=new ButtonGroup();
-    private ButtonGroup bgWeapons=new ButtonGroup();
     private JCheckBox jcHall;
     private JCheckBox jcEatery;
     private JCheckBox jcKitchen;
@@ -713,27 +353,7 @@ private void jbChooseActionPerformed(){
        jlGuests.setText(LanguageStrings.getString(GAMEBOARD_GUEST_CONST));
        jlWeapons.setText(LanguageStrings.getString(GAMEBOARD_WEAPON_CONST));
        jlRooms.setText(LanguageStrings.getString(GAMEBOARD_ROOM_CONST));
-       if(suspect){
-        jrbKnife.setText(LanguageStrings.getString(KNIFE_KEY));
-        jrbCandlestick.setText(LanguageStrings.getString(CANDLESTICK_KEY));
-        jrbRevolver.setText(LanguageStrings.getString(REVOLVER_KEY));
-        jrbPoison.setText(LanguageStrings.getString(POISON_KEY));
-        jrbTrophy.setText(LanguageStrings.getString(TROPHY_KEY));
-        jrbRope.setText(LanguageStrings.getString(ROPE_KEY));
-        jrbBat.setText(LanguageStrings.getString(BAT_KEY));
-        jrbAxe.setText(LanguageStrings.getString(AXE_KEY));
-        jrbDumbbell.setText(LanguageStrings.getString(DUMBBELL_KEY));
-        jrbHall.setText(LanguageStrings.getString(HALL_KEY));
-        jrbEatery.setText(LanguageStrings.getString(EATERY_KEY));
-        jrbKitchen.setText(LanguageStrings.getString(KITCHEN_KEY));
-        jrbTerrace.setText(LanguageStrings.getString(TERRACE_KEY));
-        jrbPlanetarium.setText(LanguageStrings.getString(PLANETARIUM_KEY));
-        jrbCinema.setText(LanguageStrings.getString(CINEMA_KEY));
-        jrbLivingRoom.setText(LanguageStrings.getString(LIVINGROOM_KEY));
-        jrbBath.setText(LanguageStrings.getString(BATH_KEY));
-        jrbGuestHouse.setText(LanguageStrings.getString(GUESTHOUSE_KEY));
-        chooseButton.setText(LanguageStrings.getString("Suspect.Choose"));
-       }else{ 
+  
         jcKnife.setText(LanguageStrings.getString(KNIFE_KEY));
         jcCandlestick.setText(LanguageStrings.getString(CANDLESTICK_KEY));
         jcRevolver.setText(LanguageStrings.getString(REVOLVER_KEY));
@@ -752,9 +372,19 @@ private void jbChooseActionPerformed(){
         jcLivingRoom.setText(LanguageStrings.getString(LIVINGROOM_KEY));
         jcBath.setText(LanguageStrings.getString(BATH_KEY));
         jcGuestHouse.setText(LanguageStrings.getString(GUESTHOUSE_KEY));
-       }
+       
     }
-
+   public List<String> getAlreadySelectedCheckBoxTitles(){
+           Set<String> keys=checkBoxMap.keySet();
+        List<String> selectedCheckBoxTitles=new ArrayList<>();
+        for(String k: keys){
+            JCheckBox checkBox=checkBoxMap.get(k);
+            if(checkBox.isSelected()){
+                selectedCheckBoxTitles.add(k);
+            }
+        }
+       return selectedCheckBoxTitles;
+   }
     public void markOwnedSuspectCards(List<Card> suspectCards) {
         for(Card c:suspectCards){
             JCheckBox checkBox=checkBoxMap.get(c.getUiStringKey());
@@ -763,4 +393,15 @@ private void jbChooseActionPerformed(){
             
         }
     }
+
+    public void selectCheckBoxesAccordingToTitle(List<String> alreadySelectedCheckBoxTitles) {
+        Set<String> keys=checkBoxMap.keySet();
+        for(String k: keys){
+            if(alreadySelectedCheckBoxTitles.contains(k)){
+                checkBoxMap.get(k).setSelected(true);
+            }
+        }
+    }
+
+  
 }

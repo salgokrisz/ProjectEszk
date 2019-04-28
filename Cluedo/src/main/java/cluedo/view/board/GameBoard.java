@@ -56,6 +56,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     private JButton intricCardsButton;
     private JButton diceButton;
     private CluePaperPanel cluePaperPanel;
+    private SuspectPaperPanel suspectPaperPanel;
     private List<List<PositionedButton>> buttonedMap = new ArrayList<>();
     private JPanel panelForCluePaper;
     private final JButton specialAbilityButton;
@@ -65,10 +66,11 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     private JButton finishedRoundButton;
     private AiSuspectCardWindow aiSuspectCardWindow;
     private JLabel jlToDo;
+    private final JLabel jlClockInformations;
     public GameBoard(GameController gameController) {
         recognizeActions=true;
         jpBase = new JPanel();
-        cluePaperPanel = new CluePaperPanel(false, gameController);
+        cluePaperPanel = new CluePaperPanel();
         jpBase.setLayout(new BorderLayout());
         JScrollPane jscrollBase = new JScrollPane();
         this.gameController = gameController;
@@ -142,6 +144,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         panelForButtons.add(diceButton);
         panelForButtons.setBackground(new Color(180, 0, 0));
         panelForGameBoard.add(panelForButtons, SOUTH);
+        jlClockInformations=new JLabel(LanguageStrings.getString("GameBoard.DrawnClockCards")+gameController.getDrawnNumberOfClockCards());
         tabbedPane.addTab(LanguageStrings.getString("GameBoard.Board"), panelForGameBoard);
         panelForCluePaper = new JPanel(new BorderLayout());
         dummyPanel = new JPanel();
@@ -158,6 +161,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         panelForCluePaper.add(dummyPanel, EAST);
         panelForCluePaper.add(cluePaperPanel, BorderLayout.CENTER);
         tabbedPane.addTab(LanguageStrings.getString(GAMEBOARD_CLUEPAPER_CONST), panelForCluePaper);
+        jpBase.add(jlClockInformations, NORTH);
         jpBase.add(tabbedPane, BorderLayout.CENTER);
         jpBase.setBackground(new Color(180, 0, 0));
         Container cp = getContentPane();
@@ -432,12 +436,16 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     public void showProofCardView(Card proofCard, Player playerWhoShowed){
         Object[] options={"Ok"};
         StringBuilder message=new StringBuilder();
+         URL imageUrl=null;
         if(proofCard!=null){
             message.append(playerWhoShowed.toString()).append(LanguageStrings.getString("Suspect.ShownEvidenceCard")).append(System.lineSeparator()).append(proofCard.getNameForUI());
+        imageUrl=getClass().getResource(proofCard.getImageName());
         }else{
             message.append(LanguageStrings.getString("Suspect.NobodyCouldShow"));
         }
-        showOptionDialogWithImage(message.toString(), LanguageStrings.getString("Suspect.ShownEvidenceCard"), options, null, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
+       
+ 
+        showOptionDialogWithImage(message.toString(), LanguageStrings.getString("Suspect.ShownEvidenceCard"), options, imageUrl, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
         resetCluePaperView();
     }
     private void resetCluePaperView(){
@@ -454,6 +462,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         dummyPanel.setPreferredSize(new Dimension(500, 400));
         dummyPanel.setBackground(new Color(180, 0, 0));
         panelForCluePaper.add(dummyPanel, EAST);
+        cluePaperPanel.enableCheckBoxes(true, gameController.getActualPlayer());
         panelForCluePaper.add(cluePaperPanel, BorderLayout.CENTER);
         tabbedPane.removeTabAt(1);
         tabbedPane.addTab(LanguageStrings.getString(GAMEBOARD_CLUEPAPER_CONST), panelForCluePaper);
@@ -462,42 +471,32 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         Container cp = getContentPane();
         cp.add(jpBase);
         finishedRoundButton.setEnabled(true);
+        suspectPaperPanel=null;
         showInformation(LanguageStrings.getString("Suspect.MarkInfos"));
     }
     @Override
     public void showSuspectView(){
-        SuspectPaperPanel panelForSuspectation=new SuspectPaperPanel(gameController);
-        
+        suspectPaperPanel=new SuspectPaperPanel(gameController);
         jlToDo=new JLabel();
             jlToDo.setFont(new java.awt.Font(FONT_TYPE, 1, 16));
             jlToDo.setText(LanguageStrings.getString("Actions.ChooseSuspects"));
             jlToDo.setBackground(new Color(180, 0, 0));
             panelForCluePaper=new JPanel(new BorderLayout());
             panelForCluePaper.setBackground(new Color(180, 0, 0));
-            JPanel panelForSelectionPaper=new JPanel(new BorderLayout());
-             panelForSelectionPaper.add(panelForSuspectation, BorderLayout.CENTER);
-            JPanel panelForRealCluePaper=new JPanel(new BorderLayout());
-            panelForRealCluePaper.add(cluePaperPanel, BorderLayout.CENTER);
-           
-            JPanel dummyPanel = new JPanel();
-        dummyPanel.setPreferredSize(new Dimension(500, 200));
+            panelForCluePaper.add(cluePaperPanel, SOUTH);   
+        JPanel dummyPanel = new JPanel();
+        dummyPanel.setPreferredSize(new Dimension(500, 400));
         dummyPanel.setBackground(new Color(180, 0, 0));
         panelForCluePaper.add(dummyPanel, WEST);
-        panelForRealCluePaper.add(dummyPanel, WEST);
-        panelForSelectionPaper.add(dummyPanel, WEST);
         dummyPanel = new JPanel();
-        
-        dummyPanel.setPreferredSize(new Dimension(500, 200));
+        dummyPanel.setPreferredSize(new Dimension(400, 400));
         dummyPanel.setBackground(new Color(180, 0, 0));
        panelForCluePaper.add(dummyPanel, EAST);
-         panelForRealCluePaper.add(dummyPanel, EAST);
-         panelForSelectionPaper.add(dummyPanel, EAST);
-            panelForSelectionPaper.add(jlToDo, NORTH);
-            panelForSelectionPaper.setBackground(new Color(180, 0, 0));
-            cluePaperPanel.enableCheckBoxes(false, gameController.getActualPlayer());
-            panelForCluePaper.add(panelForSelectionPaper, BorderLayout.CENTER);  
+            panelForCluePaper.add(jlToDo, NORTH);
+            panelForCluePaper.add(suspectPaperPanel, BorderLayout.CENTER);  
         tabbedPane.removeTabAt(1);
         tabbedPane.addTab(LanguageStrings.getString(GAMEBOARD_CLUEPAPER_CONST), panelForCluePaper);
+        tabbedPane.setBackground(new Color(180, 0, 0));
         jpBase.add(tabbedPane, BorderLayout.CENTER);
         jpBase.setBackground(new Color(180, 0, 0));
         Container cp = getContentPane();
@@ -579,7 +578,10 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         Object[] options = {"Ok"};
         JOptionPane.showOptionDialog(this, sb.toString(), LanguageStrings.getString("JOptionPane.SuspectCardTitle"), JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
     }
-
+    @Override
+    public void refreshNumberOfDrawnClockCards(){
+        jlClockInformations.setText(LanguageStrings.getString("GameBoard.DrawnClockCards")+gameController.getDrawnNumberOfClockCards());
+    }
     @Override
     protected void resetStringsOnWindow() {
         super.resetStringsOnWindow();
@@ -590,11 +592,16 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         if(jlToDo!=null){
             jlToDo.setText(LanguageStrings.getString("Actions.ChooseSuspects"));
         }
+        if(suspectPaperPanel!=null){
+            suspectPaperPanel.resetStrings();
+        }
+        jlClockInformations.setText(LanguageStrings.getString("GameBoard.DrawnClockCards")+gameController.getDrawnNumberOfClockCards());
         tabbedPane.setTitleAt(0, LanguageStrings.getString("GameBoard.Board"));
         tabbedPane.setTitleAt(1, LanguageStrings.getString(GAMEBOARD_CLUEPAPER_CONST));
-        suspectCardsButton.setText(LanguageStrings.getString("GameBoard.MyCards"));
+        suspectCardsButton.setText(LanguageStrings.getString("GameBoard.MySuspectCards"));
         intricCardsButton.setText(LanguageStrings.getString("GameBoard.MyIntricCards"));
         finishedRoundButton.setText(LanguageStrings.getString("GameBoard.EndRound"));
+        specialAbilityButton.setText(LanguageStrings.getString("GameBoard.MySpecialAbility"));
     }
 
     @Override

@@ -40,7 +40,7 @@ private Map<javax.swing.JButton, Card> cardButtonMap;
         cardButtonMap.put(jbMurderCard, this.murderCard);
         cardButtonMap.put(jbMurderWeaponCard, this.murderWeaponCard);
         cardButtonMap.put(jbMurderRoomCard, this.murderRoomCard);
-        jbNothing.setEnabled(canShow);
+        jbNothing.setEnabled(!canShow);
     }
 private void customizeMurderButton(javax.swing.JButton button){
     button.setVerticalTextPosition(SwingConstants.BOTTOM);

@@ -148,18 +148,18 @@ private void jbChooseActionPerformed(){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bgGuests = new javax.swing.ButtonGroup();
-        bgWeapons = new javax.swing.ButtonGroup();
-        jpBase = new javax.swing.JPanel();
+        javax.swing.ButtonGroup bgGuests = new javax.swing.ButtonGroup();
+        javax.swing.ButtonGroup bgWeapons = new javax.swing.ButtonGroup();
+        javax.swing.JPanel jpBase = new javax.swing.JPanel();
         jlWeapons = new javax.swing.JLabel();
         jlRooms = new javax.swing.JLabel();
         jlGuests = new javax.swing.JLabel();
-        jrbMustard = new JRadioButton();
-        jrbPlum = new JRadioButton();
-        jrbGreen = new JRadioButton();
-        jrbPeacock = new JRadioButton();
-        jrbScarlet = new JRadioButton();
-        jrbWhite = new JRadioButton();
+        JRadioButton jrbMustard = new JRadioButton();
+        JRadioButton jrbPlum = new JRadioButton();
+        JRadioButton jrbGreen = new JRadioButton();
+        JRadioButton jrbPeacock = new JRadioButton();
+        JRadioButton jrbScarlet = new JRadioButton();
+        JRadioButton jrbWhite = new JRadioButton();
         jrbKnife = new JRadioButton();
         jrbCandleStick = new JRadioButton();
         jrbRevolver = new JRadioButton();
@@ -404,13 +404,13 @@ private void jbChooseActionPerformed(){
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup bgGuests;
-    private javax.swing.ButtonGroup bgWeapons;
+    
+    
     private javax.swing.JButton chooseButton;
     private javax.swing.JLabel jlGuests;
     private javax.swing.JLabel jlRooms;
     private javax.swing.JLabel jlWeapons;
-    private javax.swing.JPanel jpBase;
+    
     private JRadioButton jrbAxe;
     private JRadioButton jrbBat;
     private JRadioButton jrbBath;
@@ -418,22 +418,22 @@ private void jbChooseActionPerformed(){
     private JRadioButton jrbCinema;
     private JRadioButton jrbDumbbell;
     private JRadioButton jrbEatery;
-    private JRadioButton jrbGreen;
+    
     private JRadioButton jrbGuestHouse;
     private JRadioButton jrbHall;
     private JRadioButton jrbKitchen;
     private JRadioButton jrbKnife;
     private JRadioButton jrbLivingRoom;
-    private JRadioButton jrbMustard;
-    private JRadioButton jrbPeacock;
+    
+    
     private JRadioButton jrbPlanetarium;
-    private JRadioButton jrbPlum;
+    
     private JRadioButton jrbPoison;
     private JRadioButton jrbRevolver;
     private JRadioButton jrbRope;
-    private JRadioButton jrbScarlet;
+    
     private JRadioButton jrbTerrace;
     private JRadioButton jrbTrophy;
-    private JRadioButton jrbWhite;
+    
     // End of variables declaration//GEN-END:variables
 }

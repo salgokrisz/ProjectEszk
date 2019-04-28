@@ -62,6 +62,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     private final JButton specialAbilityButton;
     private static final String GAMEBOARD_CLUEPAPER_CONST = "GameBoard.CluePaper";
     private static final String SURE_TO_MOVE_CONST = "JOptionPane.SureToMove";
+    private static final String GAMEBOARD_DRAWNCLOCK_CONST = "GameBoard.DrawnClockCards";
     private boolean recognizeSecretPassageAction;
     private JButton finishedRoundButton;
     private AiSuspectCardWindow aiSuspectCardWindow;
@@ -144,7 +145,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         panelForButtons.add(diceButton);
         panelForButtons.setBackground(new Color(180, 0, 0));
         panelForGameBoard.add(panelForButtons, SOUTH);
-        jlClockInformations=new JLabel(LanguageStrings.getString("GameBoard.DrawnClockCards")+gameController.getDrawnNumberOfClockCards());
+        jlClockInformations=new JLabel(LanguageStrings.getString(GAMEBOARD_DRAWNCLOCK_CONST)+gameController.getDrawnNumberOfClockCards());
         tabbedPane.addTab(LanguageStrings.getString("GameBoard.Board"), panelForGameBoard);
         panelForCluePaper = new JPanel(new BorderLayout());
         dummyPanel = new JPanel();
@@ -580,7 +581,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     }
     @Override
     public void refreshNumberOfDrawnClockCards(){
-        jlClockInformations.setText(LanguageStrings.getString("GameBoard.DrawnClockCards")+gameController.getDrawnNumberOfClockCards());
+        jlClockInformations.setText(LanguageStrings.getString(GAMEBOARD_DRAWNCLOCK_CONST)+gameController.getDrawnNumberOfClockCards());
     }
     @Override
     protected void resetStringsOnWindow() {
@@ -595,7 +596,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         if(suspectPaperPanel!=null){
             suspectPaperPanel.resetStrings();
         }
-        jlClockInformations.setText(LanguageStrings.getString("GameBoard.DrawnClockCards")+gameController.getDrawnNumberOfClockCards());
+        jlClockInformations.setText(LanguageStrings.getString(GAMEBOARD_DRAWNCLOCK_CONST)+gameController.getDrawnNumberOfClockCards());
         tabbedPane.setTitleAt(0, LanguageStrings.getString("GameBoard.Board"));
         tabbedPane.setTitleAt(1, LanguageStrings.getString(GAMEBOARD_CLUEPAPER_CONST));
         suspectCardsButton.setText(LanguageStrings.getString("GameBoard.MySuspectCards"));

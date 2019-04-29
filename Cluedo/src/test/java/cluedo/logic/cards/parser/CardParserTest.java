@@ -15,6 +15,7 @@ import static org.junit.Assert.assertFalse;
  * @author Szaya
  */
 public class CardParserTest {
+	
     @Test
     public void ParserTest(){
         List<List<Card>> cards = CardParser.parse();

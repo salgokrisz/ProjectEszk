@@ -10,6 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 public class LanguageStringsTest {    
     private final String t1_eng = "test1_eng";
@@ -112,6 +113,12 @@ public class LanguageStringsTest {
         assertEquals("ChangeLanguage to ENG.", Language.ENG, LanguageStrings.getCurrentLanguage());
     }
     
+	@Test
+    public void GetStringWithWrongGivenKeyTest(){
+		assertNull(LanguageStrings.getString(null));
+		assertNull(LanguageStrings.getString(""));
+	}
+	
     @Test    
     public void GetStringTest(){
         CheckGetString(Language.ENG);

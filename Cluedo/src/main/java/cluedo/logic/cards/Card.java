@@ -18,6 +18,10 @@ public class Card {
     private final String uiStringKey;
     
     public Card (String name, String image, String uiStringKey, Type type) {
+		if (name == null || image == null || uiStringKey == null || type == null ||
+			name.equals("") || image.equals("") || uiStringKey.equals("") || type == Type.UNKNOWN) {
+				throw new IllegalArgumentException();
+		}
         this.name = name;
         this.imageName = image;
         this.uiStringKey = uiStringKey;

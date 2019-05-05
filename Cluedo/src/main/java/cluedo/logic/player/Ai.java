@@ -5,6 +5,7 @@ import cluedo.logic.cards.Card;
 import cluedo.logic.player.level.ExperienceLevel;
 import cluedo.logic.player.role.Role;
 import cluedo.logic.room.Point;
+import cluedo.logic.room.SecretCorridoredRoom;
 import cluedo.tools.Tools;
 import java.util.ArrayList;
 import java.util.List;
@@ -229,5 +230,14 @@ public class Ai extends Player {
    /* public boolean knowsSolution(){
         return sureMurderRoom!=null && sureMurderWeapon!=null && sureMurder!=null;
     }*///commented out becuase of PMD, later it will be used
+
+    public boolean wantsToUseSecretCorridorFromRoom(SecretCorridoredRoom actRoom) {
+        String toRoomName=actRoom.getToRoomName();
+        int i=0;
+        while(i<alreadyKnownCards.size() && (!alreadyKnownCards.get(i).getUiStringKey().equals(toRoomName) || !(sureMurderRoom!=null && sureMurderRoom.getUiStringKey().equals(toRoomName)))){     
+            i+=1;
+        }
+        return i<alreadyKnownCards.size();
+    }
     
 }

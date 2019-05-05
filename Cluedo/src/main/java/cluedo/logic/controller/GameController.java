@@ -196,7 +196,8 @@ public class GameController {
         actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.AiUsedSecretPassage"));
         actualComputerPlayer.appendToInformation(LanguageStrings.getString(((SecretCorridoredRoom) roomMap.get(actualComputerPlayer.getActualRoomName())).getToRoomName()));
         actualComputerPlayer.appendToInformation(System.lineSeparator());
-        enterRoom(roomMap.get(actualComputerPlayer.getActualRoomName()), actualPlayerIndex, true);
+        SecretCorridoredRoom actualRoom=(SecretCorridoredRoom)roomMap.get(actualComputerPlayer.getActualRoomName());
+        enterRoom(roomMap.get(actualRoom.getToRoomName()), actualPlayerIndex, true);
     }
 
     private void computerPlayerEntersRoom(Ai actualComputerPlayer, Point destination) {
@@ -234,7 +235,7 @@ public class GameController {
         Ai actualComputerPlayer = (Ai) players.get(actualPlayerIndex);
         appendStarterInformationsAboutComputerPlayerRound(actualComputerPlayer);
         if (actualGamePhase == GamePhase.ROLLORUSESECRETCORRIDOR) {
-            if (actualComputerPlayer.getIsInRoom() && roomMap.get(actualComputerPlayer.getActualRoomName()).getClass() == SecretCorridoredRoom.class) {
+            if (actualComputerPlayer.getIsInRoom() && roomMap.get(actualComputerPlayer.getActualRoomName()).getClass() == SecretCorridoredRoom.class && actualComputerPlayer.wantsToUseSecretCorridorFromRoom((SecretCorridoredRoom)roomMap.get(actualComputerPlayer.getActualRoomName()))) {
                 computerPlayerUsesSecretCorridor(actualComputerPlayer);
             } else {
                 int droppedNumber = rollDice();

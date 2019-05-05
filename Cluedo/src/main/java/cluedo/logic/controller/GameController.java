@@ -882,7 +882,7 @@ public class GameController {
             actualComputerPlayer.addToAlreadyKnownCards(provedCard);
             nextPlayerIsComing();
         } else {
-            if(playerNumberWhoTriedToShowInThisRound==numberOfComputerPlayers-1){
+            if(playerNumberWhoTriedToShowInThisRound==numberOfPlayers-1){
                  actualComputerPlayer.setSureAttributesForSolvingTheClue();
                  nextPlayerIsComing();
             }else{

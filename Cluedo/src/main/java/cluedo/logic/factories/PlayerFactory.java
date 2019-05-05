@@ -84,7 +84,7 @@ public class PlayerFactory {
                 }else{
                     experienceLevel=ExperienceLevel.INTERMEDIATE;
                 }
-                player=new Ai( role,true, experienceLevel);
+                player=new Ai( role,true, experienceLevel, playersList.size());
             }else{
                 player=new Player(role, false);
             }

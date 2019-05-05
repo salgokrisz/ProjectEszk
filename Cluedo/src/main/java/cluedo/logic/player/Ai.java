@@ -18,6 +18,11 @@ import java.util.Objects;
  * 
  */
 public class Ai extends Player {
+    private List<Card> allMurderCards_Murder;
+    private List<Card> allMurderCards_Weapon;
+    private List<Card> allMurderCards_Room;
+    private final Integer numOfPlayers;
+    
     private final ExperienceLevel experienceLevel;
     private List<Point> availablePositionsToMove=new ArrayList<>();
     private StringBuilder sbInformation;
@@ -26,11 +31,16 @@ public class Ai extends Player {
     private Card sureMurder;
     private Card sureMurderWeapon;
     private Card sureMurderRoom;
-    public Ai(Role role,boolean isComputer, ExperienceLevel experienceLevel){
+    public Ai(Role role, boolean isComputer, ExperienceLevel experienceLevel, Integer numOfPlayers){
         super(role,isComputer);
         this.experienceLevel=experienceLevel;
         sbInformation=new StringBuilder();
         alreadyKnownCards=new ArrayList<>();
+        this.numOfPlayers = numOfPlayers;
+        
+        this.sureMurder=null;
+        this.sureMurderRoom=null;
+        this.sureMurderWeapon=null;
     }
     
     public Ai(Ai other){
@@ -43,6 +53,12 @@ public class Ai extends Player {
         this.sureMurder=other.getSureMurder();
         this.sureMurderRoom=other.getSureMurderRoom();
         this.sureMurderWeapon=other.getSureMurderWeapon();
+        
+        this.allMurderCards_Murder = other.allMurderCards_Murder;
+        this.allMurderCards_Weapon = other.allMurderCards_Weapon;
+        this.allMurderCards_Room = other.allMurderCards_Room;
+        
+        this.numOfPlayers = other.numOfPlayers;
     }
     public List<Card> getAlreadyKnownCards(){
         List<Card> copy=new ArrayList<>();
@@ -80,8 +96,13 @@ public class Ai extends Player {
     }
 
 
-
-   
+    public void setAllMurderCards (List<Card> allMurderCards_Murder,
+                                   List<Card> allMurderCards_Weapon,
+                                   List<Card> allMurderCards_Room){
+        this.allMurderCards_Murder = allMurderCards_Murder;
+        this.allMurderCards_Weapon = allMurderCards_Weapon;
+        this.allMurderCards_Room = allMurderCards_Room;
+    }
     
     public void addToAlreadyKnownCards(Card card){
         if(!alreadyKnownCards.contains(card)){
@@ -112,13 +133,13 @@ public class Ai extends Player {
     public int hashCode(){
         return Objects.hash(role);
     }
-@Override
-public void drawSuspectCard(Card card){
-    super.drawSuspectCard(card);
-    if(!alreadyKnownCards.contains(card)){
-    alreadyKnownCards.add(card);
+    @Override
+    public void drawSuspectCard(Card card){
+        super.drawSuspectCard(card);
+        if(!alreadyKnownCards.contains(card)){
+            alreadyKnownCards.add(card);
+        }
     }
-}
     public List<Point> getAvailablePositionsToMove() {
         List<Point> copy=new ArrayList<>();
         for(Point p: availablePositionsToMove){
@@ -138,14 +159,30 @@ public void drawSuspectCard(Card card){
         sbInformation.append(text);
     }
 
-    public Card selectSuspect(List<Card> allMurderCards) {
+    public void selectSuspect() {
         List<Card> notOwnedCards=new ArrayList<>();
-        for(Card c:allMurderCards){
+        for(Card c:allMurderCards_Murder){
             if(!alreadyKnownCards.contains(c)){
                 notOwnedCards.add(c);
             }
         }
-        return notOwnedCards.get(Tools.randomizeNumber(notOwnedCards.size()));
+        suspectedMurderInActualRound = notOwnedCards.get(Tools.randomizeNumber(notOwnedCards.size()));
+        
+        notOwnedCards=new ArrayList<>();
+        for(Card c:allMurderCards_Weapon){
+            if(!alreadyKnownCards.contains(c)){
+                notOwnedCards.add(c);
+            }
+        }
+        suspectedMurderWeaponInActualRound = notOwnedCards.get(Tools.randomizeNumber(notOwnedCards.size()));
+        
+        notOwnedCards=new ArrayList<>();
+        for(Card c:allMurderCards_Room){
+            if(!alreadyKnownCards.contains(c)){
+                notOwnedCards.add(c);
+            }
+        }
+        suspectedMurderRoomInActualRound = notOwnedCards.get(Tools.randomizeNumber(notOwnedCards.size()));
     }
 
     public Card findMurderRoomAccordingToPosition(List<Card> allMurderRoomCards) {

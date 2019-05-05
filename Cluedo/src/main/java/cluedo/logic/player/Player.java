@@ -24,7 +24,7 @@ public class Player {
     protected boolean isInRoom;
     protected String actualRoomName;
     protected boolean suspectedInThisRound;
-      protected Card suspectedMurderInActualRound;
+    protected Card suspectedMurderInActualRound;
     protected Card suspectedMurderWeaponInActualRound;
     protected Card suspectedMurderRoomInActualRound;
     public Player(Role role,boolean isComputer){
@@ -54,12 +54,17 @@ public class Player {
         return aClone;
     }
 
-    public void setSuspectedMurderInActualRound(Card suspectedMurderInActualRound) {
-        this.suspectedMurderInActualRound=null;
-        if(suspectedMurderInActualRound!=null){
-            this.suspectedMurderInActualRound =(Card) suspectedMurderInActualRound.cloneObject();
-        }
-        
+    public void setSuspectedCardsToNull() {
+        this.suspectedMurderInActualRound = null;
+        this.suspectedMurderWeaponInActualRound = null;
+        this.suspectedMurderRoomInActualRound = null;
+      
+    }
+    
+    public void setSuspectedCardsInActualRound(Card murder, Card weapon, Card room) {
+        this.suspectedMurderInActualRound =(Card) murder.cloneObject();
+        this.suspectedMurderWeaponInActualRound =(Card) weapon.cloneObject();
+        this.suspectedMurderRoomInActualRound =(Card) room.cloneObject();
     }
 
     public Card getSuspectedMurderWeaponInActualRound() {
@@ -71,13 +76,6 @@ public class Player {
 
     }
 
-    public void setSuspectedMurderWeaponInActualRound(Card suspectedMurderWeaponInActualRound) {
-        this.suspectedMurderWeaponInActualRound=null;
-        if(suspectedMurderWeaponInActualRound!=null){
-            this.suspectedMurderWeaponInActualRound =(Card) suspectedMurderWeaponInActualRound.cloneObject();
-        }
-    }
-
     public Card getSuspectedMurderRoomInActualRound() {
         Card aClone=null;
         if(suspectedMurderRoomInActualRound!=null){
@@ -86,12 +84,6 @@ public class Player {
         return aClone;
     }
 
-    public void setSuspectedMurderRoomInActualRound(Card suspectedMurderRoomInActualRound) {
-        this.suspectedMurderRoomInActualRound=null;
-        if(suspectedMurderRoomInActualRound!=null){
-            this.suspectedMurderRoomInActualRound =(Card) suspectedMurderRoomInActualRound.cloneObject();
-        }
-    }
     public void setActualRoomName(String actualRoomName){
         this.actualRoomName=actualRoomName;
     }

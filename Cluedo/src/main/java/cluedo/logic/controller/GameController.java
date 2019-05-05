@@ -116,7 +116,7 @@ public class GameController {
 
     public void initializePlayers(List<String> playerInformations) {
         PlayerFactory pf = new PlayerFactory();
-        players = pf.createPlayers(playerInformations, map.getMap());
+        players = pf.createPlayers (playerInformations, map.getMap());
         for (Player p : players) {
             Point startFieldLocation = p.getStartFieldLocation();
             fieldMap.get(startFieldLocation.getX()).get(startFieldLocation.getY()).modifyPlayerNumber(1, numberOfPlayers);
@@ -294,12 +294,7 @@ public class GameController {
     }
     private void computerPlayerSuspects(Ai actualComputerPlayer) {
         actualGamePhase = GamePhase.SUSPECT;
-        Card murder = actualComputerPlayer.selectSuspect(allMurderCards);
-        Card murderWeapon = actualComputerPlayer.selectSuspect(allMurderWeaponCards);
-        Card murderRoom = actualComputerPlayer.findMurderRoomAccordingToPosition(allMurderRoomCards);
-        actualComputerPlayer.setSuspectedMurderInActualRound(murder);
-        actualComputerPlayer.setSuspectedMurderRoomInActualRound(murderRoom);
-        actualComputerPlayer.setSuspectedMurderWeaponInActualRound(murderWeapon);
+        actualComputerPlayer.selectSuspect();
         Player playerWhoHasToProve = determinePlayerWhoHasToProve(actualPlayerIndex);
         computerPlayerWaitsForProof(playerWhoHasToProve);
        
@@ -338,9 +333,7 @@ public class GameController {
         gameBoardListener.showInformation(actualComputerPlayer.getInformationsAboutMovement());
         actualComputerPlayer.resetInformationsAboutMovement();
         if (actualComputerPlayer.getSuspectedInThisRound()) {
-            actualComputerPlayer.setSuspectedMurderInActualRound(null);
-            actualComputerPlayer.setSuspectedMurderWeaponInActualRound(null);
-            actualComputerPlayer.setSuspectedMurderRoomInActualRound(null);
+           actualComputerPlayer.setSuspectedCardsToNull();
         }
     }
 
@@ -506,11 +499,11 @@ public class GameController {
         fireShowOwnedSuspectCards();
     }
 
-    public List<Intrics> initializeIntricCards() {
+    public void initializeIntricCards() {
         IntricsParser ip = new IntricsParser();
         List<Intrics> intrics = ip.parseFile("cards/intrics/intrics.txt");
         Collections.shuffle(intrics);
-        return intrics;
+        intricCards = intrics;
     }
 
     private void fireShowOwnedSuspectCards() {
@@ -524,9 +517,16 @@ public class GameController {
 
     public void initializeGame() {
         initializeSuspectCards();
-        intricCards = initializeIntricCards(); //it is commented out becuse of pmd it will be needed later
+        initializeIntricCards(); //it is commented out becuse of pmd it will be needed later
         fireDisplayRollView(false);
         fireShowWhatToDo(LanguageStrings.getString("Actions.RollDiceStart"));
+      
+        for (Player p: players) {
+            if (p.getIsComputer()) {
+                Ai ai = (Ai)p;
+                ai.setAllMurderCards(allMurderCards, allMurderWeaponCards, allMurderRoomCards);
+            }
+        }
     }
 
     private void fillUpSupsectCardWithCards(List<Card> cards, List<Card> suspectCards) {
@@ -896,24 +896,22 @@ public class GameController {
     public void fireRemoveAiSuspectCardWindow() {
         gameBoardListener.removeAiSuspectCardWindow();
     }
-private void humanPlayerWaitsForProof(Player playerToProve){
-    Player actualPlayer=getActualPlayer();
-     if(playerToProve.getIsComputer()){
-           Card cardToShow = computerPlayerDeterminesSuspectCardToShow((Ai) playerToProve, actualPlayer.getSuspectedMurderInActualRound(), actualPlayer.getSuspectedMurderWeaponInActualRound(), actualPlayer.getSuspectedMurderRoomInActualRound());
-           fireDisplayShowProofCardView(cardToShow, playerToProve);
+    private void humanPlayerWaitsForProof(Player playerToProve){
+        Player actualPlayer=getActualPlayer();
+        if(playerToProve.getIsComputer()){
+            Card cardToShow = computerPlayerDeterminesSuspectCardToShow((Ai) playerToProve, actualPlayer.getSuspectedMurderInActualRound(), actualPlayer.getSuspectedMurderWeaponInActualRound(), actualPlayer.getSuspectedMurderRoomInActualRound());
+            fireDisplayShowProofCardView(cardToShow, playerToProve);
         }else{
-           fireShowInformationsAboutSuspectedCards(actualPlayer.getSuspectedMurderInActualRound(), actualPlayer.getSuspectedMurderWeaponInActualRound(), actualPlayer.getSuspectedMurderRoomInActualRound(), playerToProve);
+            fireShowInformationsAboutSuspectedCards(actualPlayer.getSuspectedMurderInActualRound(), actualPlayer.getSuspectedMurderWeaponInActualRound(), actualPlayer.getSuspectedMurderRoomInActualRound(), playerToProve);
         }
-}
+    }
     public void humanPlayerSuspectCards(String selectedGuestKey, String selectedWeaponKey, String selectedRoomKey) {
         Player playerToProve=determinePlayerWhoHasToProve(actualPlayerIndex);
         Card murder=getMurderSuspectCardFromAllAccordingToCardKey(selectedGuestKey, allMurderCards);
         Card murderWeapon=getMurderSuspectCardFromAllAccordingToCardKey(LanguageStrings.getString(selectedWeaponKey), allMurderWeaponCards);
         Card murderRoom=getMurderSuspectCardFromAllAccordingToCardKey(LanguageStrings.getString(selectedRoomKey), allMurderRoomCards);
         Player actualPlayer=getActualPlayer();
-        actualPlayer.setSuspectedMurderInActualRound(murder);
-        actualPlayer.setSuspectedMurderWeaponInActualRound(murderWeapon);
-        actualPlayer.setSuspectedMurderRoomInActualRound(murderRoom);
+        actualPlayer.setSuspectedCardsInActualRound(murder, murderWeapon, murderRoom);
         humanPlayerWaitsForProof(playerToProve);
        
     }

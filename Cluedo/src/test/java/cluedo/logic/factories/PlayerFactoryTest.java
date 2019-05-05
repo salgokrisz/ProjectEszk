@@ -125,7 +125,7 @@ public class PlayerFactoryTest {
         List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new White("W");
-        Player p = new Ai(role,true, ExperienceLevel.BEGINNER);
+        Player p = new Ai(role,true, ExperienceLevel.BEGINNER, player.size());
         String expectedResult = p.getRole().toString();
         Assert.assertEquals(result,expectedResult);
     }
@@ -139,7 +139,7 @@ public class PlayerFactoryTest {
         List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Green("G");
-        Player p = new Ai(role,false, ExperienceLevel.BEGINNER);
+        Player p = new Ai(role,false, ExperienceLevel.BEGINNER, player.size());
         String expectedResult = p.getRole().toString();
         Assert.assertEquals(result,expectedResult);
     }
@@ -153,7 +153,7 @@ public class PlayerFactoryTest {
         List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Mustard("Mu");
-        Player p = new Ai(role,true, ExperienceLevel.INTERMEDIATE);
+        Player p = new Ai(role,true, ExperienceLevel.INTERMEDIATE, player.size());
         String expectedResult = p.getRole().toString();
         Assert.assertEquals(result,expectedResult);
     }
@@ -167,7 +167,7 @@ public class PlayerFactoryTest {
         List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Peacock("Pe");
-        Player p = new Ai(role,true, ExperienceLevel.INTERMEDIATE);
+        Player p = new Ai(role,true, ExperienceLevel.INTERMEDIATE, player.size());
         String expectedResult = p.getRole().toString();
         Assert.assertEquals(result,expectedResult);
     }
@@ -181,7 +181,7 @@ public class PlayerFactoryTest {
         List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Plum("Pl");
-        Player p = new Ai(role,true, ExperienceLevel.INTERMEDIATE);
+        Player p = new Ai(role,true, ExperienceLevel.INTERMEDIATE, player.size());
         String expectedResult = p.getRole().toString();
         Assert.assertEquals(result,expectedResult);
     }
@@ -195,7 +195,7 @@ public class PlayerFactoryTest {
         List<Player> player =pf.createPlayers(players, new ArrayList<>());
         String result = player.get(0).getRole().toString();
         Role role = new Scarlet("Sc");
-        Player p = new Ai(role,true, ExperienceLevel.BEGINNER);
+        Player p = new Ai(role,true, ExperienceLevel.BEGINNER, player.size());
         String expectedResult = p.getRole().toString();
         Assert.assertEquals(result,expectedResult);
     }
@@ -242,9 +242,9 @@ public class PlayerFactoryTest {
         Role roleS = new Scarlet("S");
         Role roleM = new Mustard("M");
         Role roleW = new White("W");
-        Player pS = new Ai(roleS,true, ExperienceLevel.BEGINNER);
-        Player pM = new Ai(roleM,true, ExperienceLevel.BEGINNER);
-        Player pW = new Ai(roleW,true, ExperienceLevel.INTERMEDIATE);
+        Player pS = new Ai(roleS,true, ExperienceLevel.BEGINNER, players.size());
+        Player pM = new Ai(roleM,true, ExperienceLevel.BEGINNER, players.size());
+        Player pW = new Ai(roleW,true, ExperienceLevel.INTERMEDIATE, players.size());
         
         String expectedResult = " "+pS.getRole().toString()+" "+pM.getRole().toString()+" "+pW.getRole().toString();
         Assert.assertEquals(result,expectedResult);
@@ -267,9 +267,9 @@ public class PlayerFactoryTest {
         Role roleS = new Scarlet("S");
         Role roleM = new Mustard("M");
         Role roleW = new White("W");
-        Player pS = new Ai(roleS,true, ExperienceLevel.BEGINNER);
+        Player pS = new Ai(roleS,true, ExperienceLevel.BEGINNER, players.size());
         Player pM = new Player(roleM,false);
-        Player pW = new Ai(roleW,true, ExperienceLevel.INTERMEDIATE);
+        Player pW = new Ai(roleW,true, ExperienceLevel.INTERMEDIATE, players.size());
         
         String expectedResult = " "+pS.getRole().toString()+" "+pM.getRole().toString()+" "+pW.getRole().toString();
         Assert.assertEquals(result,expectedResult);

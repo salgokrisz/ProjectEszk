@@ -39,7 +39,7 @@ jobs:
                  
       deploy:
             provider: releases
-            api_key: "8e8972d189a7c1e84fc5cfb343bd6436ee643326"
+            api_key: 8e8972d189a7c1e84fc5cfb343bd6436ee643326
             file: "Cluedo.jar"
             skip_cleanup: true
             on:

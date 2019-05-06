@@ -2,7 +2,6 @@
 package cluedo.main;
 
 import cluedo.view.MainAppWindow;
-import javax.swing.SwingUtilities;
 import cluedo.tools.Tools;
 
 /**
@@ -12,7 +11,8 @@ import cluedo.tools.Tools;
 public class Main {
    public static void main(String[] args) {
        Tools.connectLogToFile();
-    SwingUtilities.invokeLater(() -> { 
+
+    java.awt.EventQueue.invokeLater(() -> { 
             MainAppWindow mainWindow = new MainAppWindow();
             mainWindow.setVisible(true);
         });

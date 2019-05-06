@@ -4,9 +4,7 @@ import static cluedo.tools.Tools.LOG;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.BufferedReader;
-import java.nio.file.Paths;
 import cluedo.tools.languagestring.Language;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
@@ -22,8 +20,7 @@ public class LanguageStringsParser {
         } 
         if (txtPath == null) return null;
         HashMap<String, String> data = new HashMap<>();
-        try(FileInputStream is=new FileInputStream(txtPath); InputStreamReader isr=new InputStreamReader(
-                      is, StandardCharsets.UTF_8);BufferedReader br = new BufferedReader (isr)) {
+        try(BufferedReader br=new BufferedReader(new InputStreamReader(LanguageStringsParser.class.getResourceAsStream(txtPath), StandardCharsets.UTF_8));){
             String line;
             while ((line = br.readLine()) != null) {
                 String[] lineParts = line.split("=");
@@ -49,8 +46,7 @@ public class LanguageStringsParser {
     private static String getTXTPath (Language l) {
         String currentPath=null;
         try{
-        currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-        currentPath += "/src/main/java/cluedo/resources/";
+        currentPath = "/languages/";
         switch (l) {
             case HUN : return currentPath + "StringsHUN.txt";
             case ENG : return currentPath + "StringsENG.txt";

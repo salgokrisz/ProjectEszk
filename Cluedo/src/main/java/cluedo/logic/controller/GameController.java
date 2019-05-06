@@ -56,7 +56,7 @@ public class GameController {
 
     public GameController() {
         actualGamePhase = GamePhase.INITIAL;
-        map = new GameMap("maps/basicmap.txt");
+        map = new GameMap("/maps/basicmap.txt");
         fieldMap = map.getMap();
         RoomFactory rf = new RoomFactory(map.getMap());//commented out because pmd
         roomMap = rf.generateRooms();//commented out because pmd
@@ -462,7 +462,7 @@ public class GameController {
     }
 
     public void initializeSuspectCards() {
-        List<List<Card>> cards = CardParser.parse();
+        List<List<Card>> cards = CardParser.parse(getClass().getResourceAsStream("/cards/Cards.json"));
         List<Card> suspectCards = new LinkedList<>();
         for (int i = 0; i < 3; ++i) {
             List<Card> parts = cards.get(i);

@@ -1,4 +1,4 @@
-package cluedo.logic.cards.parser;
+package cluedo.logic.cards;
 
 import cluedo.logic.cards.Card;
 import cluedo.tools.languagestring.LanguageStrings;

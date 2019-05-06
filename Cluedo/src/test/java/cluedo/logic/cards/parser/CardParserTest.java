@@ -18,7 +18,7 @@ public class CardParserTest {
 	
     @Test
     public void ParserTest(){
-        List<List<Card>> cards = CardParser.parse();
+        List<List<Card>> cards = CardParser.parse(getClass().getResourceAsStream("/cards/Cards.json"));
         assertEquals("We have to get 3 list with 3 type of cards.", 3, cards.size());
         
         boolean persons = false;

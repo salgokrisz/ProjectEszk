@@ -2,14 +2,15 @@ package cluedo.logic.parsers;
 
 import cluedo.logic.cards.*;
 import static cluedo.tools.Tools.LOG;
+import java.io.BufferedReader;
 
-import java.io.File;
-import java.io.FileInputStream;
+
 import java.io.InputStream;
-import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.InvalidPathException;
  
-import java.nio.file.Paths;
+
 
 import java.util.List;
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ import javax.json.JsonArray;
  
 public class CardParser {
     private CardParser(){}
-    private static List<List<Card>> readJson(String jsonPath){
+    private static List<List<Card>> readJson(InputStream is){
         List<List<Card>> cards = new ArrayList<> ();
-        try (InputStream is = new FileInputStream(new File(jsonPath));JsonReader reader = Json.createReader(is)){
+        try (JsonReader reader = Json.createReader(new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8)))){
       
             JsonObject cardsObj = reader.readObject();
 
@@ -41,20 +42,16 @@ public class CardParser {
             cards.add(persons);
             cards.add(weapons);
             cards.add(rooms); 
-        }catch (IOException e) {
+        }catch (Exception e) {
             LOG.warning(e.getMessage());
             cards.clear();
         }
         return cards;
     }
-    public static List<List<Card>> parse () {
+    public static List<List<Card>> parse (InputStream is) {
         List<List<Card>> cards = new ArrayList<> ();
         try{
-            
-        String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-        currentPath += "/src/main/java/cluedo/resources/";
-        String jsonPath = currentPath + "Cards.json";
-         cards=readJson(jsonPath);
+         cards=readJson(is);
         }catch(InvalidPathException e){
             LOG.log(Level.SEVERE, e.getMessage());
             cards.clear();

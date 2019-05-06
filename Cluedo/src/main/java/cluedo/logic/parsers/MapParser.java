@@ -1,17 +1,21 @@
 package cluedo.logic.parsers;
 
-import java.io.*;
-import java.util.*;
+
 import static cluedo.tools.Tools.LOG;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class MapParser{
     private static List<List<String>> mapList=new ArrayList<>();
 
     public void openFile(String fn){
         mapList.clear();
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(fn).getFile());
-        try (FileReader fr=new FileReader(file); BufferedReader br = new BufferedReader(fr);){
+        try (BufferedReader br=new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(fn), StandardCharsets.UTF_8));){
                 String line;
                 boolean wasErrorInFile=false;
                 while ((line = br.readLine()) != null && !wasErrorInFile) {

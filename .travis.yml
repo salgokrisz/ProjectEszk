@@ -39,8 +39,6 @@ jobs:
       
       before_deploy:
         - mvn package
-        - export NAME= "v1.0"
-        - git tag $NAME
         
       deploy:
         provider: releases
@@ -49,7 +47,6 @@ jobs:
         file_glob: true
         file: "build/libs/*"
         skip_cleanup: true
-        name: $NAME
         on:
           branch: master
 

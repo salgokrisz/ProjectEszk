@@ -36,6 +36,12 @@ jobs:
     - stage: deploy
     
       script: mvn install
+      
+      before_deploy:
+        - mvn package
+        - export NAME= "v1.0"
+        - git tag $NAME
+        
       deploy:
         provider: releases
         api_key:
@@ -43,8 +49,8 @@ jobs:
         file_glob: true
         file: "build/libs/*"
         skip_cleanup: true
+        name: $NAME
         on:
-          repo: salgokrisz/ProjectEszk
           branch: master
 
 stages:

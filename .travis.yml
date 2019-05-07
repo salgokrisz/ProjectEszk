@@ -37,14 +37,15 @@ jobs:
     
       script: skip
                  
-      deploy:
-            provider: releases
-            api_key: 
-               secure: "JJvFhLb5SgnCJs9xkv25LDb2wyC3hRc9DAGZ9astSI/UAeLIT4nfH1lDwY7eYxbwB7mABXBlrObevn5bDY/tfr2RgzzirwJJQT+GqZg6cTafjN9/SdLocCKrspudDi2F/2Bnvt9Ssm4xqe/mL0UTrdL9uRbPSZQTIMGyvzixus9DngUm24ITD43i3jM+pWlAV70tufVVLj2JBqI0KFSnHzJlCe9KvOEx9hDZMLgyg1MNg1mHk4YuaFtTCC8mC5t6De/bLtZYX6dVBN9WCgL9mD3NM1wGdytcA+dwagI8NHvOfQ3G1RYt7jcRcppY7GON4ehQ8+Jvt3lSHc7zAN0igJ0EwJ5AlgRRKucD2f+4hdeVEKuO3n4kDl54+tuEsiy50vmjSlXnMrBe/ooW6FMuiiuZ7xDpPyKYHUy58tmgB5u/gAS4NkrdX6EnOj+p3NJlG06UazosW//TfvHiJa51q7ZnWk6Vl2OvTaN8CwCcHbcJ6e4kjxZ9IG/csMufx+FjlgDwECnRquxAQYX0/EB8RtZw698Vhm4k1zlUKFAbLHQP4W3yDBkPfXRbsKwX+MTSGgqi1g1Om28zvVD9hwVo0IU21O4TR+9FTFsp1lalHlvFMi9TOiVVqbHteJXhXNSf2UAJWEk4t9V9BBOvwu7ws2m1d5w4+NH6hvflIvKEvMg="                    
-            file: "Cluedo.jar"
-            skip_cleanup: true
-            on:
-               branch: master
+   deploy:
+    provider: releases
+    user: "salgokrisz"
+    password:
+      secure: ErdsBhpu1Dw+x5dFPC8km76jqwZoVp5Lv5yCQAQiLODHcspI6ifbZvPWJ0EjHA7Rr2yajYnaSPd4bqb4iL0lq6rJujH6bWXSIazvVt7xMvmR95akmoTgOEf+rMhEw0QYjwnM7u3AUxUuM0cRJx3xKpFYumfyoh04UFwhwbGl835mjX5NUgpLgzNDVStfHWJwFEi/WhGTkPBJUAKF1ihWa4MaZIJ1pMAbMxl+dkR9vOSxQYVtGRTvSensVP3FE+ytjXQHa0H2V6kLjwUVlvhxNxiNsISrVX6TdFUDm7uS70wrl1V5AvtY/V6rmgCfDXqfdgJcNjDED9Mngn4Q0OX1NJoKiOfHvpLtC6BiOFYSZJLiYT9Bz2SuojfjEKJvVQhagruQE4W3cZ48GheK7MbFvpXacEhtn2hDEF0Sruk+gjYscQWdB90I0uC+cFkQFeC25izKNY4HcQslf3CK0IFazvmLn5OCJFdTgK98R4vdwK9KlNm8Itg3VFeYdJUX+rnjhbKYhlbLO5DeqxmpW8oPKEvy/gdebtT+bbqlyprMJIt93YNaagkq9bGbRXkhsdeH0xueHMNoDghv7h59jgb4EEW0BiXJly8uQBEeEfl6pAcnHZIpi4b0VWfe/aO6v//ho/uSwoHBjhGdF/AM+Btmp4M4L0C04pOn2nCk7LpLxV4=
+    file: "Cluedo-1.0-SNAPSHOT-spring-boot.jar"
+    skip_cleanup: true
+    on:
+      branch: master
 
 stages:
 

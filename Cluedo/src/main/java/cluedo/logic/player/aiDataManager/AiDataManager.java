@@ -5,9 +5,7 @@ import cluedo.logic.cards.Card;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  *
@@ -15,14 +13,17 @@ import java.util.Set;
  */
 public class AiDataManager {
     private final List<AiRoundData> roundData;
+    private boolean newData;
     
     private final int playersNum;
     private final List<Player> players;
+    
     private final Player me;
+    private final List<Card> myCards;
 
-    private List<Card> allMurderCards_Murder;
-    private List<Card> allMurderCards_Weapon;
-    private List<Card> allMurderCards_Room;
+    private final List<Card> allMurderCards_Murder;
+    private final List<Card> allMurderCards_Weapon;
+    private final List<Card> allMurderCards_Room;
     
     private Card finalMurder;
     private Card finalWeapon;
@@ -38,15 +39,18 @@ public class AiDataManager {
     public AiDataManager (int playersNum, 
                         List<Player> players, 
                         Player me, 
+                        List<Card> myCards,
                         int publicCardsNum, 
                         int numberOfCardsInHands,
                         List<Card> allMurderCards_Murder,
                         List<Card> allMurderCards_Weapon,
                         List<Card> allMurderCards_Room) {
+        this.newData = false;
         this.roundData = new ArrayList<>();
         this.playersNum = playersNum;
         this.players = players;
         this.me = me;
+        this.myCards = myCards;
         this.publicCardsNum = publicCardsNum;
         this.numberOfCardsInHands = numberOfCardsInHands;
         
@@ -68,67 +72,277 @@ public class AiDataManager {
                                                                 numberOfCardsInHands);
             cardInfoOfThePlayers.put (p, playerInfo);
         }
-    }
-    
-    public void saveRoundData (AiRoundData data) {
-        if (check(data)) {
-            this.roundData.add(data);
+        
+        AiPlayerCardInfo myInfo = cardInfoOfThePlayers.get (me);
+        myInfo.setAllCardType (AiPlayerCardInfo.Type.NOTOWNED);
+        for (Card card: myCards) {
+            SetPlayerCardToOwned (me, card);
         }
     }
     
-    public boolean check (AiRoundData data) {
+    public boolean isFinished(){
+        return finalMurder != null && finalWeapon != null && finalRoom != null;
+    }
+    
+    public List<Card> GetFinalCards () {
+        List<Card> finalCards = new ArrayList<>();
+        finalCards.add (finalMurder);
+        finalCards.add (finalWeapon);
+        finalCards.add (finalRoom);
+        return finalCards;
+    }
+    
+    public void AddPublicCards (List<Card> publicCards) {
+        if (publicCards.size() != publicCardsNum) {
+            throw new AssertionError();
+        }
+        
+        this.publicCards = publicCards;
+        CheckRounds ();
+    }
+    
+    public void SaveRoundData (AiRoundData data) {
+        if ( ! Check(data)) {
+            this.roundData.add(data);
+        }
+        if (newData) {
+            CheckRounds ();
+        }
+    }
+    
+    private boolean Check (AiRoundData data) {
         //TODO:
-        //should I save the if a card is surely not final card??
+        //should I save the if a card is surely not final card??players
+        SetPlayersWhoWasBeforTheProveCardsToNotOwned (data);
         if (IWasSuspectingInThisRound (data)) {
             if (SomeoneProvedInThisRound (data)) {
                 SetPlayersWhoProvedCardToOwned (data);
-                if (ThereWasSomeBodyWhoWasBeforTheProve (data)) {
-                    SetPlayersWhoWasBeforTheProveCardsToNotOwned (data);
-                }
-                
-                List<Card> suspectedCardsIDontKwon = GetTheSuspectedCardIDontKnow (data);
-                switch (suspectedCardsIDontKwon.size ()) {
-                    case 2:
-                        //TODO
-                        break;
-                    case 1:
-                        return FindThe3thCardAndSave (data, suspectedCardsIDontKwon.get(0));
-                    case 0:
-                        return true; //I know every suspected card
-                    default:
-                        throw new AssertionError();
+                if (DoIKnowThePublicCards()) {
+                    List<Card> suspectedCardsIDontKwon = GetTheSuspectedCardIDontKnow (data);
+                    switch (suspectedCardsIDontKwon.size ()) {
+                        case 2:
+                            boolean firstCardFound = FindSuspectedCardAndSave (data, suspectedCardsIDontKwon.get(0));
+                            return firstCardFound && FindSuspectedCardAndSave (data, suspectedCardsIDontKwon.get(1));
+                        case 1:
+                            return FindSuspectedCardAndSave (data, suspectedCardsIDontKwon.get(0));
+                        case 0:
+                            return true; //I know every suspected card
+                        default:
+                            throw new AssertionError();
+                    }
+                } else {
+                    return false;
                 }
             } else if (IntricaWasUsedInThisRound (data)) {
-                if (ThereWasSomeBodyWhoWasBeforTheProve (data)) {
-                    //TODO
-                } else {
-                    //TODO
-                }
+                return true; //I know everything from this round 
             } else {
-                //TODO
+                if (DoIKnowThePublicCards()) {
+                    List<Card> suspectedCardsIDontKwon = GetTheSuspectedCardIDontKnow (data);
+                    for (Card c : suspectedCardsIDontKwon) {
+                        SetFinalCard (c);
+                    }
+                    return true; //I know every suspected card
+                } else {
+                    return false;
+                }
             }
         } else {
-            //TODO
+            if (SomeoneProvedInThisRound (data)) {
+                if (DoIKnowThePublicCards()) {
+                    List<Card> suspectedCardsIDontKwon = GetTheSuspectedCardIDontKnow (data);
+                    switch (suspectedCardsIDontKwon.size ()) {
+                        case 3:
+                            boolean cardFound = true;
+                            for (int i = 0; i < 3; i++) {
+                            cardFound &= FindSuspectedCardAndSave (data, suspectedCardsIDontKwon.get(i));
+                            }
+                            return cardFound;
+                        case 2:
+                            boolean firstCardFound = FindSuspectedCardAndSave (data, suspectedCardsIDontKwon.get(0));
+                            return firstCardFound && FindSuspectedCardAndSave (data, suspectedCardsIDontKwon.get(1));
+                        case 1:
+                            return FindSuspectedCardAndSave (data, suspectedCardsIDontKwon.get(0));
+                        case 0:
+                            return true; //I know every suspected card
+                        default:
+                            throw new AssertionError();
+                    }
+                } else {
+                    return false;
+                }
+            } else if (IntricaWasUsedInThisRound (data)) {
+                return true; //I know everything from this round 
+            } else {
+                if (DoIKnowThePublicCards()) {
+                    List<Card> suspectedCardsIDontKwon = GetTheSuspectedCardIDontKnow (data);
+                    Player suspecter = data.getPlayerWhoSuspected();
+                    for (Card c : suspectedCardsIDontKwon) {
+                        SetPlayerCardToOwned (suspecter, c);
+                    }
+                    return true; //I know every suspected card
+                } else {
+                    return false;
+                }
+            }
         }
-        return false;
     }
     
+    private void CheckRounds () {
+        while (!newData) {
+            newData = false;
+            for (AiRoundData data : roundData) {
+                if (Check(data)) {
+                    roundData.remove(data);
+                }
+                FindNewData();
+                
+                if (newData) {
+                    break;
+                }
+            }
+        }
+    }
+    
+    private void FindNewData () {
+        if (!DoIKnowThePublicCards()) {
+            return;
+        }
+        
+        for (Card card : allMurderCards_Murder) {
+            boolean multipleUnknown = false;
+            Player possibleOwner = null;
+            boolean owned = false;
+            for (Player p : players) {
+                AiPlayerCardInfo cardInfo = cardInfoOfThePlayers.get (p);
+                if (cardInfo.isOwned(card)) {
+                    if (owned) {
+                        throw new AssertionError();
+                    }
+                    owned = true;
+                } else if (! cardInfo.isNotOwned(card)) { //UNKNON
+                    if (owned) {
+                        SetPlayerCardToNotOwned (p, card);
+                    } else {
+                        if (possibleOwner == null) {
+                            possibleOwner = p;
+                        } else {
+                            multipleUnknown = true;
+                        }
+                    }
+                }
+            }
+            
+            if (!owned && possibleOwner == null && !publicCards.contains(card)) {
+                SetFinalCard(card);
+                return;
+            }
+            
+            if (!multipleUnknown && 
+                !owned && 
+                DoIKnowTheFinalCardFromTheTypeOfTheCard (card) &&
+                !publicCards.contains(card)) 
+            {
+                SetPlayerCardToOwned (possibleOwner, card);
+            }
+        }
+        
+    }
+    
+    //------------------------------------------------------------------------------
+    
+    //default data
     private boolean IWasSuspectingInThisRound (AiRoundData data) {
         return data.getPlayerWhoSuspected().equals (me);
     }
-    private boolean SomeoneProvedInThisRound (AiRoundData data) {
-        return data.getPlayerWhoProved() != null;
+    private boolean DoIKnowThePublicCards () {
+        return !publicCards.isEmpty();
     }
     private boolean IntricaWasUsedInThisRound (AiRoundData data) {
         return data.isIntricaWasUsed();
     }
+    
+    //prove
+    private boolean SomeoneProvedInThisRound (AiRoundData data) {
+        return data.getPlayerWhoProved() != null;
+    }
     private boolean ThereWasSomeBodyWhoWasBeforTheProve (AiRoundData data) {
-        return data.getBeforPlayers().size() != 0;
+        return !data.getBeforPlayers().isEmpty();
     }
     private boolean ThereWasSomeBodyWhoWasAfterTheProve (AiRoundData data) {
-        return data.getAfterPlayers().size() != 0;
+        return !data.getAfterPlayers().isEmpty();
     }
-    private boolean IKnowTheFinalCardFromTheTypeOfTheCard (Card card) {
+    private boolean DoIKwonEveryCardFromThatPlayer (Player player) {
+        AiPlayerCardInfo cardInfo = cardInfoOfThePlayers.get (player);
+        return cardInfo.isKnwonEveryCard ();
+    }
+    private int HowManyPlayerWasAfterTheProving (AiRoundData data) {
+        return data.getAfterPlayers().size();
+    }
+    
+    //player Cards
+    private boolean FindSuspectedCardAndSave (AiRoundData data, Card suspectedCard){
+        if (suspectedCard == null){
+            throw new AssertionError();
+        }
+        
+        List<Player> possibleCardOwners = new ArrayList<>();
+        possibleCardOwners = FindPossibleCardOwners (suspectedCard);
+
+        if (DoIKnowTheFinalCardFromTheTypeOfTheCard (suspectedCard)) {
+            if (possibleCardOwners.size () == 1) {
+                SetPlayerCardToOwned (possibleCardOwners.get (0), suspectedCard);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (possibleCardOwners.isEmpty()) {
+                SetFinalCard (suspectedCard);
+                return true;
+            } else {
+               return false;
+            }
+        }
+    }
+   
+    private void SetEveryPlayerCardToNotOwned (Card card) {
+        for (Player p: players) {
+            AiPlayerCardInfo cardInfo = cardInfoOfThePlayers.get (p);
+            SetPlayerCardToNotOwned (p, card);
+        } 
+    }
+    private void SetPlayersWhoWasBeforTheProveCardsToNotOwned (AiRoundData data) {
+        for (Player p : data.getBeforPlayers ()) {
+            AiPlayerCardInfo cardInfo = cardInfoOfThePlayers.get (p);
+            SetPlayerCardToNotOwned (p, data.getSuspectedMurder ());
+            SetPlayerCardToNotOwned (p, data.getSuspectedWeapon ());
+            SetPlayerCardToNotOwned (p, data.getSuspectedRoom ());
+        }
+    }
+    private void SetPlayersWhoProvedCardToOwned (AiRoundData data) {
+        Card provedCard = data.getProvedCard ();
+        if (provedCard == null || ! IWasSuspectingInThisRound (data)) {
+            throw new AssertionError();
+        }
+        SetPlayerCardToOwned (data.getPlayerWhoProved (), provedCard);
+    }
+    private void SetPlayerCardToOwned (Player player, Card card) {
+        SetEveryPlayerCardToNotOwned (card);
+        AiPlayerCardInfo cardInfo = cardInfoOfThePlayers.get (player);
+        cardInfo.setCardType (card, AiPlayerCardInfo.Type.OWNED);
+    }
+    private void SetPlayerCardToNotOwned (Player player, Card card) {
+        newData = true;
+        AiPlayerCardInfo cardInfo = cardInfoOfThePlayers.get (player);
+        cardInfo.setCardType (card, AiPlayerCardInfo.Type.NOTOWNED);
+    }
+    private boolean IsPlayerCardOwned (Player player, Card card) {
+        AiPlayerCardInfo cardInfo = cardInfoOfThePlayers.get (player);
+        return cardInfo.isOwned (card);
+    }
+    
+    //final cards
+    private boolean DoIKnowTheFinalCardFromTheTypeOfTheCard (Card card) {
         switch (card.type) {
             case PERSON: return finalMurder != null;
             case WEAPON: return finalWeapon != null;
@@ -137,119 +351,79 @@ public class AiDataManager {
                 throw new AssertionError();
         }
     }
-    private boolean IKwonEveryCardFromThatPlayer (Player player) {
-        AiPlayerCardInfo cardInfo = cardInfoOfThePlayers.get (player);
-        return cardInfo.isKnwonEveryCard ();
-    }
-    private boolean FindThe3thCardAndSave (AiRoundData data, Card thirdSuspectedCard){
-        // the 3th suspected card should be on the :
-        // final cards or 
-        // the player who proved or
-        // those players who came after the proving
-        if (IKnowTheFinalCardFromTheTypeOfTheCard (thirdSuspectedCard)) {
-            int possibleplayerNum = HowManyPlayerWasAfterTheProving (data);
-            
-            Player playerWhoProved = data.getPlayerWhoProved();
-            if (possibleplayerNum == 0) {
-                SetPlayerCardToOwned (playerWhoProved, thirdSuspectedCard);
-                return true;
-            }
-            
-            possibleplayerNum++;// + the player who proved
-            boolean[] knowEveryCard = new boolean[possibleplayerNum];
-            if (IKwonEveryCardFromThatPlayer (playerWhoProved)){
-                knowEveryCard[0] = true;
-            }
-            int i = 1;
-            for (Player p :data.getAfterPlayers()){
-                if (IKwonEveryCardFromThatPlayer (p)){
-                    knowEveryCard[i] = true;
-                } else {
-                    knowEveryCard[i] = false;
+    private void SetFinalCard (Card card) {
+        SetEveryPlayerCardToNotOwned (card);
+        switch (card.type) {
+            case PERSON: {
+                if (finalMurder != null) {
+                    throw new AssertionError();
                 }
-                i++;
-            }
-            i = 0;
-            int countOfPlayersWithUnknownCards = 0; 
-            int indexOfBoolWithFalse = 0;
-            for (boolean b : knowEveryCard) {
-                if (!b) {
-                    countOfPlayersWithUnknownCards++;
-                    indexOfBoolWithFalse = i;
+                finalMurder = card;  
+            } break;
+            case WEAPON: {
+                if (finalWeapon != null) {
+                    throw new AssertionError();
                 }
-                i++;
-            } 
-            if (countOfPlayersWithUnknownCards == 1) {
-                if (indexOfBoolWithFalse == 0) {
-                     SetPlayerCardToOwned (playerWhoProved, thirdSuspectedCard);
-                     return true;
-                } else {
-                    Player playerWhoWasAfterTheProve = data.getAfterPlayers().get(indexOfBoolWithFalse);
-                    SetPlayerCardToOwned (playerWhoWasAfterTheProve, thirdSuspectedCard);
-                     return true;
+                finalWeapon = card;  
+            } break;
+            case ROOM: {
+                if (finalRoom != null) {
+                    throw new AssertionError();
                 }
-            } else {
-                return false;
-            }
-        }
-       return false;
-    }
-    
-    private void SetPlayersWhoWasBeforTheProveCardsToNotOwned (AiRoundData data) {
-        for (Player p : data.getBeforPlayers ()) {
-            AiPlayerCardInfo cardInfo = cardInfoOfThePlayers.get (p);
-            cardInfo.setCardType (data.getSuspectedMurder (), AiPlayerCardInfo.Type.NOTOWNED);
-            cardInfo.setCardType (data.getSuspectedWeapon (), AiPlayerCardInfo.Type.NOTOWNED);
-            cardInfo.setCardType (data.getSuspectedRoom (), AiPlayerCardInfo.Type.NOTOWNED);
+                finalRoom = card;  
+            } break;
+            default:
+                throw new AssertionError();
         }
     }
-    private void SetPlayersWhoProvedCardToOwned (AiRoundData data) {
-        AiPlayerCardInfo cardInfo = cardInfoOfThePlayers.get (data.getPlayerWhoProved ());
-        cardInfo.setCardType (data.getProvedCard (), AiPlayerCardInfo.Type.OWNED);
-    }
-    private void SetPlayerCardToOwned (Player player, Card card){
-        AiPlayerCardInfo cardInfo = cardInfoOfThePlayers.get (player);
-        cardInfo.setCardType (card, AiPlayerCardInfo.Type.OWNED);
-    }
     
+    //other
     private List<Card> GetTheSuspectedCardIDontKnow (AiRoundData data) {
+        if (! DoIKnowThePublicCards()) {
+            throw new AssertionError();
+        }
+        
         Card murder = data.getSuspectedMurder ();
         Card weapon = data.getSuspectedWeapon ();
         Card room = data.getSuspectedRoom ();
-        boolean isMurderKnown = false;
-        boolean isWeaponKnown = false;
-        boolean isRoomKnown = false;
+        boolean isMurderKnownFromPlayers = false;
+        boolean isWeaponKnownFromPlayers = false;
+        boolean isRoomKnownFromPlayers = false;
         for (Player p : players) {
             AiPlayerCardInfo cardInfo = cardInfoOfThePlayers.get (p);
-            if (!isMurderKnown && cardInfo.isOwned (murder)) {
-                isMurderKnown = true;
+            if (!isMurderKnownFromPlayers && cardInfo.isOwned (murder)) {
+                isMurderKnownFromPlayers = true;
             }
-            if (!isWeaponKnown && cardInfo.isOwned (weapon)) {
-                isWeaponKnown = true;
+            if (!isWeaponKnownFromPlayers && cardInfo.isOwned (weapon)) {
+                isWeaponKnownFromPlayers = true;
             }
-            if (!isRoomKnown && cardInfo.isOwned (room)) {
-                isRoomKnown = true;
+            if (!isRoomKnownFromPlayers && cardInfo.isOwned (room)) {
+                isRoomKnownFromPlayers = true;
             }
         }
-        List<Card> cards = new ArrayList<>();
-        if (!isMurderKnown) cards.add(murder);
-        if (!isWeaponKnown) cards.add(weapon);
-        if (!isRoomKnown) cards.add(room);
+        List<Card> cardsWhichIDontKnow = new ArrayList<>();
+        if (! isMurderKnownFromPlayers && ! finalMurder.equals (murder) && !publicCards.contains(murder)) {
+            cardsWhichIDontKnow.add(murder);
+        }
+        if (! isWeaponKnownFromPlayers && ! finalWeapon.equals (weapon) && !publicCards.contains(weapon)) {
+            cardsWhichIDontKnow.add(weapon);
+        }
+        if (! isRoomKnownFromPlayers && ! finalRoom.equals (room) && !publicCards.contains(room)) {
+            cardsWhichIDontKnow.add(room);
+        }
         
-        return cards;
+        return cardsWhichIDontKnow;
     }
-
-    private int HowManyPlayerWasAfterTheProving (AiRoundData data) {
-        return data.getAfterPlayers().size();
+    private List<Player> FindPossibleCardOwners (Card card) {
+        List<Player> possibleCardOwners = new ArrayList<>();
+        
+        for (Player p :players){
+            if (! DoIKwonEveryCardFromThatPlayer (p) &&  ! IsPlayerCardOwned (p, card)){
+                possibleCardOwners.add (p);
+            }
+        }
+            
+        return possibleCardOwners;     
     }
-
-
-
-
-
-
-
-
-
-
+   
 }

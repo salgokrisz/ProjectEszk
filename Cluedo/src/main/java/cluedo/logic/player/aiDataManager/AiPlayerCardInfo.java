@@ -52,6 +52,9 @@ public class AiPlayerCardInfo {
                throw new AssertionError();
        }
    }
+   public void setAllCardType (Type type) {
+       allMurderCards_Murder.replaceAll((key, oldValue) -> type);
+   }
    
    public Type getCardType (Card card){
        switch (card.type) {
@@ -71,5 +74,26 @@ public class AiPlayerCardInfo {
            default:
                throw new AssertionError();
        }
+   }
+   
+   public boolean isNotOwned (Card card) {
+       switch (card.type) {
+           case PERSON: return allMurderCards_Murder.get(card) == Type.NOTOWNED;
+           case WEAPON: return allMurderCards_Weapon.get(card) == Type.NOTOWNED;
+           case ROOM:   return allMurderCards_Room.get(card) == Type.NOTOWNED;
+           default:
+               throw new AssertionError();
+       }
+   }
+   
+   public boolean isKnwonEveryCard (){
+        for(Map.Entry<Card, Type> entry : allMurderCards_Murder.entrySet())
+            if (entry.getValue() == Type.UNKNOWN) return false;
+        for(Map.Entry<Card, Type> entry : allMurderCards_Weapon.entrySet())
+            if (entry.getValue() == Type.UNKNOWN) return false;
+        for(Map.Entry<Card, Type> entry : allMurderCards_Room.entrySet())
+            if (entry.getValue() == Type.UNKNOWN) return false;
+        
+        return true;
    }
 }

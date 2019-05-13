@@ -1,8 +1,9 @@
-
 package cluedo.logic.player;
 
 import cluedo.logic.cards.Card;
 import cluedo.logic.player.level.ExperienceLevel;
+import cluedo.logic.player.aiDataManager.AiDataManager;
+import cluedo.logic.player.aiDataManager.AiRoundData;
 import cluedo.logic.player.role.Role;
 import cluedo.logic.room.Point;
 import cluedo.logic.room.SecretCorridoredRoom;
@@ -19,12 +20,24 @@ import java.util.Objects;
  * 
  */
 public class Ai extends Player {
+    //atgondolni hogy minden adat megjoin e akkor ha én gyanusitok és akkor is ha nem
+    // valamit hogy a módszer amivel jönnek az adatok biztos jó ne
+    //megnezni hogy minden asetben jön e adat pl ha emberi player is bele kerűl a képbe
+    
+    
+    //TODO másik játékos gynúsít megcsinálni a raound datat
+    // a databaól kiszedni a megoldast ha nem beginner
+    // beginner adatokat is a databan csinaljuk meg 
+    // okosítani ha más kérdezett akkor ha már mutattam neki a lapot akkor ugyanazt mutassam neki ujra stb
+    private AiDataManager dataManager;
+    private AiRoundData actualRoundData;
     private List<Card> allMurderCards_Murder;
     private List<Card> allMurderCards_Weapon;
     private List<Card> allMurderCards_Room;
-    private final Integer numOfPlayers;
+    private List<Player> playersWhoTiredToProveThisRound;
     
     private final ExperienceLevel experienceLevel;
+    private List<Player> allPlayer;
     private List<Point> availablePositionsToMove=new ArrayList<>();
     private StringBuilder sbInformation;
     private List<Card> alreadyKnownCards;
@@ -32,20 +45,25 @@ public class Ai extends Player {
     private Card sureMurder;
     private Card sureMurderWeapon;
     private Card sureMurderRoom;
-    public Ai(Role role, boolean isComputer, ExperienceLevel experienceLevel, Integer numOfPlayers){
+    
+    public Ai(Role role, boolean isComputer, ExperienceLevel experienceLevel){
         super(role,isComputer);
+        this.allPlayer = null;
+        this.actualRoundData = new AiRoundData();
+        this.dataManager = null;
         this.experienceLevel=experienceLevel;
         sbInformation=new StringBuilder();
         alreadyKnownCards=new ArrayList<>();
-        this.numOfPlayers = numOfPlayers;
         
         this.sureMurder=null;
         this.sureMurderRoom=null;
         this.sureMurderWeapon=null;
     }
-    
     public Ai(Ai other){
         super(other);
+        this.allPlayer = other.allPlayer;
+        this.actualRoundData = new AiRoundData();
+        this.dataManager = other.dataManager;
         this.experienceLevel=other.getExperienceLevel();
         this.availablePositionsToMove=other.getAvailablePositionsToMove();
         this.sbInformation=other.getSbInformation();
@@ -58,9 +76,8 @@ public class Ai extends Player {
         this.allMurderCards_Murder = other.allMurderCards_Murder;
         this.allMurderCards_Weapon = other.allMurderCards_Weapon;
         this.allMurderCards_Room = other.allMurderCards_Room;
-        
-        this.numOfPlayers = other.numOfPlayers;
     }
+    
     public List<Card> getAlreadyKnownCards(){
         List<Card> copy=new ArrayList<>();
         for(Card c:alreadyKnownCards){
@@ -76,8 +93,6 @@ public class Ai extends Player {
         }
         return aClone;
     }
-
-
     public Card getSureMurderWeapon() {
          Card aClone=null;
         if(sureMurderWeapon!=null){
@@ -85,9 +100,6 @@ public class Ai extends Player {
         }
         return aClone;
     }
-
-
-
     public Card getSureMurderRoom() {
         Card aClone=null;
          if(sureMurderRoom!=null){
@@ -96,19 +108,47 @@ public class Ai extends Player {
          return aClone;
     }
 
-
-    public void setAllMurderCards (List<Card> allMurderCards_Murder,
-                                   List<Card> allMurderCards_Weapon,
-                                   List<Card> allMurderCards_Room){
+    public void initializeAiDataManager (List<Player> allPlayer,
+                                        List<Card> allMurderCards_Murder,
+                                        List<Card> allMurderCards_Weapon,
+                                        List<Card> allMurderCards_Room,
+                                        int publicCardsNumber){
+        this.allPlayer = allPlayer;
         this.allMurderCards_Murder = allMurderCards_Murder;
         this.allMurderCards_Weapon = allMurderCards_Weapon;
         this.allMurderCards_Room = allMurderCards_Room;
+        
+        this.dataManager = new AiDataManager (allPlayer.size(),
+                                              allPlayer,
+                                              this,
+                                              suspectCards,
+                                              publicCardsNumber,
+                                              suspectCards.size(),
+                                              allMurderCards_Murder,
+                                              allMurderCards_Weapon,
+                                              allMurderCards_Room);
     }
     
-    public void addToAlreadyKnownCards(Card card){
+    public void addToAlreadyKnownCards(Player playerWhoProved, Card card){
         if(!alreadyKnownCards.contains(card)){
             alreadyKnownCards.add(card);
         }
+        
+        actualRoundData.setProvedCard (card);
+        actualRoundData.setPlayerWhoProved (playerWhoProved);
+        
+        List<Player> beforPlayers = actualRoundData.getBeforPlayers();
+        for (Player player : allPlayer) {
+            if (! beforPlayers.contains(player) && 
+                ! playerWhoProved.equals(player) &&
+                ! actualRoundData.getPlayerWhoSuspected().equals(player))
+            {
+                actualRoundData.addAfterPlayers (player);
+            }
+        }
+        
+        dataManager.SaveRoundData(actualRoundData);
+        actualRoundData = new AiRoundData();
     }
     public StringBuilder getSbInformation() {
         return sbInformation;
@@ -161,39 +201,43 @@ public class Ai extends Player {
     }
 
     public void selectSuspect() {
-        List<Card> notOwnedCards=new ArrayList<>();
-        for(Card c:allMurderCards_Murder){
-            if(!alreadyKnownCards.contains(c)){
-                notOwnedCards.add(c);
+        if (experienceLevel == ExperienceLevel.BEGINNER) {
+            List<Card> notOwnedCards=new ArrayList<>();
+            for(Card c:allMurderCards_Murder){
+                if(!alreadyKnownCards.contains(c)){
+                    notOwnedCards.add(c);
+                }
             }
+            suspectedMurderInActualRound = notOwnedCards.get(Tools.randomizeNumber(notOwnedCards.size()));
+
+            notOwnedCards=new ArrayList<>();
+            for(Card c:allMurderCards_Weapon){
+                if(!alreadyKnownCards.contains(c)){
+                    notOwnedCards.add(c);
+                }
+            }
+            suspectedMurderWeaponInActualRound = notOwnedCards.get(Tools.randomizeNumber(notOwnedCards.size()));
+        } else {
+            suspectedMurderInActualRound = dataManager.GetNextSuspectMurder();
+            suspectedMurderWeaponInActualRound = dataManager.GetNextSuspectWeapon();
         }
-        suspectedMurderInActualRound = notOwnedCards.get(Tools.randomizeNumber(notOwnedCards.size()));
         
-        notOwnedCards=new ArrayList<>();
-        for(Card c:allMurderCards_Weapon){
-            if(!alreadyKnownCards.contains(c)){
-                notOwnedCards.add(c);
-            }
-        }
-        suspectedMurderWeaponInActualRound = notOwnedCards.get(Tools.randomizeNumber(notOwnedCards.size()));
-        
-        notOwnedCards=new ArrayList<>();
-        for(Card c:allMurderCards_Room){
-            if(!alreadyKnownCards.contains(c)){
-                notOwnedCards.add(c);
-            }
-        }
-        suspectedMurderRoomInActualRound = notOwnedCards.get(Tools.randomizeNumber(notOwnedCards.size()));
+        suspectedMurderRoomInActualRound = findMurderRoomAccordingToPosition ();
+    
+        actualRoundData.setSuspectedMurder(suspectedMurderInActualRound);
+        actualRoundData.setSuspectedWeapon(suspectedMurderWeaponInActualRound);
+        actualRoundData.setSuspectedRoom(suspectedMurderRoomInActualRound);
+        actualRoundData.setPlayerWhoSuspected (this);
     }
 
-    public Card findMurderRoomAccordingToPosition(List<Card> allMurderRoomCards) {
+    public Card findMurderRoomAccordingToPosition () {
         int i=0;
         Card card=null;
-        while(i<allMurderRoomCards.size() && !allMurderRoomCards.get(i).getUiStringKey().equals(actualRoomName)){
+        while(i<allMurderCards_Room.size() && !allMurderCards_Room.get(i).getUiStringKey().equals(actualRoomName)){
             i+=1;
         }
-        if(i<allMurderRoomCards.size()){
-            card=allMurderRoomCards.get(i);
+        if(i<allMurderCards_Room.size()){
+            card=allMurderCards_Room.get(i);
         }
         return card;
     }
@@ -240,4 +284,48 @@ public class Ai extends Player {
         return i<alreadyKnownCards.size();
     }
     
+    public void addSuspectedRoomData (Card card) {
+        actualRoundData.setSuspectedRoom (card);
+    }
+    public void addSuspectedWeaponData (Card card) {
+        actualRoundData.setSuspectedWeapon (card);
+    }
+    public void addSuspectedMurderData (Card card) {
+        actualRoundData.setSuspectedMurder (card);
+    }
+    public void addPlayerWhoTiredToProveData (Player player) {
+        actualRoundData.addBeforPlayers (player);
+    }
+    public void addPlayerWhoShowedForOtherPlayerData (Player player) {
+        actualRoundData.setPlayerWhoProved(player);
+        actualRoundData.setProvedCard (null);
+        List<Player> beforPlayers = actualRoundData.getBeforPlayers();
+        for (Player p : allPlayer) {
+            if (! beforPlayers.contains(p) && 
+                ! actualRoundData.getPlayerWhoSuspected().equals(p) &&
+                ! player.equals(p))
+            {
+                actualRoundData.addAfterPlayers (p);
+            }
+        }
+    }
+    public void addPlayerWhoSuspectedData (Player player) {
+        actualRoundData.setPlayerWhoSuspected(player);
+    }
+    public void setNobodyProvedData() {
+        actualRoundData.setProvedCard (null);
+        actualRoundData.setPlayerWhoProved (null);
+        
+        List<Player> beforPlayers = actualRoundData.getBeforPlayers();
+         for (Player player : allPlayer) {
+            if (! beforPlayers.contains(player) && 
+                ! actualRoundData.getPlayerWhoSuspected().equals(player))
+            {
+                actualRoundData.addBeforPlayers (player);
+            }
+        }
+        
+        dataManager.SaveRoundData(actualRoundData);
+        actualRoundData = new AiRoundData();
+    }
 }

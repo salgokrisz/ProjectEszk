@@ -44,6 +44,9 @@ public class EndRoom extends Room{
         }
         return copy;
     }
+    public int getRemainingSuspectCardsNum(){
+        return remainingSuspectCards.size();
+    }
 @Override
 public String toString(){
     StringBuilder sb=new StringBuilder(super.toString());

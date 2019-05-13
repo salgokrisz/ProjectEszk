@@ -51,6 +51,14 @@ public class AiRoundData {
         this.afterPlayers = afterPlayers;
     }
 
+    public void addBeforPlayers(Player player) {
+        this.beforPlayers.add (player);
+    }
+
+    public void addAfterPlayers(Player player) {
+        this.afterPlayers.add (player);
+    }
+
     public void setIntricaWasUsed(boolean intricaWasUsed) {
         this.intricaWasUsed = intricaWasUsed;
     }

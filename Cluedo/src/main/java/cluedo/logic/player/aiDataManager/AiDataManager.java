@@ -80,10 +80,45 @@ public class AiDataManager {
         }
     }
     
-    public boolean isFinished(){
-        return finalMurder != null && finalWeapon != null && finalRoom != null;
+    public Card GetNextSuspectWeapon () {
+        return GetNextSuspect (finalWeapon, allMurderCards_Weapon);
+    }
+    public Card GetNextSuspectMurder () {
+        return GetNextSuspect (finalMurder, allMurderCards_Murder);
+    }
+    private Card GetNextSuspect (Card finalCard, List<Card> allMurderCards) {
+        //todo randomize???
+        Card suspect = null;
+        for (Card actualCard: allMurderCards) {
+            if (finalCard.equals (actualCard) || (DoIKnowThePublicCards() && publicCards.contains (actualCard))){
+                continue;
+            }
+            
+            boolean owned = false;
+            for (Player player : players) {
+                AiPlayerCardInfo info = cardInfoOfThePlayers.get(player);
+                if (info.isOwned (actualCard)) {
+                    owned = true;
+                    break;
+                }
+            }
+            
+            if (!owned) {
+                suspect = actualCard;
+                break;
+            }
+        }
+        
+        if (suspect == null) {
+            suspect = finalCard;
+        } 
+        
+        return suspect;
     }
     
+    public boolean IsFinished(){
+        return finalMurder != null && finalWeapon != null && finalRoom != null;
+    }
     public List<Card> GetFinalCards () {
         List<Card> finalCards = new ArrayList<>();
         finalCards.add (finalMurder);
@@ -100,7 +135,6 @@ public class AiDataManager {
         this.publicCards = publicCards;
         CheckRounds ();
     }
-    
     public void SaveRoundData (AiRoundData data) {
         if ( ! Check(data)) {
             this.roundData.add(data);
@@ -186,7 +220,6 @@ public class AiDataManager {
             }
         }
     }
-    
     private void CheckRounds () {
         while (!newData) {
             newData = false;
@@ -202,7 +235,6 @@ public class AiDataManager {
             }
         }
     }
-    
     private void FindNewData () {
         if (!DoIKnowThePublicCards()) {
             return;
@@ -425,5 +457,4 @@ public class AiDataManager {
             
         return possibleCardOwners;     
     }
-   
 }

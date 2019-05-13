@@ -279,16 +279,20 @@ public class GameController {
         List<Card> ownedSuspectCardsFromSuspectations = playerWhoHasToProve.determineOwnedSuspectCardsFromSuspects(murder, murderWeapon, murderRoom);
         Card cardToShow = null;
         if (!ownedSuspectCardsFromSuspectations.isEmpty()) {
+            //todo this randomize is not ok for expert ai
             cardToShow = ownedSuspectCardsFromSuspectations.get(Tools.randomizeNumber(ownedSuspectCardsFromSuspectations.size()));
         }
         return cardToShow;
     }
     private void computerPlayerWaitsForProof(Player playerWhoHasToProve){
         Player actualPlayer=getActualPlayer();
-         if (!playerWhoHasToProve.getIsComputer()) {
+        if (!playerWhoHasToProve.getIsComputer()) {
             fireShowInformationsAboutSuspectedCards(actualPlayer.getSuspectedMurderInActualRound(), actualPlayer.getSuspectedMurderWeaponInActualRound(), actualPlayer.getSuspectedMurderRoomInActualRound(), playerWhoHasToProve);
         } else {
-            Card cardToShow = computerPlayerDeterminesSuspectCardToShow((Ai) playerWhoHasToProve,actualPlayer.getSuspectedMurderInActualRound(), actualPlayer.getSuspectedMurderWeaponInActualRound(), actualPlayer.getSuspectedMurderRoomInActualRound());
+            Card cardToShow = computerPlayerDeterminesSuspectCardToShow((Ai) playerWhoHasToProve,
+                                                                        actualPlayer.getSuspectedMurderInActualRound(), 
+                                                                        actualPlayer.getSuspectedMurderWeaponInActualRound(),
+                                                                        actualPlayer.getSuspectedMurderRoomInActualRound());
        
             showCardForAi(cardToShow, playerWhoHasToProve);
         }
@@ -296,6 +300,15 @@ public class GameController {
     private void computerPlayerSuspects(Ai actualComputerPlayer) {
         actualGamePhase = GamePhase.SUSPECT;
         actualComputerPlayer.selectSuspect();
+        for (Player p :players) {
+            if (p.getIsComputer()) {
+                Ai aiPlayer = (Ai)p;
+                aiPlayer.addPlayerWhoSuspectedData(actualComputerPlayer); 
+                aiPlayer.addSuspectedMurderData(actualComputerPlayer.getSuspectedMurderInActualRound());
+                aiPlayer.addSuspectedWeaponData(actualComputerPlayer.getSuspectedMurderWeaponInActualRound());
+                aiPlayer.addSuspectedRoomData(actualComputerPlayer.getSuspectedMurderRoomInActualRound());
+            }
+        }
         Player playerWhoHasToProve = determinePlayerWhoHasToProve(actualPlayerIndex);
         computerPlayerWaitsForProof(playerWhoHasToProve);
        
@@ -312,15 +325,15 @@ public class GameController {
     private void fireShowInformationsAboutSuspectedCards(Card murder, Card murderWeapon, Card murderRoom, Player playerWhoProves) {
         Player actualPlayer=getActualPlayer();
         if(actualPlayer.getIsComputer()){
-        Ai actualComputerPlayer = (Ai) players.get(actualPlayerIndex);
-        actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.AiSuspectsCards"));
-        actualComputerPlayer.appendToInformation(System.lineSeparator());
-        actualComputerPlayer.appendToInformation(murder.getNameForUI());
-        actualComputerPlayer.appendToInformation(System.lineSeparator());
-        actualComputerPlayer.appendToInformation(murderWeapon.getNameForUI());
-        actualComputerPlayer.appendToInformation(System.lineSeparator());
-        actualComputerPlayer.appendToInformation(murderRoom.getNameForUI());
-        actualComputerPlayer.appendToInformation(System.lineSeparator());
+            Ai actualComputerPlayer = (Ai) players.get(actualPlayerIndex);
+            actualComputerPlayer.appendToInformation(LanguageStrings.getString("Actions.AiSuspectsCards"));
+            actualComputerPlayer.appendToInformation(System.lineSeparator());
+            actualComputerPlayer.appendToInformation(murder.getNameForUI());
+            actualComputerPlayer.appendToInformation(System.lineSeparator());
+            actualComputerPlayer.appendToInformation(murderWeapon.getNameForUI());
+            actualComputerPlayer.appendToInformation(System.lineSeparator());
+            actualComputerPlayer.appendToInformation(murderRoom.getNameForUI());
+            actualComputerPlayer.appendToInformation(System.lineSeparator());
         }
         fireShowSuspectedCardsView(murder, murderWeapon, murderRoom, playerWhoProves);
     }
@@ -522,10 +535,15 @@ public class GameController {
         fireDisplayRollView(false);
         fireShowWhatToDo(LanguageStrings.getString("Actions.RollDiceStart"));
       
+        int remainningCardsNum = ((EndRoom) roomMap.get(RoomFactory.ENDROOM_KEY)).getRemainingSuspectCardsNum();
         for (Player p: players) {
             if (p.getIsComputer()) {
                 Ai ai = (Ai)p;
-                ai.setAllMurderCards(allMurderCards, allMurderWeaponCards, allMurderRoomCards);
+                ai.initializeAiDataManager (players,
+                                            allMurderCards, 
+                                            allMurderWeaponCards, 
+                                            allMurderRoomCards,
+                                            remainningCardsNum);
             }
         }
     }
@@ -879,17 +897,33 @@ public class GameController {
     public void showCardForAi(Card provedCard,Player playerWhoShowed) {
         Ai actualComputerPlayer = (Ai) getActualPlayer();
         if (provedCard != null) {
-            actualComputerPlayer.addToAlreadyKnownCards(provedCard);
+            for (Player p :players) {
+                if (p.getIsComputer() && !((Ai)p).equals(actualComputerPlayer)) {
+                    ((Ai)p).addPlayerWhoShowedForOtherPlayerData (playerWhoShowed);
+                }
+            }
+            actualComputerPlayer.addToAlreadyKnownCards(playerWhoShowed, provedCard);
             nextPlayerIsComing();
         } else {
             if(playerNumberWhoTriedToShowInThisRound==numberOfPlayers-1){
-                 actualComputerPlayer.setSureAttributesForSolvingTheClue();
-                 nextPlayerIsComing();
+                for (Player p :players) {
+                    if (p.getIsComputer()) {
+                        ((Ai)p).addPlayerWhoTiredToProveData (playerWhoShowed);
+                        ((Ai)p).setNobodyProvedData();
+                    }
+                }
+                actualComputerPlayer.setSureAttributesForSolvingTheClue();
+                nextPlayerIsComing();
             }else{
-            playerNumberWhoTriedToShowInThisRound+=1;
-        int indexOfPreviousPlayer=findPlayerIndex(playerWhoShowed);
-        tryToProve(indexOfPreviousPlayer);
-        }
+                for (Player p :players) {
+                    if (p.getIsComputer()) {
+                        ((Ai)p).addPlayerWhoTiredToProveData (playerWhoShowed);
+                    }
+                }
+                playerNumberWhoTriedToShowInThisRound+=1;
+                int indexOfPreviousPlayer=findPlayerIndex(playerWhoShowed);
+                tryToProve(indexOfPreviousPlayer);
+            }
         }
         
     }
@@ -917,24 +951,24 @@ public class GameController {
        
     }
     private void tryToProve(int indexOfPreviousPlayer){
-       Player playerWhoWantsToProve= determinePlayerWhoHasToProve(indexOfPreviousPlayer);
-       Player actualPlayer=getActualPlayer();
-           if(actualPlayer.getIsComputer()){
-               humanPlayerWaitsForProof(playerWhoWantsToProve);           
-       }else{
-           computerPlayerWaitsForProof(playerWhoWantsToProve);
-       }
+        Player playerWhoWantsToProve= determinePlayerWhoHasToProve(indexOfPreviousPlayer);
+        Player actualPlayer=getActualPlayer();
+        if(actualPlayer.getIsComputer()){
+            humanPlayerWaitsForProof(playerWhoWantsToProve);           
+        }else{
+            computerPlayerWaitsForProof(playerWhoWantsToProve);
+        }
     }
-public void fireDisplayShowProofCardView(Card cardToShow, Player playerWhoShowed){
-    playerNumberWhoTriedToShowInThisRound+=1;
-    if(cardToShow==null && playerNumberWhoTriedToShowInThisRound<numberOfPlayers-1){
-        fireShowInformation(playerWhoShowed.toString()+LanguageStrings.getString("Suspect.WasUnableToProve"));
-        int indexOfPreviousPlayer=findPlayerIndex(playerWhoShowed);
-        tryToProve(indexOfPreviousPlayer);
-    }else{
-    gameBoardListener.showProofCardView(cardToShow, playerWhoShowed);
+    public void fireDisplayShowProofCardView(Card cardToShow, Player playerWhoShowed){
+        playerNumberWhoTriedToShowInThisRound+=1;
+        if(cardToShow==null && playerNumberWhoTriedToShowInThisRound<numberOfPlayers-1){
+            fireShowInformation(playerWhoShowed.toString()+LanguageStrings.getString("Suspect.WasUnableToProve"));
+            int indexOfPreviousPlayer=findPlayerIndex(playerWhoShowed);
+            tryToProve(indexOfPreviousPlayer);
+        }else{
+        gameBoardListener.showProofCardView(cardToShow, playerWhoShowed);
+        }
     }
-}
     private Card getMurderSuspectCardFromAllAccordingToCardKey(String selectedCardText, List<Card> suspectCards) {
         int i=0;
         Card card=null;

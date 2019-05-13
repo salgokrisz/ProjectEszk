@@ -87,13 +87,19 @@ public class AiPlayerCardInfo {
    }
    
    public boolean isKnwonEveryCard (){
-        for(Map.Entry<Card, Type> entry : allMurderCards_Murder.entrySet())
-            if (entry.getValue() == Type.UNKNOWN) return false;
+       int count = 0;
+       for(Map.Entry<Card, Type> entry : allMurderCards_Murder.entrySet())
+            if (entry.getValue() == Type.OWNED) count++;
         for(Map.Entry<Card, Type> entry : allMurderCards_Weapon.entrySet())
-            if (entry.getValue() == Type.UNKNOWN) return false;
+            if (entry.getValue() == Type.OWNED) count++;
         for(Map.Entry<Card, Type> entry : allMurderCards_Room.entrySet())
-            if (entry.getValue() == Type.UNKNOWN) return false;
+            if (entry.getValue() == Type.OWNED) count++;
         
-        return true;
+        if (count == numberOfCardsInHeand) {
+            return true;
+        } else if (count > numberOfCardsInHeand) {
+            throw new AssertionError();
+        }
+        return false;
    }
 }

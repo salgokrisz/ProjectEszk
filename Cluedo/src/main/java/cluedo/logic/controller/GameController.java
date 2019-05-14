@@ -509,7 +509,7 @@ public class GameController {
                 playerCounter += 1;
             }
         }
-        ((EndRoom) roomMap.get(RoomFactory.ENDROOM_KEY)).setRemainingCards(suspectCards);
+        ((EndRoom) roomMap.get(RoomFactory.ENDROOM_KEY)).setRemainingSuspectCards(suspectCards);
         fireShowOwnedSuspectCards();
     }
 

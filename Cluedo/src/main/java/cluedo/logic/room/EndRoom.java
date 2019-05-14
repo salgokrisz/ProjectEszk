@@ -100,7 +100,7 @@ public String toString(){
         return this.murderWeapon.equals(suspectedMurderWeapon) && this.murderRoom.equals(suspectedMurderRoom) && this.murderer.equals(suspectedMurderer);
     }
 
-    public void setRemainingCards(List<Card> remainingSuspectCards) {
+    public void setRemainingSuspectCards(List<Card> remainingSuspectCards) {
         for(Card card: remainingSuspectCards){
             this.remainingSuspectCards.add((Card)card.cloneObject());
         }

@@ -19,13 +19,13 @@ public class AiPlayerCardInfo {
     private Map<Card, Type> allMurderCards_Weapon;
     private Map<Card, Type> allMurderCards_Room;
     
-    private int numberOfCardsInHeand;
+    private final int numberOfCardsInHand;
 
     public AiPlayerCardInfo(List<Card> allMurderCards_Murder, 
                             List<Card> allMurderCards_Weapon,
                             List<Card> allMurderCards_Room,
                             int numberOfCardsInHeand) {
-        this. numberOfCardsInHeand = numberOfCardsInHeand;
+        this. numberOfCardsInHand = numberOfCardsInHeand;
         this.allMurderCards_Murder = new HashMap<>();
         this.allMurderCards_Weapon = new HashMap<>();
         this.allMurderCards_Room = new HashMap<>();
@@ -86,7 +86,7 @@ public class AiPlayerCardInfo {
        }
    }
    
-   public boolean isKnwonEveryCard (){
+   public boolean isEveryCardKnown (){
        int count = 0;
        for(Map.Entry<Card, Type> entry : allMurderCards_Murder.entrySet())
             if (entry.getValue() == Type.OWNED) count++;
@@ -95,9 +95,9 @@ public class AiPlayerCardInfo {
         for(Map.Entry<Card, Type> entry : allMurderCards_Room.entrySet())
             if (entry.getValue() == Type.OWNED) count++;
         
-        if (count == numberOfCardsInHeand) {
+        if (count == numberOfCardsInHand) {
             return true;
-        } else if (count > numberOfCardsInHeand) {
+        } else if (count > numberOfCardsInHand) {
             throw new AssertionError();
         }
         return false;

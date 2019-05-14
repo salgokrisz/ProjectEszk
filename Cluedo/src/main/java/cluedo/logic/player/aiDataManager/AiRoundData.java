@@ -2,6 +2,7 @@ package cluedo.logic.player.aiDataManager;
 
 import cluedo.logic.player.Player;
 import cluedo.logic.cards.Card;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,48 +12,66 @@ import java.util.Objects;
  */
 public class AiRoundData {
     private Card provedCard; //only not null when I was suspecting
-    
     private Card suspectedMurder;
     private Card suspectedWeapon;
     private Card suspectedRoom;
-    
     private Player playerWhoSuspected; 
     private Player playerWhoProved; //null if nobody suspected
-    private List<Player> beforPlayers; //those who came befor the proving
+    private List<Player> beforePlayers; //those who came befor the proving
     private List<Player> afterPlayers; //those who came after the proving
-
     private boolean intricaWasUsed;
 
     public void setSuspectedMurder(Card suspectedMurder) {
-        this.suspectedMurder = suspectedMurder;
+        this.suspectedMurder=null;
+        if(suspectedMurder!=null){
+        this.suspectedMurder = (Card)suspectedMurder.cloneObject();
+        }
     }
 
     public void setSuspectedWeapon(Card suspectedWeapon) {
-        this.suspectedWeapon = suspectedWeapon;
+        this.suspectedWeapon=null;
+        if(suspectedWeapon!=null){
+        this.suspectedWeapon = (Card)suspectedWeapon.cloneObject();
+        }
     }
 
     public void setSuspectedRoom(Card suspectedRoom) {
-        this.suspectedRoom = suspectedRoom;
+        this.suspectedRoom=null;
+        if(suspectedRoom!=null){
+        this.suspectedRoom = (Card)suspectedRoom.cloneObject();
+        }
     }
 
     public void setPlayerWhoSuspected(Player playerWhoSuspected) {
-        this.playerWhoSuspected = playerWhoSuspected;
+        this.playerWhoSuspected=null;
+        if(playerWhoSuspected!=null){
+        this.playerWhoSuspected = (Player)playerWhoSuspected.cloneObject();
+        }
     }
 
     public void setPlayerWhoProved(Player playerWhoProved) {
-        this.playerWhoProved = playerWhoProved;
+        this.playerWhoProved=null;
+        if(playerWhoProved!=null){
+        this.playerWhoProved = (Player)playerWhoProved.cloneObject();
+        }
     }
 
-    public void setBeforPlayers(List<Player> beforPlayers) {
-        this.beforPlayers = beforPlayers;
+    public void setBeforePlayers(List<Player> beforePlayers) {
+        this.beforePlayers=new ArrayList<>();
+        for(Player p: beforePlayers){
+            this.beforePlayers.add((Player)p.cloneObject());
+        }
     }
 
     public void setAfterPlayers(List<Player> afterPlayers) {
-        this.afterPlayers = afterPlayers;
+        this.afterPlayers=new ArrayList<>();
+        for(Player p: afterPlayers){
+            this.afterPlayers.add((Player)p.cloneObject());
+        }
     }
 
-    public void addBeforPlayers(Player player) {
-        this.beforPlayers.add (player);
+    public void addBeforePlayers(Player player) {
+        this.beforePlayers.add (player);
     }
 
     public void addAfterPlayers(Player player) {
@@ -64,31 +83,59 @@ public class AiRoundData {
     }
 
     public Card getSuspectedMurder() {
-        return suspectedMurder;
+        Card aClone=null;
+        if(suspectedMurder!=null){
+            aClone=(Card)suspectedMurder.cloneObject();
+        }
+        return aClone;
     }
 
     public Card getSuspectedWeapon() {
-        return suspectedWeapon;
+        Card aClone=null;
+        if(suspectedWeapon!=null){
+            aClone=(Card)suspectedWeapon.cloneObject();
+        }
+        return aClone;
     }
 
     public Card getSuspectedRoom() {
-        return suspectedRoom;
+            Card aClone=null;
+        if(suspectedRoom!=null){
+            aClone=(Card)suspectedRoom.cloneObject();
+        }
+        return aClone;
     }
 
     public Player getPlayerWhoSuspected() {
-        return playerWhoSuspected;
+        Player aClone=null;
+        if(playerWhoSuspected!=null){
+            aClone=(Player)playerWhoSuspected.cloneObject();
+        }
+        return aClone;
     }
 
     public Player getPlayerWhoProved() {
-        return playerWhoProved;
+        Player aClone=null;
+        if(playerWhoProved!=null){
+            aClone=(Player)playerWhoProved.cloneObject();
+        }
+        return aClone;
     }
 
-    public List<Player> getBeforPlayers() {
-        return beforPlayers;
+    public List<Player> getBeforePlayers() {
+        List<Player> copy=new ArrayList<>();
+        for(Player p: beforePlayers){
+            copy.add((Player)p.cloneObject());
+        }
+        return copy;
     }
 
     public List<Player> getAfterPlayers() {
-        return afterPlayers;
+        List<Player> copy=new ArrayList<>();
+        for(Player p: afterPlayers){
+            copy.add((Player)p.cloneObject());
+        }
+        return copy;
     }
 
     public boolean isIntricaWasUsed() {
@@ -96,11 +143,18 @@ public class AiRoundData {
     }
     
     public Card getProvedCard() {
-        return provedCard;
+        Card aClone=null;
+        if(provedCard!=null){
+            aClone=(Card)provedCard.cloneObject();
+        }
+        return aClone;
     }
 
     public void setProvedCard(Card provedCard) {
-        this.provedCard = provedCard;
+        this.provedCard = null;
+        if(provedCard!=null){
+            this.provedCard=(Card)provedCard.cloneObject();
+        }
     }
         
     @Override
@@ -119,6 +173,9 @@ public class AiRoundData {
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
+        }
+        if(obj==this){
+            return true;
         }
         if (getClass() != obj.getClass()) {
             return false;

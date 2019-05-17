@@ -113,7 +113,7 @@ public class RoleChooserWindow extends AbstractBaseWindow {
         jlLevel = new JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setSize(new java.awt.Dimension(0, 0));
+        setSize(new java.awt.Dimension(1366, 770));
         JPanel jpBase = new JPanel();
         jpBase.setBackground(new java.awt.Color(255, 30, 21));
         jpBase.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());

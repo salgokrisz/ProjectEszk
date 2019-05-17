@@ -22,7 +22,7 @@ import java.util.Set;
  */
 public class RoomFactory {
     private final List<List<Field>> gameMap;
-    public static final String ENDROOM_KEY="EndRoom";
+    public static final String ENDROOM_KEY="JOptionPane.EndRoom";
     public RoomFactory(List<List<Field>> gameMap){
         this.gameMap=gameMap;
     }
@@ -95,7 +95,7 @@ public class RoomFactory {
     
     public boolean isEntranceOrEndOrRoomField(Field mapField, Field actField){
         return actField.getType()==FieldType.ROOM && mapField.getType()==FieldType.ROOM && ((RoomField)mapField).getRoomName().equals(((RoomField)actField).getRoomName())||mapField.getType()==FieldType.END && actField.getType()==FieldType.END
-                || mapField.getType()==FieldType.ENTRANCE && actField.getType()==FieldType.ROOM && ((EntranceField)mapField).getRoomName().equals(((RoomField)actField).getRoomName())|| actField.getType()==FieldType.END && mapField.getType()==FieldType.ENTRANCE && ((EntranceField)mapField).getRoomName().equals("End");
+                || mapField.getType()==FieldType.ENTRANCE && actField.getType()==FieldType.ROOM && ((EntranceField)mapField).getRoomName().equals(((RoomField)actField).getRoomName())|| actField.getType()==FieldType.END && mapField.getType()==FieldType.ENTRANCE && ((EntranceField)mapField).getRoomName().equals("JOptionPane.EndRoom");
     }
     private List<Point> determineCoordinates(Field field){
         List<Point> coordinates=new ArrayList<>();

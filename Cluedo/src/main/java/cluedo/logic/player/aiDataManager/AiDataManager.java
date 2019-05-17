@@ -74,7 +74,7 @@ public class AiDataManager {
         //todo randomize???
         Card suspect = null;
         for (Card actualCard: allMurderCards) {
-            if (actualCard.equals (finalCard) || (doIKnowThePublicCards() && publicCards.contains (actualCard))){
+            if (actualCard.equals (finalCard) || doIKnowThePublicCards() && publicCards.contains (actualCard)){
                 continue;
             }
             

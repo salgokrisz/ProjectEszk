@@ -62,7 +62,7 @@ public class MapParser{
                         correct= parts[0].equals("E")&&correctRoomName(parts[1])&&parts[2].equals("1")&&correctRoomName(parts[3]);
                     break;
                     case 3:
-                    correct= parts[0].equals("E")&&(correctRoomName(parts[1])||parts[1].equals("En"))&&parts[2].equals("0");
+                    correct= parts[0].equals("E")&&(correctRoomName(parts[1])||parts[1].equals("JOptionPane.EndRoom"))&&parts[2].equals("0");
                     break;
                     case 2:
                     if(parts[0].equals("St")){

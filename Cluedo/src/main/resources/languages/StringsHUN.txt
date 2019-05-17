@@ -49,6 +49,9 @@ JOptionPane.NoIntricCards=Még nincs intrika kártyád.
 JOptionPane.NextPlayer=A következő játékos: 
 JOptionPane.You=Te
 JOptionPane.SureToMove=Biztos, hogy át akarsz menni a kiválasztott mezőre (ezután nem folytathatod tovább a mozgást ebben a körben).
+JOptionPane.RoomName=Név: 
+JOptionPane.EndRoom=Végső szoba
+JOptionPane.RemainingCards=A szobában levő bizonyítékok száma: 
 
 #GameBoard
 GameBoard.Guests=Vendégek

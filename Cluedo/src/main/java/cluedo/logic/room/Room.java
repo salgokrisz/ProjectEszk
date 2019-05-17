@@ -95,4 +95,8 @@ public class Room {
         }
         return sb.toString();
     }
+
+    public boolean hasCoordinate(Point point) {
+        return coordinates.contains(point);
+    }
 }

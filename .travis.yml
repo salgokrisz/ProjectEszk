@@ -44,7 +44,6 @@ jobs:
         provider: releases
         api_key:
           secure: n7zMK1ZCES9wRRkH7NQDetT85vomXEh7sA4t4zvDJztWmwDx17A6NLPV7XHYT5ju+X/jX2aZQlv8kGDuqYRgXSxyP/XLiFLwyZqfVaVHVO3fygl5W4Ly9HnijOM+7z4JA7FZz9pVaMCIs79KJv12qErT/OyX5/tX0JMU/i31LmYZ4QntiDJIejTy4m+0+lT9eacM5Cp/hh+IiVruAVFhGiizP4hNwUnt9/0GSqDXHOQaexp56BYjMPHvkdoaM4Zdl4SgN/sJ4bbC6KZzVAeIdusfByvHL87/XwEx1SBTf0NKQ17nmqja6TIp5bOQDURFv6Mzi/bbBXCdHjiGrgRwQ+JYSIOlxdUImUZyMAtA2EItjYiorL9e34h4SGGleI2kd513V3YUwrB2bPiYnKxnRJQlo8af6du6y+Je9jsJpUFh2KwUvdNxUCKGTSay9qtv0ZAPJWMGWLhNA8qNnS8vDxdLFLNgDUFRYc/PfXWzNlbvwkpWvP+AMtAXwHY7lJ13ymC1tJ0k6DsJvB5Nq9wjVkSNzoRkctDXoUC7RTwnjUyQSoDitD45ZdU9M+wmAyKrQLPGFQ2P+6crIH1vO4v6RqoxnhJTTXRl/xyWTh2hGtdSKE1SfSM8nii9d4FI3HsBBrbmRAkbh0EJZ4Adm/lxu1dNRtOqUaiXmXziubKDDDI=
-        file_glob: true
         file: "Cluedo-1.0-SNAPSHOT.jar"
         skip_cleanup: true
         on:

@@ -181,7 +181,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     public void removeAiSuspectCardWindow() {
         aiSuspectCardWindow = null;
     }
-
+    
     @Override
     public void showSuspectCardsView(Card murder, Card murderWeapon, Card murderRoom, Player playerWhoProves) {
         SwingUtilities.invokeLater(() -> {

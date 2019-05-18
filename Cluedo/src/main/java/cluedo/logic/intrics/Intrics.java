@@ -1,6 +1,12 @@
 package cluedo.logic.intrics;
 
+import cluedo.logic.cards.Card;
+import cluedo.logic.controller.GameController;
+import cluedo.logic.controller.GamePhase;
+import cluedo.logic.player.Ai;
+import cluedo.logic.room.Point;
 import cluedo.tools.languagestring.LanguageStrings;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -55,6 +61,53 @@ public class Intrics{
     }
     public Object cloneObject(){
         return new Intrics(this);
+    }
+    
+    public void effect(GameController gameController){
+        List<Point> availablePositions;
+        switch(text){
+            case "Cards.Intrics.Desc.noAnswer":
+                if (!gameController.getPlayerWhoHasToProve().getIsComputer()) {
+                    gameController.fireDisplayShowProofCardView(new Card(text,"....","Cards.Intrics.Desc.noAnswer",cluedo.logic.cards.Card.Type.UNKNOWN), gameController.getPlayerWhoHasToProve());
+                }else{
+                     gameController.showCardForAi(new Card(text,"....","Cards.Intrics.Desc.noAnswer",cluedo.logic.cards.Card.Type.UNKNOWN), gameController.getPlayerWhoHasToProve());
+                }               
+                break;
+            case "Cards.Intrics.Desc.lookAtAlso":
+                gameController.fireDisplayShowProofCardView(gameController.getShowedCard(), gameController.getPlayerWhoHasToProve());
+                break;
+            case "Cards.Intrics.Desc.giveSix":
+                availablePositions = gameController.chooseAvailableFieldsInARadius(gameController.getPlayers().get(gameController.getActualPlayerIndex()).getDroppedNumber()+6);
+                if (!gameController.getPlayers().get(gameController.getActualPlayerIndex()).getIsComputer()) {
+                    gameController.fireDisplayMoveView(availablePositions);
+                } else {
+                    ((Ai) gameController.getPlayers().get(gameController.getActualPlayerIndex())).setAvailablePositionsToMove(availablePositions);
+                }
+                break;
+            case "Cards.Intrics.Desc.turnAgain":
+                gameController.setActualGamePhase(GamePhase.INITIAL);
+                break;
+            case "Cards.Intrics.Desc.stepStartSomeone":
+                break;
+            case "Cards.Intrics.Desc.remainPlace":
+                break;
+            case "Cards.Intrics.Desc.stepAnyWhere":
+                availablePositions = gameController.chooseAvailableFieldsInARadius(999);
+                if (!gameController.getPlayers().get(gameController.getActualPlayerIndex()).getIsComputer()) {
+                    gameController.fireDisplayMoveView(availablePositions);
+                } else {
+                    ((Ai) gameController.getPlayers().get(gameController.getActualPlayerIndex())).setAvailablePositionsToMove(availablePositions);
+                }
+                break;
+            case "Cards.Intrics.Desc.showCard":
+                break;
+            case "Cards.Intrics.Type.clock":
+                GameController.AddOneToClock();
+                break;
+            default:
+                break;
+                
+        }
     }
 
 }

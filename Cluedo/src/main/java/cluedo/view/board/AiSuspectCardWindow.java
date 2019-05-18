@@ -63,6 +63,7 @@ private void showingThisCardAsProof(ActionEvent evt){
         this.dispose();
         Card provedCard= cardButtonMap.get(button);
         Player actualPlayer=gameController.getActualPlayer();
+        gameController.setShowedCard(murderCard);
         if(!actualPlayer.getIsComputer()){
        gameController.fireDisplayShowProofCardView(murderCard, playerWhoProves);
        

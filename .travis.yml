@@ -38,7 +38,7 @@ jobs:
       script: mvn install
       
       before_deploy:
-        - export GIT_TAG=$TRAVIS_BRANCH-v0.1.$TRAVIS_BUILD_NUMBER
+        - export GIT_TAG=$TRAVIS_BRANCH-v1.$TRAVIS_BUILD_NUMBER
         - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
         
       deploy:

@@ -49,6 +49,9 @@ JOptionPane.NoIntricCards=You have no intric card yet.
 JOptionPane.NextPlayer=The next player is: 
 JOptionPane.You=You
 JOptionPane.SureToMove=Are you sure you want to move to the selected field (after that you cannot continue moving in this round)?
+JOptionPane.RoomName=Name: 
+JOptionPane.EndRoom=Final room
+JOptionPane.RemainingCards=The number of proofs in this room: 
  
 
 #GameBoard

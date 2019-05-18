@@ -1,4 +1,3 @@
-
 package cluedo.view;
 
 /**

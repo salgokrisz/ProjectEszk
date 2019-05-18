@@ -1016,4 +1016,19 @@ public class GameController {
         drawnNumberOfClockCards++;
     }
 
+    public Room findRoomForPosition(Point point) {
+       Set<String> keys=roomMap.keySet();
+       Iterator<String> iter=keys.iterator();
+       boolean found=false;
+       Room room=null;
+       while(!found && iter.hasNext()){
+           Room actRoom=roomMap.get(iter.next());
+           found=actRoom.hasCoordinate(point);
+           if(found){
+               room=actRoom;
+           }
+       }
+       return room;
+    }
+
 }

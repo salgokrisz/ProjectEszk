@@ -115,6 +115,8 @@ Cards.Intrics.Type.insteadOfDice=Dobás helyett
 Cards.Intrics.Desc.stepAnyWhere=Lépj bárhova.
 Cards.Intrics.Type.clock=Óra
 Cards.Intrics.Desc.showCard=A jobb oldaladon ülő játékos megmutatja az egyik kártyáját.
+Intrics.UsedIntricsCard=Felhasznált intrika kártya:
+Intrics.NoAnswerWasUsed=felhasználta a gyanusítás megválaszolatlan marad intrika kártyát.
 
 #RoleDescriptions
 

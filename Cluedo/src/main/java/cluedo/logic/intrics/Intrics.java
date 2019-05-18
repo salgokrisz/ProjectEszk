@@ -77,15 +77,16 @@ public class Intrics{
                 gameController.fireDisplayShowProofCardView(gameController.getShowedCard(), gameController.getPlayerWhoHasToProve());
                 break;
             case "Cards.Intrics.Desc.giveSix":
-                availablePositions = gameController.chooseAvailableFieldsInARadius(gameController.getPlayers().get(gameController.getActualPlayerIndex()).getDroppedNumber()+6);
-                if (!gameController.getPlayers().get(gameController.getActualPlayerIndex()).getIsComputer()) {
+                availablePositions = gameController.chooseAvailableFieldsInARadius(gameController.getActualPlayer().getDroppedNumber()+6);
+                if (!gameController.getActualPlayer().getIsComputer()) {
                     gameController.fireDisplayMoveView(availablePositions);
                 } else {
-                    ((Ai) gameController.getPlayers().get(gameController.getActualPlayerIndex())).setAvailablePositionsToMove(availablePositions);
+                    ((Ai) gameController.getActualPlayer()).setAvailablePositionsToMove(availablePositions);
                 }
                 break;
             case "Cards.Intrics.Desc.turnAgain":
-                gameController.setActualGamePhase(GamePhase.INITIAL);
+                gameController.setActualGamePhase(GamePhase.ROLLORUSESECRETCORRIDOR);
+                gameController.nextPlayerIsComing();
                 break;
             case "Cards.Intrics.Desc.stepStartSomeone":
                 break;
@@ -93,7 +94,7 @@ public class Intrics{
                 break;
             case "Cards.Intrics.Desc.stepAnyWhere":
                 availablePositions = gameController.chooseAvailableFieldsInARadius(999);
-                if (!gameController.getPlayers().get(gameController.getActualPlayerIndex()).getIsComputer()) {
+                if (!gameController.getActualPlayer().getIsComputer()) {
                     gameController.fireDisplayMoveView(availablePositions);
                 } else {
                     ((Ai) gameController.getPlayers().get(gameController.getActualPlayerIndex())).setAvailablePositionsToMove(availablePositions);
@@ -103,11 +104,18 @@ public class Intrics{
                 break;
             case "Cards.Intrics.Type.clock":
                 GameController.AddOneToClock();
+                gameController.fireRefreshNumberOfDrawnClockCards();
                 break;
             default:
                 break;
                 
         }
+        if(gameController.getActualPlayer().getIsComputer()){
+            Ai actualAiPlayer=(Ai)gameController.getActualPlayer();
+            actualAiPlayer.appendToInformation(LanguageStrings.getString("Intrics.UsedIntricsCard")+System.lineSeparator()+LanguageStrings.getString(text));
+            gameController.setActualPlayer(actualAiPlayer);
+        }
+        
     }
 
 }

@@ -479,10 +479,16 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
         StringBuilder message = new StringBuilder();
         URL imageUrl = null;
         if (proofCard != null) {
+            if(!proofCard.getImageName().equals("....")){
             message.append(playerWhoShowed.toString()).append(LanguageStrings.getString("Suspect.ShownEvidenceCard")).append(System.lineSeparator()).append(proofCard.getNameForUI());
             imageUrl = getClass().getResource(proofCard.getImageName());
+            }else{
+                 message.append(LanguageStrings.getString(playerWhoShowed.getRole().getName())+"("+playerWhoShowed.getRole().getRoleTypeInString()+") "+LanguageStrings.getString("Intrics.NoAnswerWasUsed"));
+            }
         } else {
+         
             message.append(LanguageStrings.getString("Suspect.NobodyCouldShow"));
+          
         }
 
         showOptionDialogWithImage(message.toString(), LanguageStrings.getString("Suspect.ShownEvidenceCard"), options, imageUrl, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);

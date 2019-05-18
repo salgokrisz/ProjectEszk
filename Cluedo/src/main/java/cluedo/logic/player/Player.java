@@ -16,6 +16,7 @@ import java.util.Objects;
  */
 public class Player {
     protected Role role;
+    protected int droppedNumber;
     protected final boolean isComputer;
     protected List<Card> suspectCards=new ArrayList<>();
     protected Point startFieldLocation;
@@ -33,6 +34,7 @@ public class Player {
         isInRoom=false;
         actualRoomName="";
         suspectedInThisRound=false;
+        droppedNumber=0;
     }
     public Player(Player other){
         role=other.getRole();
@@ -45,6 +47,7 @@ public class Player {
         this.suspectedMurderInActualRound=other.getSuspectedMurderInActualRound();
         this.suspectedMurderWeaponInActualRound=other.getSuspectedMurderWeaponInActualRound();
         this.suspectedMurderRoomInActualRound=other.getSuspectedMurderRoomInActualRound();
+        this.droppedNumber = other.getDroppedNumber();
     }
      public Card getSuspectedMurderInActualRound() {
         Card aClone=null;
@@ -52,6 +55,14 @@ public class Player {
             aClone=(Card)suspectedMurderInActualRound.cloneObject();
         }
         return aClone;
+    }
+
+    public int getDroppedNumber() {
+        return droppedNumber;
+    }
+
+    public void setDroppedNumber(int droppedNumber) {
+        this.droppedNumber = droppedNumber;
     }
 
     public void setSuspectedCardsToNull() {

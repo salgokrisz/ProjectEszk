@@ -80,6 +80,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
 
         processComponents(jpBoard);
         jscrollBase.setPreferredSize(jpBoard.getSize());
+        setSize(new Dimension(1366, 770));
         jscrollBase.setViewportView(jpBoard);
         tabbedPane = new JTabbedPane();
         panelForGameBoard.add(jscrollBase, BorderLayout.CENTER);
@@ -174,6 +175,7 @@ public class GameBoard extends AbstractBaseWindow implements GameBoardListener {
     public void removeAiSuspectCardWindow(){
         aiSuspectCardWindow=null;
     }
+    
     @Override
     public void showSuspectCardsView(Card murder, Card murderWeapon, Card murderRoom, Player playerWhoProves){
         SwingUtilities.invokeLater(() -> {

@@ -52,7 +52,9 @@ public class GameController {
     private List<Card> allMurderRoomCards = new ArrayList<>();
     private static final String OPTION_PANE_DROPPED_NUMBER_CONST = "JOptionPane.DroppedNumber";
     private int playerNumberWhoTriedToShowInThisRound;
-    private int drawnNumberOfClockCards;
+    private static int drawnNumberOfClockCards;
+    private Player playerWhoHasToProve; 
+    private Card showedCard;
 
     public GameController() {
         actualGamePhase = GamePhase.INITIAL;
@@ -65,6 +67,26 @@ public class GameController {
         drawnNumberOfClockCards=0;
     }
 
+    
+    public Player getPlayerWhoHasToProve() {
+        return playerWhoHasToProve;
+    }
+
+    public Card getShowedCard() {
+        return showedCard;
+    }
+
+    public void setShowedCard(Card showedCard) {
+        this.showedCard = showedCard;
+    }
+
+    
+    
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
@@ -319,6 +341,7 @@ public class GameController {
         if (playerIndex != numberOfPlayers - 1) {
             righterIndex += 1;
         }
+        playerWhoHasToProve = players.get(righterIndex);
         return players.get(righterIndex);
     }
 
@@ -585,6 +608,7 @@ public class GameController {
                 fireShowInformation(LanguageStrings.getString(OPTION_PANE_DROPPED_NUMBER_CONST) + droppedNumber);
             }
             actualGamePhase = GamePhase.MOVE;
+            players.get(actualPlayerIndex).setDroppedNumber(droppedNumber);
             List<Point> availablePositions = chooseAvailableFieldsInARadius(droppedNumber);
             if (!players.get(actualPlayerIndex).getIsComputer()) {
                 fireDisplayMoveView(availablePositions);
@@ -595,7 +619,7 @@ public class GameController {
         return droppedNumber;
     }
 
-    private void fireDisplayMoveView(List<Point> availablePositions) {
+    public void fireDisplayMoveView(List<Point> availablePositions) {
         gameBoardListener.displayMoveView(availablePositions);
     }
 
@@ -719,7 +743,9 @@ public class GameController {
             if (actualPlayer.getIsInRoom() && !actualPlayer.getSuspectedInThisRound()) {
                 actualGamePhase = GamePhase.SUSPECT;
                 fireShowSuspectView();
+                //TODO wait for turn again intric card
             } else {
+                //TODO wait for turn again intric card
                 nextPlayerIsComing();
             }
         }
@@ -942,6 +968,7 @@ public class GameController {
     }
     public void humanPlayerSuspectCards(String selectedGuestKey, String selectedWeaponKey, String selectedRoomKey) {
         Player playerToProve=determinePlayerWhoHasToProve(actualPlayerIndex);
+        
         Card murder=getMurderSuspectCardFromAllAccordingToCardKey(selectedGuestKey, allMurderCards);
         Card murderWeapon=getMurderSuspectCardFromAllAccordingToCardKey(LanguageStrings.getString(selectedWeaponKey), allMurderWeaponCards);
         Card murderRoom=getMurderSuspectCardFromAllAccordingToCardKey(LanguageStrings.getString(selectedRoomKey), allMurderRoomCards);
@@ -981,8 +1008,12 @@ public class GameController {
         return card;
     }
 
-    public int getDrawnNumberOfClockCards() {
+    public static int getDrawnNumberOfClockCards() {
         return drawnNumberOfClockCards;
+    }
+    
+    public static void AddOneToClock(){
+        drawnNumberOfClockCards++;
     }
 
 }

@@ -97,7 +97,7 @@ Cards.Rooms.GuestHouse=Vendégház
 Card.Usage=Felhasználható: 
 
 #IntricCards
-Cards.Intics.Type.duringSuspect=Gyanusítás közben
+Cards.Intrics.Type.duringSuspect=Gyanusítás közben
 Cards.Intrics.Desc.noAnswer=A gyanusítás megválaszolatlan marad.
 Cards.Intrics.Type.lookAtCard=Valaki mutat
 Cards.Intrics.Desc.lookAtAlso=Te is megnézheted a kártyát.

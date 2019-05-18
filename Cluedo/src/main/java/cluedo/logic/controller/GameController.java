@@ -375,13 +375,16 @@ public class GameController {
     }
 
     public void nextPlayerIsComing() {
-        actualGamePhase = GamePhase.ROLLORUSESECRETCORRIDOR;
-        if (players.get(actualPlayerIndex).getIsComputer()) {
+        
+        if (getActualPlayer().getIsComputer()) {
             fireShowInformationsAboutComputerPlayer();
         }
         getActualPlayer().setSuspectedInThisRound(false);
-        changeActualPlayerIndex();
-        fireShowNextPlayerMessage();
+        if(actualGamePhase!=GamePhase.ROLLORUSESECRETCORRIDOR){
+                   actualGamePhase = GamePhase.ROLLORUSESECRETCORRIDOR;
+                   changeActualPlayerIndex();
+                   fireShowNextPlayerMessage();
+        }
         Player actualPlayer = getActualPlayer();
         if (!actualPlayer.getIsComputer()) {
             fireDisplayRollView(actualPlayer.getIsInRoom() && roomMap.get(actualPlayer.getActualRoomName()).getClass() == SecretCorridoredRoom.class);
@@ -649,12 +652,14 @@ public class GameController {
         if(intric.getType()!=IntricsType.CLOCK){
         players.get(actualPlayerIndex).addIntricCard(intric);
         }else{
-            drawnNumberOfClockCards+=1;
-            gameBoardListener.refreshNumberOfDrawnClockCards();
+            intric.effect(this);
+            
         }
         return intric;
     }
-
+    public void fireRefreshNumberOfDrawnClockCards(){
+        gameBoardListener.refreshNumberOfDrawnClockCards();
+    }
     public int playerNumberOnField(Field field) {
         int playerNumber = 0;
         Point fieldPosition = new Point(field.getX(), field.getY());
@@ -928,7 +933,9 @@ public class GameController {
                     ((Ai)p).addPlayerWhoShowedForOtherPlayerData (playerWhoShowed);
                 }
             }
+            if(!provedCard.getImageName().equals("....")){
             actualComputerPlayer.addToAlreadyKnownCards(playerWhoShowed, provedCard);
+            }
             nextPlayerIsComing();
         } else {
             if(playerNumberWhoTriedToShowInThisRound==numberOfPlayers-1){
@@ -1029,6 +1036,10 @@ public class GameController {
            }
        }
        return room;
+    }
+
+    public void setActualPlayer(Player player) {
+        players.add(actualPlayerIndex, player);
     }
 
 }

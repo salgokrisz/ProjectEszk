@@ -116,6 +116,8 @@ Cards.Intrics.Type.insteadOfDice=Instead of Dice
 Cards.Intrics.Desc.stepAnyWhere=Step anywhere.
 Cards.Intrics.Type.clock=Clock
 Cards.Intrics.Desc.showCard=The player on your right will show you one of his\her cards.
+Intrics.UsedIntricsCard=Used intric card:
+Intrics.NoAnswerWasUsed=has used the suspecting remains unanswered intric card.
 
 #RoleDescriptions
 

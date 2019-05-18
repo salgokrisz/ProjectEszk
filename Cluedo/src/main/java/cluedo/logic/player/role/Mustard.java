@@ -2,6 +2,7 @@
 package cluedo.logic.player.role;
 
 import static cluedo.logic.player.role.Role.image;
+import cluedo.logic.controller.GameController;
 import javax.swing.ImageIcon;
 
 /**
@@ -31,8 +32,15 @@ public class Mustard extends Role{
     }
     @Override
     public void useSpecialAbility() {
-        //TODO: write Mustard's special ability
+        if (getAbilityIsAvailable() == true){
+            turnAgain();
+            setAbilityIsAvialable(false);
+        }
     }
+    public void turnAgain(GameController gameController){
+        gameController.setActualGamePhase(GamePhase.INITIAL);
+    }
+
      @Override
     public String toString(){
         StringBuilder sb=new StringBuilder();

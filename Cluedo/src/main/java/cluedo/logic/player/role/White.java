@@ -33,8 +33,14 @@ public class White extends Role {
     }
 
     @Override
-    public void useSpecialAbility() {
+    public void useSpecialAbility(GameController gameController, String roomName) {
         //TODO: implement White's ability
+        Room room;
+        if(gameController.getRoomMap().get(roomName) != null){
+            room = gameController.getRoomMap().get(roomName);
+        }
+        gameController.enterRoom(room, gameController.getActualPlayerIndex(), false);
+
     }
  @Override
     public String toString(){

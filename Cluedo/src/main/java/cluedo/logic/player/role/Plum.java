@@ -32,8 +32,27 @@ public class Plum extends Role{
 
       
     @Override
-    public void useSpecialAbility() {
+    public void useSpecialAbility(GameController gameController, String roomName, int playerIndex) {
         //TODO: write Plum's special ability
+        int counter = 0;
+        while (counter < 2){
+            startTwoRummors(gameController, roomName, playerIndex);
+            counter++;
+        }
+        gameController.setIsAbilityAvailable(false)
+    }
+
+    public void startTwoRummors(GameController gameController, String roomName, int playerIndex){
+        int numberOfPlayers = gameController.getNumberOfPlayers();
+        List playersList = gameController.getPlayers();
+        if (gameController.getRoomMap().get(roomName) != null){
+            Room room = gameController.getRoomMap().get(roomName);
+            for (int i = 0; i < playersList; i++) {
+                if (playerList.get(i) == playerIndex){
+                    gameController.enterRoom(room, playerIndex, false);
+                }
+            }
+        }
     }
      @Override
     public String toString(){

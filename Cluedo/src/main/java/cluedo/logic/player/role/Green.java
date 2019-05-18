@@ -2,6 +2,8 @@
 package cluedo.logic.player.role;
 
 import javax.swing.ImageIcon;
+import cluedo.logic.controller.GameController;
+import cluedo.logic.room.Room;
 
 /**
  * This class represents a character called Green.
@@ -29,8 +31,23 @@ public class Green extends Role{
         return new Green(this);
     }
     @Override
-    public void useSpecialAbility() {
+    public void useSpecialAbility(GameController gameController, String roomName, int playerIndex) {
         //TODO: write Green's special ability
+        rumor(gameController, roomName, playerIndex);
+        gameController.setAbilityIsAvailable(false);
+    }
+
+    public void rumor(GameController gameController, String roomName, int playerIndex){
+        int numberOfPlayers = gameController.getNumberOfPlayers();
+        List playersList = gameController.getPlayers();
+        if (gameController.getRoomMap().get(roomName) != null){
+            Room room = gameController.getRoomMap().get(roomName);
+            for (int i = 0; i < playersList; i++) {
+                if (playerList.get(i) == playerIndex){
+                    gameController.enterRoom(room, playerIndex, false);
+                }
+            }
+        }
     }
     @Override
     public String toString(){

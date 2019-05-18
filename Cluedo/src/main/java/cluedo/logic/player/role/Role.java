@@ -19,6 +19,7 @@ public abstract class Role {
     protected static ImageIcon image;
     protected ImageIcon puppetImage;
     protected String roleTypeInString;
+    
     public Role( String name){
         abilityIsAvailable=true;
         this.name=name;

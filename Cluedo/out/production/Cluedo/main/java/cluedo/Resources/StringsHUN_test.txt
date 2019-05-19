@@ -1,0 +1,6 @@
+#Tests
+Test.1=test1_hun
+Test.2=test2_hun
+Test.3=test3_hun
+Test.4=test4_hun
+Test.5=test5_hun

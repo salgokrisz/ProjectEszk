@@ -1,20 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cluedo.logic.factories;
 
+import cluedo.logic.fields.Field;
+import cluedo.logic.fields.FieldType;
+import cluedo.logic.fields.StartField;
 import cluedo.logic.player.Ai;
 import cluedo.logic.player.level.ExperienceLevel;
-import cluedo.logic.role.Green;
-import cluedo.logic.role.Mustard;
-import cluedo.logic.role.Peacock;
-import cluedo.logic.role.Plum;
-import cluedo.logic.role.Scarlet;
-import cluedo.logic.role.White;
+import cluedo.logic.player.role.Green;
+import cluedo.logic.player.role.Mustard;
+import cluedo.logic.player.role.Peacock;
+import cluedo.logic.player.role.Plum;
+import cluedo.logic.player.role.Scarlet;
+import cluedo.logic.player.role.White;
 import cluedo.logic.player.Player;
-import cluedo.logic.role.Role;
+import cluedo.logic.player.role.Role;
+import cluedo.logic.room.Point;
 import cluedo.tools.Tools;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +69,7 @@ public class PlayerFactory {
        return role;
    }
 
-    public List<Player> createPlayers(List<String> playersList) {
+    public List<Player> createPlayers(List<String> playersList, List<List<Field>> fieldMap) {
         List<Player> players=new ArrayList<>();
         for(int i = 0; i<playersList.size();i++){
             String[] data = playersList.get(i).split(":");
@@ -88,10 +87,31 @@ public class PlayerFactory {
                 player=new Ai( role,true, experienceLevel);
             }else{
                 player=new Player(role, false);
-            }  
+            }
+        setStartingFieldsOfPlayer(player, fieldMap);
         players.add(player);
     }
         return players;
     }
-
+    private void setStartingFieldsOfPlayer(Player player, List<List<Field>> fieldMap){
+            int i=0;
+            boolean found=false;
+            while(i <fieldMap.size()&&!found){
+                int j=0;
+                while(j<fieldMap.get(i).size() && !found){
+                    if(fieldMap.get(i).get(j).getType().equals(FieldType.START)){     
+                        StartField field = (StartField)fieldMap.get(i).get(j);
+                        if(player.getRole().getClass().getName().equals("cluedo.logic.player.role."+field.getBelongsTo())){
+                            Point position=new Point(field.getX(),field.getY());
+                            player.setStartFieldLocation(position);
+                            player.setPosition(position);
+                            found=true;
+                        }
+                    }  
+                    j+=1;
+                }
+                i+=1;
+            }
+        
+    }
 }

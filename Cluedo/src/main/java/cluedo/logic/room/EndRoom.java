@@ -2,6 +2,8 @@
 package cluedo.logic.room;
 
 import cluedo.logic.cards.Card;
+import java.awt.Color;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -11,9 +13,10 @@ public class EndRoom extends Room{
     private Card murderWeapon;
     private Card murderRoom;
     private Card murderer;
+    private List<Card> remainingSuspectCards=new LinkedList<>();
     
-      public EndRoom(String name, List<Point> coordinates){
-          super(name, coordinates);
+      public EndRoom(String name, List<Point> coordinates,Color color){
+          super(name, coordinates,color);
       } 
       
       public EndRoom(EndRoom other){
@@ -21,6 +24,7 @@ public class EndRoom extends Room{
           this.murderWeapon=other.getMurderWeapon();
           this.murderRoom=other.getMurderRoom();
           this.murderer=other.getMurderer();
+          this.remainingSuspectCards=other.getRemainingSuspectCards();
       }
       @Override
       public Object cloneObject(){
@@ -33,13 +37,24 @@ public class EndRoom extends Room{
             return null;
         }
     }
+    public List<Card> getRemainingSuspectCards(){
+        List<Card> copy=new LinkedList<>();
+        for(Card card:remainingSuspectCards){
+            copy.add((Card)card.cloneObject());
+        }
+        return copy;
+    }
+    public int getRemainingSuspectCardsNum(){
+        return remainingSuspectCards.size();
+    }
 @Override
 public String toString(){
     StringBuilder sb=new StringBuilder(super.toString());
     if(murderWeapon!=null && murderRoom!=null && murderer!=null){
         sb.append("Murder weapon: ").append(murderWeapon.toString()).append(System.lineSeparator());
         sb.append("Murder room: ").append(murderRoom.toString()).append(System.lineSeparator());
-        sb.append("Murderer: ").append(murderer.toString());
+        sb.append("Murderer: ").append(murderer.toString()).append(System.lineSeparator()).append("Remaining suspect card number: ")
+        .append(remainingSuspectCards.size());
     }
     return sb.toString();
 }
@@ -83,5 +98,11 @@ public String toString(){
       
       public boolean checkSuspectation(Card suspectedMurderWeapon,Card suspectedMurderRoom,Card suspectedMurderer){
         return this.murderWeapon.equals(suspectedMurderWeapon) && this.murderRoom.equals(suspectedMurderRoom) && this.murderer.equals(suspectedMurderer);
+    }
+
+    public void setRemainingSuspectCards(List<Card> remainingSuspectCards) {
+        for(Card card: remainingSuspectCards){
+            this.remainingSuspectCards.add((Card)card.cloneObject());
+        }
     }
 }

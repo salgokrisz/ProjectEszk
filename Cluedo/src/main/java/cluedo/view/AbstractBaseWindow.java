@@ -1,4 +1,3 @@
-
 package cluedo.view;
 
 /**
@@ -29,6 +28,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
  public abstract class AbstractBaseWindow extends JFrame {
+     protected static final String OPTION_PANE_APPROVAL = "JOptionPane.Approval"; 
 protected JMenu mHelper = new JMenu(LanguageStrings.getString("ToolBar.Helper"));
 protected static final String FONT_TYPE="Times New Roman";
     JMenuItem miEnglish = new JMenuItem(LanguageStrings.getString("Menu.English"));
@@ -96,9 +96,7 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
     }
  
     protected ActionListener showDescription() {
-        return (ActionEvent e) -> {
-            JOptionPane.showMessageDialog(null, LanguageStrings.getString("JOptionPane.ApplicationInfo"), LanguageStrings.getString("JOptionPane.Description"), JOptionPane.INFORMATION_MESSAGE);
-        };
+        return (ActionEvent e) -> JOptionPane.showMessageDialog(null, LanguageStrings.getString("JOptionPane.ApplicationInfo"), LanguageStrings.getString("JOptionPane.Description"), JOptionPane.INFORMATION_MESSAGE);
     }
     
   public void closeWindow(){
@@ -118,29 +116,33 @@ protected static Set<JFrame> openedWindowsSet=new HashSet<>();
         }
     }  
     
-    private static int showOptionDialogWithoutImage(String message, Object[] options){
+    private static int showOptionDialogWithoutImage(String message, String title, Object[] options){
        return JOptionPane.showOptionDialog(null, message,
-               LanguageStrings.getString("JOptionPane.Approval"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+               title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, options, options[0]);
     }
     
-    private static int showOptionDialogWithImage(String message, Object[] options, URL imageUrl){
+    public static int showOptionDialogWithImage(String message,String title, Object[] options, URL imageUrl,int optionType, int messageType){
+      ImageIcon imageIcon=null;
+      if(imageUrl!=null){
+          imageIcon=new ImageIcon(imageUrl);
+      }
         return JOptionPane.showOptionDialog(null, message,
-                LanguageStrings.getString("JOptionPane.Approval"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-                new ImageIcon(imageUrl), options, options[0]);
+                title, optionType, messageType,
+                imageIcon, options, options[0]);
     }
     
         public static int showConfirmation(String message, URL imageUrl) {
          Object[] options = {LanguageStrings.getString("JOptionPane.Yes"), LanguageStrings.getString("JOptionPane.No")};
          int answer;       
          if(imageUrl==null){
-            answer= showOptionDialogWithoutImage(message, options);           
+            answer= showOptionDialogWithoutImage(message, LanguageStrings.getString(OPTION_PANE_APPROVAL), options);           
          }else{
              boolean validUrl=isLinkValid(imageUrl);
              if(validUrl){
-             answer=showOptionDialogWithImage(message, options, imageUrl);
+             answer=showOptionDialogWithImage(message, LanguageStrings.getString(OPTION_PANE_APPROVAL), options, imageUrl, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
              }else{
-                 answer=showOptionDialogWithoutImage(message, options);
+                 answer=showOptionDialogWithoutImage(message, LanguageStrings.getString(OPTION_PANE_APPROVAL), options);
              }
          }
         return answer;

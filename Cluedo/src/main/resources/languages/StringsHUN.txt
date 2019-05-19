@@ -1,0 +1,170 @@
+﻿#Menu
+Menu.NewGame=Új játék
+Menu.Language=Nyelv:
+Menu.Hungarian=Magyar
+Menu.English=Angol
+Menu.PlayerNumber=Játékosok száma:
+Menu.PlayerTitle=Játékosok
+Menu.PlayerOne=1. játékos*
+Menu.PlayerTwo=2. játékos*
+Menu.PlayerThree=3. játékos*
+Menu.PlayerFour=4. játékos*
+Menu.PlayerFive=5. játékos*
+Menu.PlayerSix=6. játékos*
+Menu.Name=Név*
+Menu.Role=Szerep
+Menu.Level=Szint
+Menu.PlayerOptionHuman=Ember
+Menu.PlayerOptionAi=Számítógép
+Menu.PlayerOptionNone=Nincs kiválasztva
+Menu.LevelOptionRandom=Random
+Menu.LevelOptionBeginner=Kezdő
+Menu.LevelOptionIntermediate=Haladó
+
+#ToolBar
+ToolBar.Helper=Súgó
+ToolBar.Information=Alkalmazás információ
+ToolBar.Languages=Nyelvek
+
+#JOptionPane
+JOptionPane.Approval=Megerősítés
+JOptionPane.Attention=Figyelem!
+JOptionPane.Yes=Igen
+JOptionPane.No=Nem
+JOptionPane.SettingsApproval=Biztos, hogy folytatni akarod ezekkel a beállításokkal?
+JOptionPane.ClosingApproval=Valóban be akarod zárni a játékot?
+JOptionPane.ApplicationInfo=Ez játék a Cluedo, azonos című társasjátékon alapszik.
+JOptionPane.Description=Leírás
+JOptionPane.ErrorTitle=Hibaüzenet
+JOptionPane.NameAttention=Az összes név megadása kötelező, és muszáj betűvel kezdődniük!
+JOptionPane.PersonalityAttention=<html>Az összes számítógép, illetve emberi játékosra vonatkozó információ megadása kötelező<br>, és egy emberi játékost kötelező választani!</html>
+JOptionPane.ToDo=Teendő(k)
+JOptionPane.SuspectCardTitle=Gyanú kártyák
+JOptionPane.DroppedNumber=A dobott érték: 
+JOptionPane.InformationTitle=Információ
+JOptionPane.InformationAboutStarterPlayer=Az első játékos: 
+JOptionPane.SureToUseSecretCorridor=Biztos, hogy titkos átjárót akarsz használni kockadobás helyett ebbe a szobába: 
+JOptionPane.DrawnIntricCard=A húzott intrika kártya: 
+JOptionPane.NoIntricCards=Még nincs intrika kártyád.
+JOptionPane.NextPlayer=A következő játékos: 
+JOptionPane.You=Te
+JOptionPane.SureToMove=Biztos, hogy át akarsz menni a kiválasztott mezőre (ezután nem folytathatod tovább a mozgást ebben a körben).
+JOptionPane.RoomName=Név: 
+JOptionPane.EndRoom=Végső szoba
+JOptionPane.RemainingCards=A szobában levő bizonyítékok száma: 
+
+#GameBoard
+GameBoard.Guests=Vendégek
+GameBoard.Weapons=Fegyverek
+GameBoard.Rooms=Helyiségek
+GameBoard.Board=Játéktábla
+GameBoard.CluePaper=Nyomozólap
+GameBoard.MySuspectCards=Gyanúkártyáim
+GameBoard.MyIntricCards=Intrika kártyáim
+GameBoard.EntranceMark=Be
+GameBoard.MySpecialAbility=Különleges képességem
+GameBoard.EndRound=Végeztem a körrömmel
+GameBoard.DrawnClockCards=Az eddig kihúzott órakártyák száma: 
+
+#CardWindow
+CardWindow.Next=Következő
+
+#Cards
+Cards.Persons.Mustard=Mustard
+Cards.Persons.Plum=Plum
+Cards.Persons.Green=Green
+Cards.Persons.Peacock=Peacock
+Cards.Persons.Scarlet=Scarlet
+Cards.Persons.White=White
+
+Cards.Weapons.Knife=Kés
+Cards.Weapons.Candlestick=Gyertyatartó
+Cards.Weapons.Revolver=Revolver
+Cards.Weapons.Poison=Méreg
+Cards.Weapons.Trophy=Trófea
+Cards.Weapons.Rope=Kötél
+Cards.Weapons.Bat=Ütő
+Cards.Weapons.Axe=Balta
+Cards.Weapons.Dumbbell=Súlyzó
+
+Cards.Rooms.Hall=Előszoba
+Cards.Rooms.Eatery=Étkező
+Cards.Rooms.Kitchen=Konyha
+Cards.Rooms.Terrace=Terasz
+Cards.Rooms.Planetarium=Csillagvizsgáló
+Cards.Rooms.Cinema=Moziterem
+Cards.Rooms.LivingRoom=Nappali
+Cards.Rooms.Bath=Fűrdő
+Cards.Rooms.GuestHouse=Vendégház
+
+Card.Usage=Felhasználható: 
+
+#IntricCards
+Cards.Intrics.Type.duringSuspect=Gyanusítás közben
+Cards.Intrics.Desc.noAnswer=A gyanusítás megválaszolatlan marad.
+Cards.Intrics.Type.lookAtCard=Valaki mutat
+Cards.Intrics.Desc.lookAtAlso=Te is megnézheted a kártyát.
+Cards.Intrics.Type.afterDice=Dobás után
+Cards.Intrics.Desc.giveSix=Adj hatot a dobott számhoz.
+Cards.Intrics.Type.endOfTurn=Kör végén
+Cards.Intrics.Desc.turnAgain=Újra te jösz.
+Cards.Intrics.Desc.stepStartSomeone=Tegyél valakit vissza a kezdő helyére.
+Cards.Intrics.Type.startOfTurn=Kör kezdetén
+Cards.Intrics.Desc.remainPlace=Ha egy szobában vagy akkor maradj ott és gyanúsíts.
+Cards.Intrics.Type.insteadOfDice=Dobás helyett
+Cards.Intrics.Desc.stepAnyWhere=Lépj bárhova.
+Cards.Intrics.Type.clock=Óra
+Cards.Intrics.Desc.showCard=A jobb oldaladon ülő játékos megmutatja az egyik kártyáját.
+Intrics.UsedIntricsCard=Felhasznált intrika kártya:
+Intrics.NoAnswerWasUsed=felhasználta a gyanusítás megválaszolatlan marad intrika kártyát.
+
+#RoleDescriptions
+
+Plum.description=<html>A játék során egyszer egy helyett kétszer<br>gyanúsíthatsz ugyanabból a helyiségből.</html>
+Scarlet.description=<html>A játék során egyszer megnézheted egy kártyáját,<br>annak a játékosnak, aki éppen megmutatott egy<br>kártyát egy másik játékosnak.</html>
+Peacock.description=<html>A játék során egyszer véletlenszerűen<br>húzhatsz egy kártyát valakitől, akinek éppen<br>megmutattál egyet, és megnézheted.</html>
+Mustard.description=<html>A játék során egy esetben, kétszer léphetsz.<br>Dobj a kockával, lépj, majd dobj úra.</html>
+Green.description=<html>A játék során egyszer egy olyan helyiségben is gyanúsíthatsz,<br>amelyben nem tartózkodsz.<br>A gyanúsításban megnevezett személy<br>a helyiségbe lép.</html>
+White.description=<html>A játék során egyszer, bármelyik helyiségbe<br>beléphetsz, amelyiknek nincs<br>titkos átjárója.</html>
+
+#Actions
+Actions.RollDiceStart=<html>Klikkelj a dobókockás gombra a dobáshoz.<br>A legnagyobb értéket dobó játékos kezdi a játékot.</html>
+Actions.RollDiceStartAgain=<html>Több játékos is ugyanazt dobta, mint te a kezdés eldöntéséhez.<br>Újat fogsz dobni a kezdő játékos eldöntéséhez.</html>
+Actions.RollDice=Klikkelj a dobókockás gombra a dobáshoz.
+Actions.ChooseSuspects=Válassz ki egy gyilkos személyt és egy gyilkos fegyvert a gyanúsításodhoz!
+Actions.Use=Használ
+Actions.ChooseFieldToMove=Kattints egy elérhető mezőre, ahhoz, hogy átmozogj!
+Actions.InformationsAboutAi=Összefoglaló a körről, számítógépes játékos: 
+Actions.AiEnteredRoom=Belépett ebbe a szobába: 
+Actions.AiMoved=Erre a mezőre lépett: 
+Actions.SerialMark=. 
+Actions.Row=sor
+Actions.Column=oszlop
+Actions.AiDrawnIntricCard=Intrika kártyát húzott.
+Actions.AiSuspectsCards=A gyanúsított kártyák:
+Actions.DroppedIntric=Kapsz egy intrika kártyát, mert az egyik dobókockával kérdőjelet dobtál.
+Actions.AiUsedSecretPassage=Titkos átjárót használt ebbe a szobába: 
+Actions.RollDiceOrUseSecretPassage=Titkos átjárót tartalmazó szobában vagy. Kattints a szobádban levő titkos átjáró mezőjére, hogy használd, vagy a dobókocka gombjára, ha inkább dobni szeretnél.
+Actions.ChooseCardToProve=<br> ezeket gyanúsítja, válassz egyet, ha valamelyik megvan, vagy a semmit, ha nem.
+
+#Suspect
+Suspect.Nothing=Semmi
+Suspect.SureToShowThisCard=Biztos, hogy meg akarod mutatni bizonyítékként ezt a gyanúkártyát: 
+Suspect.Evidence=Bizonyíték
+Suspect.ChooseClueTab=Válts a nyomozólap nézetre, hogy ki tudd választani, a gyanúsítottakat!
+Suspect.Choose=Kiválaszt
+Suspect.MustChooseGuestAndWeapon=Muszáj egy vendéget és egy fegyvert is kiválasztanod a gyanúsításhoz!
+Suspect.SureToChooseTheeseObjects=Biztos vagy benne, hogy ezeket a gyanúsítod?
+Suspect.SelectedOptions=A választott gyanúsított objektumok: 
+Suspect.ShownEvidenceCard=ezt a kártyát mutatja neked: 
+Suspect.NobodyCouldShow=Senki sem tudott mutatni!
+Suspect.MarkInfos=Jelöld a nyomozólapodon az újonnan megtudott információkat, ha kész, akkor kattints a köröd vége gombra a játéktábla fülön!
+Suspect.WasUnableToProve= nem tudott bizonyítani!
+
+#Tests
+Test.1=test1_hun
+Test.2=test2_hun
+Test.3=test3_hun
+Test.4=test4_hun
+Test.5=test5_hun
+TestNameForUI=TestNameForUI_hun

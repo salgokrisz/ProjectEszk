@@ -16,13 +16,14 @@ public class Field {
     protected FieldType type;
     protected boolean walkeable;
     protected boolean someOneOn;
-    
+    protected int playerNumber;
     public Field(int x,int y,FieldType type,boolean walkeAble,boolean someOneOn){
         this.x = x;
         this.y = y;
         this.type = type;
         this.walkeable = walkeAble;
         this.someOneOn = someOneOn;
+        playerNumber=0;
     }
     public Field(Field other){
         this.x=other.getX();
@@ -30,6 +31,11 @@ public class Field {
         this.type=other.getType();
         this.walkeable=other.getWalkeable();
         this.someOneOn=other.getSomeOneOn();
+        playerNumber=other.getPlayerNumber();
+    }
+
+    public int getPlayerNumber() {
+        return playerNumber;
     }
 
     public Object cloneObject(){
@@ -96,4 +102,11 @@ public class Field {
     public String toString(){
         return "The field properties is: "+"pos_x:"+x+" pos_y:"+y+" type:"+type+" walkeable:"+walkeable+" someOneOn:"+someOneOn;
     }     
+
+    public void modifyPlayerNumber(int amount, int allPlayerNumber) {
+        int newAmount=playerNumber+amount;
+        if(newAmount>=0 && newAmount<=allPlayerNumber){
+            playerNumber+=amount;
+        }
+    }
 }

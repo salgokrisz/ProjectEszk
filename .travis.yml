@@ -50,7 +50,7 @@ jobs:
         on:
           repo: salgokrisz/ProjectEszk
           branch: master
-
+          
 stages:
 
   - compile
@@ -64,4 +64,5 @@ stages:
   - deploy
 
   
+
 

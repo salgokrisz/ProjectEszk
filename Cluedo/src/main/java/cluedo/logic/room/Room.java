@@ -1,6 +1,7 @@
 
 package cluedo.logic.room;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +15,13 @@ public class Room {
      protected final int width;
      protected final int height;
      protected final List<Point> coordinates;
-     public Room(String name, List<Point> coordinates){
+     protected final Color color;
+     public Room(String name, List<Point> coordinates,Color color){
          this.name=name;
          this.coordinates=coordinates;
          height=calculateHeight();
          width=calculateWidth();
+         this.color = color;
      }
      
      public Room(Room other){
@@ -26,6 +29,7 @@ public class Room {
          this.width=other.getWidth();
          this.height=other.getHeight();
          this.coordinates=other.getCoordinates();
+         this.color = other.getColor();
      }
     public String getName() {
         return name;
@@ -45,6 +49,10 @@ public class Room {
             copy.add((Point)p.cloneObject());
         }
         return copy;
+    }
+    
+    public Color getColor(){
+        return color;
     }
     
     private int calculateHeight(){
@@ -86,5 +94,9 @@ public class Room {
             sb.append(p.toString()).append(";");
         }
         return sb.toString();
+    }
+
+    public boolean hasCoordinate(Point point) {
+        return coordinates.contains(point);
     }
 }

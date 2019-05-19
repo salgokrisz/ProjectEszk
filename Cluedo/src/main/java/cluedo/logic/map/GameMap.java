@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cluedo.logic.map;
 
 import cluedo.logic.factories.FieldFactory;
@@ -17,17 +13,17 @@ import java.util.List;
  * 
  */
 public class GameMap {
-    private List<List<Field>> gameMap;
+    private List<List<Field>> map;
     private final int rows;
     public GameMap(String fileName){
         FieldFactory fieldFactory = new FieldFactory(fileName);
-        gameMap=fieldFactory.getGeneratedMap();
-        rows=gameMap.size();
+        map=fieldFactory.getGeneratedMap();
+        rows=map.size();
     }
 
-    public List<List<Field>> getGameMap() {
+    public List<List<Field>> getMap() {
         List<List<Field>> copyGameMap=new ArrayList<>();
-        for(List<Field> row:gameMap){
+        for(List<Field> row:map){
             List<Field> copyRow=new ArrayList<>();
             for(Field column: row){
                 copyRow.add((Field)column.cloneObject());

@@ -1,0 +1,9 @@
+Cards.Intrics.Desc.noAnswer;DURING_SUSPECT;2
+Cards.Intrics.Desc.lookAtAlso;LOOK_AT_CARD;2
+Cards.Intrics.Desc.giveSix;AFTER_DICE;2
+Cards.Intrics.Desc.turnAgain;END_OF_TURN;3
+Cards.Intrics.Desc.stepStartSomeone;END_OF_TURN;2
+Cards.Intrics.Desc.remainPlace;START_OF_TURN;1
+Cards.Intrics.Desc.stepAnyWhere;INSTEAD_OF_DICE;2
+Cards.Intrics.Type.clock;CLOCK;8
+Cards.Intrics.Desc.showCard;END_OF_TURN;1

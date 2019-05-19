@@ -1,9 +1,9 @@
 package cluedo.Tools.LanguageString.parser;
 
-import cluedo.tools.languagestring.parser.LanguageStringsParser;
+import cluedo.logic.parsers.LanguageStringsParser;
 import cluedo.tools.languagestring.Language;
 
-import java.util.HashMap;
+
 import java.nio.file.Paths;
 import java.util.Map;
 
@@ -76,8 +76,7 @@ public class LanguageStringsParserTest {
     }
             
     private String GetTXTPath_forTest (Language L) {
-        String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-        currentPath += "/src/main/java/cluedo/resources/";
+        String currentPath = "/tests/";
         switch (L) {
             case HUN : return currentPath + "StringsHUN_test.txt";
             case ENG : return currentPath + "StringsENG_test.txt";

@@ -9,6 +9,8 @@ import cluedo.logic.room.EndRoom;
 import cluedo.logic.room.Point;
 import cluedo.logic.room.Room;
 import cluedo.logic.room.SecretCorridoredRoom;
+import cluedo.view.board.CluePaperPanel;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.Set;
  */
 public class RoomFactory {
     private final List<List<Field>> gameMap;
+    public static final String ENDROOM_KEY="JOptionPane.EndRoom";
     public RoomFactory(List<List<Field>> gameMap){
         this.gameMap=gameMap;
     }
@@ -33,29 +36,66 @@ public class RoomFactory {
                     RoomField roomField=(RoomField)field;
                     coordinates=determineCoordinates(roomField);
                     Room r;
+                    Color color=determineColorForRoom(roomField.getRoomName());
                     if(entranceInfos.containsKey(roomField.getRoomName())){
-                        r=new SecretCorridoredRoom(roomField.getRoomName(),coordinates);
+                        r=new SecretCorridoredRoom(roomField.getRoomName(),coordinates, color);
                     }else{
-                       r=new Room(roomField.getRoomName(), coordinates);
+                       r=new Room(roomField.getRoomName(), coordinates, color);
                     }
                     rooms.put(roomField.getRoomName(),r);
-                }else if(field.getType()==FieldType.END && !rooms.containsKey("EndRoom")){
+                }else if(field.getType()==FieldType.END && !rooms.containsKey(ENDROOM_KEY)){
                     coordinates=determineCoordinates(field);
-                    Room r=new EndRoom("EndRoom", coordinates);
-                    rooms.put("EndRoom", r);
+                    Room r=new EndRoom(ENDROOM_KEY, coordinates,new Color(204, 255, 255));
+                    rooms.put(ENDROOM_KEY, r);
                 }
             }
         }
         Set<String> corridorsFrom=entranceInfos.keySet();
         for(String s: corridorsFrom){
             SecretCorridoredRoom se=(SecretCorridoredRoom)rooms.get(s);
-            se.setToRoom(rooms.get(entranceInfos.get(s)));
+            se.setToRoomName(entranceInfos.get(s));
         }
         return rooms;
     }
+    public Color determineColorForRoom(String roomName){
+        Color color;
+        switch(roomName){
+            case CluePaperPanel.BATH_KEY:
+                color=new Color(73,52,208);
+                break;
+            case CluePaperPanel.CINEMA_KEY:
+                color=new Color(255,0,0);
+                break;
+            case CluePaperPanel.EATERY_KEY:
+                color=new Color(142,91,65);
+                break;
+            case CluePaperPanel.GUESTHOUSE_KEY:
+                color=new Color(249,154,106);
+                break;
+            case CluePaperPanel.HALL_KEY:
+                color=new Color(106,249,140);
+                break;
+            case CluePaperPanel.KITCHEN_KEY:
+                color=new Color(255,241,44);
+                break;
+            case CluePaperPanel.LIVINGROOM_KEY:
+                color=new Color(255,149,10);
+                break;
+            case CluePaperPanel.PLANETARIUM_KEY:
+                color=new Color(10,190,255);
+                break;
+            case CluePaperPanel.TERRACE_KEY:
+                color=new Color(218,96,16);
+                break;
+            default:
+                color=new Color(162,162,162);
+        }
+        return color;
+    }
+    
     public boolean isEntranceOrEndOrRoomField(Field mapField, Field actField){
         return actField.getType()==FieldType.ROOM && mapField.getType()==FieldType.ROOM && ((RoomField)mapField).getRoomName().equals(((RoomField)actField).getRoomName())||mapField.getType()==FieldType.END && actField.getType()==FieldType.END
-                || mapField.getType()==FieldType.ENTRANCE && actField.getType()==FieldType.ROOM && ((EntranceField)mapField).getRoomName().equals(((RoomField)actField).getRoomName())||actField.getType()==FieldType.END && ((EntranceField)mapField).getRoomName().equals("End");
+                || mapField.getType()==FieldType.ENTRANCE && actField.getType()==FieldType.ROOM && ((EntranceField)mapField).getRoomName().equals(((RoomField)actField).getRoomName())|| actField.getType()==FieldType.END && mapField.getType()==FieldType.ENTRANCE && ((EntranceField)mapField).getRoomName().equals("JOptionPane.EndRoom");
     }
     private List<Point> determineCoordinates(Field field){
         List<Point> coordinates=new ArrayList<>();

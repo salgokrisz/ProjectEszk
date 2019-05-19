@@ -1,5 +1,6 @@
 package cluedo.logic.player.role;
 
+import cluedo.logic.controller.GameController;
 import java.util.Objects;
 import javax.swing.ImageIcon;
 
@@ -98,5 +99,5 @@ public abstract class Role {
         return Objects.hash(color);
     }
     
-    public abstract void useSpecialAbility();
+    public abstract void useSpecialAbility(GameController gameController);
 }

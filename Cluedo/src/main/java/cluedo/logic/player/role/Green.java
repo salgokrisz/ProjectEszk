@@ -3,7 +3,6 @@ package cluedo.logic.player.role;
 
 import javax.swing.ImageIcon;
 import cluedo.logic.controller.GameController;
-import cluedo.logic.room.Room;
 
 /**
  * This class represents a character called Green.
@@ -12,6 +11,7 @@ import cluedo.logic.room.Room;
  * 
  */
 public class Green extends Role{
+    private String specialAbilityRoomName;
     public Green(String playerName){
         super( playerName);
         this.color=Color.GREEN;
@@ -20,6 +20,11 @@ public class Green extends Role{
         puppetImage=new ImageIcon(getClass().getResource("/board/green_puppet.png"));
         roleTypeInString="Green";
     }
+
+    public void setSpecialAbilityRoomName(String specialAbilityRoomName) {
+        this.specialAbilityRoomName = specialAbilityRoomName;
+    }
+    
     public Green(Green other){
         super(other.getName());
          this.color=other.getColor();
@@ -31,24 +36,17 @@ public class Green extends Role{
         return new Green(this);
     }
     @Override
-    public void useSpecialAbility(GameController gameController, String roomName, int playerIndex) {
+    public void useSpecialAbility(GameController gameController) {
         //TODO: write Green's special ability
-        rumor(gameController, roomName, playerIndex);
-        gameController.setAbilityIsAvailable(false);
+        rumor(gameController, gameController.getActualPlayerIndex());
+        gameController.getActualPlayer().getRole().setAbilityIsAvailable(false);
     }
 
-    public void rumor(GameController gameController, String roomName, int playerIndex){
-        int numberOfPlayers = gameController.getNumberOfPlayers();
-        List playersList = gameController.getPlayers();
-        if (gameController.getRoomMap().get(roomName) != null){
-            Room room = gameController.getRoomMap().get(roomName);
-            for (int i = 0; i < playersList; i++) {
-                if (playerList.get(i) == playerIndex){
-                    gameController.enterRoom(room, playerIndex, false);
-                }
-            }
+    public void rumor(GameController gameController, int playerIndex){
+        gameController.enterRoom(gameController.getRoomMap().get(specialAbilityRoomName), playerIndex, false);     
         }
-    }
+        
+    
     @Override
     public String toString(){
         StringBuilder sb=new StringBuilder();

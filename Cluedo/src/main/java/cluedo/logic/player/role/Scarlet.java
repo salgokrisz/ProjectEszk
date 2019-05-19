@@ -1,6 +1,7 @@
 
 package cluedo.logic.player.role;
 
+import cluedo.logic.controller.GameController;
 import static cluedo.logic.player.role.Role.image;
 import javax.swing.ImageIcon;
 
@@ -33,7 +34,7 @@ public class Scarlet extends Role{
 
       
     @Override
-    public void useSpecialAbility() {
+    public void useSpecialAbility(GameController gameController) {
        //TODO: write Scarlet's special ability
     }
      @Override

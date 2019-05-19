@@ -918,7 +918,7 @@ public class GameController {
     }
 
     public void playerUsesSpecialAbility(Player player) {
-        player.getRole().useSpecialAbility();
+        player.getRole().useSpecialAbility(this);
     }
 
     public void changeTypeOfField(int row, int column, FieldType fieldType) {

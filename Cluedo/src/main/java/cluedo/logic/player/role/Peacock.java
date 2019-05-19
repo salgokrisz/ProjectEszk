@@ -1,6 +1,7 @@
 
 package cluedo.logic.player.role;
 
+import cluedo.logic.controller.GameController;
 import static cluedo.logic.player.role.Role.image;
 import javax.swing.ImageIcon;
 
@@ -30,7 +31,7 @@ public class Peacock extends Role{
         return new Peacock(this);
     }
     @Override
-    public void useSpecialAbility() {
+    public void useSpecialAbility(GameController gameController) {
         //TODO: write Peacock's special ability
     }
      @Override

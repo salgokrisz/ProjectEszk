@@ -1,6 +1,7 @@
 
 package cluedo.logic.player.role;
 
+import cluedo.logic.controller.GameController;
 import static cluedo.logic.player.role.Role.image;
 import javax.swing.ImageIcon;
 
@@ -10,7 +11,7 @@ import javax.swing.ImageIcon;
  * This class extends the Role class.
  */
 public class White extends Role {
-
+    String specialAbilityRoomName;
     public White(String playerName) {
         super(playerName);
         color = Color.WHITE;
@@ -32,14 +33,15 @@ public class White extends Role {
         return new White(this);
     }
 
+    public void setSpecialAbilityRoomName(String specialAbilityRoomName) {
+        this.specialAbilityRoomName = specialAbilityRoomName;
+    }
+
     @Override
-    public void useSpecialAbility(GameController gameController, String roomName) {
+    public void useSpecialAbility(GameController gameController) {
         //TODO: implement White's ability
-        Room room;
-        if(gameController.getRoomMap().get(roomName) != null){
-            room = gameController.getRoomMap().get(roomName);
-        }
-        gameController.enterRoom(room, gameController.getActualPlayerIndex(), false);
+
+        gameController.enterRoom(gameController.getRoomMap().get(specialAbilityRoomName), gameController.getActualPlayerIndex(), false);
 
     }
  @Override

@@ -3,6 +3,7 @@ package cluedo.logic.player.role;
 
 import static cluedo.logic.player.role.Role.image;
 import cluedo.logic.controller.GameController;
+import cluedo.logic.controller.GamePhase;
 import javax.swing.ImageIcon;
 
 /**
@@ -31,14 +32,15 @@ public class Mustard extends Role{
         return new Mustard(this);
     }
     @Override
-    public void useSpecialAbility() {
+    public void useSpecialAbility(GameController gameController) {
         if (getAbilityIsAvailable() == true){
-            turnAgain();
-            setAbilityIsAvialable(false);
+            turnAgain(gameController);
+            gameController.getActualPlayer().getRole().setAbilityIsAvailable(false);
         }
     }
     public void turnAgain(GameController gameController){
-        gameController.setActualGamePhase(GamePhase.INITIAL);
+        gameController.setActualGamePhase(GamePhase.ROLLORUSESECRETCORRIDOR);
+        gameController.nextPlayerIsComing();
     }
 
      @Override

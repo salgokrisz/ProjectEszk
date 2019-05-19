@@ -374,8 +374,7 @@ public class GameController {
         }
     }
 
-    public void nextPlayerIsComing() {
-        
+    public void nextPlayerIsComing() {    
         if (getActualPlayer().getIsComputer()) {
             fireShowInformationsAboutComputerPlayer();
         }
